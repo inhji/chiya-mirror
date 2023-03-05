@@ -1,13 +1,12 @@
 defmodule Chiya.NotesTest do
   use Chiya.DataCase
+  
+  import Chiya.NotesFixtures
 
   alias Chiya.Notes
+  alias Chiya.Notes.Note
 
   describe "notes" do
-    alias Chiya.Notes.Note
-
-    import Chiya.NotesFixtures
-
     @invalid_attrs %{content: nil, kind: nil, name: nil, published_at: nil, slug: nil, url: nil}
 
     test "list_notes/0 returns all notes" do

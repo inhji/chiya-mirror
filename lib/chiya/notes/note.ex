@@ -10,6 +10,8 @@ defmodule Chiya.Notes.Note do
     field :slug, :string
     field :url, :string
 
+    many_to_many :channels, Chiya.Channels.Channel, join_through: "channels_notes"
+
     timestamps()
   end
 

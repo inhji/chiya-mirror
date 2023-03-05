@@ -1,12 +1,13 @@
 defmodule Chiya.ChannelsTest do
   use Chiya.DataCase
+  
+  import Chiya.ChannelsFixtures
 
   alias Chiya.Channels
+  alias Chiya.Channels.Channel
 
   describe "channels" do
-    alias Chiya.Channels.Channel
 
-    import Chiya.ChannelsFixtures
 
     @invalid_attrs %{content: nil, name: nil, slug: nil, visibility: nil}
 

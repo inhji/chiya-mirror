@@ -1,9 +1,9 @@
 defmodule Chiya.AccountsTest do
   use Chiya.DataCase
 
-  alias Chiya.Accounts
-
   import Chiya.AccountsFixtures
+  
+  alias Chiya.Accounts
   alias Chiya.Accounts.{User, UserToken}
 
   describe "get_user_by_email/1" do

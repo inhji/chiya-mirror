@@ -8,6 +8,8 @@ defmodule Chiya.Channels.Channel do
     field :slug, :string
     field :visibility, Ecto.Enum, values: [:public, :private, :unlisted]
 
+    many_to_many :notes, Chiya.Notes.Note, join_through: "channels_notes"
+
     timestamps()
   end
 
