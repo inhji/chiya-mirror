@@ -9,7 +9,6 @@
 
 <.table id="channels" rows={@channels} row_click={&JS.navigate(~p"/channels/#{&1}")}>
   <:col :let={channel} label="Name"><%= channel.name %></:col>
-  <:col :let={channel} label="Content"><%= channel.content %></:col>
   <:col :let={channel} label="Visibility"><%= channel.visibility %></:col>
   <:col :let={channel} label="Slug"><%= channel.slug %></:col>
   <:action :let={channel}>

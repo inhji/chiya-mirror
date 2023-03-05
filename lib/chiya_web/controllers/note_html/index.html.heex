@@ -9,7 +9,6 @@
 
 <.table id="notes" rows={@notes} row_click={&JS.navigate(~p"/notes/#{&1}")}>
   <:col :let={note} label="Name"><%= note.name %></:col>
-  <:col :let={note} label="Content"><%= note.content %></:col>
   <:col :let={note} label="Slug"><%= note.slug %></:col>
   <:col :let={note} label="Published at"><%= note.published_at %></:col>
   <:col :let={note} label="Kind"><%= note.kind %></:col>
