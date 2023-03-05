@@ -23,6 +23,7 @@ defmodule ChiyaWeb.Router do
     get "/", PageController, :home
 
     resources "/channels", ChannelController
+    resources "/notes", NoteController
   end
 
   # Other scopes may use custom stacks.

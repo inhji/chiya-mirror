@@ -1,0 +1,20 @@
+<.header>
+  Note <%= @note.id %>
+  <:subtitle>This is a note record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/notes/#{@note}/edit"}>
+      <.button>Edit note</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @note.name %></:item>
+  <:item title="Content"><%= @note.content %></:item>
+  <:item title="Slug"><%= @note.slug %></:item>
+  <:item title="Published at"><%= @note.published_at %></:item>
+  <:item title="Kind"><%= @note.kind %></:item>
+  <:item title="Url"><%= @note.url %></:item>
+</.list>
+
+<.back navigate={~p"/notes"}>Back to notes</.back>
