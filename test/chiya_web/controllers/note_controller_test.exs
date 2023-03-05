@@ -3,8 +3,22 @@ defmodule ChiyaWeb.NoteControllerTest do
 
   import Chiya.NotesFixtures
 
-  @create_attrs %{content: "some content", kind: "some kind", name: "some name", published_at: ~N[2023-03-04 16:22:00], slug: "some slug", url: "some url"}
-  @update_attrs %{content: "some updated content", kind: "some updated kind", name: "some updated name", published_at: ~N[2023-03-05 16:22:00], slug: "some updated slug", url: "some updated url"}
+  @create_attrs %{
+    content: "some content",
+    kind: "some kind",
+    name: "some name",
+    published_at: ~N[2023-03-04 16:22:00],
+    slug: "some slug",
+    url: "some url"
+  }
+  @update_attrs %{
+    content: "some updated content",
+    kind: "some updated kind",
+    name: "some updated name",
+    published_at: ~N[2023-03-05 16:22:00],
+    slug: "some updated slug",
+    url: "some updated url"
+  }
   @invalid_attrs %{content: nil, kind: nil, name: nil, published_at: nil, slug: nil, url: nil}
 
   describe "index" do
@@ -38,6 +52,21 @@ defmodule ChiyaWeb.NoteControllerTest do
     end
   end
 
+  describe "create note with channel" do
+    setup [:create_channels]
+
+    test "redirects to show when selecting a channel", %{conn: conn, channel: channel} do
+      attrs = Map.put_new(@create_attrs, :channels, [to_string(channel.id)])
+      conn = post(conn, ~p"/notes", note: attrs)
+
+      assert %{id: id} = redirected_params(conn)
+      assert redirected_to(conn) == ~p"/notes/#{id}"
+
+      conn = get(conn, ~p"/notes/#{id}")
+      assert html_response(conn, 200) =~ "Note #{id}"
+    end
+  end
+
   describe "edit note" do
     setup [:create_note]
 
@@ -64,6 +93,28 @@ defmodule ChiyaWeb.NoteControllerTest do
     end
   end
 
+  describe "update note with channel" do
+    setup [:create_note, :create_channels]
+
+    test "adds and removes the correct channels from the note", %{
+      conn: conn,
+      note: note,
+      channel: channel,
+      channel2: channel2
+    } do
+      attrs = Map.put_new(@update_attrs, :channels, [to_string(channel.id)])
+      conn = put(conn, ~p"/notes/#{note}", note: attrs)
+      assert redirected_to(conn) == ~p"/notes/#{note}"
+
+      attrs = Map.put_new(@update_attrs, :channels, [to_string(channel2.id)])
+      conn = put(conn, ~p"/notes/#{note}", note: attrs)
+      assert redirected_to(conn) == ~p"/notes/#{note}"
+
+      conn = get(conn, ~p"/notes/#{note}")
+      assert html_response(conn, 200) =~ "some updated content"
+    end
+  end
+
   describe "delete note" do
     setup [:create_note]
 
@@ -80,5 +131,11 @@ defmodule ChiyaWeb.NoteControllerTest do
   defp create_note(_) do
     note = note_fixture()
     %{note: note}
+  end
+
+  defp create_channels(_) do
+    channel = Chiya.ChannelsFixtures.channel_fixture()
+    channel2 = Chiya.ChannelsFixtures.channel_fixture()
+    %{channel: channel, channel2: channel2}
   end
 end

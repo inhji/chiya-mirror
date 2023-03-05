@@ -1,14 +1,12 @@
 defmodule Chiya.ChannelsTest do
   use Chiya.DataCase
-  
+
   import Chiya.ChannelsFixtures
 
   alias Chiya.Channels
   alias Chiya.Channels.Channel
 
   describe "channels" do
-
-
     @invalid_attrs %{content: nil, name: nil, slug: nil, visibility: nil}
 
     test "list_channels/0 returns all channels" do
@@ -22,7 +20,12 @@ defmodule Chiya.ChannelsTest do
     end
 
     test "create_channel/1 with valid data creates a channel" do
-      valid_attrs = %{content: "some content", name: "some name", slug: "some slug", visibility: :public}
+      valid_attrs = %{
+        content: "some content",
+        name: "some name",
+        slug: "some slug",
+        visibility: :public
+      }
 
       assert {:ok, %Channel{} = channel} = Channels.create_channel(valid_attrs)
       assert channel.content == "some content"
@@ -37,7 +40,13 @@ defmodule Chiya.ChannelsTest do
 
     test "update_channel/2 with valid data updates the channel" do
       channel = channel_fixture()
-      update_attrs = %{content: "some updated content", name: "some updated name", slug: "some updated slug", visibility: :private}
+
+      update_attrs = %{
+        content: "some updated content",
+        name: "some updated name",
+        slug: "some updated slug",
+        visibility: :private
+      }
 
       assert {:ok, %Channel{} = channel} = Channels.update_channel(channel, update_attrs)
       assert channel.content == "some updated content"

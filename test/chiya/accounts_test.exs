@@ -2,7 +2,7 @@ defmodule Chiya.AccountsTest do
   use Chiya.DataCase
 
   import Chiya.AccountsFixtures
-  
+
   alias Chiya.Accounts
   alias Chiya.Accounts.{User, UserToken}
 

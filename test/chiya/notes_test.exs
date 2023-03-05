@@ -1,6 +1,6 @@
 defmodule Chiya.NotesTest do
   use Chiya.DataCase
-  
+
   import Chiya.NotesFixtures
 
   alias Chiya.Notes
@@ -16,11 +16,18 @@ defmodule Chiya.NotesTest do
 
     test "get_note!/1 returns the note with given id" do
       note = note_fixture()
-      assert Notes.get_note!(note.id) == note
+      assert Notes.get_note_preloaded!(note.id) == note
     end
 
     test "create_note/1 with valid data creates a note" do
-      valid_attrs = %{content: "some content", kind: "some kind", name: "some name", published_at: ~N[2023-03-04 16:22:00], slug: "some slug", url: "some url"}
+      valid_attrs = %{
+        content: "some content",
+        kind: "some kind",
+        name: "some name",
+        published_at: ~N[2023-03-04 16:22:00],
+        slug: "some slug",
+        url: "some url"
+      }
 
       assert {:ok, %Note{} = note} = Notes.create_note(valid_attrs)
       assert note.content == "some content"
@@ -37,7 +44,15 @@ defmodule Chiya.NotesTest do
 
     test "update_note/2 with valid data updates the note" do
       note = note_fixture()
-      update_attrs = %{content: "some updated content", kind: "some updated kind", name: "some updated name", published_at: ~N[2023-03-05 16:22:00], slug: "some updated slug", url: "some updated url"}
+
+      update_attrs = %{
+        content: "some updated content",
+        kind: "some updated kind",
+        name: "some updated name",
+        published_at: ~N[2023-03-05 16:22:00],
+        slug: "some updated slug",
+        url: "some updated url"
+      }
 
       assert {:ok, %Note{} = note} = Notes.update_note(note, update_attrs)
       assert note.content == "some updated content"
@@ -51,7 +66,7 @@ defmodule Chiya.NotesTest do
     test "update_note/2 with invalid data returns error changeset" do
       note = note_fixture()
       assert {:error, %Ecto.Changeset{}} = Notes.update_note(note, @invalid_attrs)
-      assert note == Notes.get_note!(note.id)
+      assert note == Notes.get_note_preloaded!(note.id)
     end
 
     test "delete_note/1 deletes the note" do

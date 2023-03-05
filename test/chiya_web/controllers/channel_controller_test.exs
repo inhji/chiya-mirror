@@ -3,8 +3,18 @@ defmodule ChiyaWeb.ChannelControllerTest do
 
   import Chiya.ChannelsFixtures
 
-  @create_attrs %{content: "some content", name: "some name", slug: "some slug", visibility: :public}
-  @update_attrs %{content: "some updated content", name: "some updated name", slug: "some updated slug", visibility: :private}
+  @create_attrs %{
+    content: "some content",
+    name: "some name",
+    slug: "some slug",
+    visibility: :public
+  }
+  @update_attrs %{
+    content: "some updated content",
+    name: "some updated name",
+    slug: "some updated slug",
+    visibility: :private
+  }
   @invalid_attrs %{content: nil, name: nil, slug: nil, visibility: nil}
 
   describe "index" do

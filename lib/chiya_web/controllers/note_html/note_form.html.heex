@@ -8,6 +8,14 @@
   <.input field={f[:published_at]} type="datetime-local" label="Published at" />
   <.input field={f[:kind]} type="text" label="Kind" />
   <.input field={f[:url]} type="text" label="Url" />
+  <.input
+    field={f[:channels]}
+    type="select"
+    label="Channel"
+    multiple={true}
+    options={@channels}
+    value={selected_channels(@changeset)}
+  />
   <:actions>
     <.button>Save Note</.button>
   </:actions>

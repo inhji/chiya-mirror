@@ -10,7 +10,11 @@ defmodule Chiya.Notes.Note do
     field :slug, :string
     field :url, :string
 
-    many_to_many :channels, Chiya.Channels.Channel, join_through: "channels_notes"
+    many_to_many :channels, Chiya.Channels.Channel,
+      # join_through: Chiya.Channels.ChannelNote, 
+      join_through: "channels_notes",
+      join_keys: [note: :id, channel: :id],
+      on_replace: :delete
 
     timestamps()
   end
@@ -18,7 +22,9 @@ defmodule Chiya.Notes.Note do
   @doc false
   def changeset(note, attrs) do
     note
+    |> Chiya.Notes.preload_note()
     |> cast(attrs, [:name, :content, :slug, :published_at, :kind, :url])
+    |> put_assoc(:channels, attrs["channels"] || [])
     |> validate_required([:name, :content, :slug, :published_at, :kind, :url])
     |> unique_constraint(:slug)
   end

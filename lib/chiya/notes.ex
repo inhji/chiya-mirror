@@ -8,6 +8,8 @@ defmodule Chiya.Notes do
 
   alias Chiya.Notes.Note
 
+  @preloads [:channels]
+
   @doc """
   Returns the list of notes.
 
@@ -18,8 +20,18 @@ defmodule Chiya.Notes do
 
   """
   def list_notes do
-    Repo.all(Note)
+    Repo.all(Note) |> Repo.preload(@preloads)
   end
+
+  @doc """
+  Preloads a note
+
+  ## Examples
+
+      iex> preload_note(note)
+      %Note{}
+  """
+  def preload_note(note), do: Repo.preload(note, @preloads)
 
   @doc """
   Gets a single note.
@@ -36,6 +48,22 @@ defmodule Chiya.Notes do
 
   """
   def get_note!(id), do: Repo.get!(Note, id)
+
+  @doc """
+  Gets a single note and preloads it.
+
+  Raises `Ecto.NoResultsError` if the Note does not exist.
+
+  ## Examples
+
+      iex> get_note_preloaded!(123)
+      %Note{}
+
+      iex> get_note_preloaded!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_note_preloaded!(id), do: Repo.get!(Note, id) |> preload_note()
 
   @doc """
   Creates a note.
