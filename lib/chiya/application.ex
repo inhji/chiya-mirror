@@ -17,7 +17,9 @@ defmodule Chiya.Application do
       # Start Finch
       {Finch, name: Chiya.Finch},
       # Start the Endpoint (http/https)
-      ChiyaWeb.Endpoint
+      ChiyaWeb.Endpoint,
+      # Start Scheduler
+      {Oban, Application.fetch_env!(:chiya, Oban)}
       # Start a worker by calling: Chiya.Worker.start_link(arg)
       # {Chiya.Worker, arg}
     ]
