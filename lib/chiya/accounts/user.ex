@@ -1,5 +1,6 @@
 defmodule Chiya.Accounts.User do
   use Ecto.Schema
+  use Waffle.Ecto.Schema
   import Ecto.Changeset
 
   schema "users" do
@@ -7,6 +8,8 @@ defmodule Chiya.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+
+    field :user_image, Chiya.UserImage.Type
 
     timestamps()
   end
@@ -85,6 +88,15 @@ defmodule Chiya.Accounts.User do
     else
       changeset
     end
+  end
+
+  @doc """
+  A user changeset for changing the user avatar.
+  """
+  def image_changeset(user, attrs) do
+    user
+    |> cast_attachments(attrs, [:user_image], allow_paths: true)
+    |> validate_required([:user_image])
   end
 
   @doc """

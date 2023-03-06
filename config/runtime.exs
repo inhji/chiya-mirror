@@ -63,6 +63,16 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  upload_dir =
+    System.get_env("UPLOAD_DIR") ||
+      raise """
+      environment variable UPLOAD_DIR is missing.
+      It should look like: /path/to/chiya/files
+      """
+
+  config :waffle,
+    storage_dir_prefix: upload_dir
+
   # ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key

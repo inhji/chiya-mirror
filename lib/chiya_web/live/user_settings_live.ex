@@ -5,6 +5,64 @@ defmodule ChiyaWeb.UserSettingsLive do
 
   def render(assigns) do
     ~H"""
+    <.header>User Info</.header>
+
+    <img src={Chiya.UserImage.url({@current_user.user_image, @current_user}, :thumb)} />
+
+    <.list>
+      <:item title="Email"><%= @current_user.email %></:item>
+    </.list>
+
+    <.header>Change Avatar</.header>
+
+    <.simple_form
+      for={@image_form}
+      id="image_form"
+      phx-submit="update_image"
+      phx-change="validate_image"
+      multipart={true}
+    >
+      <.live_file_input upload={@uploads.avatar} />
+
+      <section phx-drop-target={@uploads.avatar.ref}>
+        <%= for entry <- @uploads.avatar.entries do %>
+          <article class="upload-entry">
+            <figure>
+              <.live_img_preview entry={entry} />
+              <figcaption><%= entry.client_name %></figcaption>
+            </figure>
+
+            <%!-- entry.progress will update automatically for in-flight entries --%>
+            <progress value={entry.progress} max="100"><%= entry.progress %>%</progress>
+
+            <%!-- a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 --%>
+            <button
+              type="button"
+              phx-click="cancel-upload"
+              phx-value-ref={entry.ref}
+              aria-label="cancel"
+            >
+              &times;
+            </button>
+
+            <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
+            <%= for err <- upload_errors(@uploads.avatar, entry) do %>
+              <p class="alert alert-danger"><%= error_to_string(err) %></p>
+            <% end %>
+          </article>
+        <% end %>
+
+        <%!-- Phoenix.Component.upload_errors/1 returns a list of error atoms --%>
+        <%= for err <- upload_errors(@uploads.avatar) do %>
+          <p class="alert alert-danger"><%= error_to_string(err) %></p>
+        <% end %>
+      </section>
+
+      <:actions>
+        <.button phx-disable-with="Changing...">Change Avatar</.button>
+      </:actions>
+    </.simple_form>
+
     <.header>Change Email</.header>
 
     <.simple_form
@@ -79,17 +137,49 @@ defmodule ChiyaWeb.UserSettingsLive do
     user = socket.assigns.current_user
     email_changeset = Accounts.change_user_email(user)
     password_changeset = Accounts.change_user_password(user)
+    image_changeset = Accounts.change_user_image(user)
 
     socket =
       socket
+      |> assign(:current_user, user)
       |> assign(:current_password, nil)
       |> assign(:email_form_current_password, nil)
       |> assign(:current_email, user.email)
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
+      |> assign(:image_form, to_form(image_changeset))
       |> assign(:trigger_submit, false)
+      |> assign(:uploaded_files, [])
+      |> allow_upload(:avatar, accept: ~w(.jpg .jpeg .gif .png), max_entries: 1)
 
     {:ok, socket}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("validate_image", _params, socket) do
+    {:noreply, socket}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("cancel-upload", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :avatar, ref)}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("update_image", _params, socket) do
+    IO.inspect("update_image")
+    user = socket.assigns.current_user
+
+    IO.inspect(user)
+    uploaded_files =
+      consume_uploaded_entries(socket, :avatar, fn %{path: path}, _entry ->
+        IO.inspect(path)
+        {:ok, _user} = Accounts.update_user_image(user, %{user_image: path})
+        IO.inspect("SUCCESS")
+        {:ok, path}     
+      end)
+
+    {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
   end
 
   def handle_event("validate_email", params, socket) do
@@ -153,4 +243,8 @@ defmodule ChiyaWeb.UserSettingsLive do
         {:noreply, assign(socket, password_form: to_form(changeset))}
     end
   end
+
+  defp error_to_string(:too_large), do: "Too large"
+  defp error_to_string(:too_many_files), do: "You have selected too many files"
+  defp error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
 end

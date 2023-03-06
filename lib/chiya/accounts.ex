@@ -113,6 +113,19 @@ defmodule Chiya.Accounts do
   end
 
   @doc """
+  Returns an `%Ecto.Changeset{}` for changing the user avatar.
+
+  ## Examples
+
+      iex> change_user_image(user)
+      %Ecto.Changeset{data: %User{}}
+
+  """
+  def change_user_image(user, attrs \\ %{}) do
+    User.image_changeset(user, attrs)
+  end
+
+  @doc """
   Emulates that the email will change without actually changing
   it in the database.
 
@@ -217,6 +230,16 @@ defmodule Chiya.Accounts do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
     end
+  end
+
+  @doc """
+  Updates the user image.
+  """
+  def update_user_image(user, attrs) do
+    IO.inspect(attrs)
+    changeset = change_user_image(user, attrs)
+    IO.inspect(changeset)
+    Repo.update(changeset)
   end
 
   ## Session
