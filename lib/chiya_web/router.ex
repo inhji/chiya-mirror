@@ -21,9 +21,6 @@ defmodule ChiyaWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-
-    resources "/channels", ChannelController
-    resources "/notes", NoteController
   end
 
   # Other scopes may use custom stacks.
@@ -46,6 +43,15 @@ defmodule ChiyaWeb.Router do
       live_dashboard "/dashboard", metrics: ChiyaWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  ## Administrator routes
+
+  scope "/admin", ChiyaWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    resources "/channels", ChannelController
+    resources "/notes", NoteController
   end
 
   ## Authentication routes
