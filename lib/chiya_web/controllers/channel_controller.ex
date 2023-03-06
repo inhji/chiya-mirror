@@ -19,7 +19,7 @@ defmodule ChiyaWeb.ChannelController do
       {:ok, channel} ->
         conn
         |> put_flash(:info, "Channel created successfully.")
-        |> redirect(to: ~p"/channels/#{channel}")
+        |> redirect(to: ~p"/admin/channels/#{channel}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :new, changeset: changeset)
@@ -44,7 +44,7 @@ defmodule ChiyaWeb.ChannelController do
       {:ok, channel} ->
         conn
         |> put_flash(:info, "Channel updated successfully.")
-        |> redirect(to: ~p"/channels/#{channel}")
+        |> redirect(to: ~p"/admin/channels/#{channel}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :edit, channel: channel, changeset: changeset)
@@ -57,6 +57,6 @@ defmodule ChiyaWeb.ChannelController do
 
     conn
     |> put_flash(:info, "Channel deleted successfully.")
-    |> redirect(to: ~p"/channels")
+    |> redirect(to: ~p"/admin/channels")
   end
 end

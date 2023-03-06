@@ -23,31 +23,31 @@ defmodule ChiyaWeb.NoteControllerTest do
 
   describe "index" do
     test "lists all notes", %{conn: conn} do
-      conn = get(conn, ~p"/notes")
+      conn = get(conn, ~p"/admin/notes")
       assert html_response(conn, 200) =~ "Listing Notes"
     end
   end
 
   describe "new note" do
     test "renders form", %{conn: conn} do
-      conn = get(conn, ~p"/notes/new")
+      conn = get(conn, ~p"/admin/notes/new")
       assert html_response(conn, 200) =~ "New Note"
     end
   end
 
   describe "create note" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, ~p"/notes", note: @create_attrs)
+      conn = post(conn, ~p"/admin/notes", note: @create_attrs)
 
       assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == ~p"/notes/#{id}"
+      assert redirected_to(conn) == ~p"/admin/notes/#{id}"
 
-      conn = get(conn, ~p"/notes/#{id}")
+      conn = get(conn, ~p"/admin/notes/#{id}")
       assert html_response(conn, 200) =~ "Note #{id}"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, ~p"/notes", note: @invalid_attrs)
+      conn = post(conn, ~p"/admin/notes", note: @invalid_attrs)
       assert html_response(conn, 200) =~ "New Note"
     end
   end
@@ -57,12 +57,12 @@ defmodule ChiyaWeb.NoteControllerTest do
 
     test "redirects to show when selecting a channel", %{conn: conn, channel: channel} do
       attrs = Map.put_new(@create_attrs, :channels, [to_string(channel.id)])
-      conn = post(conn, ~p"/notes", note: attrs)
+      conn = post(conn, ~p"/admin/notes", note: attrs)
 
       assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == ~p"/notes/#{id}"
+      assert redirected_to(conn) == ~p"/admin/notes/#{id}"
 
-      conn = get(conn, ~p"/notes/#{id}")
+      conn = get(conn, ~p"/admin/notes/#{id}")
       assert html_response(conn, 200) =~ "Note #{id}"
     end
   end
@@ -71,7 +71,7 @@ defmodule ChiyaWeb.NoteControllerTest do
     setup [:create_note]
 
     test "renders form for editing chosen note", %{conn: conn, note: note} do
-      conn = get(conn, ~p"/notes/#{note}/edit")
+      conn = get(conn, ~p"/admin/notes/#{note}/edit")
       assert html_response(conn, 200) =~ "Edit Note"
     end
   end
@@ -80,15 +80,15 @@ defmodule ChiyaWeb.NoteControllerTest do
     setup [:create_note]
 
     test "redirects when data is valid", %{conn: conn, note: note} do
-      conn = put(conn, ~p"/notes/#{note}", note: @update_attrs)
-      assert redirected_to(conn) == ~p"/notes/#{note}"
+      conn = put(conn, ~p"/admin/notes/#{note}", note: @update_attrs)
+      assert redirected_to(conn) == ~p"/admin/notes/#{note}"
 
-      conn = get(conn, ~p"/notes/#{note}")
+      conn = get(conn, ~p"/admin/notes/#{note}")
       assert html_response(conn, 200) =~ "some updated content"
     end
 
     test "renders errors when data is invalid", %{conn: conn, note: note} do
-      conn = put(conn, ~p"/notes/#{note}", note: @invalid_attrs)
+      conn = put(conn, ~p"/admin/notes/#{note}", note: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit Note"
     end
   end
@@ -103,14 +103,14 @@ defmodule ChiyaWeb.NoteControllerTest do
       channel2: channel2
     } do
       attrs = Map.put_new(@update_attrs, :channels, [to_string(channel.id)])
-      conn = put(conn, ~p"/notes/#{note}", note: attrs)
-      assert redirected_to(conn) == ~p"/notes/#{note}"
+      conn = put(conn, ~p"/admin/notes/#{note}", note: attrs)
+      assert redirected_to(conn) == ~p"/admin/notes/#{note}"
 
       attrs = Map.put_new(@update_attrs, :channels, [to_string(channel2.id)])
-      conn = put(conn, ~p"/notes/#{note}", note: attrs)
-      assert redirected_to(conn) == ~p"/notes/#{note}"
+      conn = put(conn, ~p"/admin/notes/#{note}", note: attrs)
+      assert redirected_to(conn) == ~p"/admin/notes/#{note}"
 
-      conn = get(conn, ~p"/notes/#{note}")
+      conn = get(conn, ~p"/admin/notes/#{note}")
       assert html_response(conn, 200) =~ "some updated content"
     end
   end
@@ -119,11 +119,11 @@ defmodule ChiyaWeb.NoteControllerTest do
     setup [:create_note]
 
     test "deletes chosen note", %{conn: conn, note: note} do
-      conn = delete(conn, ~p"/notes/#{note}")
-      assert redirected_to(conn) == ~p"/notes"
+      conn = delete(conn, ~p"/admin/notes/#{note}")
+      assert redirected_to(conn) == ~p"/admin/notes"
 
       assert_error_sent 404, fn ->
-        get(conn, ~p"/notes/#{note}")
+        get(conn, ~p"/admin/notes/#{note}")
       end
     end
   end

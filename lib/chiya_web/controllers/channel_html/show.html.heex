@@ -2,7 +2,7 @@
   Channel <%= @channel.id %>
   <:subtitle>This is a channel record from your database.</:subtitle>
   <:actions>
-    <.link href={~p"/channels/#{@channel}/edit"}>
+    <.link href={~p"/admin/channels/#{@channel}/edit"}>
       <.button>Edit channel</.button>
     </.link>
   </:actions>
@@ -15,4 +15,4 @@
   <:item title="Slug"><%= @channel.slug %></:item>
 </.list>
 
-<.back navigate={~p"/channels"}>Back to channels</.back>
+<.back navigate={~p"/admin/channels"}>Back to channels</.back>

@@ -21,7 +21,7 @@ defmodule ChiyaWeb.NoteController do
       {:ok, note} ->
         conn
         |> put_flash(:info, "Note created successfully.")
-        |> redirect(to: ~p"/notes/#{note}")
+        |> redirect(to: ~p"/admin/notes/#{note}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :new, changeset: changeset, channels: to_channel_options())
@@ -47,7 +47,7 @@ defmodule ChiyaWeb.NoteController do
       {:ok, note} ->
         conn
         |> put_flash(:info, "Note updated successfully.")
-        |> redirect(to: ~p"/notes/#{note}")
+        |> redirect(to: ~p"/admin/notes/#{note}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :edit, note: note, changeset: changeset, channels: to_channel_options())
@@ -60,7 +60,7 @@ defmodule ChiyaWeb.NoteController do
 
     conn
     |> put_flash(:info, "Note deleted successfully.")
-    |> redirect(to: ~p"/notes")
+    |> redirect(to: ~p"/admin/notes")
   end
 
   defp from_channel_ids(note_params) do

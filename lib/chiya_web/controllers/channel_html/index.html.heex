@@ -1,24 +1,24 @@
 <.header>
   Listing Channels
   <:actions>
-    <.link href={~p"/channels/new"}>
+    <.link href={~p"/admin/channels/new"}>
       <.button>New Channel</.button>
     </.link>
   </:actions>
 </.header>
 
-<.table id="channels" rows={@channels} row_click={&JS.navigate(~p"/channels/#{&1}")}>
+<.table id="channels" rows={@channels} row_click={&JS.navigate(~p"/admin/channels/#{&1}")}>
   <:col :let={channel} label="Name"><%= channel.name %></:col>
   <:col :let={channel} label="Visibility"><%= channel.visibility %></:col>
   <:col :let={channel} label="Slug"><%= channel.slug %></:col>
   <:action :let={channel}>
     <div class="sr-only">
-      <.link navigate={~p"/channels/#{channel}"}>Show</.link>
+      <.link navigate={~p"/admin/channels/#{channel}"}>Show</.link>
     </div>
-    <.link navigate={~p"/channels/#{channel}/edit"}>Edit</.link>
+    <.link navigate={~p"/admin/channels/#{channel}/edit"}>Edit</.link>
   </:action>
   <:action :let={channel}>
-    <.link href={~p"/channels/#{channel}"} method="delete" data-confirm="Are you sure?">
+    <.link href={~p"/admin/channels/#{channel}"} method="delete" data-confirm="Are you sure?">
       Delete
     </.link>
   </:action>
