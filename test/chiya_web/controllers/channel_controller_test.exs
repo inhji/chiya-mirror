@@ -17,6 +17,8 @@ defmodule ChiyaWeb.ChannelControllerTest do
   }
   @invalid_attrs %{content: nil, name: nil, slug: nil, visibility: nil}
 
+  setup [:register_and_log_in_user]
+
   describe "index" do
     test "lists all channels", %{conn: conn} do
       conn = get(conn, ~p"/admin/channels")

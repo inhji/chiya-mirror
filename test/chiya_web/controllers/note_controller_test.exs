@@ -21,6 +21,8 @@ defmodule ChiyaWeb.NoteControllerTest do
   }
   @invalid_attrs %{content: nil, kind: nil, name: nil, published_at: nil, slug: nil, url: nil}
 
+  setup [:register_and_log_in_user]
+
   describe "index" do
     test "lists all notes", %{conn: conn} do
       conn = get(conn, ~p"/admin/notes")
