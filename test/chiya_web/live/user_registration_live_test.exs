@@ -54,20 +54,22 @@ defmodule ChiyaWeb.UserRegistrationLiveTest do
       assert response =~ "Settings"
       assert response =~ "Log out"
     end
+  end
 
-    test "renders errors for duplicated email", %{conn: conn} do
+  describe "register another user" do
+    test "renders errors if another user already exists", %{conn: conn} do
       {:ok, lv, _html} = live(conn, ~p"/users/register")
 
-      user = user_fixture(%{email: "test@email.com"})
+      _user = user_fixture(%{email: "test@email.com"})
 
       result =
         lv
         |> form("#registration_form",
-          user: %{"email" => user.email, "password" => "valid_password"}
+          user: %{"email" => "attacker@email.com", "password" => "valid_password"}
         )
         |> render_submit()
 
-      assert result =~ "has already been taken"
+      assert result =~ "you cannot register"
     end
   end
 

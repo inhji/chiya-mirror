@@ -8,6 +8,10 @@ defmodule Chiya.Accounts do
 
   alias Chiya.Accounts.{User, UserToken, UserNotifier}
 
+  def has_user?() do
+    Repo.exists?(User)
+  end
+
   ## Database getters
 
   @doc """
