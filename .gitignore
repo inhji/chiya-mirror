@@ -28,6 +28,8 @@ chiya-*.tar
 # Ignore assets that are produced by build tools.
 /priv/static/assets/
 
+/priv/static/*
+
 # Ignore digested assets cache.
 /priv/static/cache_manifest.json
 
@@ -35,3 +37,5 @@ chiya-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# env file
+.env
