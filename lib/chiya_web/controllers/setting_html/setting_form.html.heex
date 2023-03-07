@@ -12,8 +12,8 @@
     options={Ecto.Enum.values(Chiya.Site.Setting, :theme)}
   />
   <.input field={f[:user_agent]} type="text" label="User agent" />
-  <.input field={f[:custom_css]} type="text" label="Custom css" />
-  <.input field={f[:custom_html]} type="text" label="Custom html" />
+  <.input field={f[:custom_css]} type="textarea" label="Custom css" />
+  <.input field={f[:custom_html]} type="textarea" label="Custom html" />
   <:actions>
     <.button>Save Setting</.button>
   </:actions>
