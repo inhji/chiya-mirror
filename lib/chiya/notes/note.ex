@@ -4,7 +4,7 @@ defmodule Chiya.Notes.Note do
 
   schema "notes" do
     field :content, :string
-    field :kind, :string
+    field :kind, Ecto.Enum, values: [:post, :bookmark]
     field :name, :string
     field :published_at, :naive_datetime
     field :slug, :string

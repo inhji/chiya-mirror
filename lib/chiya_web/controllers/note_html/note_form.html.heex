@@ -6,7 +6,13 @@
   <.input field={f[:content]} type="textarea" label="Content" />
   <.input field={f[:slug]} type="text" label="Slug" />
   <.input field={f[:published_at]} type="datetime-local" label="Published at" />
-  <.input field={f[:kind]} type="text" label="Kind" />
+  <.input
+    field={f[:kind]}
+    type="select"
+    label="Kind"
+    prompt="Choose a value"
+    options={Ecto.Enum.values(Chiya.Notes.Note, :kind)}
+  />
   <.input field={f[:url]} type="text" label="Url" />
   <.input
     field={f[:channels]}
