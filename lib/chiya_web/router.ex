@@ -75,6 +75,7 @@ defmodule ChiyaWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{ChiyaWeb.UserAuth, :ensure_authenticated}] do
+      live "/user", UserProfileLive, :show
       live "/user/settings", UserSettingsLive, :edit
       live "/user/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end

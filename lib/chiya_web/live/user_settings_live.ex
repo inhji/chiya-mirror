@@ -5,14 +5,6 @@ defmodule ChiyaWeb.UserSettingsLive do
 
   def render(assigns) do
     ~H"""
-    <.header>User Info</.header>
-
-    <.list>
-      <:item title="Email"><%= @current_user.email %></:item>
-    </.list>
-
-    <.line /> 
-
     <.header>Change Avatar</.header>
 
     <img class="rounded-lg w-28 mt-8" src={Chiya.Uploaders.UserImage.url({@current_user.user_image, @current_user}, :thumb)} />
