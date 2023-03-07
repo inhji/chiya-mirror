@@ -9,7 +9,7 @@ defmodule Chiya.Uploaders.UserImage do
 
   # Whitelist file extensions:
   def validate({file, _}) do
-    file_extension = file.file_name |> Path.extname() |> String.downcase()
+    _file_extension = file.file_name |> Path.extname() |> String.downcase()
 
     # case Enum.member?(~w(.jpg .jpeg .gif .png), file_extension) do
     #   true -> :ok

@@ -745,9 +745,6 @@ defmodule ChiyaWeb.CoreComponents do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
   end
 
-  @doc """
-  
-  """
   defp upload_error_to_string(:too_large), do: "Too large"
   defp upload_error_to_string(:too_many_files), do: "You have selected too many files"
   defp upload_error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
