@@ -17,7 +17,7 @@ defmodule Chiya.NotesFixtures do
       attrs
       |> Enum.into(%{
         content: "some content",
-        kind: "some kind",
+        kind: "post",
         name: "some name",
         published_at: ~N[2023-03-04 16:22:00],
         slug: unique_note_slug(),

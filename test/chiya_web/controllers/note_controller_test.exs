@@ -5,7 +5,7 @@ defmodule ChiyaWeb.NoteControllerTest do
 
   @create_attrs %{
     content: "some content",
-    kind: "some kind",
+    kind: "post",
     name: "some name",
     published_at: ~N[2023-03-04 16:22:00],
     slug: "some slug",
@@ -13,7 +13,7 @@ defmodule ChiyaWeb.NoteControllerTest do
   }
   @update_attrs %{
     content: "some updated content",
-    kind: "some updated kind",
+    kind: "bookmark",
     name: "some updated name",
     published_at: ~N[2023-03-05 16:22:00],
     slug: "some updated slug",

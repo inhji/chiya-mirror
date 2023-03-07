@@ -22,7 +22,7 @@ defmodule Chiya.NotesTest do
     test "create_note/1 with valid data creates a note" do
       valid_attrs = %{
         content: "some content",
-        kind: "some kind",
+        kind: "post",
         name: "some name",
         published_at: ~N[2023-03-04 16:22:00],
         slug: "some slug",
@@ -31,7 +31,7 @@ defmodule Chiya.NotesTest do
 
       assert {:ok, %Note{} = note} = Notes.create_note(valid_attrs)
       assert note.content == "some content"
-      assert note.kind == "some kind"
+      assert note.kind == :post
       assert note.name == "some name"
       assert note.published_at == ~N[2023-03-04 16:22:00]
       assert note.slug == "some slug"
@@ -47,7 +47,7 @@ defmodule Chiya.NotesTest do
 
       update_attrs = %{
         content: "some updated content",
-        kind: "some updated kind",
+        kind: "bookmark",
         name: "some updated name",
         published_at: ~N[2023-03-05 16:22:00],
         slug: "some updated slug",
@@ -56,7 +56,7 @@ defmodule Chiya.NotesTest do
 
       assert {:ok, %Note{} = note} = Notes.update_note(note, update_attrs)
       assert note.content == "some updated content"
-      assert note.kind == "some updated kind"
+      assert note.kind == :bookmark
       assert note.name == "some updated name"
       assert note.published_at == ~N[2023-03-05 16:22:00]
       assert note.slug == "some updated slug"
