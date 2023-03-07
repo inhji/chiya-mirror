@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 
-git pull
-mix deps.get --only prod
-MIX_ENV=prod mix compile
-MIX_ENV=prod mix assets.deploy
-MIX_ENV=prod mix release --overwrite
+echo "Pulling latest changes.."
+git pull > /dev/null
+
+echo "Updating mix dependencies.."
+mix deps.get --only prod > /dev/null
+
+echo "Compiling mix dependencies.."
+MIX_ENV=prod mix compile > /dev/null
+
+echo "Compiling assets.."
+MIX_ENV=prod mix assets.deploy > /dev/null
+
+echo "Generating release.."
+MIX_ENV=prod mix release --overwrite > /dev/null
+
+echo "Restarting application.."
 systemctl --user restart chiya
