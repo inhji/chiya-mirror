@@ -52,6 +52,7 @@ defmodule ChiyaWeb.Router do
 
     resources "/channels", ChannelController
     resources "/notes", NoteController
+    resources "/settings", SettingController, singleton: true
   end
 
   ## Authentication routes

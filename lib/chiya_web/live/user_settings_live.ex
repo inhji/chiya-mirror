@@ -23,7 +23,7 @@ defmodule ChiyaWeb.UserSettingsLive do
       </:actions>
     </.simple_form>
 
-    <.line /> 
+    <.line />
 
     <.header>Change Email</.header>
 
@@ -48,7 +48,7 @@ defmodule ChiyaWeb.UserSettingsLive do
       </:actions>
     </.simple_form>
 
-    <.line /> 
+    <.line />
 
     <.header>Change Password</.header>
 
@@ -140,7 +140,7 @@ defmodule ChiyaWeb.UserSettingsLive do
         IO.inspect(path)
         {:ok, _user} = Accounts.update_user_image(user, %{user_image: path})
         IO.inspect("SUCCESS")
-        {:ok, path}     
+        {:ok, path}
       end)
 
     {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}

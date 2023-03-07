@@ -1,0 +1,20 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input field={f[:title]} type="text" label="Title" />
+  <.input field={f[:subtitle]} type="text" label="Subtitle" />
+  <.input
+    field={f[:theme]}
+    type="select"
+    label="Theme"
+    prompt="Choose a value"
+    options={Ecto.Enum.values(Chiya.Site.Setting, :theme)}
+  />
+  <.input field={f[:user_agent]} type="text" label="User agent" />
+  <.input field={f[:custom_css]} type="text" label="Custom css" />
+  <.input field={f[:custom_html]} type="text" label="Custom html" />
+  <:actions>
+    <.button>Save Setting</.button>
+  </:actions>
+</.simple_form>

@@ -21,7 +21,7 @@ defmodule ChiyaWeb.UserSessionControllerTest do
       conn = get(conn, ~p"/")
       response = html_response(conn, 200)
       assert response =~ user.email
-      assert response =~ ~p"/user/settings"
+      assert response =~ ~p"/user"
       assert response =~ ~p"/user/log_out"
     end
 
