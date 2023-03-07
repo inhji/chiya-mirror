@@ -9,7 +9,7 @@ defmodule Chiya.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
-    field :user_image, Chiya.UserImage.Type
+    field :user_image, Chiya.Uploaders.UserImage.Type
 
     timestamps()
   end

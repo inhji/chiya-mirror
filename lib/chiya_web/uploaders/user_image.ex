@@ -1,11 +1,11 @@
-defmodule Chiya.UserImage do
+defmodule Chiya.Uploaders.UserImage do
   use Waffle.Definition
   use Waffle.Ecto.Definition
 
   # Include ecto support (requires package waffle_ecto installed):
   # use Waffle.Ecto.Definition
 
-  @versions [:original, :thumb]
+  @versions [:original, :thumb, :thumb_dithered]
 
   # Whitelist file extensions:
   def validate({file, _}) do
