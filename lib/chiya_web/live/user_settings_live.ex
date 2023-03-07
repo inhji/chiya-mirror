@@ -7,13 +7,15 @@ defmodule ChiyaWeb.UserSettingsLive do
     ~H"""
     <.header>User Info</.header>
 
-    <img src={Chiya.UserImage.url({@current_user.user_image, @current_user}, :thumb)} />
-
     <.list>
       <:item title="Email"><%= @current_user.email %></:item>
     </.list>
 
+    <.line /> 
+
     <.header>Change Avatar</.header>
+
+    <img class="rounded-lg w-28 mt-8" src={Chiya.Uploaders.UserImage.url({@current_user.user_image, @current_user}, :thumb)} />
 
     <.simple_form
       for={@image_form}
@@ -22,46 +24,14 @@ defmodule ChiyaWeb.UserSettingsLive do
       phx-change="validate_image"
       multipart={true}
     >
-      <.live_file_input upload={@uploads.avatar} />
-
-      <section phx-drop-target={@uploads.avatar.ref}>
-        <%= for entry <- @uploads.avatar.entries do %>
-          <article class="upload-entry">
-            <figure>
-              <.live_img_preview entry={entry} />
-              <figcaption><%= entry.client_name %></figcaption>
-            </figure>
-
-            <%!-- entry.progress will update automatically for in-flight entries --%>
-            <progress value={entry.progress} max="100"><%= entry.progress %>%</progress>
-
-            <%!-- a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 --%>
-            <button
-              type="button"
-              phx-click="cancel-upload"
-              phx-value-ref={entry.ref}
-              aria-label="cancel"
-            >
-              &times;
-            </button>
-
-            <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
-            <%= for err <- upload_errors(@uploads.avatar, entry) do %>
-              <p class="alert alert-danger"><%= error_to_string(err) %></p>
-            <% end %>
-          </article>
-        <% end %>
-
-        <%!-- Phoenix.Component.upload_errors/1 returns a list of error atoms --%>
-        <%= for err <- upload_errors(@uploads.avatar) do %>
-          <p class="alert alert-danger"><%= error_to_string(err) %></p>
-        <% end %>
-      </section>
+      <.live_upload upload={@uploads.avatar} />
 
       <:actions>
         <.button phx-disable-with="Changing...">Change Avatar</.button>
       </:actions>
     </.simple_form>
+
+    <.line /> 
 
     <.header>Change Email</.header>
 
@@ -85,6 +55,8 @@ defmodule ChiyaWeb.UserSettingsLive do
         <.button phx-disable-with="Changing...">Change Email</.button>
       </:actions>
     </.simple_form>
+
+    <.line /> 
 
     <.header>Change Password</.header>
 
@@ -243,8 +215,4 @@ defmodule ChiyaWeb.UserSettingsLive do
         {:noreply, assign(socket, password_form: to_form(changeset))}
     end
   end
-
-  defp error_to_string(:too_large), do: "Too large"
-  defp error_to_string(:too_many_files), do: "You have selected too many files"
-  defp error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
 end

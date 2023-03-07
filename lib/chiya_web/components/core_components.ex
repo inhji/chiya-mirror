@@ -14,6 +14,64 @@ defmodule ChiyaWeb.CoreComponents do
   import ChiyaWeb.Gettext
 
   @doc """
+  Renders a horizontal line
+  """
+  def line(assigns) do
+    ~H"""
+    <hr class="my-6" />
+    """
+  end
+
+  @doc """
+  Renders a UI for uploading files
+  """
+
+  attr :upload, :map, required: true
+  attr :cancel_upload, :string, default: "cancel-upload"
+
+  def live_upload(assigns) do
+    ~H"""
+    <div>
+      <.live_file_input upload={@upload} />
+
+      <section phx-drop-target={@upload.ref}>
+        <%= for entry <- @upload.entries do %>
+          <article class="upload-entry">
+            <figure>
+              <.live_img_preview entry={entry} />
+              <figcaption><%= entry.client_name %></figcaption>
+            </figure>
+
+            <%!-- entry.progress will update automatically for in-flight entries --%>
+            <progress value={entry.progress} max="100"><%= entry.progress %>%</progress>
+
+            <%!-- a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 --%>
+            <button
+              type="button"
+              phx-click="cancel-upload"
+              phx-value-ref={entry.ref}
+              aria-label="cancel"
+            >
+              &times;
+            </button>
+
+            <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
+            <%= for err <- upload_errors(@upload, entry) do %>
+              <p class="alert alert-danger"><%= upload_error_to_string(err) %></p>
+            <% end %>
+          </article>
+        <% end %>
+
+        <%!-- Phoenix.Component.upload_errors/1 returns a list of error atoms --%>
+        <%= for err <- upload_errors(@upload) do %>
+          <p class="alert alert-danger"><%= upload_error_to_string(err) %></p>
+        <% end %>
+      </section>
+    </div>
+    """
+  end
+
+  @doc """
   Renders a modal.
 
   ## Examples
@@ -686,4 +744,11 @@ defmodule ChiyaWeb.CoreComponents do
   def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
   end
+
+  @doc """
+  
+  """
+  defp upload_error_to_string(:too_large), do: "Too large"
+  defp upload_error_to_string(:too_many_files), do: "You have selected too many files"
+  defp upload_error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
 end
