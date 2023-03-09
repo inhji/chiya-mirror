@@ -53,6 +53,7 @@ defmodule ChiyaWeb.Router do
     resources "/channels", ChannelController
     resources "/notes", NoteController, except: [:show]
     resources "/settings", SettingController, singleton: true
+    resources "/identities", IdentityController
 
     live "/notes/:id", NoteShowLive, :show
   end
