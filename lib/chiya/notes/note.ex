@@ -11,7 +11,6 @@ defmodule Chiya.Notes.Note do
     field :url, :string
 
     many_to_many :channels, Chiya.Channels.Channel,
-      # join_through: Chiya.Channels.ChannelNote,
       join_through: "channels_notes",
       join_keys: [note: :id, channel: :id],
       on_replace: :delete
@@ -27,7 +26,7 @@ defmodule Chiya.Notes.Note do
     |> Chiya.Notes.preload_note()
     |> cast(attrs, [:name, :content, :slug, :published_at, :kind, :url])
     |> put_assoc(:channels, attrs["channels"] || [])
-    |> validate_required([:name, :content, :slug, :published_at, :kind, :url])
+    |> validate_required([:name, :content, :slug, :kind])
     |> unique_constraint(:slug)
   end
 end
