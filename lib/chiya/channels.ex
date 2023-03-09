@@ -5,8 +5,9 @@ defmodule Chiya.Channels do
 
   import Ecto.Query, warn: false
   alias Chiya.Repo
-
   alias Chiya.Channels.Channel
+
+  @preloads [:notes]
 
   @doc """
   Returns the list of channels.
@@ -20,6 +21,8 @@ defmodule Chiya.Channels do
   def list_channels do
     Repo.all(Channel)
   end
+
+  def preload_channel(channel), do: Repo.preload(channel, @preloads)
 
   @doc """
   Gets a single channel.
@@ -36,6 +39,8 @@ defmodule Chiya.Channels do
 
   """
   def get_channel!(id), do: Repo.get!(Channel, id)
+
+  def get_channel_preloaded!(id), do: Repo.get!(Channel, id) |> preload_channel()
 
   @doc """
   Creates a channel.
