@@ -5,6 +5,8 @@ defmodule ChiyaWeb.NoteShowLive do
 
   @impl true
   def render(assigns) do
+    channels = Enum.map_join(assigns.note.channels, ", ", fn c -> c.name end)
+
     ~H"""
     <.header>
       Note <%= @note.id %>
@@ -23,16 +25,12 @@ defmodule ChiyaWeb.NoteShowLive do
       <:item title="Published at"><%= @note.published_at %></:item>
       <:item title="Kind"><%= @note.kind %></:item>
       <:item title="Url"><%= @note.url %></:item>
+      <:item title="Channels"><%= channels %></:item>
     </.list>
-
-    <ul>
-      <%= for channel <- @note.channels do %>
-      <li><%= channel.name %></li>
-      <% end %>
-    </ul>
 
     <.line />
 
+    <%= if !Enum.empty?(@note.images) do %>
     <div class="flex flex-wrap gap-3">
       <%= for image <- @note.images do %>
         <article>
@@ -40,7 +38,9 @@ defmodule ChiyaWeb.NoteShowLive do
             class="rounded-lg w-28 "
             src={Chiya.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
           /></a>
-          <p class="text-center text-xs text-zinc-700"><a href="">Delete image</a></p>
+          <p class="text-center text-xs text-zinc-700">
+            <a href="#" phx-click="delete_image" phx-value-id={image.id} data-confirm="Are you sure?">Delete image</a>
+          </p>
 
           <a href="#" class="lightbox" id={"image-#{image.id}"}>
             <span style={"background-image: url('#{Chiya.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}')"}></span>
@@ -50,6 +50,7 @@ defmodule ChiyaWeb.NoteShowLive do
     </div>
 
     <.line />
+    <% end %>
 
     <.header>
       Note Images
@@ -112,5 +113,13 @@ defmodule ChiyaWeb.NoteShowLive do
      socket
      |> update(:uploaded_files, &(&1 ++ uploaded_files))
      |> assign(:note, Notes.get_note_preloaded!(socket.assigns.note.id))}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("delete_image", %{"id" => id}, socket) do
+    :ok = Notes.get_note_image!(id)
+    |> Notes.delete_note_image()
+
+    {:noreply, assign(socket, :note, Notes.get_note_preloaded!(socket.assigns.note.id))}
   end
 end

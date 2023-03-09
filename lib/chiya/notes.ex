@@ -131,7 +131,12 @@ defmodule Chiya.Notes do
   end
 
   @doc """
-  Creates a note image and attaches it to a note
+  Gets a single note image.
+  """
+  def get_note_image!(id), do: Repo.get!(NoteImage, id)
+
+  @doc """
+  Creates a note image and attaches it to a note.
   """
   def create_note_image(attrs) do
     case %NoteImage{}
@@ -145,6 +150,12 @@ defmodule Chiya.Notes do
       {:error, changeset} ->
         {:error, changeset}
     end
+  end
+
+  def delete_note_image(%NoteImage{} = note_image) do
+    {:ok, _} = Repo.delete(note_image)
+    :ok = Chiya.Uploaders.NoteImage.delete({note_image.path, note_image})
+    :ok
   end
 
   @doc """
