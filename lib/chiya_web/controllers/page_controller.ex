@@ -4,8 +4,7 @@ defmodule ChiyaWeb.PageController do
   def home(conn, _params) do
     # The home page is often custom made,
     # so skip the default app layout.
-    settings = Chiya.Site.get_settings()
-    render(conn, :home, layout: {ChiyaWeb.Layouts, "public.html"}, settings: settings)
+    render(conn, :home, layout: {ChiyaWeb.Layouts, "public.html"})
   end
 
   def channel(conn, %{"slug" => channel_slug}) do
