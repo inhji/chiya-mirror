@@ -3,26 +3,24 @@
   <:subtitle>These are your site's settings.</:subtitle>
   <:actions>
     <%= if @setting == nil do %>
-    <.link href={~p"/admin/settings/new"}>
-      <.button>Create settings</.button>
-    </.link>
+      <.link href={~p"/admin/settings/new"}>
+        <.button>Create settings</.button>
+      </.link>
     <% else %>
-    <.link href={~p"/admin/settings/edit"}>
-      <.button>Edit settings</.button>
-    </.link>
+      <.link href={~p"/admin/settings/edit"}>
+        <.button>Edit settings</.button>
+      </.link>
     <% end %>
   </:actions>
 </.header>
 
 <%= if @setting !== nil do %>
-
-<.list>
-  <:item title="Title"><%= @setting.title %></:item>
-  <:item title="Subtitle"><%= @setting.subtitle %></:item>
-  <:item title="Theme"><%= @setting.theme %></:item>
-  <:item title="User agent"><%= @setting.user_agent %></:item>
-  <:item title="Custom css"><%= @setting.custom_css %></:item>
-  <:item title="Custom html"><%= @setting.custom_html %></:item>
-</.list>
-
+  <.list>
+    <:item title="Title"><%= @setting.title %></:item>
+    <:item title="Subtitle"><%= @setting.subtitle %></:item>
+    <:item title="Theme"><%= @setting.theme %></:item>
+    <:item title="User agent"><%= @setting.user_agent %></:item>
+    <:item title="Custom css"><%= @setting.custom_css %></:item>
+    <:item title="Custom html"><%= @setting.custom_html %></:item>
+  </.list>
 <% end %>

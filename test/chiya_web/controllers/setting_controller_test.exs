@@ -3,9 +3,30 @@ defmodule ChiyaWeb.SettingControllerTest do
 
   import Chiya.SiteFixtures
 
-  @create_attrs %{custom_css: "some custom_css", custom_html: "some custom_html", subtitle: "some subtitle", theme: :default, title: "some title", user_agent: "some user_agent"}
-  @update_attrs %{custom_css: "some updated custom_css", custom_html: "some updated custom_html", subtitle: "some updated subtitle", theme: :default, title: "some updated title", user_agent: "some updated user_agent"}
-  @invalid_attrs %{custom_css: nil, custom_html: nil, subtitle: nil, theme: nil, title: nil, user_agent: nil}
+  @create_attrs %{
+    custom_css: "some custom_css",
+    custom_html: "some custom_html",
+    subtitle: "some subtitle",
+    theme: :default,
+    title: "some title",
+    user_agent: "some user_agent"
+  }
+  @update_attrs %{
+    custom_css: "some updated custom_css",
+    custom_html: "some updated custom_html",
+    subtitle: "some updated subtitle",
+    theme: :default,
+    title: "some updated title",
+    user_agent: "some updated user_agent"
+  }
+  @invalid_attrs %{
+    custom_css: nil,
+    custom_html: nil,
+    subtitle: nil,
+    theme: nil,
+    title: nil,
+    user_agent: nil
+  }
 
   setup [:register_and_log_in_user]
 

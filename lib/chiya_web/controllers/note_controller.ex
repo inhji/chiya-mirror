@@ -31,7 +31,7 @@ defmodule ChiyaWeb.NoteController do
   def show(conn, %{"id" => id}) do
     # note = Notes.get_note!(id)
     # render(conn, :show, note: note)
-    live_render(conn, NoteShowLive, session: %{ "note_id" => id })
+    live_render(conn, NoteShowLive, session: %{"note_id" => id})
   end
 
   def edit(conn, %{"id" => id}) do
