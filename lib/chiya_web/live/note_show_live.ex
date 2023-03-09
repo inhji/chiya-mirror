@@ -27,7 +27,7 @@ defmodule ChiyaWeb.NoteShowLive do
 
     <ul>
       <%= for channel <- @note.channels do %>
-      <li><%= @channel.name %></li>
+      <li><%= channel.name %></li>
       <% end %>
     </ul>
 
