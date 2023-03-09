@@ -18,6 +18,7 @@ defmodule Chiya.Channels.Channel do
     channel
     |> cast(attrs, [:name, :content, :visibility, :slug])
     |> validate_required([:name, :content, :visibility, :slug])
+    |> validate_exclusion(:slug, ~w(admin user dev))
     |> unique_constraint(:slug)
   end
 end
