@@ -3,12 +3,13 @@ defmodule Chiya.Identities.Identity do
   import Ecto.Changeset
 
   schema "identities" do
-    field :active, :boolean, default: false
     field :name, :string
-    field :public, :boolean, default: false
-    field :rel, :string
     field :url, :string
-    field :icon, :string
+    field :rel, :string, default: "me"
+    field :icon, :string, default: "cube"
+
+    field :public, :boolean, default: false
+    field :active, :boolean, default: false
 
     timestamps()
   end
@@ -16,7 +17,7 @@ defmodule Chiya.Identities.Identity do
   @doc false
   def changeset(identity, attrs) do
     identity
-    |> cast(attrs, [:name, :rel, :url, :public, :active, :icon])
-    |> validate_required([:name, :rel, :url, :public, :active, :icon])
+    |> cast(attrs, [:name, :rel, :url, :icon])
+    |> validate_required([:name, :rel, :url, :icon])
   end
 end
