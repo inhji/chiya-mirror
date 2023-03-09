@@ -17,13 +17,6 @@ defmodule ChiyaWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ChiyaWeb do
-    pipe_through :browser
-
-    get "/:slug", PageController, :channel
-    get "/", PageController, :home
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", ChiyaWeb do
   #   pipe_through :api
@@ -95,5 +88,14 @@ defmodule ChiyaWeb.Router do
       live "/user/confirm/:token", UserConfirmationLive, :edit
       live "/user/confirm", UserConfirmationInstructionsLive, :new
     end
+  end
+
+  ## Public routes
+
+  scope "/", ChiyaWeb do
+    pipe_through :browser
+
+    get "/:slug", PageController, :channel
+    get "/", PageController, :home
   end
 end
