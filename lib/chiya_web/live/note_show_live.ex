@@ -37,7 +37,7 @@ defmodule ChiyaWeb.NoteShowLive do
           <p class="text-center text-xs text-zinc-700"><a href="">Delete image</a></p>
 
           <a href="#" class="lightbox" id={"image-#{image.id}"}>
-            <span style="background-image: url('<%= Chiya.Uploaders.NoteImage.url({image.path, image}, :full_dithered) %>')"></span>
+            <span style={"background-image: url('#{Chiya.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}')"}></span>
           </a>
         </article>
       <% end %>
