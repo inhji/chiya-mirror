@@ -8,16 +8,22 @@
     </div>
     <div class="flex items-center gap-4">
       <.link
+        href={~p"/admin/notes"}
+        class="text-xs font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
+      >
+        Notes
+      </.link>
+      <.link
         href={~p"/admin/channels"}
-        class="text-[0.8125rem] font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
+        class="text-xs font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
       >
         Channels
       </.link>
       <.link
-        href={~p"/admin/notes"}
-        class="text-[0.8125rem] font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
+        href={~p"/admin/identities"}
+        class="text-xs font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
       >
-        Notes
+        Identities
       </.link>
     </div>
   </div>
