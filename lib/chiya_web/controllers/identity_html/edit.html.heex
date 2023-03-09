@@ -1,0 +1,8 @@
+<.header>
+  Edit Identity <%= @identity.id %>
+  <:subtitle>Use this form to manage identity records in your database.</:subtitle>
+</.header>
+
+<.identity_form changeset={@changeset} action={~p"/admin/identities/#{@identity}"} />
+
+<.back navigate={~p"/admin/identities"}>Back to identities</.back>

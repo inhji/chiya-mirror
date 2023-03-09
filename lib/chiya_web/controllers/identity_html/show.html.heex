@@ -1,0 +1,20 @@
+<.header>
+  Identity <%= @identity.id %>
+  <:subtitle>This is a identity record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/admin/identities/#{@identity}/edit"}>
+      <.button>Edit identity</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @identity.name %></:item>
+  <:item title="Rel"><%= @identity.rel %></:item>
+  <:item title="Url"><%= @identity.url %></:item>
+  <:item title="Public"><%= @identity.public %></:item>
+  <:item title="Active"><%= @identity.active %></:item>
+  <:item title="Icon"><%= @identity.icon %></:item>
+</.list>
+
+<.back navigate={~p"/admin/identities"}>Back to identities</.back>
