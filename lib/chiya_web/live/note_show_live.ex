@@ -6,6 +6,7 @@ defmodule ChiyaWeb.NoteShowLive do
   @impl true
   def render(assigns) do
     channels = Enum.map_join(assigns.note.channels, ", ", fn c -> c.name end)
+    assigns = assign(assigns, :channels, channels)
 
     ~H"""
     <.header>
@@ -25,7 +26,7 @@ defmodule ChiyaWeb.NoteShowLive do
       <:item title="Published at"><%= @note.published_at %></:item>
       <:item title="Kind"><%= @note.kind %></:item>
       <:item title="Url"><%= @note.url %></:item>
-      <:item title="Channels"><%= channels %></:item>
+      <:item title="Channels"><%= @channels %></:item>
     </.list>
 
     <.line />
