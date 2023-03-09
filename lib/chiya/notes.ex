@@ -6,9 +6,9 @@ defmodule Chiya.Notes do
   import Ecto.Query, warn: false
   alias Chiya.Repo
 
-  alias Chiya.Notes.Note
+  alias Chiya.Notes.{Note, NoteImage}
 
-  @preloads [:channels]
+  @preloads [:channels, :images]
 
   @doc """
   Returns the list of notes.
@@ -128,5 +128,29 @@ defmodule Chiya.Notes do
   """
   def change_note(%Note{} = note, attrs \\ %{}) do
     Note.changeset(note, attrs)
+  end
+
+  @doc """
+  Creates a note image and attaches it to a note
+  """
+  def create_note_image(attrs) do
+    case %NoteImage{}
+         |> NoteImage.insert_changeset(attrs)
+         |> Repo.insert() do
+      {:ok, note_image} ->
+        note_image
+        |> change_note_image(attrs)
+        |> Repo.update()
+
+      {:error, changeset} ->
+        {:error, changeset}
+    end
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking note_image changes.
+  """
+  def change_note_image(%NoteImage{} = note_image, attrs \\ %{}) do
+    NoteImage.changeset(note_image, attrs)
   end
 end

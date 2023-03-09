@@ -143,7 +143,10 @@ defmodule ChiyaWeb.UserSettingsLive do
         {:ok, path}
       end)
 
-    {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
+    {:noreply,
+     socket
+     |> update(:uploaded_files, &(&1 ++ uploaded_files))
+     |> assign(:user, Accounts.get_user!(user.id))}
   end
 
   def handle_event("validate_email", params, socket) do

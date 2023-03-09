@@ -11,10 +11,12 @@ defmodule Chiya.Notes.Note do
     field :url, :string
 
     many_to_many :channels, Chiya.Channels.Channel,
-      # join_through: Chiya.Channels.ChannelNote, 
+      # join_through: Chiya.Channels.ChannelNote,
       join_through: "channels_notes",
       join_keys: [note: :id, channel: :id],
       on_replace: :delete
+
+    has_many :images, Chiya.Notes.NoteImage
 
     timestamps()
   end

@@ -5,12 +5,11 @@ defmodule Chiya.Uploaders.NoteImage do
   # Include ecto support (requires package waffle_ecto installed):
   # use Waffle.Ecto.Definition
 
-  @versions [:original, :dithered, :thumb, :thumb_dithered]
+  @versions [:original, :full, :full_dithered, :thumb, :thumb_dithered]
 
   # Whitelist file extensions:
-  def validate({file, _}) do
-    _file_extension = file.file_name |> Path.extname() |> String.downcase()
-
+  def validate({_file, _}) do
+    # _file_extension = file.file_name |> Path.extname() |> String.downcase()
     # case Enum.member?(~w(.jpg .jpeg .gif .png), file_extension) do
     #   true -> :ok
     #   false -> {:error, "invalid file type"}
@@ -20,8 +19,12 @@ defmodule Chiya.Uploaders.NoteImage do
     :ok
   end
 
+  def transform(:full, _) do
+    {:convert, "-strip -resize 1500000@ -gravity center -format png", :png}
+  end
+
   # Define a resize transformation:
-  def transform(:dithered, _) do
+  def transform(:full_dithered, _) do
     {:convert, "-strip -resize 1500000@ -colors 24 -dither FloydSteinberg -format png", :png}
   end
 
@@ -43,21 +46,12 @@ defmodule Chiya.Uploaders.NoteImage do
   end
 
   # Override the storage directory:
-  def storage_dir(_version, {_file, _scope}) do
-    "uploads/user/avatar"
+  def storage_dir(_version, {_file, %{id: image_id, note_id: note_id}}) do
+    "uploads/note/#{note_id}/#{image_id}"
   end
 
   # Provide a default URL if there hasn't been a file uploaded
   # def default_url(version, scope) do
   #   "/images/avatars/default_#{version}.png"
-  # end
-
-  # Specify custom headers for s3 objects
-  # Available options are [:cache_control, :content_disposition,
-  #    :content_encoding, :content_length, :content_type,
-  #    :expect, :expires, :storage_class, :website_redirect_location]
-  #
-  # def s3_object_headers(version, {file, scope}) do
-  #   [content_type: MIME.from_path(file.file_name)]
   # end
 end

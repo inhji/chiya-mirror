@@ -51,8 +51,10 @@ defmodule ChiyaWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     resources "/channels", ChannelController
-    resources "/notes", NoteController
+    resources "/notes", NoteController, except: [:show]
     resources "/settings", SettingController, singleton: true
+
+    live "/notes/:id", NoteShowLive, :show
   end
 
   ## Authentication routes
