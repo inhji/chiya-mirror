@@ -48,7 +48,7 @@ defmodule Chiya.Channels do
   @doc """
   Gets a single channel by its slug with all associated entities preloaded.
   """
-  def get_channel_by_slug_preloaded(slug), do: Repo.get_by!(Channel, slug: slug)
+  def get_channel_by_slug_preloaded!(slug), do: Repo.get_by!(Channel, slug: slug)
 
   @doc """
   Creates a channel.
