@@ -40,7 +40,15 @@ defmodule Chiya.Channels do
   """
   def get_channel!(id), do: Repo.get!(Channel, id)
 
+  @doc """
+  Gets a single channel with all associated entities preloaded.
+  """
   def get_channel_preloaded!(id), do: Repo.get!(Channel, id) |> preload_channel()
+
+  @doc """
+  Gets a single channel by its slug with all associated entities preloaded.
+  """
+  def get_channel_by_slug_preloaded(slug), do: Repo.get_by!(Channel, slug: slug)
 
   @doc """
   Creates a channel.
