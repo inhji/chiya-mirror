@@ -2,6 +2,7 @@ defmodule ChiyaWeb.Router do
   use ChiyaWeb, :router
 
   import ChiyaWeb.UserAuth
+  import ChiyaWeb.GlobalAssigns
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,6 +12,11 @@ defmodule ChiyaWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+  end
+
+  pipeline :public do
+    plug :fetch_settings
+    plug :fetch_identities
   end
 
   pipeline :api do
@@ -93,7 +99,7 @@ defmodule ChiyaWeb.Router do
   ## Public routes
 
   scope "/", ChiyaWeb do
-    pipe_through :browser
+    pipe_through [:browser, :public]
 
     get "/:slug", PageController, :channel
     get "/", PageController, :home
