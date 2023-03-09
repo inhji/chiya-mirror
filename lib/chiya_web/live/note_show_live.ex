@@ -23,10 +23,13 @@ defmodule ChiyaWeb.NoteShowLive do
       <:item title="Published at"><%= @note.published_at %></:item>
       <:item title="Kind"><%= @note.kind %></:item>
       <:item title="Url"><%= @note.url %></:item>
-      <%= for channel <- @note.channels do %>
-      <:item title="Channel"><%= @channel.name %></:item>
-      <% end %>
     </.list>
+
+    <ul>
+      <%= for channel <- @note.channels do %>
+      <li><%= @channel.name %></li>
+      <% end %>
+    </ul>
 
     <.line />
 
