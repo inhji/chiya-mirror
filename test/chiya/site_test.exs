@@ -8,7 +8,14 @@ defmodule Chiya.SiteTest do
 
     import Chiya.SiteFixtures
 
-    @invalid_attrs %{custom_css: nil, custom_html: nil, subtitle: nil, theme: nil, title: nil, user_agent: nil}
+    @invalid_attrs %{
+      custom_css: nil,
+      custom_html: nil,
+      subtitle: nil,
+      theme: nil,
+      title: nil,
+      user_agent: nil
+    }
 
     test "get_setting!/1 returns the setting with given id" do
       setting = setting_fixture()
@@ -16,7 +23,14 @@ defmodule Chiya.SiteTest do
     end
 
     test "create_setting/1 with valid data creates a setting" do
-      valid_attrs = %{custom_css: "some custom_css", custom_html: "some custom_html", subtitle: "some subtitle", theme: :default, title: "some title", user_agent: "some user_agent"}
+      valid_attrs = %{
+        custom_css: "some custom_css",
+        custom_html: "some custom_html",
+        subtitle: "some subtitle",
+        theme: :default,
+        title: "some title",
+        user_agent: "some user_agent"
+      }
 
       assert {:ok, %Setting{} = setting} = Site.create_setting(valid_attrs)
       assert setting.custom_css == "some custom_css"
@@ -33,7 +47,15 @@ defmodule Chiya.SiteTest do
 
     test "update_setting/2 with valid data updates the setting" do
       setting = setting_fixture()
-      update_attrs = %{custom_css: "some updated custom_css", custom_html: "some updated custom_html", subtitle: "some updated subtitle", theme: :default, title: "some updated title", user_agent: "some updated user_agent"}
+
+      update_attrs = %{
+        custom_css: "some updated custom_css",
+        custom_html: "some updated custom_html",
+        subtitle: "some updated subtitle",
+        theme: :default,
+        title: "some updated title",
+        user_agent: "some updated user_agent"
+      }
 
       assert {:ok, %Setting{} = setting} = Site.update_setting(setting, update_attrs)
       assert setting.custom_css == "some updated custom_css"

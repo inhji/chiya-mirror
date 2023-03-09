@@ -31,25 +31,35 @@ defmodule ChiyaWeb.NoteShowLive do
     <.line />
 
     <%= if !Enum.empty?(@note.images) do %>
-    <div class="flex flex-wrap gap-3">
-      <%= for image <- @note.images do %>
-        <article>
-          <a href={"#image-#{image.id}"}><img
-            class="rounded-lg w-28 "
-            src={Chiya.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
-          /></a>
-          <p class="text-center text-xs text-zinc-700">
-            <a href="#" phx-click="delete_image" phx-value-id={image.id} data-confirm="Are you sure?">Delete image</a>
-          </p>
+      <div class="flex flex-wrap gap-3">
+        <%= for image <- @note.images do %>
+          <article>
+            <a href={"#image-#{image.id}"}>
+              <img
+                class="rounded-lg w-28 "
+                src={Chiya.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
+              />
+            </a>
+            <p class="text-center text-xs text-zinc-700">
+              <a
+                href="#"
+                phx-click="delete_image"
+                phx-value-id={image.id}
+                data-confirm="Are you sure?"
+              >
+                Delete image
+              </a>
+            </p>
 
-          <a href="#" class="lightbox" id={"image-#{image.id}"}>
-            <span style={"background-image: url('#{Chiya.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}')"}></span>
-          </a>
-        </article>
-      <% end %>
-    </div>
+            <a href="#" class="lightbox" id={"image-#{image.id}"}>
+              <span style={"background-image: url('#{Chiya.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}')"}>
+              </span>
+            </a>
+          </article>
+        <% end %>
+      </div>
 
-    <.line />
+      <.line />
     <% end %>
 
     <.header>
@@ -117,8 +127,9 @@ defmodule ChiyaWeb.NoteShowLive do
 
   @impl Phoenix.LiveView
   def handle_event("delete_image", %{"id" => id}, socket) do
-    :ok = Notes.get_note_image!(id)
-    |> Notes.delete_note_image()
+    :ok =
+      Notes.get_note_image!(id)
+      |> Notes.delete_note_image()
 
     {:noreply, assign(socket, :note, Notes.get_note_preloaded!(socket.assigns.note.id))}
   end
