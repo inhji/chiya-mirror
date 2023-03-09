@@ -236,9 +236,7 @@ defmodule Chiya.Accounts do
   Updates the user image.
   """
   def update_user_image(user, attrs) do
-    IO.inspect(attrs)
     changeset = change_user_image(user, attrs)
-    IO.inspect(changeset)
     Repo.update(changeset)
   end
 

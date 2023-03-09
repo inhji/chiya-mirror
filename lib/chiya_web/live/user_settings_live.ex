@@ -7,7 +7,10 @@ defmodule ChiyaWeb.UserSettingsLive do
     ~H"""
     <.header>Change Avatar</.header>
 
-    <img class="rounded-lg w-28 mt-8" src={Chiya.Uploaders.UserImage.url({@current_user.user_image, @current_user}, :thumb)} />
+    <img
+      class="rounded-lg w-28 mt-8"
+      src={Chiya.Uploaders.UserImage.url({@current_user.user_image, @current_user}, :thumb)}
+    />
 
     <.simple_form
       for={@image_form}
@@ -84,6 +87,7 @@ defmodule ChiyaWeb.UserSettingsLive do
     """
   end
 
+  @impl true
   def mount(%{"token" => token}, _session, socket) do
     socket =
       case Accounts.update_user_email(socket.assigns.current_user, token) do
@@ -131,15 +135,11 @@ defmodule ChiyaWeb.UserSettingsLive do
 
   @impl Phoenix.LiveView
   def handle_event("update_image", _params, socket) do
-    IO.inspect("update_image")
     user = socket.assigns.current_user
 
-    IO.inspect(user)
     uploaded_files =
       consume_uploaded_entries(socket, :avatar, fn %{path: path}, _entry ->
-        IO.inspect(path)
         {:ok, _user} = Accounts.update_user_image(user, %{user_image: path})
-        IO.inspect("SUCCESS")
         {:ok, path}
       end)
 

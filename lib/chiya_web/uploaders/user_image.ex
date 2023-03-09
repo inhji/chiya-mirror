@@ -8,9 +8,8 @@ defmodule Chiya.Uploaders.UserImage do
   @versions [:original, :thumb, :thumb_dithered]
 
   # Whitelist file extensions:
-  def validate({file, _}) do
-    _file_extension = file.file_name |> Path.extname() |> String.downcase()
-
+  def validate({_file, _}) do
+    # _file_extension = file.file_name |> Path.extname() |> String.downcase()
     # case Enum.member?(~w(.jpg .jpeg .gif .png), file_extension) do
     #   true -> :ok
     #   false -> {:error, "invalid file type"}
@@ -45,14 +44,5 @@ defmodule Chiya.Uploaders.UserImage do
   # Provide a default URL if there hasn't been a file uploaded
   # def default_url(version, scope) do
   #   "/images/avatars/default_#{version}.png"
-  # end
-
-  # Specify custom headers for s3 objects
-  # Available options are [:cache_control, :content_disposition,
-  #    :content_encoding, :content_length, :content_type,
-  #    :expect, :expires, :storage_class, :website_redirect_location]
-  #
-  # def s3_object_headers(version, {file, scope}) do
-  #   [content_type: MIME.from_path(file.file_name)]
   # end
 end
