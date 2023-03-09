@@ -20,6 +20,7 @@ defmodule ChiyaWeb.Router do
   scope "/", ChiyaWeb do
     pipe_through :browser
 
+    get "/:slug", PageController, :channel
     get "/", PageController, :home
   end
 
