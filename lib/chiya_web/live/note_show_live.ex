@@ -30,13 +30,13 @@ defmodule ChiyaWeb.NoteShowLive do
     <div class="flex flex-wrap gap-3">
       <%= for image <- @note.images do %>
         <article>
-          <a href="#image-<%= image.id %>"><img
+          <a href={"#image-#{image.id}"}><img
             class="rounded-lg w-28 "
             src={Chiya.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
           /></a>
           <p class="text-center text-xs text-zinc-700"><a href="">Delete image</a></p>
 
-          <a href="#" class="lightbox" id="image-<%= image.id %>">
+          <a href="#" class="lightbox" id={"image-#{image.id}"}>
             <span style="background-image: url('<%= Chiya.Uploaders.NoteImage.url({image.path, image}, :full_dithered) %>')"></span>
           </a>
         </article>
