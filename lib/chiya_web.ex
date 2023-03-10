@@ -92,7 +92,7 @@ defmodule ChiyaWeb do
       alias Phoenix.LiveView.JS
 
       # Custom functions
-      import ChiyaWeb.Format, only: [from_now: 1, from_now: 2]
+      import ChiyaWeb.Format, only: [from_now: 1, from_now_naive: 1]
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())
