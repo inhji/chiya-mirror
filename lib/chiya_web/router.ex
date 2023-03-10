@@ -50,6 +50,8 @@ defmodule ChiyaWeb.Router do
   scope "/admin", ChiyaWeb do
     pipe_through [:browser, :require_authenticated_user]
 
+    get "/", AdminController, :home
+    
     resources "/channels", ChannelController
     resources "/notes", NoteController, except: [:show]
     resources "/settings", SettingController, singleton: true
