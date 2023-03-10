@@ -51,7 +51,7 @@ defmodule ChiyaWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     get "/", AdminController, :home
-    
+
     resources "/channels", ChannelController
     resources "/notes", NoteController, except: [:show]
     resources "/settings", SettingController, singleton: true
@@ -104,6 +104,7 @@ defmodule ChiyaWeb.Router do
   scope "/", ChiyaWeb do
     pipe_through [:browser, :public]
 
+    get "/n/:slug", PageController, :note
     get "/:slug", PageController, :channel
     get "/", PageController, :home
   end

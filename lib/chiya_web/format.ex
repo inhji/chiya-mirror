@@ -1,17 +1,17 @@
 defmodule ChiyaWeb.Format do
   def from_now(later) do
-      now = DateTime.utc_now()
-      diff = DateTime.diff(now, later)
-      do_from_now(diff)
+    now = DateTime.utc_now()
+    diff = DateTime.diff(now, later)
+    do_from_now(diff)
   end
 
   def from_now_naive(later) do
-      now = NaiveDateTime.utc_now()
-      diff = NaiveDateTime.diff(now, later)
-      do_from_now(diff)
+    now = NaiveDateTime.utc_now()
+    diff = NaiveDateTime.diff(now, later)
+    do_from_now(diff)
   end
 
-  def do_from_now(diff) do 
+  def do_from_now(diff) do
     cond do
       diff <= -24 * 3600 -> "in #{div(-diff, 24 * 3600)}d"
       diff <= -3600 -> "in #{div(-diff, 3600)}h"

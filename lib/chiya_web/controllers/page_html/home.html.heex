@@ -9,20 +9,31 @@
     <div class="w-full mt-6 sm:w-auto">
       <div class="flex gap-4 text-sm leading-6 text-zinc-700">
         <%= for identity <- @identities do %>
-        <div>
-          <a
-            rel={identity.rel}
-            href={identity.url}
-            target="_blank"
-            class="group -mx-2 -my-0.5 inline-flex items-center gap-3 rounded-lg px-2 py-0.5 hover:bg-zinc-50 hover:text-zinc-900"
-          >
-            <.icon name="hero-cube" />
-            <%= identity.name %>
-          </a>
-        </div>
+          <div>
+            <a
+              rel={identity.rel}
+              href={identity.url}
+              target="_blank"
+              class="group -mx-2 -my-0.5 inline-flex items-center gap-3 rounded-lg px-2 py-0.5 hover:bg-zinc-50 hover:text-zinc-900"
+            >
+              <.icon name="hero-cube" />
+              <%= identity.name %>
+            </a>
+          </div>
         <% end %>
       </div>
     </div>
-
+    <%= if @channel do %>
+      <div class="w-full mt-6 sm:w-auto">
+        <%= for note <- @channel.notes do %>
+          <a href={~p"/n/#{note.slug}"}>
+            <.header>
+              <%= note.name %>
+              <:subtitle><%= note.published_at %></:subtitle>
+            </.header>
+          </a>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

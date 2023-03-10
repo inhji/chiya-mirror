@@ -51,7 +51,7 @@ defmodule ChiyaWeb.UserRegistrationLiveTest do
       conn = get(conn, "/")
       response = html_response(conn, 200)
       assert response =~ email
-      assert response =~ "Settings"
+      assert response =~ "Admin"
       assert response =~ "Log out"
     end
   end

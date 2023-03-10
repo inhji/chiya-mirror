@@ -6,7 +6,7 @@ defmodule ChiyaWeb.SettingController do
 
   def new(conn, _params) do
     changeset = Site.change_setting(%Setting{})
-    render(conn, :new, changeset: changeset)
+    render(conn, :new, changeset: changeset, channels: channels())
   end
 
   def create(conn, %{"setting" => setting_params}) do
@@ -17,7 +17,7 @@ defmodule ChiyaWeb.SettingController do
         |> redirect(to: ~p"/admin/settings")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :new, changeset: changeset)
+        render(conn, :new, changeset: changeset, channels: channels())
     end
   end
 
@@ -29,7 +29,7 @@ defmodule ChiyaWeb.SettingController do
   def edit(conn, _params) do
     setting = Site.get_settings()
     changeset = Site.change_setting(setting)
-    render(conn, :edit, setting: setting, changeset: changeset)
+    render(conn, :edit, setting: setting, changeset: changeset, channels: channels())
   end
 
   def update(conn, %{"setting" => setting_params}) do
@@ -42,7 +42,9 @@ defmodule ChiyaWeb.SettingController do
         |> redirect(to: ~p"/admin/settings")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :edit, setting: setting, changeset: changeset)
+        render(conn, :edit, setting: setting, changeset: changeset, channels: channels())
     end
   end
+
+  defp channels(), do: Chiya.Channels.list_channels() |> Enum.map(fn c -> {c.name, c.id} end)
 end

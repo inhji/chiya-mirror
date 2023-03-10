@@ -3,6 +3,6 @@
   <:subtitle>Use this form to manage setting records in your database.</:subtitle>
 </.header>
 
-<.setting_form changeset={@changeset} action={~p"/admin/settings"} />
+<.setting_form changeset={@changeset} action={~p"/admin/settings"} channels={@channels} />
 
 <.back navigate={~p"/admin/settings"}>Back to settings</.back>

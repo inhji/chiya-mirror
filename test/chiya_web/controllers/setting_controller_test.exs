@@ -1,8 +1,6 @@
 defmodule ChiyaWeb.SettingControllerTest do
   use ChiyaWeb.ConnCase
 
-  import Chiya.SiteFixtures
-
   @create_attrs %{
     custom_css: "some custom_css",
     custom_html: "some custom_html",
@@ -50,8 +48,6 @@ defmodule ChiyaWeb.SettingControllerTest do
   end
 
   describe "edit setting" do
-    setup [:create_setting]
-
     test "renders form for editing chosen setting", %{conn: conn} do
       conn = get(conn, ~p"/admin/settings/edit")
       assert html_response(conn, 200) =~ "Edit Setting"
@@ -59,8 +55,6 @@ defmodule ChiyaWeb.SettingControllerTest do
   end
 
   describe "update setting" do
-    setup [:create_setting]
-
     test "redirects when data is valid", %{conn: conn} do
       conn = put(conn, ~p"/admin/settings", setting: @update_attrs)
       assert redirected_to(conn) == ~p"/admin/settings"
@@ -73,10 +67,5 @@ defmodule ChiyaWeb.SettingControllerTest do
       conn = put(conn, ~p"/admin/settings", setting: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit Setting"
     end
-  end
-
-  defp create_setting(_) do
-    setting = setting_fixture()
-    %{setting: setting}
   end
 end

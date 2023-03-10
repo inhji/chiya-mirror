@@ -17,9 +17,11 @@ defmodule Chiya.SiteTest do
       user_agent: nil
     }
 
-    test "get_setting!/1 returns the setting with given id" do
-      setting = setting_fixture()
-      assert Site.get_settings() == setting
+    test "get_setting!/1 returns the setting" do
+      # setting = setting_fixture()
+      setting = Site.get_settings()
+      assert setting.title == "Title"
+      assert setting.subtitle == "Subtitle"
     end
 
     test "create_setting/1 with valid data creates a setting" do
@@ -46,7 +48,7 @@ defmodule Chiya.SiteTest do
     end
 
     test "update_setting/2 with valid data updates the setting" do
-      setting = setting_fixture()
+      setting = Site.get_settings()
 
       update_attrs = %{
         custom_css: "some updated custom_css",
@@ -67,7 +69,7 @@ defmodule Chiya.SiteTest do
     end
 
     test "update_setting/2 with invalid data returns error changeset" do
-      setting = setting_fixture()
+      setting = Site.get_settings()
       assert {:error, %Ecto.Changeset{}} = Site.update_setting(setting, @invalid_attrs)
       assert setting == Site.get_settings()
     end

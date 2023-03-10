@@ -64,6 +64,9 @@ defmodule Chiya.Notes do
 
   """
   def get_note_preloaded!(id), do: Repo.get!(Note, id) |> preload_note()
+  
+  def get_note_by_slug_preloaded!(slug), do: Repo.get_by!(Note, slug: slug) |> preload_note()
+
 
   @doc """
   Creates a note.

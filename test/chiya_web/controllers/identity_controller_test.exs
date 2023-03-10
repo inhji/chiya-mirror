@@ -13,6 +13,8 @@ defmodule ChiyaWeb.IdentityControllerTest do
   }
   @invalid_attrs %{active: nil, name: nil, public: nil, rel: nil, url: nil}
 
+  setup [:register_and_log_in_user]
+
   describe "index" do
     test "lists all identities", %{conn: conn} do
       conn = get(conn, ~p"/admin/identities")

@@ -9,9 +9,11 @@ defmodule Chiya.Site.Setting do
     field :custom_css, :string, default: ""
     field :custom_html, :string, default: ""
 
-    field :theme, Ecto.Enum, values: [:default]
+    field :theme, Ecto.Enum, values: [:default], default: :default
 
     field :user_agent, :string, default: "Chiya/0.x +https://inhji.de"
+
+    belongs_to :home_channel, Chiya.Channels.Channel
 
     timestamps()
   end
@@ -19,7 +21,15 @@ defmodule Chiya.Site.Setting do
   @doc false
   def changeset(setting, attrs) do
     setting
-    |> cast(attrs, [:title, :subtitle, :theme, :user_agent, :custom_css, :custom_html])
+    |> cast(attrs, [
+      :title,
+      :subtitle,
+      :theme,
+      :user_agent,
+      :custom_css,
+      :custom_html,
+      :home_channel_id
+    ])
     |> validate_required([:title, :subtitle, :theme, :user_agent])
   end
 end
