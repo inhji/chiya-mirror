@@ -91,6 +91,9 @@ defmodule ChiyaWeb do
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
 
+      # Custom functions
+      import ChiyaWeb.Format, only: [from_now: 1]
+
       # Routes generation with the ~p sigil
       unquote(verified_routes())
     end
