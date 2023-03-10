@@ -17,7 +17,7 @@ defmodule Chiya.Identities.Identity do
   @doc false
   def changeset(identity, attrs) do
     identity
-    |> cast(attrs, [:name, :rel, :url, :icon])
+    |> cast(attrs, [:name, :rel, :url, :icon, :public, :active])
     |> validate_required([:name, :rel, :url, :icon])
   end
 end
