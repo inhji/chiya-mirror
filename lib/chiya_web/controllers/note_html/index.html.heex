@@ -9,7 +9,7 @@
 
 <.table id="notes" rows={@notes} row_click={&JS.navigate(~p"/admin/notes/#{&1}")}>
   <:col :let={note} label="Name"><%= note.name %></:col>
-  <:col :let={note} label="Published at"><%= from_now_naive(note.published_at) %></:col>
+  <:col :let={note} label="Published at"><%= from_now(note.published_at) %></:col>
   <:col :let={note} label="Kind"><%= note.kind %></:col>
   <:action :let={note}>
     <div class="sr-only">
