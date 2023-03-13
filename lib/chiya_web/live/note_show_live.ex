@@ -16,6 +16,9 @@ defmodule ChiyaWeb.NoteShowLive do
         <.link href={~p"/admin/notes/#{@note}/edit"}>
           <.button>Edit note</.button>
         </.link>
+        <.link href={~p"/n/#{@note.slug}"}>
+          <.button>Preview note</.button>
+        </.link>
       </:actions>
     </.header>
 
