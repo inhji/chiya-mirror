@@ -29,7 +29,7 @@
           <a href={~p"/n/#{note.slug}"}>
             <.header>
               <%= note.name %>
-              <:subtitle><%= note.published_at %></:subtitle>
+              <:subtitle><%= pretty_date(note.published_at) %></:subtitle>
             </.header>
           </a>
         <% end %>

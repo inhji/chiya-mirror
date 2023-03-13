@@ -53,7 +53,8 @@ defmodule Chiya.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:oban, "~> 2.14"},
       {:waffle, "~> 1.1"},
-      {:waffle_ecto, "~> 0.0.12"}
+      {:waffle_ecto, "~> 0.0.12"},
+      {:earmark, "~> 1.4"}
     ]
   end
 

@@ -1,3 +1,8 @@
 <.header>
-	<%= @note.name %>
+  <%= @note.name %>
+  <:subtitle><%= pretty_date(@note.published_at) %></:subtitle>
 </.header>
+
+<section class="prose mt-8">
+	<%= Markdown.render(@note.content) |> raw %>
+</section>
