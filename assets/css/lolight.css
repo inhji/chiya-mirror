@@ -1,0 +1,23 @@
+.ll-nam { /* words */
+    color: #2196f3;
+    @apply text-code-500;
+}
+.ll-num { /* numbers */
+    @apply text-code-400;
+}
+.ll-str { /* strings */
+    @apply text-code-600;
+}
+.ll-rex { /* regular expressions */
+    @apply text-code-600;
+}
+.ll-pct { /* operators, punctation */
+    @apply text-code-200;
+}
+.ll-key { /* keywords */
+    @apply text-code-300 font-bold;
+}
+.ll-com { /* comments */
+    @apply text-code-100;
+    font-style: italic;
+}
