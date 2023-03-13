@@ -6,3 +6,25 @@
 <section class="prose mt-8">
 	<%= Markdown.render(@note.content) |> raw %>
 </section>
+
+<%= if !Enum.empty?(@note.images) do %>
+	<.line />
+	
+  <div class="flex flex-wrap gap-3">
+    <%= for image <- @note.images do %>
+      <article>
+        <a href={"#image-#{image.id}"}>
+          <img
+            class="rounded-lg w-28 "
+            src={Chiya.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
+          />
+        </a>
+        <a href="#" class="lightbox" id={"image-#{image.id}"}>
+          <span style={"background-image: url('#{Chiya.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}')"}>
+          </span>
+        </a>
+      </article>
+    <% end %>
+  </div>
+<% end %>
+
