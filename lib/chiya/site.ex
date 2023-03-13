@@ -5,13 +5,15 @@ defmodule Chiya.Site do
 
   import Ecto.Query, warn: false
   alias Chiya.Repo
-
   alias Chiya.Site.Setting
 
+  @doc """
+  Gets a setting row, containing the settings.
+  """
   def get_settings(), do: Repo.one(Setting)
 
   @doc """
-  Creates a setting.
+  Creates a setting row.
 
   ## Examples
 
@@ -29,7 +31,7 @@ defmodule Chiya.Site do
   end
 
   @doc """
-  Updates a setting.
+  Updates the setting row.
 
   ## Examples
 
