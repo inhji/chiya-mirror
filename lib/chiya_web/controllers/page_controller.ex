@@ -8,7 +8,6 @@ defmodule ChiyaWeb.PageController do
 
     channel =
       if settings.home_channel_id != nil do
-        IO.inspect(settings)
         Chiya.Channels.get_channel_preloaded!(settings.home_channel_id)
       else
         nil

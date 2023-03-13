@@ -14,13 +14,13 @@
   <body class="bg-white antialiased">
     <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end bg-black">
       <%= if @current_user do %>
-        <li class="text-xs leading-6 text-zinc-100">
+        <li class="text-xs leading-6 text-gray-100">
           <%= @current_user.email %>
         </li>
         <li>
           <.link
             href={~p"/user"}
-            class="text-xs leading-6 text-zinc-100 font-semibold hover:text-zinc-300"
+            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
           >
             Profile
           </.link>
@@ -28,7 +28,7 @@
         <li>
           <.link
             href={~p"/admin"}
-            class="text-xs leading-6 text-zinc-100 font-semibold hover:text-zinc-300"
+            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
           >
             Admin
           </.link>
@@ -37,7 +37,7 @@
           <.link
             href={~p"/user/log_out"}
             method="delete"
-            class="text-xs leading-6 text-zinc-100 font-semibold hover:text-zinc-300"
+            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
           >
             Log out
           </.link>
@@ -46,7 +46,7 @@
         <li>
           <.link
             href={~p"/user/register"}
-            class="text-xs leading-6 text-zinc-100 font-semibold hover:text-zinc-300"
+            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
           >
             Register
           </.link>
@@ -54,7 +54,7 @@
         <li>
           <.link
             href={~p"/user/log_in"}
-            class="text-xs leading-6 text-zinc-100 font-semibold hover:text-zinc-300"
+            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
           >
             Log in
           </.link>

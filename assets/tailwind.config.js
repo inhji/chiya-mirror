@@ -15,7 +15,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        code: colors.emerald
+        code: colors.emerald,
+        gray: colors.zinc
       }
     },
   },

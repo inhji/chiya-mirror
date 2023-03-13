@@ -1,20 +1,20 @@
 <div class="px-4 py-10 sm:py-28 sm:px-6 lg:px-8 xl:py-32 xl:px-28">
   <div class="mx-auto max-w-xl lg:mx-0">
-    <h1 class="mt-4 text-[2rem] font-semibold leading-10 tracking-tighter text-zinc-900">
+    <h1 class="mt-4 text-[2rem] font-semibold leading-10 tracking-tighter text-gray-900">
       <%= @settings.title %>
     </h1>
-    <p class="mt-4 text-base leading-7 text-zinc-600">
+    <p class="mt-4 text-base leading-7 text-gray-600">
       <%= @settings.subtitle %>
     </p>
     <div class="w-full mt-6 sm:w-auto">
-      <div class="flex gap-4 text-sm leading-6 text-zinc-700">
+      <div class="flex gap-4 text-sm leading-6 text-gray-700">
         <%= for identity <- @identities do %>
           <div>
             <a
               rel={identity.rel}
               href={identity.url}
               target="_blank"
-              class="group -mx-2 -my-0.5 inline-flex items-center gap-3 rounded-lg px-2 py-0.5 hover:bg-zinc-50 hover:text-zinc-900"
+              class="group -mx-2 -my-0.5 inline-flex items-center gap-3 rounded-lg px-2 py-0.5 hover:bg-gray-50 hover:text-gray-900"
             >
               <.icon name="hero-cube" />
               <%= identity.name %>
