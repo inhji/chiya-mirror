@@ -1,8 +1,6 @@
 defmodule ChiyaWeb.UserProfileLive do
   use ChiyaWeb, :live_view
 
-  alias Chiya.Accounts
-
   def render(assigns) do
     ~H"""
     <.header>

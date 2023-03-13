@@ -3,6 +3,7 @@ defmodule ChiyaWeb.UserSettingsLive do
 
   alias Chiya.Accounts
 
+  @impl true
   def render(assigns) do
     ~H"""
     <.header>Change Avatar</.header>
