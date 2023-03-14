@@ -10,7 +10,7 @@ defmodule Chiya.Channels.Channel do
 
     many_to_many :notes, Chiya.Notes.Note,
       join_through: "channels_notes",
-      join_keys: [note: :id, channel: :id]
+      join_keys: [channel: :id, note: :id]
     
     timestamps()
   end
