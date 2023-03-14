@@ -45,6 +45,7 @@ defmodule ChiyaWeb do
       import Plug.Conn
       import ChiyaWeb.Gettext
       import Phoenix.LiveView.Controller
+      import ChiyaWeb.Error
 
       unquote(verified_routes())
     end

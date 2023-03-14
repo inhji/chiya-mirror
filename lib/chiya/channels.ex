@@ -6,8 +6,10 @@ defmodule Chiya.Channels do
   import Ecto.Query, warn: false
   alias Chiya.Repo
   alias Chiya.Channels.Channel
+  alias Chiya.Notes.Note
 
   @preloads [:notes]
+  @public_preloads [notes: (from n in Note, where: not is_nil(n.published_at))]
 
   @doc """
   Returns the list of channels.
@@ -23,6 +25,7 @@ defmodule Chiya.Channels do
   end
 
   def preload_channel(channel), do: Repo.preload(channel, @preloads)
+  def preload_channel_public(channel), do: Repo.preload(channel, @public_preloads)
 
   @doc """
   Gets a single channel.
@@ -48,7 +51,8 @@ defmodule Chiya.Channels do
   @doc """
   Gets a single channel by its slug with all associated entities preloaded.
   """
-  def get_channel_by_slug_preloaded!(slug), do: Repo.get_by!(Channel, slug: slug) |> preload_channel()
+  def get_channel_by_slug!(slug), do: Repo.get_by!(Channel, slug: slug)
+  
   @doc """
   Creates a channel.
 
