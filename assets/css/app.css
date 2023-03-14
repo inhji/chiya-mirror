@@ -4,3 +4,6 @@
 
 @import "./lolight.css";
 @import "./lightbox.css";
+
+/* Set appropriate width for identity icons */
+a[rel] svg { width: 1em; }

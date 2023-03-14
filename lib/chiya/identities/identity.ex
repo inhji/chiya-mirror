@@ -6,7 +6,7 @@ defmodule Chiya.Identities.Identity do
     field :name, :string
     field :url, :string
     field :rel, :string, default: "me"
-    field :icon, :string, default: "cube"
+    field :icon, :string, default: ""
 
     field :public, :boolean, default: false
     field :active, :boolean, default: false

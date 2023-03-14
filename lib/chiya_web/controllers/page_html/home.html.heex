@@ -6,6 +6,7 @@
     <p class="mt-4 text-base leading-7 text-gray-600">
       <%= @settings.subtitle %>
     </p>
+
     <div class="w-full mt-6 sm:w-auto">
       <div class="flex gap-4 text-sm leading-6 text-gray-700">
         <%= for identity <- @identities do %>
@@ -16,7 +17,7 @@
               target="_blank"
               class="group -mx-2 -my-0.5 inline-flex items-center gap-3 rounded-lg px-2 py-0.5 hover:bg-gray-50 hover:text-gray-900"
             >
-              <.icon name="hero-cube" />
+              <%= raw identity.icon %>
               <%= identity.name %>
             </a>
           </div>

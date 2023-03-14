@@ -12,7 +12,7 @@ defmodule ChiyaWeb.CoreComponents do
 
   alias Phoenix.LiveView.JS
   import ChiyaWeb.Gettext
-
+  
   @doc """
   Renders a horizontal line
   """
