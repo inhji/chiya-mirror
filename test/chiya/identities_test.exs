@@ -26,7 +26,8 @@ defmodule Chiya.IdentitiesTest do
         name: "some name",
         public: true,
         rel: "some rel",
-        url: "some url"
+        url: "some url", 
+        icon: "some icon"
       }
 
       assert {:ok, %Identity{} = identity} = Identities.create_identity(valid_attrs)
@@ -35,6 +36,7 @@ defmodule Chiya.IdentitiesTest do
       assert identity.public == true
       assert identity.rel == "some rel"
       assert identity.url == "some url"
+      assert identity.icon == "some icon"
     end
 
     test "create_identity/1 with invalid data returns error changeset" do
@@ -49,7 +51,8 @@ defmodule Chiya.IdentitiesTest do
         name: "some updated name",
         public: false,
         rel: "some updated rel",
-        url: "some updated url"
+        url: "some updated url",
+        icon: "some updated icon"
       }
 
       assert {:ok, %Identity{} = identity} = Identities.update_identity(identity, update_attrs)
@@ -58,6 +61,7 @@ defmodule Chiya.IdentitiesTest do
       assert identity.public == false
       assert identity.rel == "some updated rel"
       assert identity.url == "some updated url"
+      assert identity.icon == "some updated icon"
     end
 
     test "update_identity/2 with invalid data returns error changeset" do

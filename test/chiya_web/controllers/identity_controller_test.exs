@@ -3,13 +3,14 @@ defmodule ChiyaWeb.IdentityControllerTest do
 
   import Chiya.IdentitiesFixtures
 
-  @create_attrs %{active: true, name: "some name", public: true, rel: "some rel", url: "some url"}
+  @create_attrs %{active: true, name: "some name", public: true, rel: "some rel", url: "some url", icon: "some icon"}
   @update_attrs %{
     active: false,
     name: "some updated name",
     public: false,
     rel: "some updated rel",
-    url: "some updated url"
+    url: "some updated url",
+    icon: "some updated icon"
   }
   @invalid_attrs %{active: nil, name: nil, public: nil, rel: nil, url: nil}
 

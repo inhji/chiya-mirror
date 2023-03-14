@@ -15,7 +15,8 @@ defmodule Chiya.IdentitiesFixtures do
         name: "some name",
         public: true,
         rel: "some rel",
-        url: "some url"
+        url: "some url",
+        icon: "some icon"
       })
       |> Chiya.Identities.create_identity()
 
