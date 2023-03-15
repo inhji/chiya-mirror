@@ -2,6 +2,9 @@
   <div class="flex items-center justify-between border-b border-gray-100 py-3">
     <div class="flex items-center gap-4">
       <a href="/">Chiya</a>
+      <p class="rounded-full bg-theme-primary px-2 text-[0.8125rem] font-medium leading-6">
+        v<%= Application.spec(:chiya, :vsn) %>
+      </p>
     </div>
     <div class="flex items-center gap-4">
       <.link
