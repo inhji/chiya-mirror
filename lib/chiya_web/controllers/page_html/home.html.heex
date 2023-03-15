@@ -25,9 +25,9 @@
       </div>
     </div>
     <%= if @channel do %>
-      <div class="w-full mt-6 sm:w-auto flex flex-col">
+      <div class="w-full mt-6 sm:w-auto flex flex-col gap-1.5">
         <%= for note <- @channel.notes do %>
-          <a href={~p"/n/#{note.slug}"}>
+          <a href={~p"/n/#{note.slug}"} class="group">
             <span class="text-gray-900 text-lg font-semibold leading-8"><%= note.name %></span>
             <span class="text-gray-600 text-sm"><%= pretty_date(note.published_at) %></span>
           </a>
