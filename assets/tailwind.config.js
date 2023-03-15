@@ -18,7 +18,7 @@ module.exports = {
         code: colors.emerald,
         gray: colors.zinc,
         theme: {
-          primary: "var(--color-primary)"
+          primary: 'rgb(var(--color-primary) / <alpha-value>)'
         } 
       }
     },
