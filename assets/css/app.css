@@ -14,6 +14,15 @@
     --color-primary: 16 185 129;
     --color-secondary: 245 158 11;
   }
+
+  :root[data-theme=roguelight] {
+    --color-background: 118 174 128;
+    --color-text-base: 245 245 212;
+    --color-text-heading: 150 44 67;
+    --color-text-muted: 245 245 212;
+    --color-primary: 150 44 67;
+    --color-secondary: 150 44 67;
+  }
 }
 
 /* Set appropriate width for identity icons */
