@@ -8,7 +8,7 @@
 @layer base {
   :root {
     --color-background: 255 255 255;
-    --color-text-default: 82 82 91;
+    --color-text-base: 82 82 91;
     --color-text-heading: 24 24 27;
     --color-text-muted: 82 82 91;
     --color-primary: 16 185 129;
