@@ -19,11 +19,11 @@ module.exports = {
         gray: colors.zinc,
         theme: {
           primary: 'rgb(var(--color-primary) / <alpha-value>)',
-          secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
           heading: 'rgb(var(--color-text-heading) / <alpha-value>)',
           base: 'rgb(var(--color-text-base) / <alpha-value>)',
           muted: 'rgb(var(--color-text-muted) / <alpha-value>)',
-          background: 'rgb(var(--color-background) / <alpha-value>)'
+          background: 'rgb(var(--color-background) / <alpha-value>)',
+          dim: 'rgb(var(--color-text-dim) / <alpha-value>)'
         } 
       }
     },

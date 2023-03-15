@@ -7,23 +7,26 @@
 
 @layer base {
   :root {
+    --color-primary: 16 185 129;
     --color-background: 255 255 255;
     --color-text-base: 82 82 91;
     --color-text-heading: 24 24 27;
     --color-text-muted: 82 82 91;
-    --color-primary: 16 185 129;
-    --color-secondary: 245 158 11;
+    --color-text-dim: 244 244 245;
   }
 
   :root[data-theme=roguelight] {
-    --color-background: 118 174 128;
+    --color-primary: 150 207 133;
+    --color-background: 53 43 49;
     --color-text-base: 245 245 212;
-    --color-text-heading: 150 44 67;
+    --color-text-heading: 150 207 133;
     --color-text-muted: 245 245 212;
-    --color-primary: 150 44 67;
-    --color-secondary: 150 44 67;
+    --color-text-dim: 74 107 131;
   }
 }
 
 /* Set appropriate width for identity icons */
-a[rel] svg { width: 1em; }
+a[rel] svg { 
+  width: 1em;
+  fill: rgb(var(--color-text-heading));
+}
