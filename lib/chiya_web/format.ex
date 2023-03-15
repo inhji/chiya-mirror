@@ -11,6 +11,8 @@ defmodule ChiyaWeb.Format do
     do_from_now(diff)
   end
 
+  def from_now(_), do: "never"
+
   def do_from_now(diff) do
     cond do
       diff <= -24 * 3600 -> "in #{div(-diff, 24 * 3600)} days"
