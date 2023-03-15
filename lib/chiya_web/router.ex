@@ -8,13 +8,14 @@ defmodule ChiyaWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {ChiyaWeb.Layouts, :root}
+    plug :put_root_layout, {ChiyaWeb.Layouts, :root_app}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
   end
 
   pipeline :public do
+    plug :put_root_layout, {ChiyaWeb.Layouts, :root_public}
     plug :fetch_settings
     plug :fetch_identities
   end
