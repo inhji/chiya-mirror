@@ -16,7 +16,10 @@ module.exports = {
     extend: {
       colors: {
         code: colors.emerald,
-        gray: colors.zinc
+        gray: colors.zinc,
+        theme: {
+          primary: "var(--color-primary)"
+        } 
       }
     },
   },
