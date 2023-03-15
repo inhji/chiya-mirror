@@ -22,7 +22,7 @@ defmodule ChiyaWeb.CoreComponents do
     """
   end
 
-  @doc """"
+  @doc """
   Renders the admin menu bar
   """
 
