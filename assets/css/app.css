@@ -6,5 +6,12 @@
 @import "./lolight.css";
 @import "./lightbox.css";
 
+@layer base {
+  :root {
+    --color-primary: 255 115 179;
+    --color-secondary: 111 114 185;
+  }
+}
+
 /* Set appropriate width for identity icons */
 a[rel] svg { width: 1em; }
