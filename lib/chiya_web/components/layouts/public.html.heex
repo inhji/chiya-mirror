@@ -2,11 +2,15 @@
   <div class="flex items-center justify-between border-b border-gray-100 py-3">
     <div class="flex items-center gap-4">
       <a href="/">Chiya</a>
-      <p class="rounded-full bg-brand/5 px-2 text-[0.8125rem] font-medium leading-6 text-brand">
-        v<%= Application.spec(:chiya, :vsn) %>
-      </p>
     </div>
-    <div class="flex items-center gap-4"></div>
+    <div class="flex items-center gap-4">
+      <.link
+        href={~p"/n/about"}
+        class="text-xs font-semibold leading-6 text-gray-900 hover:text-gray-700"
+      >
+        About
+      </.link>
+    </div>
   </div>
 </header>
 <main class="px-4 py-20 sm:px-6 lg:px-8">
