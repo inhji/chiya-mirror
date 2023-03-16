@@ -20,13 +20,12 @@
     <:item title="Subtitle"><%= @setting.subtitle %></:item>
     <:item title="Theme">
       <%= @setting.theme %>
-      <div class="flex flex-row gap-2">
-        <.icon name="hero-heart" class="bg-theme-background" />
-        <.icon name="hero-heart" class="bg-theme-primary" />
-        <.icon name="hero-heart" class="bg-theme-heading" />
-        <.icon name="hero-heart" class="bg-theme-base" />
-        <.icon name="hero-heart" class="bg-theme-muted" />
-        <.icon name="hero-heart" class="bg-theme-dim" />
+      <div class="flex flex-row gap-2 bg-theme-background">
+        <.icon name="hero-heart-solid" class="bg-theme-primary" />
+        <.icon name="hero-heart-solid" class="bg-theme-heading" />
+        <.icon name="hero-heart-solid" class="bg-theme-base" />
+        <.icon name="hero-heart-solid" class="bg-theme-muted" />
+        <.icon name="hero-heart-solid" class="bg-theme-dim" />
       </div>
     </:item>
     <:item title="User agent"><%= @setting.user_agent %></:item>
