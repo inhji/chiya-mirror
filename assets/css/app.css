@@ -25,6 +25,13 @@
   }
 }
 
+/* 
+  Invert prose styles based on the variant of the theme. 
+*/
+:root[data-variant=dark] .prose {
+  @apply prose-invert;
+}
+
 /* Set appropriate width for identity icons */
 a[rel] svg { 
   width: 1em;
