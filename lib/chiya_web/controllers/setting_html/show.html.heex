@@ -18,7 +18,17 @@
   <.list>
     <:item title="Title"><%= @setting.title %></:item>
     <:item title="Subtitle"><%= @setting.subtitle %></:item>
-    <:item title="Theme"><%= @setting.theme %></:item>
+    <:item title="Theme">
+      <%= @setting.theme %>
+      <div class="flex flex-row gap-2">
+        <.icon name="hero-heart" class="bg-theme-background" />
+        <.icon name="hero-heart" class="bg-theme-primary" />
+        <.icon name="hero-heart" class="bg-theme-heading" />
+        <.icon name="hero-heart" class="bg-theme-base" />
+        <.icon name="hero-heart" class="bg-theme-muted" />
+        <.icon name="hero-heart" class="bg-theme-dim" />
+      </div>
+    </:item>
     <:item title="User agent"><%= @setting.user_agent %></:item>
     <:item title="Custom css"><%= @setting.custom_css %></:item>
     <:item title="Custom html"><%= @setting.custom_html %></:item>
