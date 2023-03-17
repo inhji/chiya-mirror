@@ -2,19 +2,14 @@ defmodule ChiyaWeb.PageController do
   use ChiyaWeb, :controller
 
   def home(conn, _params) do
-    # The home page is often custom made,
-    # so skip the default app layout.
     settings = conn.assigns.settings
 
-    channel =
-      if settings.home_channel_id != nil do
-        Chiya.Channels.get_channel!(settings.home_channel_id)
-        |> Chiya.Channels.preload_channel_public()
-      else
-        nil
-      end
+    channel = case settings.home_channel_id do
+      nil -> nil
+      id -> Chiya.Channels.get_channel!(id) |> Chiya.Channels.preload_channel_public()
+    end
 
-    render(conn, :home, layout: {ChiyaWeb.Layouts, "public.html"}, channel: channel)
+    render(conn, :home, layout: {ChiyaWeb.Layouts, "public.html"}, channel: channel, page_title: "Home")
   end
 
   def channel(conn, %{"slug" => channel_slug}) do
@@ -22,7 +17,7 @@ defmodule ChiyaWeb.PageController do
       Chiya.Channels.get_channel_by_slug!(channel_slug)
       |> Chiya.Channels.preload_channel_public()
 
-    render(conn, :channel, layout: {ChiyaWeb.Layouts, "public.html"}, channel: channel)
+    render(conn, :channel, layout: {ChiyaWeb.Layouts, "public.html"}, channel: channel, page_title: channel.name)
   end
 
   def note(conn, %{"slug" => note_slug}) do
@@ -31,7 +26,7 @@ defmodule ChiyaWeb.PageController do
     if is_nil(note.published_at) do
       render_error(conn, :not_found)
     else 
-      render(conn, :note, layout: {ChiyaWeb.Layouts, "public.html"}, note: note)
+      render(conn, :note, layout: {ChiyaWeb.Layouts, "public.html"}, note: note, page_title: note.name)
     end
   end
 end
