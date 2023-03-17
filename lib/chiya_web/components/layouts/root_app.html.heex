@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="scrollbar-gutter: stable;">
+<html lang="en" style="scrollbar-gutter: stable;" data-theme={@settings.theme}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,8 +10,15 @@
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
+    <script>
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.dataset["mode"] = "dark"
+      } else {
+        delete document.documentElement.dataset["mode"]
+      }
+    </script>
   </head>
-  <body class="bg-white antialiased">
+  <body class="bg-white dark:bg-gray-900 antialiased">
     <.admin_bar current_user={@current_user} />
     <%= @inner_content %>
   </body>

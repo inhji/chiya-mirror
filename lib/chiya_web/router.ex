@@ -12,11 +12,11 @@ defmodule ChiyaWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+    plug :fetch_settings
   end
 
   pipeline :public do
     plug :put_root_layout, {ChiyaWeb.Layouts, :root_public}
-    plug :fetch_settings
     plug :fetch_identities
   end
 

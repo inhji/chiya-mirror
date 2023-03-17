@@ -44,7 +44,7 @@ defmodule ChiyaWeb.NoteShowLive do
                 src={Chiya.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
               />
             </a>
-            <p class="text-center text-xs text-gray-700">
+            <p class="text-center text-xs text-gray-700 dark:text-gray-300">
               <a
                 href="#"
                 phx-click="delete_image"

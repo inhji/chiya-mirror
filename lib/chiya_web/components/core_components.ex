@@ -23,7 +23,7 @@ defmodule ChiyaWeb.CoreComponents do
   """
   def line(assigns) do
     ~H"""
-    <hr class="my-6" />
+    <hr class="my-6 dark:border-gray-700" />
     """
   end
 
@@ -39,6 +39,15 @@ defmodule ChiyaWeb.CoreComponents do
       <%= if @current_user do %>
         <li class="text-xs leading-6 text-gray-100">
           <%= @current_user.email %>
+        </li>
+        <li>
+          <.link
+            href=""
+            id="dark-mode-toggle"
+            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
+          >
+            <.icon name="hero-bolt-mini" class="h-4 w-4" />
+          </.link>
         </li>
         <li>
           <.link
@@ -97,7 +106,7 @@ defmodule ChiyaWeb.CoreComponents do
   def live_upload(assigns) do
     ~H"""
     <div>
-      <.live_file_input upload={@upload} />
+      <.live_file_input upload={@upload} class="dark:text-gray-300" />
 
       <section phx-drop-target={@upload.ref}>
         <%= for entry <- @upload.entries do %>
@@ -273,8 +282,8 @@ defmodule ChiyaWeb.CoreComponents do
       role="alert"
       class={[
         "fixed hidden top-2 right-2 w-80 sm:w-96 z-50 rounded-lg p-3 shadow-md shadow-gray-900/5 ring-1",
-        @kind == :info && "bg-emerald-50 text-emerald-800 ring-emerald-500 fill-cyan-900",
-        @kind == :error && "bg-rose-50 p-3 text-rose-900 shadow-md ring-rose-500 fill-rose-900"
+        @kind == :info && "bg-emerald-50 text-emerald-800 ring-emerald-500 fill-cyan-900 dark:bg-emerald-900 dark:text-emerald-200 hover:opacity-40",
+        @kind == :error && "bg-rose-50 p-3 text-rose-900 shadow-md ring-rose-500 fill-rose-900 dark:bg-rose-900 dark:text-rose-200 hover:opacity-40"
       ]}
       {@rest}
     >
@@ -349,7 +358,7 @@ defmodule ChiyaWeb.CoreComponents do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="space-y-8 bg-white mt-10">
+      <div class="space-y-8 bg-white dark:bg-gray-900 mt-10">
         <%= render_slot(@inner_block, f) %>
         <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
           <%= render_slot(action, f) %>
@@ -379,7 +388,7 @@ defmodule ChiyaWeb.CoreComponents do
       type={@type}
       class={[
         "phx-submit-loading:opacity-75 rounded-lg bg-gray-900 hover:bg-gray-700 py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
+        "text-sm font-semibold leading-6 text-white active:text-white/80 dark:bg-gray-800 dark:hover:bg-gray-700",
         @class
       ]}
       {@rest}
@@ -438,7 +447,7 @@ defmodule ChiyaWeb.CoreComponents do
 
     ~H"""
     <div phx-feedback-for={@name}>
-      <label class="flex items-center gap-4 text-sm leading-6 text-gray-600">
+      <label class="flex items-center gap-4 text-sm leading-6 text-gray-600 dark:text-gray-300">
         <input type="hidden" name={@name} value="false" />
         <input
           type="checkbox"
@@ -446,7 +455,7 @@ defmodule ChiyaWeb.CoreComponents do
           name={@name}
           value="true"
           checked={@checked}
-          class="rounded border-gray-300 text-gray-900 focus:ring-gray-900"
+          class="rounded border-gray-300 text-gray-900 focus:ring-gray-900 dark:text-gray-700 dark:focus:bg-gray-700 dark:border-gray-700 dark:bg-gray-700"
           {@rest}
         />
         <%= @label %>
@@ -463,7 +472,7 @@ defmodule ChiyaWeb.CoreComponents do
       <select
         id={@id}
         name={@name}
-        class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm"
+        class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:focus:border-gray-400"
         multiple={@multiple}
         {@rest}
       >
@@ -487,6 +496,7 @@ defmodule ChiyaWeb.CoreComponents do
           "text-gray-900 focus:border-gray-400 focus:outline-none focus:ring-4 focus:ring-gray-800/5 sm:text-sm sm:leading-6",
           "phx-no-feedback:border-gray-300 phx-no-feedback:focus:border-gray-400 phx-no-feedback:focus:ring-gray-800/5",
           "border-gray-300 focus:border-gray-400 focus:ring-gray-800/5",
+          "dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:focus:border-gray-400",
           @errors != [] && "border-rose-400 focus:border-rose-400 focus:ring-rose-400/10"
         ]}
         {@rest}
@@ -510,6 +520,7 @@ defmodule ChiyaWeb.CoreComponents do
           "text-gray-900 focus:outline-none focus:ring-4 sm:text-sm sm:leading-6",
           "phx-no-feedback:border-gray-300 phx-no-feedback:focus:border-gray-400 phx-no-feedback:focus:ring-gray-800/5",
           "border-gray-300 focus:border-gray-400 focus:ring-gray-800/5",
+          "dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:focus:border-gray-400",
           @errors != [] && "border-rose-400 focus:border-rose-400 focus:ring-rose-400/10"
         ]}
         {@rest}
@@ -527,7 +538,7 @@ defmodule ChiyaWeb.CoreComponents do
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="block text-sm font-semibold leading-6 text-gray-800">
+    <label for={@for} class="block text-sm font-semibold leading-6 text-gray-800 dark:text-gray-300">
       <%= render_slot(@inner_block) %>
     </label>
     """
@@ -560,10 +571,10 @@ defmodule ChiyaWeb.CoreComponents do
     ~H"""
     <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
       <div>
-        <h1 class="text-lg font-semibold leading-8 text-gray-800">
+        <h1 class="text-lg font-semibold leading-8 text-gray-800 dark:text-gray-200">
           <%= render_slot(@inner_block) %>
         </h1>
-        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-gray-600">
+        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-400">
           <%= render_slot(@subtitle) %>
         </p>
       </div>
@@ -615,27 +626,27 @@ defmodule ChiyaWeb.CoreComponents do
         <tbody
           id={@id}
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
-          class="relative divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6 text-gray-700"
+          class="relative divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6 text-gray-700 dark:text-gray-200 dark:border-gray-700 dark:divide-gray-800"
         >
-          <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="group hover:bg-gray-50">
+          <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="group hover:bg-gray-50 dark:hover:bg-gray-800">
             <td
               :for={{col, i} <- Enum.with_index(@col)}
               phx-click={@row_click && @row_click.(row)}
               class={["relative p-0", @row_click && "hover:cursor-pointer"]}
             >
               <div class="block py-4 pr-6">
-                <span class="absolute -inset-y-px right-0 -left-4 group-hover:bg-gray-50 sm:rounded-l-xl" />
-                <span class={["relative", i == 0 && "font-semibold text-gray-900"]}>
+                <span class="absolute -inset-y-px right-0 -left-4 group-hover:bg-gray-50 sm:rounded-l-xl dark:group-hover:bg-gray-800" />
+                <span class={["relative", i == 0 && "font-semibold text-gray-900 dark:text-gray-100"]}>
                   <%= render_slot(col, @row_item.(row)) %>
                 </span>
               </div>
             </td>
             <td :if={@action != []} class="relative p-0 w-14">
               <div class="relative whitespace-nowrap py-4 text-right text-sm font-medium">
-                <span class="absolute -inset-y-px -right-4 left-0 group-hover:bg-gray-50 sm:rounded-r-xl" />
+                <span class="absolute -inset-y-px -right-4 left-0 group-hover:bg-gray-50 sm:rounded-r-xl dark:group-hover:bg-gray-800" />
                 <span
                   :for={action <- @action}
-                  class="relative ml-4 font-semibold leading-6 text-gray-900 hover:text-gray-700"
+                  class="relative ml-4 font-semibold leading-6 text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300"
                 >
                   <%= render_slot(action, @row_item.(row)) %>
                 </span>
@@ -665,10 +676,10 @@ defmodule ChiyaWeb.CoreComponents do
   def list(assigns) do
     ~H"""
     <div class="mt-14">
-      <dl class="-my-4 divide-y divide-gray-100">
+      <dl class="-my-4 divide-y divide-gray-100 dark:divide-gray-800">
         <div :for={item <- @item} class="flex gap-4 py-4 sm:gap-8">
-          <dt class="w-1/4 flex-none text-[0.8125rem] leading-6 text-gray-500"><%= item.title %></dt>
-          <dd class="text-sm leading-6 text-gray-700"><%= render_slot(item) %></dd>
+          <dt class="w-1/4 flex-none text-[0.8125rem] leading-6 text-gray-500 dark:text-gray-300"><%= item.title %></dt>
+          <dd class="text-sm leading-6 text-gray-700 dark:text-gray-400"><%= render_slot(item) %></dd>
         </div>
       </dl>
     </div>
@@ -690,7 +701,7 @@ defmodule ChiyaWeb.CoreComponents do
     <div class="mt-16">
       <.link
         navigate={@navigate}
-        class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-700"
+        class="text-sm font-semibold leading-6 text-gray-900 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-400"
       >
         <.icon name="hero-arrow-left-solid" class="w-3 h-3" />
         <%= render_slot(@inner_block) %>
