@@ -19,7 +19,7 @@
     --color-primary: 150 207 133;
     --color-background: 53 43 49;
     --color-text-base: 245 245 212;
-    --color-text-heading: 150 207 133;
+    --color-text-heading: 112 131 140;
     --color-text-muted: 245 245 212;
     --color-text-dim: 74 59 68;
   }
@@ -32,8 +32,14 @@
   @apply prose-invert;
 }
 
-/* Set appropriate width for identity icons */
+/* Set width and color for identity icons */
 a[rel] svg { 
   width: 1em;
   fill: rgb(var(--color-text-heading));
+}
+
+/* Set width and color for identity icons */
+svg {
+  width: 1.5em;
+  @apply fill-emerald-500 dark:fill-emerald-700;
 }
