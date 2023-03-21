@@ -6,6 +6,7 @@ const deploy = args.includes('--deploy')
 
 const loader = {
   // Add loaders for images/fonts/etc, e.g. { '.svg': 'file' }
+  '.js': 'jsx'
 }
 
 const plugins = [
@@ -25,7 +26,6 @@ let opts = {
 if (watch) {
   opts = {
     ...opts,
-    watch,
     sourcemap: 'inline'
   }
 }
@@ -40,6 +40,11 @@ if (deploy) {
 const promise = esbuild.build(opts)
 
 if (watch) {
+  esbuild.context(opts).then(ctx => ctx.watch())
+}
+
+/*
+if (watch) {
   promise.then(_result => {
     process.stdin.on('close', () => {
       process.exit(0)
@@ -48,3 +53,4 @@ if (watch) {
     process.stdin.resume()
   })
 }
+*/

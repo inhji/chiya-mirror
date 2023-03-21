@@ -25,7 +25,7 @@ config :chiya, ChiyaWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "Lix1h6atreh4aW+EGV3SoaVXAHL+yiasUzIBQUoqruNv4yPrnw4gOBy+F86btZ8A",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    node: ["build.js", "--watch", cd: Path.expand("../assets", __DIR__)],
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 

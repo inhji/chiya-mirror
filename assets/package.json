@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "esbuild": "^0.17.12"
+  },
+  "dependencies": {
+    "classnames": "^2.3.2",
+    "kbar": "^0.1.0-beta.40",
+    "phoenix": "file:../deps/phoenix",
+    "phoenix_html": "file:../deps/phoenix_html",
+    "phoenix_live_view": "file:../deps/phoenix_live_view"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}
