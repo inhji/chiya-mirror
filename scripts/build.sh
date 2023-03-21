@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 
 echo "Pulling latest changes.."
-git pull > /dev/null
+git pull
 
 echo "Updating mix dependencies.."
-mix deps.get --only prod > /dev/null
+mix deps.get --only prod
 
 echo "Compiling mix dependencies.."
-MIX_ENV=prod mix compile > /dev/null
+MIX_ENV=prod mix compile
 
 echo "Setting up assets.."
-MIX_ENV=prod mix assets.setup > /dev/null
+MIX_ENV=prod mix assets.setup
 
 echo "Compiling assets.."
-MIX_ENV=prod mix assets.deploy > /dev/null
+MIX_ENV=prod mix assets.deploy
 
 echo "Generating release.."
-MIX_ENV=prod mix release --overwrite > /dev/null
+MIX_ENV=prod mix release --overwrite
 
 echo "Restarting application.."
 systemctl --user restart chiya
