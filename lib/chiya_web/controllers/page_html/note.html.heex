@@ -13,7 +13,7 @@
 <%= if !Enum.empty?(@note.images) do %>
 	<.line />
 	
-  <div class="flex flex-wrap gap-3">
+  <div class="flex flex-wrap gap-3" id="images">
     <%= for image <- @note.images do %>
       <article>
         <a href={"#image-#{image.id}"}>
@@ -22,7 +22,7 @@
             src={Chiya.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
           />
         </a>
-        <a href="#" class="lightbox" id={"image-#{image.id}"}>
+        <a href="#images" class="lightbox" id={"image-#{image.id}"}>
           <span style={"background-image: url('#{Chiya.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}')"}>
           </span>
         </a>
