@@ -35,7 +35,7 @@ defmodule ChiyaWeb.NoteShowLive do
     <.line />
 
     <%= if !Enum.empty?(@note.images) do %>
-      <div class="flex flex-wrap gap-3">
+      <div class="flex flex-wrap gap-3" id="images">
         <%= for image <- @note.images do %>
           <article>
             <a href={"#image-#{image.id}"}>
@@ -55,7 +55,7 @@ defmodule ChiyaWeb.NoteShowLive do
               </a>
             </p>
 
-            <a href="#" class="lightbox" id={"image-#{image.id}"}>
+            <a href="#images" class="lightbox" id={"image-#{image.id}"}>
               <span style={"background-image: url('#{Chiya.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}')"}>
               </span>
             </a>
