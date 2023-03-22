@@ -2,6 +2,7 @@ defmodule Chiya.Channels.Channel do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:id, :name, :content, :slug, :visibility]}
   schema "channels" do
     field :content, :string
     field :name, :string

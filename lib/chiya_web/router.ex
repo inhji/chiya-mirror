@@ -25,9 +25,11 @@ defmodule ChiyaWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ChiyaWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", ChiyaWeb do
+    pipe_through :api
+
+    get "/admin/notes", ApiController, :notes
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:chiya, :dev_routes) do

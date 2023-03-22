@@ -2,6 +2,7 @@ defmodule Chiya.Notes.Note do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:id, :name, :content, :slug, :channels]}
   schema "notes" do
     field :content, :string
     field :kind, Ecto.Enum, values: [:post, :bookmark]
