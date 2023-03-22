@@ -18,8 +18,7 @@ const searchStyle = {
   fontSize: "16px",
   width: "100%",
   boxSizing: "border-box",
-  outline: "none",
-  border: "none"
+  outline: "none"
 };
 
 const animatorStyle = {
@@ -83,9 +82,9 @@ const ResultItem = React.forwardRef(
       <div
         ref={ref}
         className={classNames(
-          "flex justify-between items-center cursor-pointer px-4 py-3",
+          "flex justify-between items-center cursor-pointer px-4 py-3 dark:text-white",
           { 
-            "bg-emerald-50": active,
+            "bg-emerald-50 dark:bg-emerald-900": active,
             "border-l-2 border-emerald-300": active
           })}
       >
@@ -223,7 +222,9 @@ const staticActions = [
     keywords: "settings edit",
     perform: () => (window.location.pathname = "admin/settings/edit"),
   }
-]
+].map(function(a) { 
+  return {...a, section: "Pages"}
+})
 
 function DynamicResultsProvider() {
   const [actions, setActions] = useState([])
@@ -236,9 +237,12 @@ function DynamicResultsProvider() {
       .then(json => setNotes(json.notes))
   }, [rerender])
 
+
   const noteActions = useMemo(() => notes.map(note => createAction({
     id: note.slug,
     name: note.name,
+    subtitle: note.channels.map(c => c.name).join(", "),
+    section: "Notes",
     keywords: note.channels.map(c => c.name),
     perform: () => (window.location.pathname = `/admin/notes/${note.id}`),
   })), [notes])
@@ -252,8 +256,8 @@ export default function KBar() {
       <DynamicResultsProvider />
       <KBarPortal>
         <KBarPositioner>
-          <KBarAnimator style={animatorStyle} className="bg-gray-50 border border-gray-100 shadow-lg">
-            <KBarSearch style={searchStyle} className="bg-gray-200" />
+          <KBarAnimator style={animatorStyle} className="bg-gray-50 border border-gray-100 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+            <KBarSearch style={searchStyle} className="bg-gray-50 dark:bg-gray-900 border-b border-gray-100" />
             <RenderResults />
           </KBarAnimator>
         </KBarPositioner>
