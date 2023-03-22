@@ -93,6 +93,7 @@ defmodule ChiyaWeb do
       alias Phoenix.LiveView.JS
 
       # Custom functions
+      import ChiyaWeb.AdminComponents
       import ChiyaWeb.Format, only: [from_now: 1, pretty_date: 1]
       alias ChiyaWeb.Markdown
       
