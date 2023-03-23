@@ -1,4 +1,4 @@
-defmodule Chiya.Uploaders.NoteImage do
+defmodule ChiyaWeb.Uploaders.NoteImage do
   use Waffle.Definition
   use Waffle.Ecto.Definition
 

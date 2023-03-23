@@ -157,7 +157,7 @@ defmodule Chiya.Notes do
 
   def delete_note_image(%NoteImage{} = note_image) do
     {:ok, _} = Repo.delete(note_image)
-    :ok = Chiya.Uploaders.NoteImage.delete({note_image.path, note_image})
+    :ok = ChiyaWeb.Uploaders.NoteImage.delete({note_image.path, note_image})
     :ok
   end
 

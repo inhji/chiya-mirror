@@ -5,7 +5,7 @@ defmodule Chiya.Notes.NoteImage do
 
   schema "note_images" do
     field :content, :string, default: ""
-    field :path, Chiya.Uploaders.NoteImage.Type
+    field :path, ChiyaWeb.Uploaders.NoteImage.Type
     field :note_id, :id
 
     timestamps()

@@ -10,7 +10,7 @@ defmodule ChiyaWeb.UserSettingsLive do
 
     <img
       class="rounded-lg w-28 mt-8"
-      src={Chiya.Uploaders.UserImage.url({@current_user.user_image, @current_user}, :thumb)}
+      src={ChiyaWeb.Uploaders.UserImage.url({@current_user.user_image, @current_user}, :thumb)}
     />
 
     <.simple_form

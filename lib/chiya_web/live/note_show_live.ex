@@ -41,7 +41,7 @@ defmodule ChiyaWeb.NoteShowLive do
             <a href={"#image-#{image.id}"}>
               <img
                 class="rounded-lg w-28 "
-                src={Chiya.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
+                src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
               />
             </a>
             <p class="text-center text-xs text-gray-700 dark:text-gray-300">
@@ -56,7 +56,7 @@ defmodule ChiyaWeb.NoteShowLive do
             </p>
 
             <a href="#images" class="lightbox" id={"image-#{image.id}"}>
-              <span style={"background-image: url('#{Chiya.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}')"}>
+              <span style={"background-image: url('#{ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}')"}>
               </span>
             </a>
           </article>

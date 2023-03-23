@@ -19,11 +19,11 @@
         <a href={"#image-#{image.id}"}>
           <img
             class="rounded-lg w-28 border"
-            src={Chiya.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
+            src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
           />
         </a>
         <a href="#images" class="lightbox" id={"image-#{image.id}"}>
-          <span style={"background-image: url('#{Chiya.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}')"}>
+          <span style={"background-image: url('#{ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}')"}>
           </span>
         </a>
       </article>

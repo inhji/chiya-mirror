@@ -1,4 +1,4 @@
-defmodule Chiya.Uploaders.UserImage do
+defmodule ChiyaWeb.Uploaders.UserImage do
   use Waffle.Definition
   use Waffle.Ecto.Definition
 
