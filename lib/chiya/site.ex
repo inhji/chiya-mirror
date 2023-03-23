@@ -7,10 +7,24 @@ defmodule Chiya.Site do
   alias Chiya.Repo
   alias Chiya.Site.Setting
 
+  @preloads [:home_channel, :default_channel]
+  @default_settings %{
+    title: "Site Title",
+    subtitle: "Subtitle",
+    theme: "default",
+    custom_css: "",
+    custom_html: ""
+  }
+
   @doc """
   Gets a setting row, containing the settings.
   """
-  def get_settings(), do: Repo.one(Setting)
+  def get_settings() do
+    case Repo.one(Setting) do
+      nil -> @default_settings
+      setting -> Repo.preload(setting, @preloads)
+    end
+  end
 
   @doc """
   Creates a setting row.
