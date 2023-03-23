@@ -14,6 +14,7 @@ defmodule Chiya.Site.Setting do
     field :user_agent, :string, default: "Chiya/0.x +https://inhji.de"
 
     belongs_to :home_channel, Chiya.Channels.Channel
+    belongs_to :default_channel, Chiya.Channels.Channel
 
     timestamps()
   end
@@ -28,7 +29,8 @@ defmodule Chiya.Site.Setting do
       :user_agent,
       :custom_css,
       :custom_html,
-      :home_channel_id
+      :home_channel_id,
+      :default_channel_id
     ])
     |> validate_required([:title, :subtitle, :theme, :user_agent])
   end
