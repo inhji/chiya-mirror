@@ -28,6 +28,12 @@ chiya-*.tar
 # Ignore assets that are produced by build tools.
 /priv/static/assets/
 
+# Ignore processed assets
+/priv/static
+!/priv/static/robots.txt
+!/priv/static/site.webmanifest
+!/priv/static/browserconfig.xml
+
 # Ignore digested assets cache.
 /priv/static/cache_manifest.json
 
