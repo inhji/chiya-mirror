@@ -19,6 +19,6 @@
     <.admin_bar current_user={@current_user} />
     <%= @inner_content %>
 
-    <%= @settings.custom_html %>
+    <%= raw @settings.custom_html %>
   </body>
 </html>
