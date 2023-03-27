@@ -9,7 +9,9 @@ defmodule Chiya.Channels do
   alias Chiya.Notes.Note
 
   @preloads [:notes]
-  @public_preloads [notes: (from n in Note, where: not is_nil(n.published_at))]
+  @public_preloads [notes: (from n in Note, 
+    where: not is_nil(n.published_at),
+    order_by: [desc: n.published_at])]
 
   @doc """
   Returns the list of channels.
