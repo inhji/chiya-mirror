@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Pulling latest changes.."
-git pull
+git pull origin main
 
 echo "Updating mix dependencies.."
 mix deps.get --only prod
