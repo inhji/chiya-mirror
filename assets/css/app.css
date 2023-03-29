@@ -6,13 +6,22 @@
 @import "./lightbox.css";
 
 @layer base {
-  :root {
-    --color-primary: 16 185 129;
+  :root[data-theme=default] {
+    --color-primary: 68 68 68;
     --color-background: 255 255 255;
-    --color-text-base: 82 82 91;
-    --color-text-heading: 24 24 27;
-    --color-text-muted: 82 82 91;
-    --color-text-dim: 244 244 245;
+    --color-text-base: 68 68 68;
+    --color-text-heading: 68 68 68;
+    --color-text-muted: 153 153 153;
+    --color-text-dim: 204 204 204;
+  }
+
+  :root[data-theme=default][data-mode=dark] {
+    --color-primary: 255 255 255;
+    --color-background: 34 34 34;
+    --color-text-base: 204 204 204;
+    --color-text-heading: 255 255 255;
+    --color-text-muted: 102 102 102;
+    --color-text-dim: 68 68 68;
   }
 
   :root[data-theme=roguelight] {
@@ -28,7 +37,7 @@
 /* 
   Invert prose styles based on the variant of the theme. 
 */
-:root[data-variant=dark] .prose {
+:root[data-mode=dark] .prose {
   @apply prose-invert;
 }
 
