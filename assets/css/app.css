@@ -24,13 +24,22 @@
     --color-text-dim: 68 68 68;
   }
 
-  :root[data-theme=roguelight] {
-    --color-primary: 150 207 133;
-    --color-background: 53 43 49;
-    --color-text-base: 245 245 212;
-    --color-text-heading: 112 131 140;
-    --color-text-muted: 245 245 212;
-    --color-text-dim: 74 59 68;
+  :root[data-theme=frame] {
+    --color-primary: 91 82 254;
+    --color-background: 237 238 242;
+    --color-text-base: 38 43 55;
+    --color-text-heading: 57 65 83;
+    --color-text-muted: 57 65 83;
+    --color-text-dim: 76 87 111;
+  }
+
+  :root[data-theme=frame][data-mode=dark] {
+    --color-primary: 91 82 254;
+    --color-background: 38 43 55;
+    --color-text-base: 204 204 204;
+    --color-text-heading: 204 204 204;
+    --color-text-muted: 76 87 111;
+    --color-text-dim: 57 65 83;
   }
 }
 
