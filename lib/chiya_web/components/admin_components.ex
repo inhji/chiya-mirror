@@ -72,6 +72,15 @@ defmodule ChiyaWeb.AdminComponents do
         </li>
         <li>
           <.link
+            href="#"
+            id="dark-mode-toggle"
+            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
+          >
+            <.icon name="hero-sun-mini" class="h-4 w-4" />
+          </.link>
+        </li>
+        <li>
+          <.link
             href={~p"/user"}
             class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
           >
