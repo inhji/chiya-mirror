@@ -12,8 +12,8 @@
     options={Ecto.Enum.values(Chiya.Site.Setting, :theme)}
   />
   <.input field={f[:user_agent]} type="text" label="User agent" />
-  <.input field={f[:custom_css]} type="textarea" label="Custom css" />
-  <.input field={f[:custom_html]} type="textarea" label="Custom html" />
+  <.input field={f[:custom_css]} type="textarea" label="Custom css" class="font-mono" />
+  <.input field={f[:custom_html]} type="textarea" label="Custom html" class="font-mono" />
   <.input field={f[:home_channel_id]} type="select" label="Home Channel" options={@channels} />
   <:actions>
     <.button>Save Setting</.button>

@@ -305,6 +305,8 @@ defmodule ChiyaWeb.CoreComponents do
       <.input name="my-input" errors={["oh no!"]} />
   """
   attr :id, :any, default: nil
+  attr :class, :string, default: nil
+
   attr :name, :any
   attr :label, :string, default: nil
   attr :value, :any
@@ -391,6 +393,7 @@ defmodule ChiyaWeb.CoreComponents do
           "phx-no-feedback:border-gray-300 phx-no-feedback:focus:border-gray-400 phx-no-feedback:focus:ring-gray-800/5",
           "border-gray-300 focus:border-gray-400 focus:ring-gray-800/5",
           "dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:focus:border-gray-400",
+          @class,
           @errors != [] && "border-rose-400 focus:border-rose-400 focus:ring-rose-400/10"
         ]}
         {@rest}
@@ -415,6 +418,7 @@ defmodule ChiyaWeb.CoreComponents do
           "phx-no-feedback:border-gray-300 phx-no-feedback:focus:border-gray-400 phx-no-feedback:focus:ring-gray-800/5",
           "border-gray-300 focus:border-gray-400 focus:ring-gray-800/5",
           "dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:focus:border-gray-400",
+          @class,
           @errors != [] && "border-rose-400 focus:border-rose-400 focus:ring-rose-400/10"
         ]}
         {@rest}
