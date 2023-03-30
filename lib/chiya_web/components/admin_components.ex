@@ -72,7 +72,7 @@ defmodule ChiyaWeb.AdminComponents do
           class="flex gap-3 text-sm leading-6 text-gray-100 font-semibold hover:text-gray-300"
         >
           <span>Chiya</span>
-          <p class="rounded-full bg-emerald-500/10 px-2 text-[0.8125rem] font-medium leading-6 text-emerald-500">
+          <p class="rounded-full bg-theme-primary/10 px-2 text-[0.8125rem] font-medium leading-6 text-theme-primary">
             v<%= Application.spec(:chiya, :vsn) %>
           </p>
         </.link>
