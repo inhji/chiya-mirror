@@ -20,7 +20,10 @@ defmodule Chiya.Notes do
 
   """
   def list_notes do
-    Repo.all(Note) |> Repo.preload(@preloads)
+    Note
+    |> order_by([n], [desc: n.updated_at, desc: n.published_at])
+    |> Repo.all()
+    |> Repo.preload(@preloads)
   end
 
   @doc """

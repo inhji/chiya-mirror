@@ -50,6 +50,10 @@
   @apply prose-invert;
 }
 
+.prose :where(a):not(:where([class~="not-prose"] *)) {
+  @apply underline decoration-2 decoration-theme-primary;
+}
+
 /* Set width and color for identity icons */
 a[rel] svg { 
   width: 1em;

@@ -65,11 +65,20 @@ defmodule ChiyaWeb.AdminComponents do
 
   def admin_bar(assigns) do
     ~H"""
-    <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end bg-black">
+    <ul class="relative z-10 flex items-center gap-4 py-1 px-4 sm:px-6 lg:px-8 bg-black">
+      <li>
+        <.link
+          href={~p"/"}
+          class="flex gap-3 text-sm leading-6 text-gray-100 font-semibold hover:text-gray-300"
+        >
+          <span>Chiya</span>
+          <p class="rounded-full bg-theme-primary/10 px-2 text-[0.8125rem] font-medium leading-6 text-theme-primary">
+            v<%= Application.spec(:chiya, :vsn) %>
+          </p>
+        </.link>
+      </li>
+      <li class="flex-1"></li>
       <%= if @current_user do %>
-        <li class="text-xs leading-6 text-gray-100">
-          <%= @current_user.email %>
-        </li>
         <li>
           <.link
             href="#"
