@@ -1,12 +1,21 @@
 defmodule ChiyaWeb.AdminComponents do
+  use Phoenix.Component
 
-	use Phoenix.Component
   use Phoenix.VerifiedRoutes,
     endpoint: ChiyaWeb.Endpoint,
     router: ChiyaWeb.Router,
     statics: ChiyaWeb.static_paths()
 
   import ChiyaWeb.CoreComponents
+
+  @doc """
+  Renders a horizontal line
+  """
+  def line(assigns) do
+    ~H"""
+    <hr class="my-6 dark:border-gray-700" />
+    """
+  end
 
   @doc """
   Renders a UI for uploading files
