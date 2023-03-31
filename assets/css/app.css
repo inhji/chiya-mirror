@@ -67,5 +67,4 @@ a[rel] svg {
 /* Set width and color for identity icons */
 svg {
   width: 1.5em;
-  @apply fill-emerald-500 dark:fill-emerald-700;
 }
