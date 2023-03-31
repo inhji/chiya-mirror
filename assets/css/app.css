@@ -54,6 +54,10 @@
   @apply underline decoration-2 decoration-theme-primary;
 }
 
+.prose img {
+  @apply rounded;
+}
+
 /* Set width and color for identity icons */
 a[rel] svg { 
   width: 1em;
