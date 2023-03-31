@@ -14,7 +14,7 @@ const plugins = [
 ]
 
 let opts = {
-  entryPoints: ['js/app.js'],
+  entryPoints: ['js/app.js', 'js/public.js'],
   bundle: true,
   target: 'es2017',
   outdir: '../priv/static/assets',
