@@ -53,7 +53,8 @@ defmodule Chiya.MixProject do
       {:oban, "~> 2.14"},
       {:waffle, "~> 1.1"},
       {:waffle_ecto, "~> 0.0.12"},
-      {:earmark, "~> 1.4"}
+      {:earmark, "~> 1.4"},
+      {:yaml_front_matter, "~> 1.0.0"}
     ]
   end
 

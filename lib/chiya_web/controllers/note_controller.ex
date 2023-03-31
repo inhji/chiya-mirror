@@ -64,6 +64,17 @@ defmodule ChiyaWeb.NoteController do
     |> redirect(to: ~p"/admin/notes")
   end
 
+  def raw(conn, %{"id" => id}) do
+    raw_note =
+      id
+      |> Notes.get_note!()
+      |> Notes.preload_note()
+      |> ChiyaWeb.Exim.export_note()
+
+    conn
+    |> text(raw_note)
+  end
+
   defp from_channel_ids(note_params) do
     selected_ids = Enum.map(note_params["channels"] || [], &String.to_integer/1)
 
