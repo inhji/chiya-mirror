@@ -1,12 +1,14 @@
 <header class="px-4 sm:px-6 lg:px-8">
   <div class="flex items-center justify-end border-b border-theme-dim/50 py-3">
     <div class="flex items-center gap-4">
+      <%= for channel <- @channels %>
       <.link
-        href={~p"/n/about"}
+        href={~p"/#{channel.slug}"}
         class="text-xs font-semibold leading-6 text-theme-base hover:text-theme-base/75"
       >
-        About
+        <%= channel.name %>
       </.link>
+      <% end %>
     </div>
   </div>
 </header>
