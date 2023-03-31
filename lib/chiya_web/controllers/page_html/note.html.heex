@@ -1,6 +1,8 @@
 <header>
-  <h1 class="text-2xl font-semibold leading-8 text-theme-heading font-serif"><%= @note.name %></h1>
-  <p class="mt-2 text-sm leading-6 text-theme-muted">
+  <h1 class="text-3xl font-semibold leading-8 text-theme-heading font-serif border-b-2 border-theme-primary">
+    <%= @note.name %>
+  </h1>
+  <p class="mt-2 text-sm leading-6 text-theme-base font-semibold">
     <%= pretty_date(@note.published_at) %>
   </p>
 </header>
