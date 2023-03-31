@@ -26,7 +26,7 @@ defmodule Chiya.IdentitiesTest do
         name: "some name",
         public: true,
         rel: "some rel",
-        url: "some url", 
+        url: "some url",
         icon: "some icon"
       }
 

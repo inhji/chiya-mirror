@@ -9,9 +9,13 @@ defmodule Chiya.Channels do
   alias Chiya.Notes.Note
 
   @preloads [:notes]
-  @public_preloads [notes: (from n in Note, 
-    where: not is_nil(n.published_at),
-    order_by: [desc: n.published_at])]
+  @public_preloads [
+    notes:
+      from(n in Note,
+        where: not is_nil(n.published_at),
+        order_by: [desc: n.published_at]
+      )
+  ]
 
   @doc """
   Returns the list of channels.
@@ -56,7 +60,7 @@ defmodule Chiya.Channels do
   Gets a single channel by its slug with all associated entities preloaded.
   """
   def get_channel_by_slug!(slug), do: Repo.get_by!(Channel, slug: slug)
-  
+
   @doc """
   Creates a channel.
 

@@ -7,7 +7,7 @@
     <.live_title suffix={" · #{@settings.title}"}>
       <%= assigns[:page_title] || "Home" %>
     </.live_title>
-    
+
     <.favicon />
 
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
@@ -20,12 +20,14 @@
         delete document.documentElement.dataset["mode"]
       }
     </script>
-    <style><%= @settings.custom_css %></style>
+    <style>
+      <%= @settings.custom_css %>
+    </style>
   </head>
   <body class="bg-theme-background antialiased">
     <.admin_bar current_user={@current_user} />
     <%= @inner_content %>
 
-    <%= raw @settings.custom_html %>
+    <%= raw(@settings.custom_html) %>
   </body>
 </html>

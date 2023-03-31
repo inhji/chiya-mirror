@@ -21,7 +21,7 @@ defmodule Chiya.Notes do
   """
   def list_notes do
     Note
-    |> order_by([n], [desc: n.updated_at, desc: n.published_at])
+    |> order_by([n], desc: n.updated_at, desc: n.published_at)
     |> Repo.all()
     |> Repo.preload(@preloads)
   end
@@ -67,9 +67,8 @@ defmodule Chiya.Notes do
 
   """
   def get_note_preloaded!(id), do: Repo.get!(Note, id) |> preload_note()
-  
-  def get_note_by_slug_preloaded!(slug), do: Repo.get_by!(Note, slug: slug) |> preload_note()
 
+  def get_note_by_slug_preloaded!(slug), do: Repo.get_by!(Note, slug: slug) |> preload_note()
 
   @doc """
   Creates a note.

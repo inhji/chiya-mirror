@@ -9,6 +9,7 @@ defmodule ChiyaWeb.CoreComponents do
   Icons are provided by [heroicons](https://heroicons.com). See `icon/1` for usage.
   """
   use Phoenix.Component
+
   use Phoenix.VerifiedRoutes,
     endpoint: ChiyaWeb.Endpoint,
     router: ChiyaWeb.Router,
@@ -19,23 +20,13 @@ defmodule ChiyaWeb.CoreComponents do
 
   def favicon(assigns) do
     ~H"""
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/favicon/site.webmanifest">
-    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-    """
-  end
-  
-  
-  @doc """
-  Renders a horizontal line
-  """
-  def line(assigns) do
-    ~H"""
-    <hr class="my-6 dark:border-gray-700" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
     """
   end
 
@@ -176,8 +167,10 @@ defmodule ChiyaWeb.CoreComponents do
       role="alert"
       class={[
         "fixed hidden top-2 right-2 w-80 sm:w-96 z-50 rounded-lg p-3 shadow-md shadow-gray-900/5 ring-1",
-        @kind == :info && "bg-emerald-50 text-emerald-800 ring-emerald-500 fill-cyan-900 dark:bg-emerald-900 dark:text-emerald-200 hover:opacity-40",
-        @kind == :error && "bg-rose-50 p-3 text-rose-900 shadow-md ring-rose-500 fill-rose-900 dark:bg-rose-900 dark:text-rose-200 hover:opacity-40"
+        @kind == :info &&
+          "bg-emerald-50 text-emerald-800 ring-emerald-500 fill-cyan-900 dark:bg-emerald-900 dark:text-emerald-200 hover:opacity-40",
+        @kind == :error &&
+          "bg-rose-50 p-3 text-rose-900 shadow-md ring-rose-500 fill-rose-900 dark:bg-rose-900 dark:text-rose-200 hover:opacity-40"
       ]}
       {@rest}
     >
@@ -526,7 +519,11 @@ defmodule ChiyaWeb.CoreComponents do
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
           class="relative divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6 text-gray-700 dark:text-gray-200 dark:border-gray-700 dark:divide-gray-800"
         >
-          <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="group hover:bg-gray-50 dark:hover:bg-gray-800">
+          <tr
+            :for={row <- @rows}
+            id={@row_id && @row_id.(row)}
+            class="group hover:bg-gray-50 dark:hover:bg-gray-800"
+          >
             <td
               :for={{col, i} <- Enum.with_index(@col)}
               phx-click={@row_click && @row_click.(row)}
@@ -576,7 +573,9 @@ defmodule ChiyaWeb.CoreComponents do
     <div class="mt-14">
       <dl class="-my-4 divide-y divide-gray-100 dark:divide-gray-800">
         <div :for={item <- @item} class="flex gap-4 py-4 sm:gap-8">
-          <dt class="w-1/4 flex-none text-[0.8125rem] leading-6 text-gray-500 dark:text-gray-300"><%= item.title %></dt>
+          <dt class="w-1/4 flex-none text-[0.8125rem] leading-6 text-gray-500 dark:text-gray-300">
+            <%= item.title %>
+          </dt>
           <dd class="text-sm leading-6 text-gray-700 dark:text-gray-400"><%= render_slot(item) %></dd>
         </div>
       </dl>
