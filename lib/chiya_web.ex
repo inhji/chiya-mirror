@@ -17,7 +17,8 @@ defmodule ChiyaWeb do
   those modules here.
   """
 
-  def static_paths, do: ~w(assets fonts images favicon favicon.ico robots.txt browserconfig.xml site.webmanifest)
+  def static_paths,
+    do: ~w(assets fonts images favicon favicon.ico robots.txt browserconfig.xml site.webmanifest)
 
   def router do
     quote do
@@ -56,6 +57,9 @@ defmodule ChiyaWeb do
       use Phoenix.LiveView,
         layout: {ChiyaWeb.Layouts, :app}
 
+      # Import admin components
+      import ChiyaWeb.AdminComponents
+
       unquote(html_helpers())
     end
   end
@@ -78,6 +82,25 @@ defmodule ChiyaWeb do
 
       # Include general helpers for rendering HTML
       unquote(html_helpers())
+
+      # Import admin components
+      import ChiyaWeb.AdminComponents
+    end
+  end
+
+  def html_public do
+    quote do
+      use Phoenix.Component
+
+      # Import convenience functions from controllers
+      import Phoenix.Controller,
+        only: [get_csrf_token: 0, view_module: 1, view_template: 1]
+
+      # Include general helpers for rendering HTML
+      unquote(html_helpers())
+
+      # Import public components
+      import ChiyaWeb.PublicComponents
     end
   end
 
@@ -93,10 +116,9 @@ defmodule ChiyaWeb do
       alias Phoenix.LiveView.JS
 
       # Custom functions
-      import ChiyaWeb.AdminComponents
       import ChiyaWeb.Format, only: [from_now: 1, pretty_date: 1]
       alias ChiyaWeb.Markdown
-      
+
       # Routes generation with the ~p sigil
       unquote(verified_routes())
     end

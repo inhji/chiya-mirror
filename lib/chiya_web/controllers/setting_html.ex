@@ -8,6 +8,7 @@ defmodule ChiyaWeb.SettingHTML do
   """
   attr :changeset, Ecto.Changeset, required: true
   attr :action, :string, required: true
+  attr :channels, :list, required: true
 
   def setting_form(assigns)
 end

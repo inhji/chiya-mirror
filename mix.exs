@@ -71,7 +71,11 @@ defmodule Chiya.MixProject do
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "cmd --cd assets npm install"],
       "assets.build": ["tailwind default", "cmd --cd assets node build.js"],
-      "assets.deploy": ["tailwind default --minify", "cmd --cd assets node build.js --deploy", "phx.digest"]
+      "assets.deploy": [
+        "tailwind default --minify",
+        "cmd --cd assets node build.js --deploy",
+        "phx.digest"
+      ]
     ]
   end
 end
