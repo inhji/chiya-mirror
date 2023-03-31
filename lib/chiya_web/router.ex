@@ -62,6 +62,7 @@ defmodule ChiyaWeb.Router do
     resources "/identities", IdentityController
 
     live "/notes/:id", NoteShowLive, :show
+    get "/notes/:id/raw", NoteController, :raw
   end
 
   ## Authentication routes

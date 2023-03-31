@@ -41,6 +41,24 @@
     --color-text-muted: 76 87 111;
     --color-text-dim: 57 65 83;
   }
+
+  :root[data-theme=gruvbox] {
+    --color-primary: 175 58 3;
+    --color-background: 251 241 199;
+    --color-text-base :40 40 40;
+    --color-text-heading: 66 123 88;
+    --color-text-muted: 60 56 54;
+    --color-text-dim: 102 92 84;
+  }
+
+  :root[data-theme=gruvbox][data-mode=dark] {
+    --color-primary: 214 93 14;
+    --color-background: 40 40 40;
+    --color-text-base: 251 241 199;
+    --color-text-heading: 104 157 106;
+    --color-text-muted: 235 219 178;
+    --color-text-dim: 189 174 147;
+  }
 }
 
 /* 
@@ -67,5 +85,4 @@ a[rel] svg {
 /* Set width and color for identity icons */
 svg {
   width: 1.5em;
-  @apply fill-emerald-500 dark:fill-emerald-700;
 }

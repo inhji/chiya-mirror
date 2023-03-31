@@ -9,7 +9,7 @@ defmodule Chiya.Site.Setting do
     field :custom_css, :string, default: ""
     field :custom_html, :string, default: ""
 
-    field :theme, Ecto.Enum, values: [:default, :frame], default: :default
+    field :theme, Ecto.Enum, values: [:default, :frame, :gruvbox], default: :default
 
     field :user_agent, :string, default: "Chiya/0.x +https://inhji.de"
 
