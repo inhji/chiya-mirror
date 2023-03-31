@@ -23,7 +23,9 @@ defmodule Chiya.Channels do
 
   """
   def list_channels do
-    Repo.all(Channel)
+    Channel
+    |> order_by(desc: :visibility)
+    |> Repo.all()
   end
 
   def preload_channel(channel), do: Repo.preload(channel, @preloads)
