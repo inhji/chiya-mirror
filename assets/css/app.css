@@ -69,7 +69,11 @@
 }
 
 .prose :where(a):not(:where([class~="not-prose"] *)) {
-  @apply underline decoration-2 decoration-theme-primary;
+  @apply underline decoration-1 decoration-theme-primary;
+}
+
+.prose :where(h2):not(:where([class~="not-prose"] *)) {
+  @apply font-serif underline decoration-2 decoration-theme-primary;
 }
 
 .prose img {

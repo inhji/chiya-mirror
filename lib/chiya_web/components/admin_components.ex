@@ -104,14 +104,6 @@ defmodule ChiyaWeb.AdminComponents do
         </li>
         <li>
           <.link
-            href={~p"/user"}
-            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
-          >
-            Profile
-          </.link>
-        </li>
-        <li>
-          <.link
             href={~p"/admin"}
             class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
           >
