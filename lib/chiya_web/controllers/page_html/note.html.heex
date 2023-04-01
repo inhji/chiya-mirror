@@ -28,9 +28,11 @@
             <a href="#images" class="lightbox" id={"image-#{image.id}"}>
               <span>
                 <img
+                  class="md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg max-h-screen mx-auto"
                   src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}
                   loading="lazy"
                 />
+                <span class="text-theme-background text-center"><%= image.content %></span>
               </span>
             </a>
           </article>
