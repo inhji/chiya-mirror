@@ -32,7 +32,7 @@ const groupNameStyle = {
   padding: "8px 16px",
   fontSize: "10px",
   textTransform: "uppercase",
-  opacity: 0.5,
+  opacity: 0.75,
 };
 
 
@@ -44,7 +44,7 @@ function RenderResults() {
       items={results}
       onRender={({ item, active }) =>
         typeof item === "string" ? (
-          <div style={groupNameStyle}>{item}</div>
+          <div style={groupNameStyle} class="dark:text-white">{item}</div>
         ) : (
           <ResultItem
             action={item}
@@ -88,7 +88,7 @@ const ResultItem = React.forwardRef(
             "border-l-2 border-emerald-300": active
           })}
       >
-        <div className="flex gap-3 items-center text-sm">
+        <div className="flex gap-3 items-center text-sm dark:text-white">
           {action.icon && action.icon}
           <div className="flex flex-col">
             <div>

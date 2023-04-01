@@ -7,16 +7,9 @@ defmodule Chiya.Notes.NoteImage do
     field :content, :string, default: ""
     field :path, ChiyaWeb.Uploaders.NoteImage.Type
     field :note_id, :id
+    field :featured, :boolean, default: false
 
     timestamps()
-  end
-
-  @doc false
-  def changeset(note_image, attrs) do
-    note_image
-    |> cast(attrs, [:content, :note_id])
-    |> cast_attachments(attrs, [:path], allow_paths: true)
-    |> validate_required([:path, :note_id])
   end
 
   @doc false
@@ -24,5 +17,13 @@ defmodule Chiya.Notes.NoteImage do
     note_image
     |> cast(attrs, [:note_id])
     |> validate_required([:note_id])
+  end
+
+  @doc false
+  def update_changeset(note_image, attrs) do
+    note_image
+    |> cast(attrs, [:content, :note_id, :featured])
+    |> cast_attachments(attrs, [:path], allow_paths: true)
+    |> validate_required([:path, :note_id])
   end
 end

@@ -69,7 +69,11 @@ defmodule ChiyaWeb.CoreComponents do
       phx-remove={hide_modal(@id)}
       class="relative z-50 hidden"
     >
-      <div id={"#{@id}-bg"} class="fixed inset-0 bg-gray-50/90 transition-opacity" aria-hidden="true" />
+      <div
+        id={"#{@id}-bg"}
+        class="fixed inset-0 bg-gray-50/90 dark:bg-gray-900/90 transition-opacity"
+        aria-hidden="true"
+      />
       <div
         class="fixed inset-0 overflow-y-auto"
         aria-labelledby={"#{@id}-title"}
@@ -86,7 +90,7 @@ defmodule ChiyaWeb.CoreComponents do
               phx-window-keydown={hide_modal(@on_cancel, @id)}
               phx-key="escape"
               phx-click-away={hide_modal(@on_cancel, @id)}
-              class="hidden relative rounded-2xl bg-white p-14 shadow-lg shadow-gray-700/10 ring-1 ring-gray-700/10 transition"
+              class="hidden relative rounded-2xl bg-white p-14 shadow-lg shadow-gray-700/10 ring-1 ring-gray-700/10 transition dark:bg-gray-900"
             >
               <div class="absolute top-6 right-5">
                 <button
@@ -95,7 +99,7 @@ defmodule ChiyaWeb.CoreComponents do
                   class="-m-3 flex-none p-3 opacity-20 hover:opacity-40"
                   aria-label={gettext("close")}
                 >
-                  <.icon name="hero-x-mark-solid" class="w-5 h-5" />
+                  <.icon name="hero-x-mark-solid" class="w-5 h-5 dark:text-gray-50" />
                 </button>
               </div>
               <div id={"#{@id}-content"}>

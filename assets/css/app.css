@@ -86,3 +86,11 @@ a[rel] svg {
 svg {
   width: 1.5em;
 }
+
+.alert {
+  @apply p-3 mt-3 rounded;
+}
+
+.alert-danger {
+  @apply bg-red-100 text-red-500 dark:bg-red-950 dark:text-red-500;
+}
