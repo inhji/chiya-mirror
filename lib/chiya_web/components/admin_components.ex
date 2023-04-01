@@ -34,21 +34,26 @@ defmodule ChiyaWeb.AdminComponents do
           <article class="upload-entry">
             <figure>
               <.live_img_preview entry={entry} />
-              <figcaption><%= entry.client_name %></figcaption>
+              <figcaption class="dark:text-gray-100"><%= entry.client_name %></figcaption>
             </figure>
 
-            <%!-- entry.progress will update automatically for in-flight entries --%>
-            <progress value={entry.progress} max="100"><%= entry.progress %>%</progress>
+            <div class="flex">
+              <%!-- entry.progress will update automatically for in-flight entries --%>
+              <progress value={entry.progress} max="100" class="w-full">
+                <%= entry.progress %>%
+              </progress>
 
-            <%!-- a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 --%>
-            <button
-              type="button"
-              phx-click="cancel-upload"
-              phx-value-ref={entry.ref}
-              aria-label="cancel"
-            >
-              &times;
-            </button>
+              <%!-- a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 --%>
+              <button
+                class="px-2 dark:text-white"
+                type="button"
+                phx-click="cancel-upload"
+                phx-value-ref={entry.ref}
+                aria-label="cancel"
+              >
+                &times;
+              </button>
+            </div>
 
             <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
             <%= for err <- upload_errors(@upload, entry) do %>

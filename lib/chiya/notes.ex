@@ -149,12 +149,18 @@ defmodule Chiya.Notes do
          |> Repo.insert() do
       {:ok, note_image} ->
         note_image
-        |> change_note_image(attrs)
+        |> NoteImage.update_changeset(attrs)
         |> Repo.update()
 
       {:error, changeset} ->
         {:error, changeset}
     end
+  end
+
+  def update_note_image(%NoteImage{} = note_image, attrs) do
+    note_image
+    |> NoteImage.update_changeset(attrs)
+    |> Repo.update()
   end
 
   def delete_note_image(%NoteImage{} = note_image) do
@@ -167,6 +173,6 @@ defmodule Chiya.Notes do
   Returns an `%Ecto.Changeset{}` for tracking note_image changes.
   """
   def change_note_image(%NoteImage{} = note_image, attrs \\ %{}) do
-    NoteImage.changeset(note_image, attrs)
+    NoteImage.update_changeset(note_image, attrs)
   end
 end

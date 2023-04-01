@@ -2,6 +2,7 @@ defmodule ChiyaWeb.NoteShowLive do
   use ChiyaWeb, :live_view
 
   alias Chiya.Notes
+  alias Chiya.Notes.NoteImage
 
   @impl true
   def render(assigns) do
@@ -41,28 +42,39 @@ defmodule ChiyaWeb.NoteShowLive do
       <div class="flex flex-wrap gap-3" id="images">
         <%= for image <- @note.images do %>
           <article>
-            <a href={"#image-#{image.id}"}>
+            <a href="#" phx-click={show_modal("image-edit-modal-#{image.id}")} phx-value-id={image.id}>
               <img
                 class="rounded-lg border border-theme-dim w-28"
                 src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
               />
             </a>
-            <p class="text-center text-xs text-gray-700 dark:text-gray-300">
-              <a
-                href="#"
-                phx-click="delete_image"
-                phx-value-id={image.id}
-                data-confirm="Are you sure?"
-              >
-                Delete image
-              </a>
-            </p>
 
-            <a href="#images" class="lightbox" id={"image-#{image.id}"}>
-              <span>
-                <img src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)} />
-              </span>
-            </a>
+            <.modal id={"image-edit-modal-#{image.id}"}>
+              <.simple_form
+                :let={f}
+                for={to_form(Notes.change_note_image(image))}
+                id={"image-edit-form-#{image.id}"}
+                phx-submit="update_edit_image"
+                phx-change="validate_edit_image"
+              >
+                <.input field={f[:id]} type="hidden" value={image.id} />
+                <.input field={f[:content]} type="textarea" label="Content" />
+                <.input field={f[:featured]} type="checkbox" label="Featured" />
+
+                <:actions>
+                  <.button type="submit" phx-click={hide_modal("image-edit-modal-#{image.id}")}>
+                    Save
+                  </.button>
+                  <.button
+                    phx-click="delete_image"
+                    phx-value-id={image.id}
+                    data-confirm="Are you sure?"
+                  >
+                    Delete Image
+                  </.button>
+                </:actions>
+              </.simple_form>
+            </.modal>
           </article>
         <% end %>
       </div>
@@ -95,12 +107,13 @@ defmodule ChiyaWeb.NoteShowLive do
 
   @impl true
   def mount(%{"id" => note_id}, _session, socket) do
-    image_changeset = Notes.change_note_image(%Chiya.Notes.NoteImage{})
+    image_changeset = Notes.change_note_image(%NoteImage{})
 
     {:ok,
      socket
      |> assign(:note, Notes.get_note_preloaded!(note_id))
      |> assign(:uploaded_files, [])
+     |> assign(:image_edit_form, to_form(image_changeset))
      |> assign(:image_form, to_form(image_changeset))
      |> allow_upload(:note_images, accept: ~w(.jpg .jpeg .gif .png), max_entries: 100)}
   end
@@ -131,6 +144,23 @@ defmodule ChiyaWeb.NoteShowLive do
      socket
      |> update(:uploaded_files, &(&1 ++ uploaded_files))
      |> assign(:note, Notes.get_note_preloaded!(socket.assigns.note.id))}
+  end
+
+  def handle_event("validate_edit_image", assigns, socket) do
+    {:noreply,
+     socket
+     |> assign(
+       :image_edit_form,
+       to_form(Notes.change_note_image(%NoteImage{}, assigns))
+     )}
+  end
+
+  def handle_event("update_edit_image", %{"id" => id} = assigns, socket) do
+    id
+    |> Notes.get_note_image!()
+    |> Notes.update_note_image(assigns)
+    
+    {:noreply, socket}
   end
 
   @impl Phoenix.LiveView
