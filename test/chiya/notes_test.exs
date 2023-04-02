@@ -25,7 +25,6 @@ defmodule Chiya.NotesTest do
         kind: "post",
         name: "some name",
         published_at: ~N[2023-03-04 16:22:00],
-        slug: "some slug",
         url: "some url"
       }
 
@@ -34,7 +33,7 @@ defmodule Chiya.NotesTest do
       assert note.kind == :post
       assert note.name == "some name"
       assert note.published_at == ~N[2023-03-04 16:22:00]
-      assert note.slug == "some slug"
+      assert note.slug == "some-name"
       assert note.url == "some url"
     end
 

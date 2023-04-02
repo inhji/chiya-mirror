@@ -2,7 +2,8 @@ defmodule ChiyaWeb.Markdown do
   @options [
     footnotes: true,
     breaks: true,
-    escape: true
+    escape: true,
+    wikilinks: true
   ]
 
   def render(markdown) do

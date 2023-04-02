@@ -23,14 +23,13 @@ defmodule Chiya.ChannelsTest do
       valid_attrs = %{
         content: "some content",
         name: "some name",
-        slug: "some slug",
         visibility: :public
       }
 
       assert {:ok, %Channel{} = channel} = Channels.create_channel(valid_attrs)
       assert channel.content == "some content"
       assert channel.name == "some name"
-      assert channel.slug == "some slug"
+      assert channel.slug == "some-name"
       assert channel.visibility == :public
     end
 

@@ -109,8 +109,8 @@ defmodule ChiyaWeb.Router do
   scope "/", ChiyaWeb do
     pipe_through [:browser, :public]
 
-    get "/n/:slug", PageController, :note
-    get "/:slug", PageController, :channel
+    get "/:slug", PageController, :note
+    get "/c/:slug", PageController, :channel
     get "/", PageController, :home
   end
 end

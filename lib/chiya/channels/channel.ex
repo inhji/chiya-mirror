@@ -1,12 +1,13 @@
 defmodule Chiya.Channels.Channel do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Chiya.Channels.ChannelSlug
 
   @derive {Jason.Encoder, only: [:id, :name, :content, :slug, :visibility]}
   schema "channels" do
     field :content, :string
     field :name, :string
-    field :slug, :string
+    field :slug, ChannelSlug.Type
     field :visibility, Ecto.Enum, values: [:public, :private, :unlisted]
 
     many_to_many :notes, Chiya.Notes.Note,
@@ -20,8 +21,9 @@ defmodule Chiya.Channels.Channel do
   def changeset(channel, attrs) do
     channel
     |> cast(attrs, [:name, :content, :visibility, :slug])
+    |> ChannelSlug.maybe_generate_slug()
+    |> ChannelSlug.unique_constraint()
     |> validate_required([:name, :content, :visibility, :slug])
     |> validate_exclusion(:slug, ~w(admin user dev))
-    |> unique_constraint(:slug)
   end
 end
