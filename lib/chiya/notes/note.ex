@@ -1,6 +1,9 @@
 defmodule Chiya.Notes.Note do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Chiya.Notes.NoteSlug
+
+  @reserved_slugs []
 
   @derive {Jason.Encoder, only: [:id, :name, :content, :slug, :channels]}
   schema "notes" do
@@ -8,7 +11,7 @@ defmodule Chiya.Notes.Note do
     field :kind, Ecto.Enum, values: [:post, :bookmark], default: :post
     field :name, :string
     field :published_at, :naive_datetime
-    field :slug, :string
+    field :slug, NoteSlug.Type
     field :url, :string
 
     many_to_many :channels, Chiya.Channels.Channel,
@@ -27,7 +30,9 @@ defmodule Chiya.Notes.Note do
     |> Chiya.Notes.preload_note()
     |> cast(attrs, [:name, :content, :slug, :published_at, :kind, :url])
     |> put_assoc(:channels, attrs["channels"] || [])
+    |> NoteSlug.maybe_generate_slug()
+    |> NoteSlug.unique_constraint()
     |> validate_required([:name, :content, :slug, :kind])
-    |> unique_constraint(:slug)
+    |> validate_exclusion(:slug, @reserved_slugs)
   end
 end

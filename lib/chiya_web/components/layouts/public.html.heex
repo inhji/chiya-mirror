@@ -3,7 +3,7 @@
     <div class="flex items-center gap-4">
       <%= for channel <- @channels do %>
         <.link
-          href={~p"/#{channel.slug}"}
+          href={~p"/c/#{channel.slug}"}
           class="text-xs font-semibold leading-6 text-theme-base hover:text-theme-base/75"
         >
           <%= channel.name %>
