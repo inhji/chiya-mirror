@@ -79,11 +79,11 @@ defmodule ChiyaWeb.AdminComponents do
 
   def admin_bar(assigns) do
     ~H"""
-    <ul class="sticky top-0 backdrop-blur-sm z-10 flex items-center gap-4 py-1 px-4 sm:px-6 lg:px-8 bg-black/30">
+    <ul class="sticky top-0 backdrop-blur-sm z-10 flex items-center gap-4 py-1 px-4 sm:px-6 lg:px-8 bg-white/30 dark:bg-black/30">
       <li>
         <.link
           href={~p"/"}
-          class="flex gap-3 text-sm leading-6 text-gray-100 font-semibold hover:text-gray-300"
+          class="flex gap-3 text-sm leading-6 font-semibold text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
         >
           <span>Chiya</span>
           <p class="rounded-full bg-theme-primary/10 px-2 text-[0.8125rem] font-medium leading-6 text-theme-primary">
@@ -97,7 +97,7 @@ defmodule ChiyaWeb.AdminComponents do
           <.link
             href="#"
             id="dark-mode-toggle"
-            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
+            class="text-xs leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
           >
             <.icon name="hero-sun-mini" class="h-4 w-4" />
           </.link>
@@ -105,7 +105,7 @@ defmodule ChiyaWeb.AdminComponents do
         <li>
           <.link
             href={~p"/admin"}
-            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
+            class="text-xs leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
           >
             Admin
           </.link>
@@ -114,7 +114,7 @@ defmodule ChiyaWeb.AdminComponents do
           <.link
             href={~p"/user/log_out"}
             method="delete"
-            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
+            class="text-xs leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
           >
             Log out
           </.link>
@@ -124,7 +124,7 @@ defmodule ChiyaWeb.AdminComponents do
           <.link
             href="#"
             id="dark-mode-toggle"
-            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
+            class="text-xs leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
           >
             <.icon name="hero-sun-mini" class="h-4 w-4" />
           </.link>
@@ -132,7 +132,7 @@ defmodule ChiyaWeb.AdminComponents do
         <li>
           <.link
             href={~p"/user/log_in"}
-            class="text-xs leading-6 text-gray-100 font-semibold hover:text-gray-300"
+            class="text-xs leading-6 text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
           >
             Log in
           </.link>
