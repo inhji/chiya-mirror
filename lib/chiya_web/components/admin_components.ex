@@ -79,7 +79,7 @@ defmodule ChiyaWeb.AdminComponents do
 
   def admin_bar(assigns) do
     ~H"""
-    <ul class="relative z-10 flex items-center gap-4 py-1 px-4 sm:px-6 lg:px-8 bg-black">
+    <ul class="sticky top-0 backdrop-blur-sm z-10 flex items-center gap-4 py-1 px-4 sm:px-6 lg:px-8 bg-black/30">
       <li>
         <.link
           href={~p"/"}
