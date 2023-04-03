@@ -1,43 +1,41 @@
-<div class="px-4 py-10 sm:py-28 sm:px-6 lg:px-8 xl:py-32 xl:px-28">
-  <div class="mx-auto max-w-xl lg:mx-0">
-    <header>
-      <h1 class="text-3xl font-semibold leading-8 text-theme-heading font-serif underline underline-offset-2 decoration-theme-primary">
-        <%= @note.name %>
-      </h1>
-      <p class="mt-2 text-sm leading-6 text-theme-base font-semibold">
-        <%= pretty_date(@note.published_at) %>
-      </p>
-    </header>
+<div class="mx-auto max-w-xl mx-4 lg:mx-0">
+  <header>
+    <h1 class="mt-16 text-3xl font-semibold leading-8 text-theme-heading font-serif underline underline-offset-2 decoration-theme-primary">
+      <%= @note.name %>
+    </h1>
+    <p class="mt-2 text-sm leading-6 text-theme-base font-semibold">
+      <%= pretty_date(@note.published_at) %>
+    </p>
+  </header>
 
-    <section class="prose mt-8">
-      <%= Markdown.render(@note.content) |> raw %>
-    </section>
+  <section class="prose mt-8">
+    <%= Markdown.render(@note.content) |> raw %>
+  </section>
 
-    <%= if !Enum.empty?(@note.images) do %>
-      <.line />
+  <%= if !Enum.empty?(@note.images) do %>
+    <.line />
 
-      <div class="flex flex-wrap gap-3" id="images">
-        <%= for image <- @note.images do %>
-          <article>
-            <a href={"#image-#{image.id}"}>
+    <div class="flex flex-wrap gap-3" id="images">
+      <%= for image <- @note.images do %>
+        <article>
+          <a href={"#image-#{image.id}"}>
+            <img
+              class="rounded-lg w-28 border"
+              src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
+            />
+          </a>
+          <a href="#images" class="lightbox" id={"image-#{image.id}"}>
+            <span>
               <img
-                class="rounded-lg w-28 border"
-                src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
+                class="md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg max-h-screen mx-auto"
+                src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}
+                loading="lazy"
               />
-            </a>
-            <a href="#images" class="lightbox" id={"image-#{image.id}"}>
-              <span>
-                <img
-                  class="md:max-w-screen-sm lg:max-w-screen-md xl:max-w-screen-lg max-h-screen mx-auto"
-                  src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}
-                  loading="lazy"
-                />
-                <span class="text-theme-background text-center"><%= image.content %></span>
-              </span>
-            </a>
-          </article>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+              <span class="text-theme-background text-center"><%= image.content %></span>
+            </span>
+          </a>
+        </article>
+      <% end %>
+    </div>
+  <% end %>
 </div>
