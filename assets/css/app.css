@@ -77,7 +77,7 @@
 }
 
 .prose img {
-  @apply rounded;
+  @apply rounded border border-theme-dim;
 }
 
 /* Set width and color for identity icons */
