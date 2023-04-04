@@ -73,7 +73,7 @@
 }
 
 .prose :where(h2):not(:where([class~="not-prose"] *)) {
-  @apply font-serif underline decoration-2 decoration-theme-primary;
+  @apply font-serif text-theme-heading;
 }
 
 .prose img {
