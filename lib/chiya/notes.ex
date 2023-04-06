@@ -138,7 +138,7 @@ defmodule Chiya.Notes do
   @doc """
   Gets a single note image.
   """
-  def get_note_image!(id), do: Repo.get!(NoteImage, id)
+  def get_note_image!(id), do: Repo.get!(NoteImage, id) |> Repo.preload(:note)
 
   @doc """
   Creates a note image and attaches it to a note.

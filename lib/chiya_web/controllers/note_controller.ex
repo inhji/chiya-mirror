@@ -75,6 +75,26 @@ defmodule ChiyaWeb.NoteController do
     |> text(raw_note)
   end
 
+  def edit_image(conn, %{"image_id" => id}) do
+    image = Notes.get_note_image!(id)
+    changeset = Notes.change_note_image(image)
+    render(conn, :edit_image, image: image, changeset: changeset)
+  end
+
+  def update_image(conn, %{"image_id" => id, "note_image" => image_params}) do
+    image = Notes.get_note_image!(id)
+
+    case Notes.update_note_image(image, image_params) do
+      {:ok, image} ->
+        conn
+        |> put_flash(:info, "Image updated successfully.")
+        |> redirect(to: ~p"/admin/notes/#{image.note_id}")
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, :edit_image, image: image, changeset: changeset)
+    end
+  end
+
   defp from_channel_ids(note_params) do
     selected_ids = Enum.map(note_params["channels"] || [], &String.to_integer/1)
 

@@ -1,4 +1,5 @@
 import lolight from "../vendor/lolight"
+import GLightbox from 'glightbox'
 
 lolight("pre code")
 
@@ -15,3 +16,5 @@ document
 			window.localStorage.setItem("theme", "dark")
 		}
 	})
+
+const lightbox = GLightbox({ selector: ".lightbox" })
