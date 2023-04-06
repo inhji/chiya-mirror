@@ -27,7 +27,7 @@
       <%= for note <- @channel.notes do %>
         <a
           href={~p"/#{note.slug}"}
-          class="rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-primary/30 transition"
+          class="rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-primary/10 transition"
         >
           <span class="text-theme-heading text-lg font-semibold leading-8">
             <%= note.name %>
