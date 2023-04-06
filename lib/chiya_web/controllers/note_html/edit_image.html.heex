@@ -1,0 +1,21 @@
+<.header>
+  Edit Image <%= @image.id %>
+  <:subtitle>Use this form to manage note image records in your database.</:subtitle>
+</.header>
+
+<.simple_form :let={f} for={@changeset} action={~p"/admin/notes/#{@image.note.id}/image/#{@image.id}"}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+
+  <.input field={f[:id]} type="hidden" value={@image.id} />
+  <.input field={f[:content]} type="textarea" label="Content" />
+  <.input field={f[:featured]} type="checkbox" label="Featured" />
+
+  <:actions>
+    <.button type="submit">Save</.button>
+  </:actions>
+</.simple_form>
+
+
+<.back navigate={~p"/admin/notes/#{@image.note_id}"}>Back to notes</.back>

@@ -42,39 +42,19 @@ defmodule ChiyaWeb.NoteShowLive do
       <div class="flex flex-wrap gap-3" id="images">
         <%= for image <- @note.images do %>
           <article>
-            <a href="#" phx-click={show_modal("image-edit-modal-#{image.id}")} phx-value-id={image.id}>
+            <a href={"/admin/notes/#{@note.id}/image/#{image.id}"}>
               <img
                 class="rounded-lg border border-theme-dim w-28"
                 src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
               />
-            </a>
-
-            <.modal id={"image-edit-modal-#{image.id}"}>
-              <.simple_form
-                :let={f}
-                for={to_form(Notes.change_note_image(image))}
-                id={"image-edit-form-#{image.id}"}
-                phx-submit="update_edit_image"
-                phx-change="validate_edit_image"
+              <.button
+                phx-click="delete_image"
+                phx-value-id={image.id}
+                data-confirm="Are you sure?"
               >
-                <.input field={f[:id]} type="hidden" value={image.id} />
-                <.input field={f[:content]} type="textarea" label="Content" />
-                <.input field={f[:featured]} type="checkbox" label="Featured" />
-
-                <:actions>
-                  <.button type="submit" phx-click={hide_modal("image-edit-modal-#{image.id}")}>
-                    Save
-                  </.button>
-                  <.button
-                    phx-click="delete_image"
-                    phx-value-id={image.id}
-                    data-confirm="Are you sure?"
-                  >
-                    Delete Image
-                  </.button>
-                </:actions>
-              </.simple_form>
-            </.modal>
+                Delete Image
+              </.button>
+            </a>
           </article>
         <% end %>
       </div>
