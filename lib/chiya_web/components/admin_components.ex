@@ -107,7 +107,7 @@ defmodule ChiyaWeb.AdminComponents do
             href={~p"/admin"}
             class="text-xs leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
           >
-            Admin
+            <.icon name="hero-star-mini" class="w-4 h-4" /> Admin
           </.link>
         </li>
         <li>
