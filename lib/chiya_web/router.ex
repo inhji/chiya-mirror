@@ -61,6 +61,9 @@ defmodule ChiyaWeb.Router do
     resources "/settings", SettingController, singleton: true
     resources "/identities", IdentityController
 
+    get "/notes/import", NoteController, :import_prepare
+    post "/notes/import", NoteController, :import_run
+
     live "/notes/:id", NoteShowLive, :show
     get "/notes/:id/raw", NoteController, :raw
 

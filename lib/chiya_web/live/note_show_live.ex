@@ -38,6 +38,16 @@ defmodule ChiyaWeb.NoteShowLive do
 
     <.line />
 
+    <details>
+      <summary>File Content</summary>
+      <section class="prose">
+        <%= raw ChiyaWeb.Markdown.render(@note.content) %>
+      </section>
+    </details>
+    
+
+    <.line />
+
     <%= if !Enum.empty?(@note.images) do %>
       <div class="flex flex-wrap gap-3" id="images">
         <%= for image <- @note.images do %>

@@ -2,7 +2,7 @@ defmodule ChiyaWeb.NoteController do
   use ChiyaWeb, :controller
 
   alias Chiya.Notes
-  alias Chiya.Notes.Note
+  alias Chiya.Notes.{Note, NoteImport}
 
   def index(conn, _params) do
     notes = Notes.list_notes()
@@ -93,6 +93,47 @@ defmodule ChiyaWeb.NoteController do
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :edit_image, image: image, changeset: changeset)
     end
+  end
+
+  def import_prepare(conn, _params) do
+    render(conn, :import, changeset: NoteImport.change_note_import(%{}))
+  end
+
+  def import_run(conn, %{
+        "note_import" => %{
+          "file" => %{
+            path: path,
+            content_type: "text/markdown",
+            filename: filename
+          }
+        }
+      }) do
+    case File.read(path) do
+      {:ok, content} ->
+        note_params = %{
+          name: filename,
+          content: content
+        }
+
+        case Notes.create_note(note_params) do
+          {:ok, note} ->
+            conn
+            |> put_flash(:info, "Note created successfully.")
+            |> redirect(to: ~p"/admin/notes/#{note}")
+
+          {:error, %Ecto.Changeset{} = changeset} ->
+            render(conn, :new, changeset: changeset, channels: to_channel_options())
+        end
+
+      _ ->
+        render(conn, :import, changeset: NoteImport.change_note_import(%{}))
+    end
+  end
+
+  def import_run(conn, _params) do
+    conn
+    |> put_flash(:error, "Error while importing.")
+    |> redirect(to: ~p"/admin/notes")
   end
 
   defp from_channel_ids(note_params) do
