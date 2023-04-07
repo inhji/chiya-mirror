@@ -11,6 +11,13 @@
     prompt="Choose a value"
     options={Ecto.Enum.values(Chiya.Channels.Channel, :visibility)}
   />
+  <.input
+    field={f[:layout]}
+    type="select"
+    label="Layout"
+    prompt="Choose a value"
+    options={Ecto.Enum.values(Chiya.Channels.Channel, :layout)}
+  />
   <.input field={f[:slug]} type="text" label="Slug" />
   <:actions>
     <.button>Save Channel</.button>
