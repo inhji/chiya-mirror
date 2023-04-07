@@ -132,7 +132,7 @@ defmodule ChiyaWeb.AdminComponents do
         <li>
           <.link
             href={~p"/user/log_in"}
-            class="text-xs leading-6 text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
+            class="text-xs leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
           >
             Log in
           </.link>
