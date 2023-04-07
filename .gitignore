@@ -46,3 +46,6 @@ npm-debug.log
 
 # env file
 .env
+
+# elixir ls
+.elixir_ls

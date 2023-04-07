@@ -3,8 +3,10 @@
     <h1 class="mt-16 text-3xl font-semibold leading-8 text-theme-heading font-serif">
       <%= @note.name %>
     </h1>
-    <p class="mt-2 text-sm leading-6 text-theme-base font-semibold">
-      <%= pretty_date(@note.published_at) %>
+    <p class="mt-2 text-sm leading-6 text-theme-base">
+      <span>Published</span> <time class="text-theme-primary font-semibold"><%= pretty_date(@note.published_at) %></time>
+      <span>·</span>
+      <span>Last Updated</span> <time class="text-theme-primary font-semibold"><%= pretty_date(@note.updated_at) %></time>
     </p>
   </header>
 

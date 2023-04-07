@@ -8,7 +8,10 @@ defmodule ChiyaWeb.GlobalAssigns do
 
   def fetch_identities(conn, _opts) do
     identities = Chiya.Identities.list_identities()
-    assign(conn, :identities, identities)
+
+    conn
+    |> assign(:identities, identities)
+    |> assign(:public_identities, Enum.filter(identities, fn i -> i.public && i.active end))
   end
 
   def fetch_public_channels(conn, _opts) do

@@ -1,0 +1,15 @@
+<.header>
+  Import
+</.header>
+
+<.simple_form :let={f} for={@changeset} action={~p"/admin/notes/import"} multipart={true}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+
+  <.input field={f[:file]} type="file" label="Markdown file" accept="text/markdown, text/plain" />
+  
+  <:actions>
+    <.button>Import Note</.button>
+  </:actions>
+</.simple_form>
