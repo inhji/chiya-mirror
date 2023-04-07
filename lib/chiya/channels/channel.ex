@@ -9,6 +9,7 @@ defmodule Chiya.Channels.Channel do
     field :name, :string
     field :slug, ChannelSlug.Type
     field :visibility, Ecto.Enum, values: [:public, :private, :unlisted]
+    field :layout, Ecto.Enum, values: [:default, :gallery]
 
     many_to_many :notes, Chiya.Notes.Note,
       join_through: "channels_notes",
@@ -20,10 +21,10 @@ defmodule Chiya.Channels.Channel do
   @doc false
   def changeset(channel, attrs) do
     channel
-    |> cast(attrs, [:name, :content, :visibility, :slug])
+    |> cast(attrs, [:name, :content, :visibility, :slug, :layout])
     |> ChannelSlug.maybe_generate_slug()
     |> ChannelSlug.unique_constraint()
-    |> validate_required([:name, :content, :visibility, :slug])
+    |> validate_required([:name, :content, :visibility, :slug, :layout])
     |> validate_exclusion(:slug, ~w(admin user dev))
   end
 end
