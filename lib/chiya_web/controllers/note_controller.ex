@@ -147,5 +147,8 @@ defmodule ChiyaWeb.NoteController do
   end
 
   defp to_channel_options(items \\ nil),
-    do: Enum.map(items || Chiya.Channels.list_channels(), fn c -> {c.name, c.id} end)
+    do:
+      Enum.map(items || Chiya.Channels.list_channels(), fn c ->
+        {Chiya.Channels.Channel.icon(c) <> " " <> c.name, c.id}
+      end)
 end
