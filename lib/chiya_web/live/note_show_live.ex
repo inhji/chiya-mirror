@@ -39,7 +39,7 @@ defmodule ChiyaWeb.NoteShowLive do
     <.line />
 
     <details>
-      <summary>File Content</summary>
+      <summary class="text-gray-900 dark:text-gray-100">File Content</summary>
       <section class="prose">
         <%= raw ChiyaWeb.Markdown.render(@note.content) %>
       </section>
