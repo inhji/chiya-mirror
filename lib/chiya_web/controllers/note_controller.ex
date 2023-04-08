@@ -4,9 +4,23 @@ defmodule ChiyaWeb.NoteController do
   alias Chiya.Notes
   alias Chiya.Notes.{Note, NoteImport}
 
+  def index(conn, %{"channel" => channel_slug}) do
+    channels =
+      Chiya.Channels.list_channels()
+      |> Chiya.Channels.preload_channel()
+
+    channel = Chiya.Channels.get_channel_by_slug!(channel_slug)
+    notes = Notes.list_notes_by_channel(channel)
+    render(conn, :index, notes: notes, channels: channels)
+  end
+
   def index(conn, _params) do
+    channels =
+      Chiya.Channels.list_channels()
+      |> Chiya.Channels.preload_channel()
+
     notes = Notes.list_notes()
-    render(conn, :index, notes: notes)
+    render(conn, :index, notes: notes, channels: channels)
   end
 
   def new(conn, _params) do
