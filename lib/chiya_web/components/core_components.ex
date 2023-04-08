@@ -510,8 +510,8 @@ defmodule ChiyaWeb.CoreComponents do
       end
 
     ~H"""
-    <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
-      <table class="mt-11 w-[40rem] sm:w-full">
+    <div class="overflow-y-auto px-4 sm:overflow-visible bg-white dark:bg-gray-950 pt-1 mt-10 rounded shadow">
+      <table class="mt-4 w-[40rem] sm:w-full">
         <thead class="text-left text-[0.8125rem] leading-6 text-gray-500">
           <tr>
             <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
@@ -574,7 +574,7 @@ defmodule ChiyaWeb.CoreComponents do
 
   def list(assigns) do
     ~H"""
-    <div class="mt-14">
+    <div class="mt-10 bg-white dark:bg-gray-950 rounded shadow px-4">
       <dl class="-my-4 divide-y divide-gray-100 dark:divide-gray-800">
         <div :for={item <- @item} class="flex gap-4 py-4 sm:gap-8">
           <dt class="w-1/4 flex-none text-[0.8125rem] leading-6 text-gray-500 dark:text-gray-300">
