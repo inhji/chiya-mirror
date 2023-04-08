@@ -11,6 +11,13 @@
   </:actions>
 </.header>
 
+<section class="flex flex-row flex-wrap mt-4 gap-3">
+  <a href={~p"/admin/notes"} class="text-sm rounded-full bg-gray-300 hover:bg-gray-400 px-2 py-1">All</a>
+  <%= for channel <- @channels do %>
+    <a href={~p"/admin/notes?channel=#{channel.slug}"} class="text-sm rounded-full bg-gray-300 hover:bg-gray-400 px-2 py-1"><%= channel.name %> <span class="text-gray-600">(<%= Enum.count(channel.notes) %>)</span></a>
+  <% end %>
+</section>
+
 <.table id="notes" rows={@notes} row_click={&JS.navigate(~p"/admin/notes/#{&1}")}>
   <:col :let={note} label="Name"><%= note.name %></:col>
   <:col :let={note} label="Updated at"><%= from_now(note.updated_at) %></:col>

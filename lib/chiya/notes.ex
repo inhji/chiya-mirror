@@ -26,6 +26,15 @@ defmodule Chiya.Notes do
     |> Repo.preload(@preloads)
   end
 
+  def list_notes_by_channel(%Chiya.Channels.Channel{} = channel) do
+    Note
+    |> join(:inner, [n], c in assoc(n, :channels))
+    |> where([n, c], c.id == ^channel.id)
+    |> order_by([n], desc: n.updated_at, desc: n.published_at)
+    |> Repo.all()
+    |> Repo.preload(@preloads)
+  end
+
   @doc """
   Preloads a note
 
