@@ -1,26 +1,25 @@
 defmodule ChiyaWeb.NoteController do
   use ChiyaWeb, :controller
+  import Plug.Conn, only: [assign: 3]
 
   alias Chiya.Notes
   alias Chiya.Notes.{Note, NoteImport}
 
   def index(conn, %{"channel" => channel_slug}) do
-    channels =
-      Chiya.Channels.list_channels()
-      |> Chiya.Channels.preload_channel()
-
     channel = Chiya.Channels.get_channel_by_slug!(channel_slug)
     notes = Notes.list_notes_by_channel(channel)
-    render(conn, :index, notes: notes, channels: channels)
+
+    conn
+    |> with_channels()
+    |> render(:index, notes: notes)
   end
 
   def index(conn, _params) do
-    channels =
-      Chiya.Channels.list_channels()
-      |> Chiya.Channels.preload_channel()
-
     notes = Notes.list_notes()
-    render(conn, :index, notes: notes, channels: channels)
+
+    conn
+    |> with_channels()
+    |> render(:index, notes: notes)
   end
 
   def new(conn, _params) do
@@ -148,6 +147,16 @@ defmodule ChiyaWeb.NoteController do
     conn
     |> put_flash(:error, "Error while importing.")
     |> redirect(to: ~p"/admin/notes")
+  end
+
+  defp with_channels(conn) do
+    assign(
+      conn,
+      :channels,
+      Chiya.Channels.list_channels()
+      |> Chiya.Channels.preload_channel()
+      |> Enum.filter(fn c -> not Enum.empty?(c.notes) end)
+    )
   end
 
   defp from_channel_ids(note_params) do
