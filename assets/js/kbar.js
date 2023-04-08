@@ -84,8 +84,8 @@ const ResultItem = React.forwardRef(
         className={classNames(
           "flex justify-between items-center cursor-pointer px-4 py-3 dark:text-white",
           { 
-            "bg-emerald-50 dark:bg-emerald-900": active,
-            "border-l-2 border-emerald-300": active
+            "bg-gray-300 dark:bg-gray-600": active,
+            "border-l-2 border-gray-300": active
           })}
       >
         <div className="flex gap-3 items-center text-sm dark:text-white">
@@ -257,7 +257,7 @@ export default function KBar() {
       <KBarPortal>
         <KBarPositioner>
           <KBarAnimator style={animatorStyle} className="bg-gray-50 border border-gray-100 shadow-sm dark:bg-gray-900 dark:border-gray-800">
-            <KBarSearch style={searchStyle} className="bg-gray-50 dark:bg-gray-900 border-b border-gray-100" />
+            <KBarSearch style={searchStyle} className="bg-gray-50 dark:bg-gray-900 border-b border-gray-100 text-gray-900 dark:text-gray-100" />
             <RenderResults />
           </KBarAnimator>
         </KBarPositioner>
