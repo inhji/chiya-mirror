@@ -27,4 +27,12 @@ defmodule Chiya.Channels.Channel do
     |> validate_required([:name, :content, :visibility, :slug, :layout])
     |> validate_exclusion(:slug, ~w(admin user dev))
   end
+
+  def icon(%Chiya.Channels.Channel{visibility: vis}) do
+    case(vis) do
+      :public -> "🌍"
+      :private -> "🔒"
+      :unlisted -> "👁️"
+    end
+  end
 end

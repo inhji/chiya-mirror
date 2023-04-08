@@ -1,5 +1,6 @@
 <.header>
-  Listing Channels
+  <.icon name="hero-speaker-wave" /> Channels
+  <:subtitle>Channels are collections for your notes.</:subtitle>
   <:actions>
     <.link href={~p"/admin/channels/new"}>
       <.button>New Channel</.button>
@@ -9,7 +10,8 @@
 
 <.table id="channels" rows={@channels} row_click={&JS.navigate(~p"/admin/channels/#{&1}")}>
   <:col :let={channel} label="Name"><%= channel.name %></:col>
-  <:col :let={channel} label="Visibility"><%= channel.visibility %></:col>
+  <:col :let={channel} label="Visibility"><%= Chiya.Channels.Channel.icon(channel) %> <%= channel.visibility %></:col>
+  <:col :let={channel} label="Notes"><%= Enum.count(channel.notes) %></:col>
   <:col :let={channel} label="Slug"><%= channel.slug %></:col>
   <:action :let={channel}>
     <div class="sr-only">

@@ -5,7 +5,7 @@ defmodule ChiyaWeb.ChannelController do
   alias Chiya.Channels.Channel
 
   def index(conn, _params) do
-    channels = Channels.list_channels()
+    channels = Channels.list_channels() |> Channels.preload_channel()
     render(conn, :index, channels: channels)
   end
 
