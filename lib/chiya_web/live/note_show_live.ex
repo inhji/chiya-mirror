@@ -11,8 +11,8 @@ defmodule ChiyaWeb.NoteShowLive do
 
     ~H"""
     <.header>
-      Note <%= @note.id %>
-      <:subtitle>This is a note record from your database.</:subtitle>
+      <%= @note.name %>
+      <:subtitle><%= @note.slug %></:subtitle>
       <:actions>
         <.link href={~p"/admin/notes/#{@note}/edit"}>
           <.button>Edit note</.button>
@@ -27,13 +27,10 @@ defmodule ChiyaWeb.NoteShowLive do
     </.header>
 
     <.list>
-      <:item title="Name"><%= @note.name %></:item>
-      <:item title="Content"><%= @note.content %></:item>
-      <:item title="Slug"><%= @note.slug %></:item>
-      <:item title="Published at"><%= @note.published_at %></:item>
+      <:item title="Published at"><%= pretty_date(@note.published_at) %> <span>(<%= from_now(@note.published_at) %>)</span></:item>
+      <:item title="Channels"><%= @channels %></:item>
       <:item title="Kind"><%= @note.kind %></:item>
       <:item title="Url"><%= @note.url %></:item>
-      <:item title="Channels"><%= @channels %></:item>
     </.list>
 
     <.line />
