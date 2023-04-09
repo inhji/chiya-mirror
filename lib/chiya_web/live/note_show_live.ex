@@ -12,7 +12,9 @@ defmodule ChiyaWeb.NoteShowLive do
     ~H"""
     <.header>
       <%= @note.name %>
-      <:subtitle><%= @note.slug %></:subtitle>
+      <:subtitle>
+        <pre class="p-1 bg-gray-100 rounded select-all">[[<%= @note.slug %>]]</pre>
+      </:subtitle>
       <:actions>
         <.link href={~p"/admin/notes/#{@note}/edit"}>
           <.button>Edit</.button>
