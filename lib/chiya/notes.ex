@@ -5,10 +5,9 @@ defmodule Chiya.Notes do
 
   import Ecto.Query, warn: false
   alias Chiya.Repo
+  alias Chiya.Notes.{Note, NoteImage, NoteNote, References}
 
-  alias Chiya.Notes.{Note, NoteImage}
-
-  @preloads [:channels, :images]
+  @preloads [:channels, :images, :links_from, :links_to]
 
   @doc """
   Returns the list of notes.
@@ -62,6 +61,22 @@ defmodule Chiya.Notes do
   def get_note!(id), do: Repo.get!(Note, id)
 
   @doc """
+  Gets a single note.
+
+  Returns nil if the Note does not exist.
+
+  ## Examples
+
+      iex> get_note!(123)
+      %Note{}
+
+      iex> get_note!(456)
+      nil
+
+  """
+  def get_note(id), do: Repo.get(Note, id)
+
+  @doc """
   Gets a single note and preloads it.
 
   Raises `Ecto.NoResultsError` if the Note does not exist.
@@ -77,7 +92,37 @@ defmodule Chiya.Notes do
   """
   def get_note_preloaded!(id), do: Repo.get!(Note, id) |> preload_note()
 
+  @doc """
+  Gets a single note by its slug and preloads it.
+
+  Raises `Ecto.NoResultsError` if the Note does not exist.
+
+  ## Examples
+
+      iex> get_note_preloaded!(123)
+      %Note{}
+
+      iex> get_note_preloaded!(456)
+      ** (Ecto.NoResultsError)
+
+  """
   def get_note_by_slug_preloaded!(slug), do: Repo.get_by!(Note, slug: slug) |> preload_note()
+
+  @doc """
+  Gets a single note by its slug and preloads it.
+
+  Returns nil if the Note does not exist.
+
+  ## Examples
+
+      iex> get_note_preloaded!(123)
+      %Note{}
+
+      iex> get_note_preloaded!(456)
+      nil
+
+  """
+  def get_note_by_slug_preloaded(slug), do: Repo.get_by(Note, slug: slug) |> preload_note()
 
   @doc """
   Creates a note.
@@ -113,6 +158,7 @@ defmodule Chiya.Notes do
     note
     |> Note.changeset(attrs)
     |> Repo.update()
+    |> Chiya.Notes.References.update_references(attrs)
   end
 
   @doc """
@@ -176,6 +222,24 @@ defmodule Chiya.Notes do
     {:ok, _} = Repo.delete(note_image)
     :ok = ChiyaWeb.Uploaders.NoteImage.delete({note_image.path, note_image})
     :ok
+  end
+
+  def get_note_note!(attrs \\ %{}) do
+    Repo.get_by!(NoteNote, attrs)
+  end
+
+  def get_note_note(attrs \\ %{}) do
+    Repo.get_by(NoteNote, attrs)
+  end
+
+  def create_note_note(attrs \\ %{}) do
+    %NoteNote{}
+    |> NoteNote.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def delete_note_note(%NoteNote{} = note_note) do
+    Repo.delete(note_note)
   end
 
   @doc """

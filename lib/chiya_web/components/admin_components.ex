@@ -76,6 +76,7 @@ defmodule ChiyaWeb.AdminComponents do
   """
 
   attr :current_user, :map, required: true
+  attr :settings, :map, required: true
 
   def admin_bar(assigns) do
     ~H"""
@@ -85,10 +86,7 @@ defmodule ChiyaWeb.AdminComponents do
           href={~p"/"}
           class="flex gap-3 text-sm leading-6 font-semibold text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
         >
-          <span>Chiya</span>
-          <p class="rounded-full bg-theme-primary/10 px-2 text-[0.8125rem] font-medium leading-6 text-theme-primary">
-            v<%= Application.spec(:chiya, :vsn) %>
-          </p>
+          <%= @settings.title %>
         </.link>
       </li>
       <li class="flex-1"></li>

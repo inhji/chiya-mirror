@@ -19,6 +19,14 @@ defmodule Chiya.Notes.Note do
       join_keys: [note: :id, channel: :id],
       on_replace: :delete
 
+    many_to_many :links_from, Chiya.Notes.Note,
+      join_through: Chiya.Notes.NoteNote,
+      join_keys: [target_id: :id, source_id: :id]
+
+    many_to_many :links_to, Chiya.Notes.Note,
+      join_through: Chiya.Notes.NoteNote,
+      join_keys: [source_id: :id, target_id: :id]
+
     has_many :images, Chiya.Notes.NoteImage
 
     timestamps()

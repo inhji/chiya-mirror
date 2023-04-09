@@ -15,7 +15,7 @@ defmodule ChiyaWeb.NoteShowLive do
       <:subtitle><%= @note.slug %></:subtitle>
       <:actions>
         <.link href={~p"/admin/notes/#{@note}/edit"}>
-          <.button>Edit note</.button>
+          <.button>Edit</.button>
         </.link>
         <.link href={~p"/#{@note.slug}"}>
           <.button>Preview</.button>
@@ -31,17 +31,9 @@ defmodule ChiyaWeb.NoteShowLive do
       <:item title="Channels"><%= @channels %></:item>
       <:item title="Kind"><%= @note.kind %></:item>
       <:item title="Url"><%= @note.url %></:item>
+      <:item title="Links outgoing"><%= note_links(@note.links_to) %></:item>
+      <:item title="Links incoming"><%= note_links(@note.links_from) %></:item>
     </.list>
-
-    <.line />
-
-    <details>
-      <summary class="text-gray-900 dark:text-gray-100">File Content</summary>
-      <section class="prose">
-        <%= raw ChiyaWeb.Markdown.render(@note.content) %>
-      </section>
-    </details>
-    
 
     <.line />
 
@@ -157,5 +149,9 @@ defmodule ChiyaWeb.NoteShowLive do
       |> Notes.delete_note_image()
 
     {:noreply, assign(socket, :note, Notes.get_note_preloaded!(socket.assigns.note.id))}
+  end
+
+  defp note_links(notes) do
+    Enum.map_join(notes, ", ",fn n -> n.name end)
   end
 end

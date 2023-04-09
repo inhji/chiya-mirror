@@ -22,7 +22,7 @@
     </script>
   </head>
   <body class="bg-gray-200 dark:bg-gray-900 antialiased">
-    <.admin_bar current_user={@current_user} />
+    <.admin_bar current_user={@current_user} settings={@settings} />
     <%= @inner_content %>
     <div id="react-root"></div>
   </body>

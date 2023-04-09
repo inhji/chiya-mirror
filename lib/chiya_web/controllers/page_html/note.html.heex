@@ -7,6 +7,10 @@
       <span>Published</span> <time class="text-theme-primary font-semibold"><%= pretty_date(@note.published_at) %></time>
       <span>·</span>
       <span>Last Updated</span> <time class="text-theme-primary font-semibold"><%= pretty_date(@note.updated_at) %></time>
+      <%= if @current_user do %>
+      <span>·</span>
+      <a href={~p"/admin/notes/#{@note}/edit"} class="text-theme-primary font-semibold">Edit</a>
+      <% end %>
     </p>
   </header>
 
@@ -20,8 +24,7 @@
     <div class="flex flex-wrap gap-3">
       <%= for image <- @note.images do %>
         <a href={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)} class="lightbox | w-28" data-gallery="note" data-description={ChiyaWeb.Markdown.render(image.content)}>
-          <img src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
-          />
+          <img src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)} class="rounded"/>
         </a>
       <% end %>
     </div>

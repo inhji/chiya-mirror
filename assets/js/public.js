@@ -1,3 +1,6 @@
+// Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
+import "phoenix_html"
+
 import lolight from "../vendor/lolight"
 import GLightbox from 'glightbox'
 
@@ -17,4 +20,4 @@ document
 		}
 	})
 
-const lightbox = GLightbox({ selector: ".lightbox" })
+GLightbox({ selector: ".lightbox" })
