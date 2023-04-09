@@ -24,8 +24,7 @@
     <div class="flex flex-wrap gap-3">
       <%= for image <- @note.images do %>
         <a href={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)} class="lightbox | w-28" data-gallery="note" data-description={ChiyaWeb.Markdown.render(image.content)}>
-          <img src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
-          />
+          <img src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)} class="rounded"/>
         </a>
       <% end %>
     </div>
