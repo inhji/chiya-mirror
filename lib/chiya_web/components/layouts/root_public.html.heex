@@ -25,14 +25,15 @@
     </style>
   </head>
   <body class="bg-theme-background antialiased min-h-screen flex flex-col">
-    <.admin_bar current_user={@current_user} />
+    <.admin_bar current_user={@current_user} settings={@settings} />
 
     <main class="flex-1">
       <%= @inner_content %>
     </main>
 
     <footer class="px-4 py-1 sm:px-6 lg:px-8 bg-white/30 dark:bg-black/30 text-gray-900 dark:text-gray-100 text-xs leading-6 font-semibold">
-      <span class="text-theme-primary">⌘</span> <span><%= @settings.title %></span>
+      <span class="text-theme-primary">⌘</span> <span>Chiya</span> <span class="rounded-full bg-theme-primary/10 px-2 text-xs font-medium leading-6 text-theme-primary">
+            v<%= Application.spec(:chiya, :vsn) %></span>
     </footer>
 
     <%= raw(@settings.custom_html) %>
