@@ -31,7 +31,7 @@ defmodule Chiya.Notes.Note do
       join_through: Chiya.Notes.NoteNote,
       join_keys: [source_id: :id, target_id: :id]
 
-    many_to_many :tags, Chiya.Tags.Tag, 
+    many_to_many :tags, Chiya.Tags.Tag,
       join_through: Chiya.Notes.NoteTag,
       join_keys: [note_id: :id, tag_id: :id]
 
