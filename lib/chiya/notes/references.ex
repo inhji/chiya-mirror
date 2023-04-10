@@ -128,7 +128,6 @@ defmodule Chiya.Notes.References do
       else
         Logger.debug("Note '#{slug}' does not exist anymore.")
       end
-
     end)
   end
 

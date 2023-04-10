@@ -75,11 +75,12 @@ defmodule ChiyaWeb.NoteController do
         |> redirect(to: ~p"/admin/notes/#{note}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :edit, 
-          note: note, 
-          changeset: changeset, 
-          channels: to_channel_options(), 
-          tags: note.tags)
+        render(conn, :edit,
+          note: note,
+          changeset: changeset,
+          channels: to_channel_options(),
+          tags: note.tags
+        )
     end
   end
 

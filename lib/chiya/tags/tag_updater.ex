@@ -67,7 +67,7 @@ defmodule Chiya.Tags.TagUpdater do
     Logger.debug("Looking up tag [#{tag}] with slug [#{slug}]")
 
     {:ok, tag} =
-      case Tags.get_tag(slug) do
+      case Tags.get_tag_by_slug(slug) do
         nil ->
           Logger.debug("Tag [#{tag}] does not exist. Creating.")
           Tags.create_tag(%{name: tag})
@@ -96,7 +96,7 @@ defmodule Chiya.Tags.TagUpdater do
   defp remove_tag(schema, tag) do
     slug = Slugger.slugify_downcase(tag)
 
-    if tag = Tags.get_tag(slug) do
+    if tag = Tags.get_tag_by_slug(slug) do
       case schema do
         %Note{} ->
           attrs = %{tag_id: tag.id, note_id: schema.id}
