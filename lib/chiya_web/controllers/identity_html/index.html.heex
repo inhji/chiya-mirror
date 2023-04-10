@@ -8,7 +8,9 @@
 </.header>
 
 <.table id="identities" rows={@identities} row_click={&JS.navigate(~p"/admin/identities/#{&1}")}>
-  <:col :let={identity} label="Icon"><%= raw(identity.icon) %></:col>
+  <:col :let={identity} label="Icon">
+    <span class="fill-gray-900 dark:fill-gray-200"><%= raw(identity.icon) %></span>
+  </:col>
   <:col :let={identity} label="Name"><%= identity.name %></:col>
   <:col :let={identity} label="Rel"><%= identity.rel %></:col>
   <:col :let={identity} label="Url"><%= identity.url %></:col>
