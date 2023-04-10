@@ -10,7 +10,7 @@ defmodule Chiya.Notes.Note do
     field :content, :string
 
     field :kind, Ecto.Enum,
-      values: [:post, :bookmark],
+      values: [:post, :bookmark, :recipe],
       default: :post
 
     field :name, :string
