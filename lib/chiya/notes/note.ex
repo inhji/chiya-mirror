@@ -8,7 +8,11 @@ defmodule Chiya.Notes.Note do
   @derive {Jason.Encoder, only: [:id, :name, :content, :slug, :channels]}
   schema "notes" do
     field :content, :string
-    field :kind, Ecto.Enum, values: [:post, :bookmark], default: :post
+
+    field :kind, Ecto.Enum,
+      values: [:post, :bookmark],
+      default: :post
+
     field :name, :string
     field :published_at, :naive_datetime
     field :slug, NoteSlug.Type

@@ -3,7 +3,11 @@
   <:subtitle>Use this form to manage note image records in your database.</:subtitle>
 </.header>
 
-<.simple_form :let={f} for={@changeset} action={~p"/admin/notes/#{@image.note.id}/image/#{@image.id}"}>
+<.simple_form
+  :let={f}
+  for={@changeset}
+  action={~p"/admin/notes/#{@image.note.id}/image/#{@image.id}"}
+>
   <.error :if={@changeset.action}>
     Oops, something went wrong! Please check the errors below.
   </.error>
@@ -16,6 +20,5 @@
     <.button type="submit">Save</.button>
   </:actions>
 </.simple_form>
-
 
 <.back navigate={~p"/admin/notes/#{@image.note_id}"}>Back to notes</.back>
