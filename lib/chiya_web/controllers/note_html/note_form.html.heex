@@ -14,6 +14,7 @@
     options={Ecto.Enum.values(Chiya.Notes.Note, :kind)}
   />
   <.input field={f[:url]} type="text" label="Url" />
+  <.input field={f[:tags_string]} type="text" label="Tags" value={tags_to_string(@tags)} />
   <.input
     field={f[:channels]}
     type="select"
@@ -22,7 +23,9 @@
     options={@channels}
     value={selected_channels(@changeset)}
   />
+
   <:actions>
     <.button>Save Note</.button>
   </:actions>
 </.simple_form>
+

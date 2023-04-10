@@ -12,9 +12,20 @@
 </.header>
 
 <section class="flex flex-row flex-wrap mt-4 gap-3">
-  <a href={~p"/admin/notes"} class="text-sm dark:text-gray-300 rounded-full bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 px-2 py-1">All</a>
+  <a
+    href={~p"/admin/notes"}
+    class="text-sm dark:text-gray-300 rounded-full bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 px-2 py-1"
+  >
+    All
+  </a>
   <%= for channel <- @channels do %>
-    <a href={~p"/admin/notes?channel=#{channel.slug}"} class="text-sm dark:text-gray-300 rounded-full bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 px-2 py-1"><%= channel.name %> <span class="text-gray-600 dark:text-gray-500">(<%= Enum.count(channel.notes) %>)</span></a>
+    <a
+      href={~p"/admin/notes?channel=#{channel.slug}"}
+      class="text-sm dark:text-gray-300 rounded-full bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 px-2 py-1"
+    >
+      <%= channel.name %>
+      <span class="text-gray-600 dark:text-gray-500">(<%= Enum.count(channel.notes) %>)</span>
+    </a>
   <% end %>
 </section>
 

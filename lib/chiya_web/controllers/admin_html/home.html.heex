@@ -1,11 +1,11 @@
 <section class="p-4 rounded flex gap-4 bg-gray-100 shadow border border-gray-300 dark:border-gray-700 dark:bg-gray-800">
-	<img
-      class="rounded-full w-24"
-      src={ChiyaWeb.Uploaders.UserImage.url({@current_user.user_image, @current_user}, :thumb)}
-    />
+  <img
+    class="rounded-full w-24"
+    src={ChiyaWeb.Uploaders.UserImage.url({@current_user.user_image, @current_user}, :thumb)}
+  />
   <div class="flex-1 dark:text-gray-200">
-  	<p class="text-sm text-gray-600 dark:text-gray-400">Welcome back,</p>
-  	<h2 class="text-xl font-semibold"><%= @current_user.email %></h2>
+    <p class="text-sm text-gray-600 dark:text-gray-400">Welcome back,</p>
+    <h2 class="text-xl font-semibold"><%= @current_user.email %></h2>
   </div>
   <.link href={~p"/user"}>
     <.button>Profile</.button>
@@ -13,7 +13,10 @@
 </section>
 
 <section class="mt-4 flex gap-4">
-  <a href="/admin/notes/new" class="p-4 rounded text-gray-700 bg-gray-100 shadow border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 hover:text-gray-700/80 dark:hover:text-gray-200/80 transition hover:shadow-none">
+  <a
+    href="/admin/notes/new"
+    class="p-4 rounded text-gray-700 bg-gray-100 shadow border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 hover:text-gray-700/80 dark:hover:text-gray-200/80 transition hover:shadow-none"
+  >
     <.icon name="hero-document-plus" /> New Note
   </a>
 </section>

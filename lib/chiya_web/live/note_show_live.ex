@@ -29,10 +29,13 @@ defmodule ChiyaWeb.NoteShowLive do
     </.header>
 
     <.list>
-      <:item title="Published at"><%= pretty_date(@note.published_at) %> <span>(<%= from_now(@note.published_at) %>)</span></:item>
+      <:item title="Published at">
+        <%= pretty_date(@note.published_at) %> <span>(<%= from_now(@note.published_at) %>)</span>
+      </:item>
       <:item title="Channels"><%= @channels %></:item>
       <:item title="Kind"><%= @note.kind %></:item>
       <:item title="Url"><%= @note.url %></:item>
+      <:item title="Tags"><%= note_tags(@note.tags) %></:item>
       <:item title="Links outgoing"><%= note_links(@note.links_to) %></:item>
       <:item title="Links incoming"><%= note_links(@note.links_from) %></:item>
     </.list>
@@ -48,11 +51,7 @@ defmodule ChiyaWeb.NoteShowLive do
                 class="rounded-lg border border-theme-dim w-28"
                 src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
               />
-              <.button
-                phx-click="delete_image"
-                phx-value-id={image.id}
-                data-confirm="Are you sure?"
-              >
+              <.button phx-click="delete_image" phx-value-id={image.id} data-confirm="Are you sure?">
                 Delete Image
               </.button>
             </a>
@@ -140,7 +139,7 @@ defmodule ChiyaWeb.NoteShowLive do
     id
     |> Notes.get_note_image!()
     |> Notes.update_note_image(assigns)
-    
+
     {:noreply, socket}
   end
 
@@ -153,7 +152,6 @@ defmodule ChiyaWeb.NoteShowLive do
     {:noreply, assign(socket, :note, Notes.get_note_preloaded!(socket.assigns.note.id))}
   end
 
-  defp note_links(notes) do
-    Enum.map_join(notes, ", ",fn n -> n.name end)
-  end
+  defp note_links(notes), do: Enum.map_join(notes, ", ", fn n -> n.name end)
+  defp note_tags(tags), do: Enum.map_join(tags, ", ", fn t -> t.name end)
 end

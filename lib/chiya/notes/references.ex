@@ -75,7 +75,6 @@ defmodule Chiya.Notes.References do
     end)
   end
 
-
   def update_references({:ok, note}, attrs) do
     new_reference_slugs = get_reference_ids(attrs["content"])
     old_reference_slugs = Enum.map(note.links_from, fn n -> n.slug end)
@@ -118,13 +117,18 @@ defmodule Chiya.Notes.References do
       attrs = get_attrs(origin_note.id, linked_note.id)
       note_note = Chiya.Notes.get_note_note(attrs)
 
-      case Chiya.Notes.delete_note_note(note_note) do
-        {:ok, _note_note} ->
-          Logger.info("Reference to '#{slug}' deleted")
+      if note_note do
+        case Chiya.Notes.delete_note_note(note_note) do
+          {:ok, _note_note} ->
+            Logger.info("Reference to '#{slug}' deleted")
 
-        error ->
-          Logger.warn(error)
+          error ->
+            Logger.warn(error)
+        end
+      else
+        Logger.debug("Note '#{slug}' does not exist anymore.")
       end
+
     end)
   end
 

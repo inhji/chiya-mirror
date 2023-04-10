@@ -84,7 +84,7 @@
 /* Set width and color for identity icons */
 a[rel] svg { 
   width: 1em;
-  fill: rgb(var(--color-text-primary));
+  fill: rgb(var(--color-primary));
 }
 
 /* Set width and color for identity icons */

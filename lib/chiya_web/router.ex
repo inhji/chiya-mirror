@@ -117,6 +117,7 @@ defmodule ChiyaWeb.Router do
 
     get "/:slug", PageController, :note
     get "/c/:slug", PageController, :channel
+    get "/t/:slug", PageController, :tag
     get "/", PageController, :home
   end
 end

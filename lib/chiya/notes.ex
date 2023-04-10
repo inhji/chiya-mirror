@@ -5,9 +5,9 @@ defmodule Chiya.Notes do
 
   import Ecto.Query, warn: false
   alias Chiya.Repo
-  alias Chiya.Notes.{Note, NoteImage, NoteNote, References}
+  alias Chiya.Notes.{Note, NoteImage, NoteNote, NoteTag}
 
-  @preloads [:channels, :images, :links_from, :links_to]
+  @preloads [:channels, :images, :links_from, :links_to, :tags]
 
   @doc """
   Returns the list of notes.
@@ -158,6 +158,7 @@ defmodule Chiya.Notes do
     note
     |> Note.changeset(attrs)
     |> Repo.update()
+    |> Chiya.Tags.TagUpdater.update_tags(attrs)
     |> Chiya.Notes.References.update_references(attrs)
   end
 
@@ -247,5 +248,19 @@ defmodule Chiya.Notes do
   """
   def change_note_image(%NoteImage{} = note_image, attrs \\ %{}) do
     NoteImage.update_changeset(note_image, attrs)
+  end
+
+  def get_note_tag!(attrs \\ %{}) do
+    Repo.get_by!(NoteTag, attrs)
+  end
+
+  def create_note_tag(attrs \\ %{}) do
+    %NoteTag{}
+    |> NoteTag.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def delete_note_tag(%NoteTag{} = note_tag) do
+    Repo.delete(note_tag)
   end
 end

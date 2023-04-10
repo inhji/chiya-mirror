@@ -29,6 +29,16 @@ defmodule ChiyaWeb.PageController do
     )
   end
 
+  def tag(conn, %{"slug" => tag_slug}) do
+    tag = Chiya.Tags.get_tag_by_slug!(tag_slug)
+
+    render(conn, :tag,
+      layout: {ChiyaWeb.Layouts, "public.html"},
+      tag: tag,
+      page_title: tag.name
+    )
+  end
+
   def note(conn, %{"slug" => note_slug}) do
     note = Chiya.Notes.get_note_by_slug_preloaded!(note_slug)
 

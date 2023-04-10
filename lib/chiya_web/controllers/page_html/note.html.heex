@@ -4,12 +4,21 @@
       <%= @note.name %>
     </h1>
     <p class="mt-2 text-sm leading-6 text-theme-base">
-      <span>Published</span> <time class="text-theme-primary font-semibold"><%= pretty_date(@note.published_at) %></time>
+      <span>Published</span>
+      <time class="text-theme-primary font-semibold"><%= pretty_date(@note.published_at) %></time>
       <span>·</span>
-      <span>Last Updated</span> <time class="text-theme-primary font-semibold"><%= pretty_date(@note.updated_at) %></time>
+      <span>Last Updated</span>
+      <time class="text-theme-primary font-semibold"><%= pretty_date(@note.updated_at) %></time>
+      <span>·</span>
+      <span>Tags</span>
+      <span class="text-theme-primary font-semibold">
+        <%= for tag <- @note.tags do %>
+          <a href={~p"/t/#{tag.slug}"}><%= tag.name %></a>
+        <% end %>
+      </span>
       <%= if @current_user do %>
-      <span>·</span>
-      <a href={~p"/admin/notes/#{@note}/edit"} class="text-theme-primary font-semibold">Edit</a>
+        <span>·</span>
+        <a href={~p"/admin/notes/#{@note}/edit"} class="text-theme-primary font-semibold">Edit</a>
       <% end %>
     </p>
   </header>
@@ -23,8 +32,16 @@
 
     <div class="flex flex-wrap gap-3">
       <%= for image <- @note.images do %>
-        <a href={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)} class="lightbox | w-28" data-gallery="note" data-description={ChiyaWeb.Markdown.render(image.content)}>
-          <img src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)} class="rounded"/>
+        <a
+          href={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}
+          class="lightbox | w-28"
+          data-gallery="note"
+          data-description={ChiyaWeb.Markdown.render(image.content)}
+        >
+          <img
+            src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
+            class="rounded"
+          />
         </a>
       <% end %>
     </div>

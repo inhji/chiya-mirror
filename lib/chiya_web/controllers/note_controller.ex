@@ -24,7 +24,12 @@ defmodule ChiyaWeb.NoteController do
 
   def new(conn, _params) do
     changeset = Notes.change_note(%Note{})
-    render(conn, :new, changeset: changeset, channels: to_channel_options())
+
+    render(conn, :new,
+      changeset: changeset,
+      channels: to_channel_options(),
+      tags: []
+    )
   end
 
   def create(conn, %{"note" => note_params}) do
@@ -50,7 +55,13 @@ defmodule ChiyaWeb.NoteController do
   def edit(conn, %{"id" => id}) do
     note = Notes.get_note_preloaded!(id)
     changeset = Notes.change_note(note)
-    render(conn, :edit, note: note, changeset: changeset, channels: to_channel_options())
+
+    render(conn, :edit,
+      note: note,
+      changeset: changeset,
+      channels: to_channel_options(),
+      tags: note.tags
+    )
   end
 
   def update(conn, %{"id" => id, "note" => note_params}) do
@@ -64,7 +75,11 @@ defmodule ChiyaWeb.NoteController do
         |> redirect(to: ~p"/admin/notes/#{note}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :edit, note: note, changeset: changeset, channels: to_channel_options())
+        render(conn, :edit, 
+          note: note, 
+          changeset: changeset, 
+          channels: to_channel_options(), 
+          tags: note.tags)
     end
   end
 

@@ -1,13 +1,13 @@
 <div class="mx-auto max-w-xl mx-4 lg:mx-0">
   <h1 class="mt-16 text-[2rem] font-semibold font-serif leading-10 tracking-tighter text-theme-heading">
-    <%= @channel.name %>
+    Tagged with &ldquo;<%= @tag.name %>&rdquo;
   </h1>
   <p class="mt-4 text-base leading-7 text-theme-base">
-    <%= @channel.content %>
+    <%= @tag.content %>
   </p>
 
   <div class="w-full mt-6 sm:w-auto flex flex-col gap-1.5">
-    <%= for note <- @channel.notes do %>
+    <%= for note <- @tag.notes do %>
       <a
         href={~p"/#{note.slug}"}
         class="rounded -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-primary/10 transition"
