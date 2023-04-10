@@ -35,6 +35,7 @@ defmodule ChiyaWeb.NoteShowLive do
       <:item title="Channels"><%= @channels %></:item>
       <:item title="Kind"><%= @note.kind %></:item>
       <:item title="Url"><%= @note.url %></:item>
+      <:item title="Tags"><%= note_tags(@note.tags) %></:item>
       <:item title="Links outgoing"><%= note_links(@note.links_to) %></:item>
       <:item title="Links incoming"><%= note_links(@note.links_from) %></:item>
     </.list>
@@ -151,7 +152,6 @@ defmodule ChiyaWeb.NoteShowLive do
     {:noreply, assign(socket, :note, Notes.get_note_preloaded!(socket.assigns.note.id))}
   end
 
-  defp note_links(notes) do
-    Enum.map_join(notes, ", ", fn n -> n.name end)
-  end
+  defp note_links(notes), do: Enum.map_join(notes, ", ", fn n -> n.name end)
+  defp note_tags(tags), do: Enum.map_join(tags, ", ", fn t -> t.name end)
 end
