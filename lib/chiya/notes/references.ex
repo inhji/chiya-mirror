@@ -81,6 +81,12 @@ defmodule Chiya.Notes.References do
     references_to_add = new_reference_slugs -- old_reference_slugs
     references_to_remove = old_reference_slugs -- new_reference_slugs
 
+    Logger.debug("References to add: #{Enum.count(references_to_add)}")
+    Logger.debug(inspect(references_to_add))
+
+    Logger.debug("References to remove: #{Enum.count(references_to_remove)}")
+    Logger.debug(inspect(references_to_remove))
+
     add_note_links(note, references_to_add)
     remove_note_links(note, references_to_remove)
 
@@ -91,12 +97,12 @@ defmodule Chiya.Notes.References do
 
   defp add_note_links(origin_note, slugs) do
     Enum.each(slugs, fn slug ->
-      case linked_note = Chiya.Notes.get_note_by_slug_preloaded(slug) do
+      case Chiya.Notes.get_note_by_slug_preloaded(slug) do
         nil ->
           Logger.warn("Reference to '#{slug}' could not be resolved")
 
-        _note ->
-          add_note_link(slug, origin_note, linked_note)
+        note ->
+          add_note_link(slug, origin_note, note)
       end
     end)
   end
