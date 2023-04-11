@@ -25,11 +25,11 @@ defmodule Chiya.Notes.Note do
 
     many_to_many :links_from, Chiya.Notes.Note,
       join_through: Chiya.Notes.NoteNote,
-      join_keys: [target_id: :id, source_id: :id]
+      join_keys: [source_id: :id, target_id: :id]
 
     many_to_many :links_to, Chiya.Notes.Note,
       join_through: Chiya.Notes.NoteNote,
-      join_keys: [source_id: :id, target_id: :id]
+      join_keys: [target_id: :id, source_id: :id]
 
     many_to_many :tags, Chiya.Tags.Tag,
       join_through: Chiya.Notes.NoteTag,

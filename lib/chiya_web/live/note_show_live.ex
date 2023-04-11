@@ -36,8 +36,8 @@ defmodule ChiyaWeb.NoteShowLive do
       <:item title="Kind"><%= @note.kind %></:item>
       <:item title="Url"><%= @note.url %></:item>
       <:item title="Tags"><%= note_tags(@note.tags) %></:item>
-      <:item title="Links outgoing"><%= note_links(@note.links_to) %></:item>
-      <:item title="Links incoming"><%= note_links(@note.links_from) %></:item>
+      <:item title="Links outgoing"><%= note_links(@note.links_from) %></:item>
+      <:item title="Links incoming"><%= note_links(@note.links_to) %></:item>
     </.list>
 
     <.line />

@@ -76,16 +76,23 @@ defmodule Chiya.Notes.References do
   end
 
   def update_references({:ok, note}, attrs) do
+    note = Chiya.Notes.preload_note(note)
+
     new_reference_slugs = get_reference_ids(attrs["content"])
+    Logger.info("New references")
+    Logger.info(inspect(new_reference_slugs))
+
     old_reference_slugs = Enum.map(note.links_from, fn n -> n.slug end)
+    Logger.info("Old references")
+    Logger.info(inspect(old_reference_slugs))
+
     references_to_add = new_reference_slugs -- old_reference_slugs
+    Logger.info("References to add: #{Enum.count(references_to_add)}")
+    Logger.info(inspect(references_to_add))
+
     references_to_remove = old_reference_slugs -- new_reference_slugs
-
-    Logger.debug("References to add: #{Enum.count(references_to_add)}")
-    Logger.debug(inspect(references_to_add))
-
-    Logger.debug("References to remove: #{Enum.count(references_to_remove)}")
-    Logger.debug(inspect(references_to_remove))
+    Logger.info("References to remove: #{Enum.count(references_to_remove)}")
+    Logger.info(inspect(references_to_remove))
 
     add_note_links(note, references_to_add)
     remove_note_links(note, references_to_remove)
@@ -108,12 +115,16 @@ defmodule Chiya.Notes.References do
   end
 
   defp add_note_link(slug, origin_note, linked_note) do
-    with attrs <- get_attrs(origin_note.id, linked_note.id),
-         {:ok, _note_note} <- Chiya.Notes.create_note_note(attrs) do
-      Logger.info("Reference to '#{slug}' created")
-    else
-      error ->
-        Logger.warn(error)
+    attrs = get_attrs(origin_note.id, linked_note.id)
+
+    case Chiya.Notes.create_note_note(attrs) do
+      {:ok, _note_note} ->
+        Logger.info("Reference to '#{slug}' created")
+
+      {:error, changelog} ->
+        Logger.warn("Reference was not added.")
+        Logger.error(inspect(changelog))
+        
     end
   end
 
