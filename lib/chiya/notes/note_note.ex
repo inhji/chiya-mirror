@@ -15,5 +15,6 @@ defmodule Chiya.Notes.NoteNote do
     note_note
     |> cast(attrs, [:source_id, :target_id])
     |> validate_required([:source_id, :target_id])
+    |> unique_constraint([:source_id, :target_id])
   end
 end
