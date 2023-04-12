@@ -80,14 +80,12 @@ defmodule ChiyaWeb.AdminComponents do
 
   def admin_bar(assigns) do
     ~H"""
-    <ul class="sticky top-0 backdrop-blur-sm z-10 flex items-center gap-4 py-1 px-4 sm:px-6 lg:px-8 bg-white/30 dark:bg-black/30">
+    <ul class="sticky top-0 backdrop-blur-sm z-10 flex items-center gap-4 py-3 px-4 sm:px-6 lg:px-8 bg-white/30 dark:bg-black/30">
       <li>
         <.link
           href={~p"/"}
           class="flex gap-3 text-sm leading-6 font-semibold text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
-        >
-          <%= @settings.title %>
-        </.link>
+        ><%= @settings.title %></.link>
       </li>
       <li class="flex-1"></li>
       <%= if @current_user do %>
@@ -95,27 +93,21 @@ defmodule ChiyaWeb.AdminComponents do
           <.link
             href="#"
             id="dark-mode-toggle"
-            class="text-xs leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
-          >
-            <.icon name="hero-sun-mini" class="h-4 w-4" />
-          </.link>
+            class="text-xs leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+          >🌙</.link>
         </li>
         <li>
           <.link
             href={~p"/admin"}
-            class="text-xs leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
-          >
-            <.icon name="hero-star-mini" class="w-4 h-4" /> Admin
-          </.link>
+            class="text-xs leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+          >Admin</.link>
         </li>
         <li>
           <.link
             href={~p"/user/log_out"}
             method="delete"
-            class="text-xs leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
-          >
-            Log out
-          </.link>
+            class="text-xs leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+          >Log out</.link>
         </li>
       <% else %>
         <li>
