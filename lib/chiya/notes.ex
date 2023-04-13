@@ -8,6 +8,7 @@ defmodule Chiya.Notes do
   alias Chiya.Notes.{Note, NoteImage, NoteNote, NoteTag}
 
   @preloads [:channels, :images, :links_from, :links_to, :tags]
+  def note_preloads(), do: @preloads
 
   @doc """
   Returns the list of notes.
