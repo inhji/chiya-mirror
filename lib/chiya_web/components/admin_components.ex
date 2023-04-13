@@ -114,10 +114,8 @@ defmodule ChiyaWeb.AdminComponents do
           <.link
             href="#"
             id="dark-mode-toggle"
-            class="text-xs leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
-          >
-            <.icon name="hero-sun-mini" class="h-4 w-4" />
-          </.link>
+            class="text-sm leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
+          >🌙</.link>
         </li>
         <li>
           <.link
