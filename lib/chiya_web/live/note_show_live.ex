@@ -48,7 +48,7 @@ defmodule ChiyaWeb.NoteShowLive do
           <article>
             <a href={"/admin/notes/#{@note.id}/image/#{image.id}"}>
               <img
-                class="rounded-lg border border-theme-dim w-28"
+                class="rounded-lg border border-theme-dim w-28 mb-3"
                 src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
               />
               <.button phx-click="delete_image" phx-value-id={image.id} data-confirm="Are you sure?">

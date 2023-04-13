@@ -10,11 +10,13 @@ defmodule Chiya.Channels do
 
   @preloads [:notes]
   @public_preloads [
-    notes:
+    notes: {
       from(n in Note,
         where: not is_nil(n.published_at),
         order_by: [desc: n.published_at]
-      )
+      ),
+      Chiya.Notes.note_preloads()
+    }
   ]
 
   @doc """
