@@ -3,6 +3,11 @@
   <:subtitle>Use this form to manage note image records in your database.</:subtitle>
 </.header>
 
+<img
+  class="rounded-lg border border-theme-dim"
+  src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}
+/>
+
 <.simple_form
   :let={f}
   for={@changeset}
