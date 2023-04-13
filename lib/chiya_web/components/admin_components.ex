@@ -93,20 +93,20 @@ defmodule ChiyaWeb.AdminComponents do
           <.link
             href="#"
             id="dark-mode-toggle"
-            class="text-xs leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+            class="text-sm leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
           >🌙</.link>
         </li>
         <li>
           <.link
             href={~p"/admin"}
-            class="text-xs leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+            class="text-sm leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
           >Admin</.link>
         </li>
         <li>
           <.link
             href={~p"/user/log_out"}
             method="delete"
-            class="text-xs leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+            class="text-sm leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
           >Log out</.link>
         </li>
       <% else %>
