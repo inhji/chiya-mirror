@@ -45,7 +45,7 @@ defmodule Chiya.MixProject do
       {:phoenix_live_dashboard, "~> 0.7.2"},
       {:tailwind, "~> 0.2.0", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.3"},
-      {:finch, "~> 0.15"},
+      {:finch, "~> 0.16"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.22"},
