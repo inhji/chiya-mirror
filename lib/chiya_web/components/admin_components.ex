@@ -95,8 +95,8 @@ defmodule ChiyaWeb.AdminComponents do
             id="dark-mode-toggle"
             class="text-sm leading-6"
           >
-            <span class="dark:hidden">🌙</span>
-            <span class="hidden">☀️</span>
+            <span class="inline dark:hidden">🌙</span>
+            <span class="hidden dark:inline">☀️</span>
           </.link>
         </li>
         <li>
@@ -119,8 +119,8 @@ defmodule ChiyaWeb.AdminComponents do
             id="dark-mode-toggle"
             class="text-sm leading-6"
           >
-            <span class="dark:hidden">🌙</span>
-            <span class="hidden">☀️</span>
+            <span class="inline dark:hidden">🌙</span>
+            <span class="hidden dark:inline">☀️</span>
           </.link>
         </li>
         <li>
