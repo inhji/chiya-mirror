@@ -124,7 +124,6 @@ defmodule Chiya.Notes.References do
       {:error, changelog} ->
         Logger.warn("Reference was not added.")
         Logger.error(inspect(changelog))
-        
     end
   end
 

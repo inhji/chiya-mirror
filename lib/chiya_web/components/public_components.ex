@@ -31,9 +31,14 @@ defmodule ChiyaWeb.PublicComponents do
       <div>
         <h1 class="text-lg font-semibold leading-8 text-gray-800 dark:text-gray-200">
           <%= render_slot(@inner_block) %>
-          <span :if={@inline} class="text-sm leading-6 font-normal text-gray-600 dark:text-gray-400"><%= render_slot(@subtitle) %></span>
+          <span :if={@inline} class="text-sm leading-6 font-normal text-gray-600 dark:text-gray-400">
+            <%= render_slot(@subtitle) %>
+          </span>
         </h1>
-        <p :if={@subtitle != [] && @inline == false} class="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-400">
+        <p
+          :if={@subtitle != [] && @inline == false}
+          class="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-400"
+        >
           <%= render_slot(@subtitle) %>
         </p>
       </div>
