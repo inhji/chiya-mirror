@@ -119,5 +119,7 @@ defmodule ChiyaWeb.Router do
     get "/c/:slug", PageController, :channel
     get "/t/:slug", PageController, :tag
     get "/", PageController, :home
+
+    post "/:slug/comment", CommentController, :create
   end
 end

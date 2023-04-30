@@ -5,9 +5,22 @@ defmodule Chiya.Notes do
 
   import Ecto.Query, warn: false
   alias Chiya.Repo
-  alias Chiya.Notes.{Note, NoteImage, NoteNote, NoteTag}
+  alias Chiya.Notes.{Note, NoteImage, NoteNote, NoteTag, NoteComment}
 
-  @preloads [:channels, :images, :links_from, :links_to, :tags]
+  @preloads [
+    :channels,
+    :images,
+    :links_from,
+    :links_to,
+    :tags,
+    comments:
+      from(c in NoteComment,
+        order_by: [
+          desc: :approved_at,
+          desc: :inserted_at
+        ]
+      )
+  ]
   def note_preloads(), do: @preloads
 
   @doc """
@@ -263,5 +276,19 @@ defmodule Chiya.Notes do
 
   def delete_note_tag(%NoteTag{} = note_tag) do
     Repo.delete(note_tag)
+  end
+
+  def create_note_comment(attrs \\ %{}) do
+    %NoteComment{}
+    |> NoteComment.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def delete_note_comment(%NoteComment{} = note_comment) do
+    Repo.delete(note_comment)
+  end
+
+  def change_note_comment(%NoteComment{} = note_comment, attrs \\ %{}) do
+    NoteComment.changeset(note_comment, attrs)
   end
 end

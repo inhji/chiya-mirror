@@ -85,16 +85,14 @@ defmodule ChiyaWeb.AdminComponents do
         <.link
           href={~p"/"}
           class="flex gap-3 text-sm leading-6 font-semibold text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
-        ><%= @settings.title %></.link>
+        >
+          <%= @settings.title %>
+        </.link>
       </li>
       <li class="flex-1"></li>
       <%= if @current_user do %>
         <li>
-          <.link
-            href="#"
-            id="dark-mode-toggle"
-            class="text-sm leading-6"
-          >
+          <.link href="#" id="dark-mode-toggle" class="text-sm leading-6">
             <span class="inline dark:hidden">🌙</span>
             <span class="hidden dark:inline">☀️</span>
           </.link>
@@ -103,22 +101,22 @@ defmodule ChiyaWeb.AdminComponents do
           <.link
             href={~p"/admin"}
             class="text-sm leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
-          >Admin</.link>
+          >
+            Admin
+          </.link>
         </li>
         <li>
           <.link
             href={~p"/user/log_out"}
             method="delete"
             class="text-sm leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
-          >Log out</.link>
+          >
+            Log out
+          </.link>
         </li>
       <% else %>
         <li>
-          <.link
-            href="#"
-            id="dark-mode-toggle"
-            class="text-sm leading-6"
-          >
+          <.link href="#" id="dark-mode-toggle" class="text-sm leading-6">
             <span class="inline dark:hidden">🌙</span>
             <span class="hidden dark:inline">☀️</span>
           </.link>
