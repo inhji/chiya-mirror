@@ -1,9 +1,9 @@
 defmodule Chiya.Notes.Note do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Chiya.Notes.NoteSlug
+  alias Chiya.Notes.{Note, NoteSlug, NoteNote, NoteTag}
 
-  @reserved_slugs []
+  @reserved_slugs ~w(user admin dev api)
 
   @derive {Jason.Encoder, only: [:id, :name, :content, :slug, :channels]}
   schema "notes" do
@@ -23,19 +23,20 @@ defmodule Chiya.Notes.Note do
       join_keys: [note: :id, channel: :id],
       on_replace: :delete
 
-    many_to_many :links_from, Chiya.Notes.Note,
-      join_through: Chiya.Notes.NoteNote,
+    many_to_many :links_from, Note,
+      join_through: NoteNote,
       join_keys: [source_id: :id, target_id: :id]
 
-    many_to_many :links_to, Chiya.Notes.Note,
-      join_through: Chiya.Notes.NoteNote,
+    many_to_many :links_to, Note,
+      join_through: NoteNote,
       join_keys: [target_id: :id, source_id: :id]
 
     many_to_many :tags, Chiya.Tags.Tag,
-      join_through: Chiya.Notes.NoteTag,
+      join_through: NoteTag,
       join_keys: [note_id: :id, tag_id: :id]
 
     has_many :images, Chiya.Notes.NoteImage
+    has_many :comments, Chiya.Notes.NoteComment
 
     field :tags_string, :string,
       virtual: true,

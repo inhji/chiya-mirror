@@ -50,4 +50,37 @@
       <% end %>
     </div>
   <% end %>
+
+  <%= if not Enum.empty?(@note.comments) do %>
+    <.line />
+
+    <h2 class="mb-6 text-theme-base"><%= Enum.count(@note.comments) %> Comments</h2>
+    
+    <aside id="comments" class="flex flex-col gap-6">
+      <%= for comment <- @note.comments do %>
+      <article class="text-theme-base bg-theme-base/10 p-1">
+        <header class="flex flex-row justify-between">
+          <strong class="text-theme-primary"><%= comment.author_name %></strong>
+          <span class="text-theme-dim"><%= from_now(comment.inserted_at) %></span>
+        </header>
+        <p><%= comment.content %></p>
+      </article>
+      <% end %>
+    </aside>
+  <% end %>
+  
+  <.line />
+
+  <.simple_form :let={f} for={@changeset} action={~p"/#{@note.slug}/comment"}>
+    <.error :if={@changeset.action}>
+      Oops, something went wrong! Please check the errors below.
+    </.error>
+    <.input field={f[:author_name]} type="text" placeholder="Name" />
+    <.input field={f[:content]} type="textarea" placeholder="Content" rows="3" />    
+    <.input field={f[:note_id]} type="hidden" />
+    <:actions>
+      <.button>Submit Comment</.button>
+    </:actions>
+  </.simple_form>
+
 </div>

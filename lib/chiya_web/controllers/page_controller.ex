@@ -41,6 +41,7 @@ defmodule ChiyaWeb.PageController do
 
   def note(conn, %{"slug" => note_slug}) do
     note = Chiya.Notes.get_note_by_slug_preloaded!(note_slug)
+    changeset = Chiya.Notes.change_note_comment(%Chiya.Notes.NoteComment{}, %{note_id: note.id})
 
     if is_nil(note.published_at) and is_nil(conn.assigns.current_user) do
       render_error(conn, :not_found)
@@ -48,7 +49,8 @@ defmodule ChiyaWeb.PageController do
       render(conn, :note,
         layout: {ChiyaWeb.Layouts, "public.html"},
         note: note,
-        page_title: note.name
+        page_title: note.name,
+        changeset: changeset
       )
     end
   end
