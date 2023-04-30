@@ -42,7 +42,7 @@ defmodule ChiyaWeb.PageController do
   def note(conn, %{"slug" => note_slug}) do
     note = Chiya.Notes.get_note_by_slug_preloaded!(note_slug)
 
-    if is_nil(note.published_at) do
+    if is_nil(note.published_at) and is_nil(conn.assigns.current_user) do
       render_error(conn, :not_found)
     else
       render(conn, :note,
