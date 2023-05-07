@@ -23,55 +23,6 @@
     </div>
   </div>
   <%= if @channel do %>
-    <%= if @channel.layout == :default do %>
-      <section class="default | mt-6 sm:w-auto flex flex-col gap-1.5">
-        <%= for note <- @channel.notes do %>
-          <a
-            href={~p"/#{note.slug}"}
-            class="rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-primary/10 transition"
-          >
-            <span class="text-theme-primary text-lg font-semibold leading-8">
-              <%= note.name %>
-            </span>
-            <span class="text-theme-base text-sm"><%= pretty_date(note.published_at) %></span>
-          </a>
-        <% end %>
-      </section>
-    <% end %>
-
-    <%= if @channel.layout == :gallery do %>
-      <section class="gallery | mt-6">
-        <%= for note <- @channel.notes do %>
-          <article>
-            <section class="flex flex-wrap justify-start gap-3">
-              <%= for image <- note.images do %>
-                <a
-                  href={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}
-                  class="lightbox | w-28"
-                  data-gallery="note"
-                  data-description={ChiyaWeb.Markdown.render(image.content)}
-                >
-                  <img
-                    src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
-                    loading="lazy"
-                  />
-                </a>
-              <% end %>
-            </section>
-            <a
-              href={~p"/#{note.slug}"}
-              class="text-theme-primary text-lg/10 font-semibold rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-primary/10 transition"
-            >
-              <%= note.name %>
-              <span class="text-theme-muted font-normal text-sm">
-                <%= pretty_date(note.published_at) %>
-              </span>
-            </a>
-          </article>
-
-          <.line />
-        <% end %>
-      </section>
-    <% end %>
+    <.note_list notes={@channel.notes} layout={@channel.layout} />
   <% end %>
 </div>
