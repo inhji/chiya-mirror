@@ -31,6 +31,11 @@
     <:item title="User agent"><%= @setting.user_agent %></:item>
     <:item title="Custom css"><%= @setting.custom_css %></:item>
     <:item title="Custom html"><%= @setting.custom_html %></:item>
-    <:item title="Home Channel"><%= @setting.home_channel_id %></:item>
+    <:item title="Home Channel">
+      <%= if @setting.home_channel, do: @setting.home_channel.name %>
+    </:item>
+    <:item title="Default Channel">
+      <%= if @setting.default_channel, do: @setting.default_channel.name %>
+    </:item>
   </.list>
 <% end %>
