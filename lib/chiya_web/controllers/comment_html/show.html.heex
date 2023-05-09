@@ -9,12 +9,14 @@
 </.header>
 
 <.list>
-  <:item title="Name"><%= @comment.author_name  %></:item>
+  <:item title="Name"><%= @comment.author_name %></:item>
   <:item title="Content"><%= @comment.content %></:item>
   <:item title="Inserted at"><%= @comment.inserted_at %></:item>
   <:item title="Approved at"><%= @comment.approved_at %></:item>
   <:item title="Kind"><%= @comment.kind %></:item>
-  <:item title="Note"><a href={"/admin/notes/#{@comment.note.id}"}><%= @comment.note.name %></a></:item>
+  <:item title="Note">
+    <a href={"/admin/notes/#{@comment.note.id}"}><%= @comment.note.name %></a>
+  </:item>
 </.list>
 
 <.back navigate={~p"/admin/comments"}>Back to comments</.back>
