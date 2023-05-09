@@ -1,10 +1,18 @@
 defmodule ChiyaWeb.CommentController do
   use ChiyaWeb, :controller
 
+  def index(conn, _params) do
+    comments = Chiya.Notes.list_note_comments()
+    render(conn, comments: comments)
+  end
+
+  def show(conn, %{"id" => comment_id}) do
+    comment = Chiya.Notes.get_note_comment!(comment_id)
+    render(conn, comment: comment)
+  end
+
   def create(conn, %{"slug" => note_slug, "note_comment" => comment_params}) do
     note = Chiya.Notes.get_note_by_slug_preloaded!(note_slug)
-
-    IO.inspect(comment_params)
 
     case Chiya.Notes.create_note_comment(comment_params) do
       {:ok, _comment} ->

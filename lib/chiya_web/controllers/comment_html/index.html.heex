@@ -1,0 +1,25 @@
+<.header>
+  <.icon name="hero-document-text" /> Comments
+  <:subtitle>Comments are attached to notes</:subtitle>
+</.header>
+
+<.table id="comments" rows={@comments} row_click={&JS.navigate(~p"/admin/comments/#{&1}")}>
+  <:col :let={comment} label="Author"><%= comment.author_name %></:col>
+  <:col :let={comment} label="Inserted at"><%= from_now(comment.inserted_at) %></:col>
+  <:col :let={comment} label="Approved at"><%= from_now(comment.approved_at) %></:col>
+  <:action :let={comment}>
+    <div class="sr-only">
+      <.link navigate={~p"/admin/comments/#{comment}"}>Show</.link>
+    </div>
+  </:action>
+  <:action :let={comment}>
+    <.link href={~p"/admin/comments/#{comment}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+	<:action :let={comment}>
+    <div class="sr-only">
+      <.link navigate={~p"/admin/comments/#{comment}/approve"}>Approve</.link>
+    </div>
+  </:action>
+</.table>

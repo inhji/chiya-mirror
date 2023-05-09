@@ -278,6 +278,17 @@ defmodule Chiya.Notes do
     Repo.delete(note_tag)
   end
 
+  def list_note_comments() do
+    NoteComment
+    |> order_by(:inserted_at)
+    |> Repo.all()
+    |> Repo.preload(:note)
+  end
+
+  def get_note_comment!(id) do
+    Repo.get!(NoteComment, id) |> Repo.preload(:note)
+  end
+
   def create_note_comment(attrs \\ %{}) do
     %NoteComment{}
     |> NoteComment.changeset(attrs)
