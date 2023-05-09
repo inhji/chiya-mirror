@@ -1,0 +1,22 @@
+<.header>
+  Comment <%= @comment.id %>
+  <:subtitle>This is a comment record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/admin/notes/#{@comment}/approve"}>
+      <.button>Approve note</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @comment.author_name %></:item>
+  <:item title="Content"><%= @comment.content %></:item>
+  <:item title="Inserted at"><%= @comment.inserted_at %></:item>
+  <:item title="Approved at"><%= @comment.approved_at %></:item>
+  <:item title="Kind"><%= @comment.kind %></:item>
+  <:item title="Note">
+    <a href={"/admin/notes/#{@comment.note.id}"}><%= @comment.note.name %></a>
+  </:item>
+</.list>
+
+<.back navigate={~p"/admin/comments"}>Back to comments</.back>

@@ -60,6 +60,7 @@ defmodule ChiyaWeb.Router do
     resources "/notes", NoteController, except: [:show]
     resources "/settings", SettingController, singleton: true
     resources "/identities", IdentityController
+    resources "/comments", CommentController, only: [:index, :show]
 
     get "/notes/import", NoteController, :import_prepare
     post "/notes/import", NoteController, :import_run
