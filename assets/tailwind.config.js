@@ -44,6 +44,9 @@ module.exports = {
           base: 'rgb(var(--color-foreground) / <alpha-value>)',
           base1: 'rgb(var(--color-foreground1) / <alpha-value>)',
           primary: 'rgb(var(--color-primary) / <alpha-value>)',
+          primary1: 'rgb(var(--color-primary1) / <alpha-value>)',
+          secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+          secondary1: 'rgb(var(--color-secondary1) / <alpha-value>)',
           heading: 'rgb(var(--color-heading) / <alpha-value>)',
           code: 'rgb(var(--color-code) / <alpha-value>)'
         } 

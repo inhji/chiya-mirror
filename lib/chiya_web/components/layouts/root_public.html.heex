@@ -33,11 +33,15 @@
       <%= @inner_content %>
     </main>
 
-    <footer class="px-4 py-1 sm:px-6 lg:px-8 bg-white/30 dark:bg-black/30 text-gray-900 dark:text-gray-100 text-xs leading-6 font-semibold">
-      <span class="text-theme-primary">⌘</span> <span>Chiya</span>
-      <span class="rounded-full bg-theme-primary/10 px-2 text-xs font-medium leading-6 text-theme-primary">
-        v<%= Application.spec(:chiya, :vsn) %>
-      </span>
+    <footer class="px-4 py-1 sm:px-6 lg:px-8 bg-white/30 dark:bg-black/30 text-gray-900 dark:text-gray-100 text-xs leading-6 font-semibold flex">
+      <div>
+        <span class="text-theme-primary">⌘</span> <span>Chiya</span>
+        <span class="rounded-full bg-theme-primary/10 px-2 text-xs font-medium leading-6 text-theme-primary">
+          v<%= Application.spec(:chiya, :vsn) %>
+        </span>
+      </div>
+      <div class="flex-1" />
+      <div><a href="#top">Back to top</a></div>
     </footer>
 
     <%= raw(@settings.custom_html) %>

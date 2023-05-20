@@ -92,12 +92,6 @@ defmodule ChiyaWeb.AdminComponents do
       <li class="flex-1"></li>
       <%= if @current_user do %>
         <li>
-          <.link href="#" id="dark-mode-toggle" class="text-sm leading-6">
-            <span class="inline dark:hidden">🌙</span>
-            <span class="hidden dark:inline">☀️</span>
-          </.link>
-        </li>
-        <li>
           <.link
             href={~p"/admin"}
             class="text-sm leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
@@ -116,12 +110,6 @@ defmodule ChiyaWeb.AdminComponents do
         </li>
       <% else %>
         <li>
-          <.link href="#" id="dark-mode-toggle" class="text-sm leading-6">
-            <span class="inline dark:hidden">🌙</span>
-            <span class="hidden dark:inline">☀️</span>
-          </.link>
-        </li>
-        <li>
           <.link
             href={~p"/user/log_in"}
             class="text-xs leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
@@ -130,6 +118,12 @@ defmodule ChiyaWeb.AdminComponents do
           </.link>
         </li>
       <% end %>
+      <li>
+        <.link href="#" id="dark-mode-toggle" class="text-sm leading-6">
+          <span class="inline dark:hidden bg-blue-900 p-1 rounded">🌙</span>
+          <span class="hidden dark:inline bg-blue-500 p-1 rounded">☀️</span>
+        </.link>
+      </li>
     </ul>
     """
   end

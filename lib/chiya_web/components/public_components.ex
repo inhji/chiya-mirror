@@ -76,10 +76,10 @@ defmodule ChiyaWeb.PublicComponents do
               </section>
               <a
                 href={~p"/#{note.slug}"}
-                class="text-theme-primary text-lg/10 font-semibold rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-primary/10 transition"
+                class="text-theme-secondary text-lg/10 font-semibold rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-secondary/10 transition"
               >
                 <%= note.name %>
-                <span class="text-theme-muted font-normal text-sm">
+                <span class="text-theme-base/75 text-sm">
                   <%= pretty_date(note.published_at) %>
                 </span>
               </a>
@@ -96,12 +96,12 @@ defmodule ChiyaWeb.PublicComponents do
           <%= for note <- assigns.notes do %>
             <a
               href={~p"/#{note.slug}"}
-              class="rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-primary/10 transition"
+              class="rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-secondary/10 transition"
             >
-              <span class="text-theme-primary text-lg font-semibold leading-8">
+              <span class="text-theme-secondary text-lg font-semibold leading-8">
                 <%= note.name %>
               </span>
-              <span class="text-theme-base text-sm"><%= pretty_date(note.published_at) %></span>
+              <span class="text-theme-base/75 text-sm"><%= pretty_date(note.published_at) %></span>
             </a>
           <% end %>
         </section>
