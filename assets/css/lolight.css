@@ -1,23 +1,22 @@
 .ll-nam { /* words */
-    color: #2196f3;
-    @apply text-code-500;
+    @apply text-theme-code;
 }
 .ll-num { /* numbers */
-    @apply text-code-400;
+    @apply text-theme-code;
 }
 .ll-str { /* strings */
-    @apply text-code-600;
+    @apply text-theme-code;
 }
 .ll-rex { /* regular expressions */
-    @apply text-code-600;
+    @apply text-theme-code;
 }
 .ll-pct { /* operators, punctation */
-    @apply text-code-200;
+    @apply text-theme-code;
 }
 .ll-key { /* keywords */
-    @apply text-code-300 font-bold;
+    @apply text-theme-code font-bold;
 }
 .ll-com { /* comments */
-    @apply text-code-100;
+    @apply text-theme-code;
     font-style: italic;
 }

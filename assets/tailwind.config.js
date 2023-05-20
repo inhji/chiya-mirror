@@ -15,16 +15,37 @@ module.exports = {
   darkMode: ['class', '[data-mode="dark"]'],
   theme: {
     extend: {
+      typography: {
+        gruvbox: {
+          css: {
+            '--tw-prose-body': 'rgb(var(--color-foreground))',
+            '--tw-prose-links': 'rgb(var(--color-foreground))',
+            '--tw-prose-headings': 'rgb(var(--color-foreground))',
+            '--tw-prose-bold': 'rgb(var(--color-foreground))',
+            '--tw-prose-quotes': 'rgb(var(--color-foreground))',
+            '--tw-prose-bullets': 'rgb(var(--color-primary))',
+            '--tw-prose-quote-borders': 'rgb(var(--color-primary))',
+            '--tw-prose-invert-body': 'rgb(var(--color-foreground))',
+            '--tw-prose-invert-links': 'rgb(var(--color-foreground))',
+            '--tw-prose-invert-headings': 'rgb(var(--color-foreground))',
+            '--tw-prose-invert-bold': 'rgb(var(--color-foreground))',
+            '--tw-prose-invert-quotes': 'rgb(var(--color-foreground))',
+            '--tw-prose-invert-bullets': 'rgb(var(--color-primary))',
+            '--tw-prose-invert-quote-borders': 'rgb(var(--color-primary))'    
+          }
+        }
+      },
       colors: {
         code: colors.emerald,
         gray: colors.zinc,
         theme: {
-          primary: 'rgb(var(--color-primary) / <alpha-value>)',
-          heading: 'rgb(var(--color-text-heading) / <alpha-value>)',
-          base: 'rgb(var(--color-text-base) / <alpha-value>)',
-          muted: 'rgb(var(--color-text-muted) / <alpha-value>)',
           background: 'rgb(var(--color-background) / <alpha-value>)',
-          dim: 'rgb(var(--color-text-dim) / <alpha-value>)'
+          background1: 'rgb(var(--color-background1) / <alpha-value>)',
+          base: 'rgb(var(--color-foreground) / <alpha-value>)',
+          base1: 'rgb(var(--color-foreground1) / <alpha-value>)',
+          primary: 'rgb(var(--color-primary) / <alpha-value>)',
+          heading: 'rgb(var(--color-heading) / <alpha-value>)',
+          code: 'rgb(var(--color-code) / <alpha-value>)'
         } 
       }
     },
