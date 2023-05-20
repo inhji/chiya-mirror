@@ -1,36 +1,42 @@
 <header class="px-4 sm:px-6 lg:px-8">
   <div class="flex items-center justify-end border-b border-gray-300 dark:border-gray-800 py-3">
+    <% items = [
+        %{
+          path: ~p"/admin/notes",
+          icon: "hero-document-text-solid",
+          name: "Notes"
+        },
+        %{
+          path: ~p"/admin/comments",
+          icon: "hero-chat-bubble-oval-left-ellipsis-solid",
+          name: "Comments"
+        },
+        %{
+          path: ~p"/admin/channels",
+          icon: "hero-speaker-wave-solid",
+          name: "Channels"
+        },
+        %{
+          path: ~p"/admin/identities",
+          icon: "hero-user-solid",
+          name: "Identities"
+        },
+        %{
+          path: ~p"/admin/settings",
+          icon: "hero-wrench-screwdriver-solid",
+          name: "Settings"
+        }
+      ] %>
     <div class="flex items-center gap-4">
+    <%= for item <- items do %>
       <.link
-        href={~p"/admin/comments"}
+        href={item.path}
         class="text-xs font-semibold leading-6 text-gray-900 hover:text-gray-700 dark:text-gray-200"
       >
-        <.icon name="hero-document-text" class="w-4 h-4" /> Comments
+        <.icon name={item.icon} class="w-4 h-4" />
+        <span class="align-sub"><%= item.name %></span>
       </.link>
-      <.link
-        href={~p"/admin/notes"}
-        class="text-xs font-semibold leading-6 text-gray-900 hover:text-gray-700 dark:text-gray-200"
-      >
-        <.icon name="hero-document-text" class="w-4 h-4" /> Notes
-      </.link>
-      <.link
-        href={~p"/admin/channels"}
-        class="text-xs font-semibold leading-6 text-gray-900 hover:text-gray-700 dark:text-gray-200"
-      >
-        <.icon name="hero-speaker-wave" class="w-4 h-4" /> Channels
-      </.link>
-      <.link
-        href={~p"/admin/identities"}
-        class="text-xs font-semibold leading-6 text-gray-900 hover:text-gray-700 dark:text-gray-200"
-      >
-        <.icon name="hero-user" class="w-4 h-4" /> Identities
-      </.link>
-      <.link
-        href={~p"/admin/settings"}
-        class="text-xs font-semibold leading-6 text-gray-900 hover:text-gray-700 dark:text-gray-200"
-      >
-        <.icon name="hero-wrench-screwdriver" class="w-4 h-4" /> Settings
-      </.link>
+    <% end %>
     </div>
   </div>
 </header>

@@ -7,95 +7,71 @@
 @import "./lightbox.css";
 
 @layer base {
-  :root[data-theme=default] {
-    --color-primary: 68 68 68;
-    --color-background: 255 255 255;
-    --color-text-base: 68 68 68;
-    --color-text-heading: 68 68 68;
-    --color-text-muted: 153 153 153;
-    --color-text-dim: 204 204 204;
+  :root { font-family: 'Inter', sans-serif; }
+  @supports (font-variation-settings: normal) {
+    :root { font-family: 'Inter var', sans-serif; }
   }
 
-  :root[data-theme=default][data-mode=dark] {
-    --color-primary: 255 255 255;
-    --color-background: 34 34 34;
-    --color-text-base: 204 204 204;
-    --color-text-heading: 255 255 255;
-    --color-text-muted: 102 102 102;
-    --color-text-dim: 68 68 68;
+  :root {
+    --color-primary: 214 93 14; /* orange */
+    --color-primary1: 175 58 3; /* orange faded */
+
+    --color-secondary: 104 157 106; /* aqua */
+    --color-secondary1: 66 123 88; /* aqua faded */
+
+    --color-background: 253 244 193; /* light0 */
+    --color-background1: 235 219 178; /* light1 */
+
+    --color-foreground: 60 56 54; /* dark1 */
+    --color-foreground1: 80 73 69; /* dark2 */
+
+    --color-heading: var(--color-secondary);
+    --color-code: var(--color-background1);
+
+    @apply selection:bg-theme-primary/50;
   }
 
-  :root[data-theme=frame] {
-    --color-primary: 91 82 254;
-    --color-background: 237 238 242;
-    --color-text-base: 38 43 55;
-    --color-text-heading: 57 65 83;
-    --color-text-muted: 57 65 83;
-    --color-text-dim: 76 87 111;
+  :root[data-mode=dark] {
+    --color-primary: 214 93 14; /* orange */
+    --color-primary1: 254 128 25; /* orange bright */
+
+    --color-secondary: 104 157 106; /* aqua */
+    --color-secondary1: 142 192 124; /* aqua faded */
+
+    --color-background: 40 40 40; /* dark0 */
+    --color-background1: 60 56 54; /* dark1 */
+
+    --color-foreground: 235 219 178; /* light1 */
+    --color-foreground1: 213 196 161; /* light2 */
+
+    --color-heading: var(--color-secondary);
+    --color-code: var(--color-base);
   }
 
-  :root[data-theme=frame][data-mode=dark] {
-    --color-primary: 91 82 254;
-    --color-background: 38 43 55;
-    --color-text-base: 204 204 204;
-    --color-text-heading: 204 204 204;
-    --color-text-muted: 76 87 111;
-    --color-text-dim: 57 65 83;
-  }
-
-  :root[data-theme=gruvbox] {
-    --color-primary: 175 58 3;
-    --color-background: 251 241 199;
-    --color-text-base :40 40 40;
-    --color-text-heading: 66 123 88;
-    --color-text-muted: 60 56 54;
-    --color-text-dim: 102 92 84;
-  }
-
-  :root[data-theme=gruvbox][data-mode=dark] {
-    --color-primary: 214 93 14;
-    --color-background: 40 40 40;
-    --color-text-base: 251 241 199;
-    --color-text-heading: 104 157 106;
-    --color-text-muted: 235 219 178;
-    --color-text-dim: 189 174 147;
+    :root[data-mode=dark] .prose {
+    @apply prose-invert;
   }
 }
 
-/* 
-  Invert prose styles based on the variant of the theme. 
-*/
-:root[data-mode=dark] .prose {
-  @apply prose-invert;
-}
+@layer components {
+  /* Set width and color for identity icons */
+  a[rel] svg { 
+    width: 1em;
+    fill: rgb(var(--color-primary));
+  }
+  svg {
+    width: 1.5em;
+  }
 
-.prose :where(a):not(:where([class~="not-prose"] *)) {
-  @apply underline decoration-1 decoration-theme-primary;
-}
+  .alert {
+    @apply p-3 mt-3 rounded;
+  }
 
-.prose :where(h2):not(:where([class~="not-prose"] *)) {
-  @apply font-serif text-theme-heading;
-}
+  .alert.alert-danger {
+    @apply bg-red-100 text-red-500 dark:bg-red-950 dark:text-red-500;
+  }
 
-.prose img {
-  @apply rounded border border-theme-dim;
-}
-
-/* Set width and color for identity icons */
-a[rel] svg { 
-  width: 1em;
-  fill: rgb(var(--color-primary));
-}
-
-/* Set width and color for identity icons */
-svg {
-  width: 1.5em;
-}
-
-.alert {
-  @apply p-3 mt-3 rounded;
-}
-
-.alert-danger {
-  @apply bg-red-100 text-red-500 dark:bg-red-950 dark:text-red-500;
+  .prose a {
+    @apply underline decoration-2 decoration-theme-primary hover:bg-theme-primary hover:text-theme-background transition;
+  }
 }

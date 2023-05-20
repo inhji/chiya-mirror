@@ -1,6 +1,6 @@
 <div class="mx-auto max-w-xl mx-4 lg:mx-0">
   <header>
-    <h1 class="mt-16 text-3xl font-semibold leading-8 text-theme-heading font-serif">
+    <h1 class="mt-16 text-3xl font-extrabold text-theme-base">
       <%= @note.name %>
     </h1>
     <p class="mt-2 text-sm leading-6 text-theme-base">
@@ -9,10 +9,11 @@
       <% else %>
         <span>Unpublished</span>
       <% end %>
-      <time class="text-theme-primary font-semibold"><%= pretty_date(@note.published_at) %></time>
+      <time class="font-semibold"><%= pretty_date(@note.published_at) %></time>
       <span>·</span>
       <span>Last Updated</span>
-      <time class="text-theme-primary font-semibold"><%= pretty_date(@note.updated_at) %></time>
+      <time class="font-semibold"><%= pretty_date(@note.updated_at) %></time>
+      <%= if not Enum.empty?(@note.tags) do %>
       <span>·</span>
       <span>Tags</span>
       <span class="text-theme-primary font-semibold">
@@ -20,14 +21,15 @@
           <a href={~p"/t/#{tag.slug}"}><%= tag.name %></a>
         <% end %>
       </span>
+      <% end %>
       <%= if @current_user do %>
         <span>·</span>
-        <a href={~p"/admin/notes/#{@note}/edit"} class="text-theme-primary font-semibold">Edit</a>
+        <a href={~p"/admin/notes/#{@note}/edit"} class="font-semibold underline decoration-2 decoration-theme-primary hover:bg-theme-primary hover:text-theme-background transition">Edit</a>
       <% end %>
     </p>
   </header>
 
-  <section class="prose mt-8">
+  <section class="mt-8 prose prose-gruvbox md:prose-lg lg:prose-xl">
     <%= Markdown.render(@note.content) |> raw %>
   </section>
 
