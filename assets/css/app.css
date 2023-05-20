@@ -57,7 +57,7 @@
   /* Set width and color for identity icons */
   a[rel] svg { 
     width: 1em;
-    fill: rgb(var(--color-primary));
+    fill: rgb(var(--color-foreground));
   }
   svg {
     width: 1.5em;

@@ -1,5 +1,5 @@
 <div class="mx-auto max-w-xl mx-4 lg:mx-0">
-  <h1 class="mt-16 text-3xl font-semibold font-serif leading-10 tracking-tighter text-theme-heading">
+  <h1 class="mt-16 text-3xl font-extrabold leading-10 tracking-tight text-theme-primary">
     <%= @settings.title %>
   </h1>
   <p class="mt-4 text-base leading-7 text-theme-base">
@@ -13,7 +13,7 @@
           <a
             rel={identity.rel}
             href={identity.url}
-            class="group -mx-2 -my-0.5 inline-flex items-center gap-3 rounded-lg px-2 py-0.5 hover:bg-theme-primary/10 transition"
+            class="group -mx-2 -my-0.5 inline-flex items-center gap-1 rounded-lg px-2 py-0.5 hover:bg-theme-primary/50 transition"
           >
             <%= raw(identity.icon) %>
             <%= identity.name %>
