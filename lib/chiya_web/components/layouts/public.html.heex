@@ -1,19 +1,2 @@
-<header class="px-4 sm:px-6 lg:px-8">
-  <div class="flex items-center justify-end border-b border-theme-base/10 py-3">
-    <div class="flex items-center gap-4">
-      <%= for channel <- @channels do %>
-        <.link
-          href={~p"/c/#{channel.slug}"}
-          class="font-semibold text-theme-base hover:text-theme-base/75 text-sm"
-        >
-          <%= channel.name %>
-        </.link>
-      <% end %>
-    </div>
-  </div>
-</header>
-
-<section class="mx-auto max-w-2xl px-4 mb-16">
-  <.flash_group flash={@flash} />
-  <%= @inner_content %>
-</section>
+<.flash_group flash={@flash} />
+<%= @inner_content %>

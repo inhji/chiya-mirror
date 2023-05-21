@@ -1,28 +1,33 @@
-<div class="mx-auto max-w-xl mx-4 lg:mx-0">
-  <h1 class="mt-16 text-3xl font-extrabold leading-10 tracking-tight text-theme-primary">
+<section class="p-10 bg-theme-background1 mt-8">
+  <h1 class="text-3xl font-extrabold leading-10 tracking-tight text-theme-primary">
     <%= @settings.title %>
   </h1>
-  <p class="mt-4 text-base leading-7 text-theme-base">
+  <p class="mt-4 leading-7 text-theme-base/75 uppercase font-semibold">
     <%= @settings.subtitle %>
   </p>
+</section>
 
-  <div class="w-full mt-6 sm:w-auto">
-    <div class="flex gap-4 text-sm leading-6 text-theme-base">
-      <%= for identity <- @public_identities do %>
-        <div>
-          <a
-            rel={identity.rel}
-            href={identity.url}
-            class="group -mx-2 -my-0.5 inline-flex items-center gap-1 rounded-lg px-2 py-0.5 hover:bg-theme-primary/50 transition"
-          >
-            <%= raw(identity.icon) %>
-            <%= identity.name %>
-          </a>
-        </div>
-      <% end %>
-    </div>
-  </div>
-  <%= if @channel do %>
-    <.note_list notes={@channel.notes} layout={@channel.layout} />
+<section class="mt-8 text-sm">
+  <ul class="flex flex-wrap gap-3">
+    <li>
+      <a href="#" class="text-theme-base px-3 py-2.5  hover:bg-theme-background1 rounded transition font-semibold">
+        <.icon name="hero-megaphone" />
+      </a>
+    </li>
+  <%= for channel <- @channels do %>
+    <li>
+      <a href={~p"/c/#{channel.slug}"} class="text-theme-base px-3 py-2.5 border border-theme-background1 hover:bg-theme-background1 rounded transition font-semibold">
+        <%= channel.name %>
+      </a>
+    </li>
   <% end %>
-</div>
+  </ul>
+</section>
+
+<%= if @channel do %>
+<section class="mt-8 border-t border-theme-background1">
+  <.note_list notes={@channel.notes} layout={@channel.layout} />  
+</section>
+<% end %>
+
+
