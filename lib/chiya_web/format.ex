@@ -1,12 +1,12 @@
 defmodule ChiyaWeb.Format do
   def from_now(%DateTime{} = later) do
-    now = DateTime.utc_now()
+    now = DateTime.local_now()
     diff = DateTime.diff(now, later)
     do_from_now(diff)
   end
 
   def from_now(%NaiveDateTime{} = later) do
-    now = NaiveDateTime.utc_now()
+    now = NaiveDateTime.local_now()
     diff = NaiveDateTime.diff(now, later)
     do_from_now(diff)
   end
@@ -27,9 +27,9 @@ defmodule ChiyaWeb.Format do
     end
   end
 
-  def pretty_date(%NaiveDateTime{} = date) do
-    Calendar.strftime(date, "%d.%m.%Y")
-  end
-
+  def pretty_date(%NaiveDateTime{} = date), do: Calendar.strftime(date, "%d.%m.%Y")
   def pretty_date(_), do: ""
+
+  def pretty_datetime(%NaiveDateTime{} = date), do: Calendar.strftime(date, "%d.%m.%Y %H:%M")
+  def pretty_datetime(_), do: ""
 end
