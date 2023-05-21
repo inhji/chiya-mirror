@@ -119,10 +119,7 @@ defmodule ChiyaWeb.AdminComponents do
         </li>
       <% end %>
       <li>
-        <.link href="#" id="dark-mode-toggle" class="text-sm leading-6">
-          <span class="inline dark:hidden bg-blue-900 p-1 rounded">🌙</span>
-          <span class="hidden dark:inline bg-blue-500 p-1 rounded">☀️</span>
-        </.link>
+        <.darkmode_toggle />
       </li>
     </ul>
     """

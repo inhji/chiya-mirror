@@ -20,7 +20,7 @@ defmodule ChiyaWeb.PublicComponents do
   end
 
   @doc """
-  Renders a header with title.
+  Renders a note-header with title.
   """
   attr :class, :string, default: nil
   attr :inline, :boolean, default: false

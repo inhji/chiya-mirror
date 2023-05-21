@@ -58,10 +58,7 @@
   a[rel] svg { 
     width: 1em;
     fill: rgb(var(--color-foreground));
-  }
-  svg {
-    width: 1.5em;
-  }
+  } 
 
   .alert {
     @apply p-3 mt-3 rounded;

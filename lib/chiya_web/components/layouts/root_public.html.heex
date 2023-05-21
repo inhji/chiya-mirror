@@ -26,24 +26,33 @@
       <%= @settings.custom_css %>
     </style>
   </head>
-  <body class="bg-theme-background antialiased min-h-screen flex flex-col">
-    <.admin_bar current_user={@current_user} settings={@settings} />
+  <body class="bg-theme-background mx-3 md:mx-0">
+    <header class="mt-8 max-w-xl mx-auto">
+      <nav>
+        <ul class="flex gap-3">
+          <li>
+            <a href="/" class="text-theme-base px-3 py-2.5 border border-theme-background1 hover:bg-theme-background1 rounded transition font-semibold"><.icon name="hero-home" /> Home</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-    <main class="flex-1">
+    <main class="mx-auto max-w-xl">
       <%= @inner_content %>
     </main>
 
-    <footer class="px-4 py-1 sm:px-6 lg:px-8 bg-white/30 dark:bg-black/30 text-gray-900 dark:text-gray-100 text-xs leading-6 font-semibold flex">
-      <div>
-        <span class="text-theme-primary">⌘</span> <span>Chiya</span>
-        <span class="rounded-full bg-theme-primary/10 px-2 text-xs font-medium leading-6 text-theme-primary">
-          v<%= Application.spec(:chiya, :vsn) %>
-        </span>
-      </div>
-      <div class="flex-1" />
-      <div><a href="#top">Back to top</a></div>
+    <footer class="mx-auto max-w-xl mt-8 text-theme-base border-t pt-8 border-theme-background1">
+      <span>Served by Chiya v<%= Application.spec(:chiya, :vsn) %></span>
+      <span>·</span>
+      <span>Made by Inhji</span>
+      <span>·</span>
+      <span>Struggling to make a decent website since 2011</span>     
+      <%= for identity <- @identities do %>
+      <span>·</span>
+      <span><a href={identity.url}><%= identity.name %></a></span>
+      <% end %>
+      <span>·</span>
+      <span><a href={~p"/admin"}>Admin</a></span>
     </footer>
-
-    <%= raw(@settings.custom_html) %>
   </body>
 </html>
