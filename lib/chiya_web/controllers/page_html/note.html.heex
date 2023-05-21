@@ -69,16 +69,20 @@
         </article>
       <% end %>
     </aside>
+  <% else %>
+    <.line />
+
+    <h2 class="mb-6 text-theme-base">No comments yet.</h2>
   <% end %>
 
   <.line />
 
-  <.simple_form :let={f} for={@changeset} action={~p"/#{@note.slug}/comment"}>
+  <.simple_form :let={f} for={@changeset} action={~p"/#{@note.slug}/comment"} class="bg-theme-background -m-3">
     <.error :if={@changeset.action}>
       Oops, something went wrong! Please check the errors below.
     </.error>
-    <.input field={f[:author_name]} type="text" placeholder="Name" />
-    <.input field={f[:content]} type="textarea" placeholder="Content" rows="3" />
+    <.input field={f[:author_name]} type="text" placeholder="Name" class="bg-theme-background dark:bg-theme-background border-theme-base/20 dark:border-theme-base/20 text-theme-base dark:text-theme-base placeholder-theme-base/40 dark:placeholder-theme-base/60 dark:focus:border-theme-base/60 dark:focus:border-theme-base/60" />
+    <.input field={f[:content]} type="textarea" placeholder="Content" rows="3" class="bg-theme-background dark:bg-theme-background border-theme-base/20 dark:border-theme-base/20 text-theme-base dark:text-theme-base placeholder-theme-base/60 dark:placeholder-theme-base/60 focus:border-theme-base/60 dark:focus:border-theme-base/60" />
     <.input field={f[:note_id]} type="hidden" />
     <:actions>
       <.button>Submit Comment</.button>
