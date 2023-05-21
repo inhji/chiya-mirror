@@ -55,7 +55,8 @@ defmodule Chiya.MixProject do
       {:waffle, "~> 1.1"},
       {:waffle_ecto, "~> 0.0.12"},
       {:earmark, "~> 1.4"},
-      {:yaml_front_matter, "~> 1.0.0"}
+      {:yaml_front_matter, "~> 1.0.0"},
+      {:tz, "~> 0.26.1"}
     ]
   end
 
