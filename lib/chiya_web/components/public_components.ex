@@ -7,6 +7,8 @@ defmodule ChiyaWeb.PublicComponents do
     statics: ChiyaWeb.static_paths()
 
   import ChiyaWeb.Format
+  import ChiyaWeb.Markdown, only: [render: 1]
+  import Phoenix.HTML, only: [raw: 1]
 
   @doc """
   Renders a horizontal line
@@ -90,9 +92,31 @@ defmodule ChiyaWeb.PublicComponents do
         </section>
         """
 
-      _ ->
+      :microblog ->
         ~H"""
-        <section class="default | mt-6 sm:w-auto flex flex-col gap-1.5">
+        <section class="note-list microblog | mt-6 text-theme-base">
+          <%= for note <- assigns.notes do %>
+            <article class="mt-8 first:mt-0">
+              <div class="prose prose-gruvbox">
+                <%= raw render(note.content) %>
+              </div>
+              <time class="text-theme-base/75">
+                <%= pretty_datetime(note.published_at) %>
+              </time>
+              <span>·</span>
+              <a href={~p"/#{note.slug}"} class="text-theme-base/75">Permalink</a>
+            </article>
+          <% end %>
+        </section>
+        """
+
+      :photoblog ->
+        ~H"""
+        """
+
+      _ -> # default, show headings only
+        ~H"""
+        <section class="note-list default | mt-6 sm:w-auto flex flex-col gap-1.5">
           <%= for note <- assigns.notes do %>
             <a
               href={~p"/#{note.slug}"}

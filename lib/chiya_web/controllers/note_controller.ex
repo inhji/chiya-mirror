@@ -104,6 +104,46 @@ defmodule ChiyaWeb.NoteController do
     |> text(raw_note)
   end
 
+  def publish(conn, %{"id" => id}) do
+    note_params = %{published_at: NaiveDateTime.local_now()}
+    note = Notes.get_note_preloaded!(id)
+
+    case Notes.update_note(note, note_params) do
+      {:ok, note} ->
+        conn
+        |> put_flash(:info, "Note published successfully.")
+        |> redirect(to: ~p"/admin/notes/#{note}")
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, :edit,
+          note: note,
+          changeset: changeset,
+          channels: to_channel_options(),
+          tags: note.tags
+        )
+    end
+  end
+
+  def unpublish(conn, %{"id" => id}) do
+    note_params = %{published_at: nil}
+    note = Notes.get_note_preloaded!(id)
+
+    case Notes.update_note(note, note_params) do
+      {:ok, note} ->
+        conn
+        |> put_flash(:info, "Note un-published successfully.")
+        |> redirect(to: ~p"/admin/notes/#{note}")
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, :edit,
+          note: note,
+          changeset: changeset,
+          channels: to_channel_options(),
+          tags: note.tags
+        )
+    end
+  end
+
   def edit_image(conn, %{"image_id" => id}) do
     image = Notes.get_note_image!(id)
     changeset = Notes.change_note_image(image)

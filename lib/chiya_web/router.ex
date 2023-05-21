@@ -67,6 +67,8 @@ defmodule ChiyaWeb.Router do
 
     live "/notes/:id", NoteShowLive, :show
     get "/notes/:id/raw", NoteController, :raw
+    get "/notes/:id/publish", NoteController, :publish
+    get "/notes/:id/unpublish", NoteController, :unpublish
 
     get "/notes/:id/image/:image_id", NoteController, :edit_image
     put "/notes/:id/image/:image_id", NoteController, :update_image

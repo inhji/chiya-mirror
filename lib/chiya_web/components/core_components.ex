@@ -238,6 +238,7 @@ defmodule ChiyaWeb.CoreComponents do
   """
   attr :for, :any, required: true, doc: "the datastructure for the form"
   attr :as, :any, default: nil, doc: "the server side parameter to collect all input under"
+  attr :class, :string, default: "shadow rounded mt-10 bg-white dark:bg-gray-900"
 
   attr :rest, :global,
     include: ~w(autocomplete name rel action enctype method novalidate target multipart),
@@ -248,8 +249,8 @@ defmodule ChiyaWeb.CoreComponents do
 
   def simple_form(assigns) do
     ~H"""
-    <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="space-y-8 p-3 shadow rounded bg-white dark:bg-gray-900 mt-10">
+    <.form :let={f} for={@for} as={@as} {@rest} class={@class}>
+      <div class="space-y-8 p-3">
         <%= render_slot(@inner_block, f) %>
         <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
           <%= render_slot(action, f) %>
@@ -323,8 +324,7 @@ defmodule ChiyaWeb.CoreComponents do
   attr :multiple, :boolean, default: false, doc: "the multiple flag for select inputs"
 
   attr :rest, :global,
-    include: ~w(autocomplete accept cols disabled form max maxlength min minlength
-                                   pattern placeholder readonly required rows size step)
+    include: ~w(autocomplete accept cols disabled form max maxlength min minlength pattern placeholder readonly required rows size step)
 
   slot :inner_block
 

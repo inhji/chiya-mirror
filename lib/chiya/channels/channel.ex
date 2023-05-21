@@ -8,8 +8,17 @@ defmodule Chiya.Channels.Channel do
     field :content, :string
     field :name, :string
     field :slug, ChannelSlug.Type
-    field :visibility, Ecto.Enum, values: [:public, :private, :unlisted]
-    field :layout, Ecto.Enum, values: [:default, :gallery]
+    field :visibility, Ecto.Enum, values: [
+      :public, 
+      :private, 
+      :unlisted
+    ]
+    field :layout, Ecto.Enum, values: [
+      :default,
+      :microblog,
+      :photoblog,
+      :gallery
+    ]
 
     many_to_many :notes, Chiya.Notes.Note,
       join_through: "channels_notes",
@@ -28,10 +37,10 @@ defmodule Chiya.Channels.Channel do
     |> validate_exclusion(:slug, ~w(admin user dev))
   end
 
-  def icon(%Chiya.Channels.Channel{visibility: vis}) do
-    case(vis) do
-      :public -> "🌍"
+  def icon(%Chiya.Channels.Channel{visibility: visibility}) do
+    case(visibility) do
       :private -> "🔒"
+      :public -> "🌍"
       :unlisted -> "👁️"
     end
   end
