@@ -1,22 +1,23 @@
 .ll-nam { /* words */
-    @apply text-theme-code;
+    @apply text-theme-base;
 }
 .ll-num { /* numbers */
-    @apply text-theme-code;
+    color: rgb(var(--color-purple));
 }
 .ll-str { /* strings */
-    @apply text-theme-code;
+    color: rgb(var(--color-yellow));
 }
 .ll-rex { /* regular expressions */
-    @apply text-theme-code;
+    color: rgb(var(--color-yellow));
 }
 .ll-pct { /* operators, punctation */
-    @apply text-theme-code;
+    @apply text-theme-primary;
 }
 .ll-key { /* keywords */
-    @apply text-theme-code font-bold;
+    @apply font-bold;
+    color: rgb(var(--color-blue));
 }
 .ll-com { /* comments */
-    @apply text-theme-code;
+    @apply text-theme-base1;
     font-style: italic;
 }
