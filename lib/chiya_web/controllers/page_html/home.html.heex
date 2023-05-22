@@ -1,4 +1,4 @@
-<section class="p-10 bg-theme-background1 mt-8">
+<section class="mx-auto max-w-xl p-10 bg-theme-background1 mt-8">
   <h1 class="text-3xl font-extrabold leading-10 tracking-tight text-theme-primary">
     <%= @settings.title %>
   </h1>
@@ -7,7 +7,7 @@
   </p>
 </section>
 
-<section class="mt-8 text-sm">
+<section class="mx-auto max-w-xl mt-8 text-sm">
   <ul class="flex flex-wrap gap-3">
     <li>
       <a href="#" class="text-theme-base px-3 py-2.5  hover:bg-theme-background1 rounded transition font-semibold">
@@ -25,7 +25,7 @@
 </section>
 
 <%= if @channel do %>
-<section class="mt-8 border-t border-theme-background1">
+<section class="mx-auto max-w-xl mt-8 border-t border-theme-background1">
   <.note_list notes={@channel.notes} layout={@channel.layout} />  
 </section>
 <% end %>

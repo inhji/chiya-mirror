@@ -19,6 +19,15 @@
     --color-secondary: 104 157 106; /* aqua */
     --color-secondary1: 66 123 88; /* aqua faded */
 
+    --color-blue: 69 133 136 ; /* blue */
+    --color-blue1: 7 102 120; /* blue faded */
+
+    --color-purple: 177 98 134 ; /* purple */
+    --color-purple1: 143 63 113; /* purple faded */
+
+    --color-yellow: 215 153 33; /* yellow */
+    --color-yellow1: 181 118 20; /* yellow faded */
+
     --color-background: 253 244 193; /* light0 */
     --color-background1: 235 219 178; /* light1 */
 
@@ -26,7 +35,6 @@
     --color-foreground1: 80 73 69; /* dark2 */
 
     --color-heading: var(--color-secondary);
-    --color-code: var(--color-background1);
 
     @apply selection:bg-theme-primary/50;
   }
@@ -36,7 +44,16 @@
     --color-primary1: 254 128 25; /* orange bright */
 
     --color-secondary: 104 157 106; /* aqua */
-    --color-secondary1: 142 192 124; /* aqua faded */
+    --color-secondary1: 142 192 124; /* aqua bright */
+
+    --color-blue: 69 133 136 ; /* blue */
+    --color-blue1: 131 165 152; /* blue bright */
+
+    --color-purple: 177 98 134 ; /* purple */
+    --color-purple1: 250 189 47; /* purple bright */
+
+    --color-yellow: 215 153 33; /* yellow */
+    --color-yellow1: 181 118 20; /* yellow bright */
 
     --color-background: 40 40 40; /* dark0 */
     --color-background1: 60 56 54; /* dark1 */
@@ -45,11 +62,14 @@
     --color-foreground1: 213 196 161; /* light2 */
 
     --color-heading: var(--color-secondary);
-    --color-code: var(--color-base);
   }
 
     :root[data-mode=dark] .prose {
     @apply prose-invert;
+  }
+
+  .prose a {
+    @apply underline decoration-2 decoration-theme-primary hover:bg-theme-primary hover:text-theme-background transition;
   }
 }
 
@@ -66,9 +86,5 @@
 
   .alert.alert-danger {
     @apply bg-red-100 text-red-500 dark:bg-red-950 dark:text-red-500;
-  }
-
-  .prose a {
-    @apply underline decoration-2 decoration-theme-primary hover:bg-theme-primary hover:text-theme-background transition;
   }
 }

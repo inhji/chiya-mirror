@@ -11,13 +11,21 @@ defmodule ChiyaWeb.PublicComponents do
   import Phoenix.HTML, only: [raw: 1]
 
   @doc """
+  Renders a middot as divider
+  """
+  def dot(assigns), do:
+    ~H"""
+    <span class="text-theme-primary font-bold">·</span>
+    """
+
+  @doc """
   Renders a horizontal line
   """
-  def line(assigns) do
+  def line(assigns), do:
     ~H"""
     <hr class="my-6 border-theme-base/20" />
     """
-  end
+
 
   @doc """
   Renders a note-header with title.
@@ -103,7 +111,7 @@ defmodule ChiyaWeb.PublicComponents do
               <time class="text-theme-base/75">
                 <%= pretty_datetime(note.published_at) %>
               </time>
-              <span>·</span>
+              <.dot />
               <a href={~p"/#{note.slug}"} class="text-theme-base/75">Permalink</a>
             </article>
           <% end %>

@@ -24,6 +24,8 @@ module.exports = {
             '--tw-prose-bold': 'rgb(var(--color-foreground))',
             '--tw-prose-quotes': 'rgb(var(--color-foreground))',
             '--tw-prose-bullets': 'rgb(var(--color-primary))',
+            '--tw-prose-code': 'rgb(var(--color-base))',
+            '--tw-prose-pre-bg': 'rgb(var(--color-background1))',
             '--tw-prose-quote-borders': 'rgb(var(--color-primary))',
             '--tw-prose-invert-body': 'rgb(var(--color-foreground))',
             '--tw-prose-invert-links': 'rgb(var(--color-foreground))',
@@ -31,7 +33,9 @@ module.exports = {
             '--tw-prose-invert-bold': 'rgb(var(--color-foreground))',
             '--tw-prose-invert-quotes': 'rgb(var(--color-foreground))',
             '--tw-prose-invert-bullets': 'rgb(var(--color-primary))',
-            '--tw-prose-invert-quote-borders': 'rgb(var(--color-primary))'    
+            '--tw-prose-invert-quote-borders': 'rgb(var(--color-primary))',
+            '--tw-prose-invert-code': 'rgb(var(--color-base))',
+            '--tw-prose-invert-pre-bg': 'rgb(var(--color-background1))'
           }
         }
       },
@@ -47,8 +51,7 @@ module.exports = {
           primary1: 'rgb(var(--color-primary1) / <alpha-value>)',
           secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
           secondary1: 'rgb(var(--color-secondary1) / <alpha-value>)',
-          heading: 'rgb(var(--color-heading) / <alpha-value>)',
-          code: 'rgb(var(--color-code) / <alpha-value>)'
+          heading: 'rgb(var(--color-heading) / <alpha-value>)'
         } 
       }
     },
