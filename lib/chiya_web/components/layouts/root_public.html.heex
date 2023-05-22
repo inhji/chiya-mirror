@@ -42,17 +42,21 @@
     </main>
 
     <footer class="mx-auto max-w-xl mt-8 text-theme-base/75 border-t pt-8 border-theme-background1">
-      <span>Served by Chiya v<%= Application.spec(:chiya, :vsn) %></span>
-      <.dot />
-      <span>Made by Inhji</span>
-      <.dot />
-      <span>Struggling to make a decent website since 2011</span>     
-      <%= for identity <- @identities do %>
-      <.dot />
+      <p>
+        <span>Served by Chiya v<%= Application.spec(:chiya, :vsn) %></span>
+        <.dot />
+        <span>Made by Inhji</span>
+        <.dot />
+        <span>Struggling to make a decent website since 2011</span>
+        <.dot />
+      <span><a href={~p"/admin"}>Admin</a></span>
+      </p>
+           
+      <p>
+        <%= for identity <- @identities do %>
       <span><a href={identity.url}><%= identity.name %></a></span>
       <% end %>
-      <.dot />
-      <span><a href={~p"/admin"}>Admin</a></span>
+      </p>
     </footer>
   </body>
 </html>

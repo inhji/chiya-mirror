@@ -33,7 +33,7 @@
     <%= Markdown.render(@note.content) |> raw %>
   </section>
 
-  <section class="mt-8 mx-auto max-w-2xl">
+  <section class="mt-8 mx-auto max-w-xl">
     <%= if !Enum.empty?(@note.images) do %>
       <.line />
 
