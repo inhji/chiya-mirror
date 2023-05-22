@@ -16,7 +16,6 @@ defmodule Chiya.Channels.Channel do
     field :layout, Ecto.Enum, values: [
       :default,
       :microblog,
-      :photoblog,
       :gallery
     ]
 

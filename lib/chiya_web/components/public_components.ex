@@ -9,6 +9,7 @@ defmodule ChiyaWeb.PublicComponents do
   import ChiyaWeb.Format
   import ChiyaWeb.Markdown, only: [render: 1]
   import Phoenix.HTML, only: [raw: 1]
+  import ChiyaWeb.CoreComponents
 
   @doc """
   Renders a middot as divider
@@ -113,13 +114,13 @@ defmodule ChiyaWeb.PublicComponents do
               </time>
               <.dot />
               <a href={~p"/#{note.slug}"} class="text-theme-base/75">Permalink</a>
+              <%= if not Enum.empty?(note.images) do %>
+                <.dot />
+                <.icon name="hero-photo" />
+              <% end %>
             </article>
           <% end %>
         </section>
-        """
-
-      :photoblog ->
-        ~H"""
         """
 
       _ -> # default, show headings only
