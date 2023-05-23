@@ -87,4 +87,9 @@
   .alert.alert-danger {
     @apply bg-red-100 text-red-500 dark:bg-red-950 dark:text-red-500;
   }
+
+  .footnotes li p { display: inline; }
+  .footnotes hr { display: none; }
+  .footnote:before { content: '{'; }
+  .footnote:after { content: '}'; }
 }

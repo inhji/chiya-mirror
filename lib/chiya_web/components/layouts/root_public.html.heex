@@ -47,15 +47,17 @@
         <.dot />
         <span>Made by Inhji</span>
         <.dot />
-        <span>Struggling to make a decent website since 2011</span>
-        <.dot />
-      <span><a href={~p"/admin"}>Admin</a></span>
+        <span>Struggling to make a decent website since 2011</span>  
       </p>
            
       <p>
         <%= for identity <- @identities do %>
-      <span><a href={identity.url}><%= identity.name %></a></span>
+        <span><a href={identity.url}><%= identity.name %></a></span>
+        <.dot />
       <% end %>
+      <span><a href={~p"/about"}>About</a></span>
+      <.dot />
+      <span><a href={~p"/admin"}>Admin</a></span>
       </p>
     </footer>
   </body>
