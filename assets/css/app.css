@@ -7,9 +7,19 @@
 @import "./lightbox.css";
 
 @layer base {
-  :root { font-family: 'Inter', sans-serif; }
+  :root {
+    --font-features: "case", "cpsp", "frac", "salt", "ss02", "ccmp";
+  }
+
+  :root {
+    font-family: 'Inter', sans-serif;
+    font-feature-settings: var(--font-features);
+  }
   @supports (font-variation-settings: normal) {
-    :root { font-family: 'Inter var', sans-serif; }
+    :root { 
+      font-family: 'Inter var', sans-serif;
+      font-feature-settings: var(--font-features);
+    }
   }
 
   :root {
@@ -64,7 +74,7 @@
     --color-heading: var(--color-secondary);
   }
 
-    :root[data-mode=dark] .prose {
+  :root[data-mode=dark] .prose {
     @apply prose-invert;
   }
 
@@ -92,4 +102,10 @@
   .footnotes hr { display: none; }
   .footnote:before { content: '{'; }
   .footnote:after { content: '}'; }
+}
+
+@layer utilities {
+  a.underline-link {
+    @apply underline decoration-2 decoration-theme-primary hover:decoration-theme-secondary transition;
+  }
 }
