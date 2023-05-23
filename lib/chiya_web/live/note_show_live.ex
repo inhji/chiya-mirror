@@ -12,9 +12,6 @@ defmodule ChiyaWeb.NoteShowLive do
     ~H"""
     <.header>
       <%= @note.name %>
-      <:subtitle>
-        <pre class="p-1 bg-gray-100 rounded select-all">[[<%= @note.slug %>]]</pre>
-      </:subtitle>
       <:actions>
         <.link href={~p"/admin/notes/#{@note}/edit"}>
           <.button>Edit</.button>
@@ -47,6 +44,7 @@ defmodule ChiyaWeb.NoteShowLive do
       <:item title="Tags"><%= note_tags(@note.tags) %></:item>
       <:item title="Links outgoing"><%= note_links(@note.links_from) %></:item>
       <:item title="Links incoming"><%= note_links(@note.links_to) %></:item>
+      <:item title="Embed"><pre class="p-1 bg-gray-100 text-black rounded select-all">[[<%= @note.slug %>]]</pre></:item>
     </.list>
 
     <.line />

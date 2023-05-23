@@ -109,15 +109,17 @@ defmodule ChiyaWeb.PublicComponents do
               <div class="prose prose-gruvbox">
                 <%= raw render(note.content) %>
               </div>
-              <time class="text-theme-base/75">
-                <%= pretty_datetime(note.published_at) %>
-              </time>
-              <.dot />
-              <a href={~p"/#{note.slug}"} class="text-theme-base/75">Permalink</a>
-              <%= if not Enum.empty?(note.images) do %>
+              <footer class="mt-1">
+                <time class="text-theme-base/75">
+                  <%= pretty_datetime(note.published_at) %>
+                </time>
                 <.dot />
-                <.icon name="hero-photo" />
-              <% end %>
+                <a href={~p"/#{note.slug}"} class="text-theme-base/75">Permalink</a>
+                <%= if not Enum.empty?(note.images) do %>
+                  <.dot />
+                  <.icon name="hero-photo" />
+                <% end %>
+              </footer>
             </article>
           <% end %>
         </section>
