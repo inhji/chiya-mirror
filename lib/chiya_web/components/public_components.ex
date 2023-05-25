@@ -14,19 +14,18 @@ defmodule ChiyaWeb.PublicComponents do
   @doc """
   Renders a middot as divider
   """
-  def dot(assigns), do:
-    ~H"""
+  def dot(assigns),
+    do: ~H"""
     <span class="text-theme-primary font-bold">·</span>
     """
 
   @doc """
   Renders a horizontal line
   """
-  def line(assigns), do:
-    ~H"""
+  def line(assigns),
+    do: ~H"""
     <hr class="my-6 border-theme-base/20" />
     """
-
 
   @doc """
   Renders a note-header with title.
@@ -107,7 +106,7 @@ defmodule ChiyaWeb.PublicComponents do
           <%= for note <- assigns.notes do %>
             <article class="mt-8 first:mt-0">
               <div class="prose prose-gruvbox">
-                <%= raw render(note.content) %>
+                <%= raw(render(note.content)) %>
               </div>
               <footer class="mt-1">
                 <time class="text-theme-base/75">
@@ -125,7 +124,8 @@ defmodule ChiyaWeb.PublicComponents do
         </section>
         """
 
-      _ -> # default, show headings only
+      # default, show headings only
+      _ ->
         ~H"""
         <section class="note-list default | mt-6 sm:w-auto flex flex-col gap-1.5">
           <%= for note <- assigns.notes do %>

@@ -333,7 +333,8 @@ defmodule ChiyaWeb.CoreComponents do
   attr :multiple, :boolean, default: false, doc: "the multiple flag for select inputs"
 
   attr :rest, :global,
-    include: ~w(autocomplete accept cols disabled form max maxlength min minlength pattern placeholder readonly required rows size step)
+    include:
+      ~w(autocomplete accept cols disabled form max maxlength min minlength pattern placeholder readonly required rows size step)
 
   slot :inner_block
 

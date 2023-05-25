@@ -25,6 +25,10 @@ defmodule ChiyaWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :indie do
+    plug :accepts, ["json", "html"]
+  end
+
   # Other scopes may use custom stacks.
   scope "/api", ChiyaWeb do
     pipe_through :api
@@ -111,6 +115,14 @@ defmodule ChiyaWeb.Router do
       live "/user/confirm/:token", UserConfirmationLive, :edit
       live "/user/confirm", UserConfirmationInstructionsLive, :new
     end
+  end
+
+  ## Indie routes
+  scope "/indie", ChiyaWeb.Indie do
+    forward "/micropub",
+            PlugMicropub,
+            handler: MicropubHandler,
+            json_encoder: Jason
   end
 
   ## Public routes

@@ -8,16 +8,20 @@ defmodule Chiya.Channels.Channel do
     field :content, :string
     field :name, :string
     field :slug, ChannelSlug.Type
-    field :visibility, Ecto.Enum, values: [
-      :public, 
-      :private, 
-      :unlisted
-    ]
-    field :layout, Ecto.Enum, values: [
-      :default,
-      :microblog,
-      :gallery
-    ]
+
+    field :visibility, Ecto.Enum,
+      values: [
+        :public,
+        :private,
+        :unlisted
+      ]
+
+    field :layout, Ecto.Enum,
+      values: [
+        :default,
+        :microblog,
+        :gallery
+      ]
 
     many_to_many :notes, Chiya.Notes.Note,
       join_through: "channels_notes",
