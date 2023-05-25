@@ -23,13 +23,13 @@ defmodule ChiyaWeb.NoteShowLive do
           <.button>Raw</.button>
         </.link>
         <%= if is_nil(@note.published_at) do %>
-        <.link href={~p"/admin/notes/#{@note}/publish"}>
-          <.button>Publish</.button>
-        </.link>
+          <.link href={~p"/admin/notes/#{@note}/publish"}>
+            <.button>Publish</.button>
+          </.link>
         <% else %>
-        <.link href={~p"/admin/notes/#{@note}/unpublish"}>
-          <.button>Un-Publish</.button>
-        </.link>
+          <.link href={~p"/amdin/notes/#{@note}/unpublish"}>
+            <.button>Un-Publish</.button>
+          </.link>
         <% end %>
       </:actions>
     </.header>
@@ -44,7 +44,9 @@ defmodule ChiyaWeb.NoteShowLive do
       <:item title="Tags"><%= note_tags(@note.tags) %></:item>
       <:item title="Links outgoing"><%= note_links(@note.links_from) %></:item>
       <:item title="Links incoming"><%= note_links(@note.links_to) %></:item>
-      <:item title="Embed"><pre class="p-1 bg-gray-100 text-black rounded select-all">[[<%= @note.slug %>]]</pre></:item>
+      <:item title="Embed">
+        <pre class="p-1 bg-gray-100 text-black rounded select-all">[[<%= @note.slug %>]]</pre>
+      </:item>
     </.list>
 
     <.line />

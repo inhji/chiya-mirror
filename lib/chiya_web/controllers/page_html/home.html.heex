@@ -10,24 +10,28 @@
 <section class="mx-auto max-w-xl mt-8 text-sm">
   <ul class="flex flex-wrap gap-3">
     <li>
-      <a href="#" class="inline-block text-theme-base px-3 py-2.5  hover:bg-theme-background1 rounded transition font-semibold">
+      <a
+        href="#"
+        class="inline-block text-theme-base px-3 py-2.5  hover:bg-theme-background1 rounded transition font-semibold"
+      >
         <.icon name="hero-megaphone" />
       </a>
     </li>
-  <%= for channel <- @channels do %>
-    <li>
-      <a href={~p"/c/#{channel.slug}"} class="inline-block text-theme-base px-3 py-2.5 border border-theme-background1 hover:bg-theme-background1 rounded transition font-semibold">
-        <%= channel.name %>
-      </a>
-    </li>
-  <% end %>
+    <%= for channel <- @channels do %>
+      <li>
+        <a
+          href={~p"/c/#{channel.slug}"}
+          class="inline-block text-theme-base px-3 py-2.5 border border-theme-background1 hover:bg-theme-background1 rounded transition font-semibold"
+        >
+          <%= channel.name %>
+        </a>
+      </li>
+    <% end %>
   </ul>
 </section>
 
 <%= if @channel do %>
-<section class="mx-auto max-w-xl mt-8 border-t border-theme-background1">
-  <.note_list notes={@channel.notes} layout={@channel.layout} />  
-</section>
+  <section class="mx-auto max-w-xl mt-8 border-t border-theme-background1">
+    <.note_list notes={@channel.notes} layout={@channel.layout} />
+  </section>
 <% end %>
-
-

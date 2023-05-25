@@ -56,7 +56,8 @@ defmodule Chiya.MixProject do
       {:waffle_ecto, "~> 0.0.12"},
       {:earmark, "~> 1.4"},
       {:yaml_front_matter, "~> 1.0.0"},
-      {:tz, "~> 0.26.1"}
+      {:tz, "~> 0.26.1"},
+      {:plug_micropub, git: "https://git.inhji.de/inhji/plug_micropub"}
     ]
   end
 
