@@ -45,6 +45,10 @@ defmodule Chiya.Notes.Note do
     timestamps()
   end
 
+  def note_url(note) do
+    URI.merge(ChiyaWeb.Endpoint.url, note.slug) |> to_string()
+  end
+
   @doc false
   def changeset(note, attrs) do
     note
