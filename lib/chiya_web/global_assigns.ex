@@ -1,9 +1,16 @@
 defmodule ChiyaWeb.GlobalAssigns do
   import Plug.Conn
 
+  @token_endpoint Application.compile_env!(:chiya, [:indie, :token_endpoint])
+  @auth_endpoint Application.compile_env!(:chiya, [:indie, :auth_endpoint])
+
   def fetch_settings(conn, _opts) do
     settings = Chiya.Site.get_settings()
-    assign(conn, :settings, settings)
+
+    conn
+    |> assign(:token_endpoint, @token_endpoint)
+    |> assign(:auth_endpoint, @auth_endpoint)
+    |> assign(:settings, settings)
   end
 
   def fetch_identities(conn, _opts) do
