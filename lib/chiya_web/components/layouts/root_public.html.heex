@@ -10,6 +10,10 @@
 
     <.favicon />
 
+    <link rel="authorization_endpoint" href={@auth_endpoint} />
+    <link rel="token_endpoint" href={@token_endpoint} />
+    <link rel="micropub" href={~p"/indie/micropub"} />
+
     <%= for identity <- @identities do %>
       <link rel="me" href={identity.url} />
     <% end %>

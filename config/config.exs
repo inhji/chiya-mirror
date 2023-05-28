@@ -18,7 +18,8 @@ config :chiya, ChiyaWeb.Endpoint,
     layout: false
   ],
   pubsub_server: Chiya.PubSub,
-  live_view: [signing_salt: "OJncEkwy"]
+  live_view: [signing_salt: "OJncEkwy"],
+  user_agent: "Chiya/0.x +https://inhji.de"
 
 # Configures the mailer
 #
@@ -62,6 +63,18 @@ config :waffle,
 
 # Configure Timezones with :tz
 config :elixir, :time_zone_database, Tz.TimeZoneDatabase
+
+config :chiya, :indie,
+  token_endpoint: "https://tokens.indieauth.com/token",
+  auth_endpoint: "https://indieauth.com/auth",
+  supported_scopes: [
+    # Micropub scopes
+    "create",
+    "update",
+    "delete",
+    "undelete",
+    "media"
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
