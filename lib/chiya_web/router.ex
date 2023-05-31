@@ -36,6 +36,14 @@ defmodule ChiyaWeb.Router do
     get "/admin/notes", ApiController, :notes
   end
 
+  ## Indie routes
+  scope "/indie" do
+    forward "/micropub",
+            PlugMicropub,
+            handler: ChiyaWeb.Indie.MicropubHandler,
+            json_encoder: Jason
+  end
+
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:chiya, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put
@@ -115,14 +123,6 @@ defmodule ChiyaWeb.Router do
       live "/user/confirm/:token", UserConfirmationLive, :edit
       live "/user/confirm", UserConfirmationInstructionsLive, :new
     end
-  end
-
-  ## Indie routes
-  scope "/indie", ChiyaWeb.Indie do
-    forward "/micropub",
-            PlugMicropub,
-            handler: MicropubHandler,
-            json_encoder: Jason
   end
 
   ## Public routes
