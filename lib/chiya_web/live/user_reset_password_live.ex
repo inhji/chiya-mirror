@@ -32,8 +32,7 @@ defmodule ChiyaWeb.UserResetPasswordLive do
 
       <p class="text-center mt-4">
         <.link href={~p"/user/register"}>Register</.link>
-        |
-        <.link href={~p"/user/log_in"}>Log in</.link>
+        | <.link href={~p"/user/log_in"}>Log in</.link>
       </p>
     </div>
     """

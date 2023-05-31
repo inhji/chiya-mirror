@@ -46,7 +46,7 @@ defmodule Chiya.Notes.Note do
   end
 
   def note_url(note) do
-    URI.merge(ChiyaWeb.Endpoint.url, note.slug) |> to_string()
+    URI.merge(ChiyaWeb.Endpoint.url(), note.slug) |> to_string()
   end
 
   @doc false
