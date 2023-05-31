@@ -1,4 +1,5 @@
 defmodule ChiyaWeb.Indie.MicropubHandler do
+  @behaviour PlugMicropub.HandlerBehaviour
   require Logger
 
   alias ChiyaWeb.Indie.Properties, as: Props
@@ -22,7 +23,40 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
     end
   end
 
-  def handle_create(_, _, _), do: {:error, :insufficient_scope}
+  @impl true
+  def handle_update(_, _, _, _, _) do
+    {:error, :insufficient_scope}
+  end
+
+  @impl true
+  def handle_delete(_url, _access_token) do
+    {:error, :insufficient_scope}
+  end
+
+  @impl true
+  def handle_undelete(_url, _access_token) do
+    {:error, :insufficient_scope}
+  end
+
+  @impl true
+  def handle_source_query(_url, _filter_properties, _access_token) do
+    {:error, :insufficient_scope}
+  end
+
+  @impl true
+  def handle_media(_files, _access_token) do
+    {:error, :insufficient_scope}
+  end
+
+  @impl true
+  def handle_config_query(_access_token) do
+    {:error, :insufficient_scope}
+  end
+
+  @impl true
+  def handle_syndicate_to_query(_access_token) do
+    {:error, :insufficient_scope}
+  end
 
   defp note_attrs("h-entry", post_type, properties) do
     case post_type do
