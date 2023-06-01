@@ -73,11 +73,17 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
     name = Props.get_title(p) || String.slice(content, 0..15)
     tags = Props.get_tags(p) |> Enum.join(",")
 
+    published_at =
+      if Props.is_published?(p),
+        do: NaiveDateTime.local_now(),
+        else: nil
+
     {:ok,
      %{
        content: content,
        name: name,
-       tags_string: tags
+       tags_string: tags,
+       published_at: published_at
      }}
     |> dbg()
   end
