@@ -20,7 +20,7 @@
     <%= for channel <- @channels do %>
       <li>
         <a
-          href={~p"/c/#{channel.slug}"}
+          href={~p"/channel/#{channel.slug}"}
           class="inline-block text-theme-base px-3 py-2.5 border border-theme-background1 hover:bg-theme-background1 rounded transition font-semibold"
         >
           <%= channel.name %>

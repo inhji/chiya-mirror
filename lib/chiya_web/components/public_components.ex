@@ -85,7 +85,7 @@ defmodule ChiyaWeb.PublicComponents do
                 <% end %>
               </section>
               <a
-                href={~p"/#{note.slug}"}
+                href={~p"/note/#{note.slug}"}
                 class="text-theme-secondary text-lg/10 font-semibold rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-secondary/10 transition"
               >
                 <%= note.name %>
@@ -113,7 +113,7 @@ defmodule ChiyaWeb.PublicComponents do
                   <%= pretty_datetime(note.published_at) %>
                 </time>
                 <.dot />
-                <a href={~p"/#{note.slug}"} class="text-theme-base/75">Permalink</a>
+                <a href={~p"/note/#{note.slug}"} class="text-theme-base/75">Permalink</a>
                 <%= if not Enum.empty?(note.images) do %>
                   <.dot />
                   <.icon name="hero-photo" />
@@ -130,7 +130,7 @@ defmodule ChiyaWeb.PublicComponents do
         <section class="note-list default | mt-6 sm:w-auto flex flex-col gap-1.5">
           <%= for note <- assigns.notes do %>
             <a
-              href={~p"/#{note.slug}"}
+              href={~p"/note/#{note.slug}"}
               class="rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-secondary/10 transition"
             >
               <span class="text-theme-secondary text-lg font-semibold leading-8">
