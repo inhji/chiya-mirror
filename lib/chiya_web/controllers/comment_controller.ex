@@ -18,7 +18,7 @@ defmodule ChiyaWeb.CommentController do
       {:ok, _comment} ->
         redirect(conn, to: ~p"/note/#{note_slug}?error=0")
 
-      {:error, changeset} ->
+      {:error, _changeset} ->
         redirect(conn, to: ~p"/note/#{note_slug}?error=1")
     end
   end
