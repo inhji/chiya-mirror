@@ -3,6 +3,11 @@ defmodule Chiya.Notes.Note do
   import Ecto.Changeset
   alias Chiya.Notes.{Note, NoteSlug, NoteNote, NoteTag}
 
+  use Phoenix.VerifiedRoutes,
+        endpoint: ChiyaWeb.Endpoint,
+        router: ChiyaWeb.Router,
+        statics: ChiyaWeb.static_paths()
+
   @reserved_slugs ~w(user admin dev api)
 
   @derive {Jason.Encoder, only: [:id, :name, :content, :slug, :channels]}
@@ -46,7 +51,8 @@ defmodule Chiya.Notes.Note do
   end
 
   def note_url(note) do
-    URI.merge(ChiyaWeb.Endpoint.url(), note.slug) |> to_string()
+    URI.merge(ChiyaWeb.Endpoint.url(), ~p"/note/#{note.slug}") 
+    |> to_string()
   end
 
   @doc false

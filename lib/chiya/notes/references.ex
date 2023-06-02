@@ -153,7 +153,8 @@ defmodule Chiya.Notes.References do
       target_id: linked_id
     }
 
-  defp get_link(slug, title, valid), do: "[#{title}](#{~p"/#{slug}"})#{get_link_class(valid)}"
+  defp get_link(slug, title, valid),
+    do: "[#{title}](#{~p"/note/#{slug}"})#{get_link_class(valid)}"
 
   defp get_link_class(false), do: "{:.invalid}"
   defp get_link_class(_), do: ""

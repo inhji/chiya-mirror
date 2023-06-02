@@ -16,7 +16,7 @@ defmodule ChiyaWeb.NoteShowLive do
         <.link href={~p"/admin/notes/#{@note}/edit"}>
           <.button>Edit</.button>
         </.link>
-        <.link href={~p"/#{@note.slug}"}>
+        <.link href={~p"/note/#{@note.slug}"}>
           <.button>Preview</.button>
         </.link>
         <.link href={~p"/admin/notes/#{@note}/raw"}>
@@ -27,7 +27,7 @@ defmodule ChiyaWeb.NoteShowLive do
             <.button>Publish</.button>
           </.link>
         <% else %>
-          <.link href={~p"/amdin/notes/#{@note}/unpublish"}>
+          <.link href={~p"/admin/notes/#{@note}/unpublish"}>
             <.button>Un-Publish</.button>
           </.link>
         <% end %>

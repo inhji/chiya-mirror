@@ -18,7 +18,9 @@
         <span>Tags</span>
         <span>
           <%= for tag <- @note.tags do %>
-            <a href={~p"/t/#{tag.slug}"} class="underline-link font-semibold"><%= tag.name %></a>
+            <a href={~p"/tagged-with/#{tag.slug}"} class="underline-link font-semibold">
+              <%= tag.name %>
+            </a>
           <% end %>
         </span>
       <% end %>
@@ -83,7 +85,7 @@
     <.simple_form
       :let={f}
       for={@changeset}
-      action={~p"/#{@note.slug}/comment"}
+      action={~p"/note/#{@note.slug}/comment"}
       class="bg-theme-background -m-3"
     >
       <.error :if={@changeset.action}>

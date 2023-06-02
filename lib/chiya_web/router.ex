@@ -130,11 +130,11 @@ defmodule ChiyaWeb.Router do
   scope "/", ChiyaWeb do
     pipe_through [:browser, :public]
 
-    get "/:slug", PageController, :note
-    get "/c/:slug", PageController, :channel
-    get "/t/:slug", PageController, :tag
+    get "/note/:slug", PageController, :note
+    get "/channel/:slug", PageController, :channel
+    get "/tagged-with/:slug", PageController, :tag
     get "/", PageController, :home
 
-    post "/:slug/comment", CommentController, :create
+    post "/note/:slug/comment", CommentController, :create
   end
 end
