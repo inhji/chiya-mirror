@@ -135,6 +135,8 @@ defmodule ChiyaWeb.Router do
     get "/tagged-with/:slug", PageController, :tag
     get "/", PageController, :home
 
+    get "/about", PageController, :about
+
     post "/note/:slug/comment", CommentController, :create
   end
 end

@@ -33,8 +33,8 @@ defmodule ChiyaWeb.CoreComponents do
   def darkmode_toggle(assigns) do
     ~H"""
     <.link href="#" id="dark-mode-toggle" class="text-sm leading-6">
-      <span class="hidden dark:inline bg-blue-900 p-1 rounded">🌙</span>
-      <span class="inline dark:hidden bg-blue-600 p-1 rounded">☀️</span>
+      <span class="hidden dark:inline">🌙</span>
+      <span class="inline dark:hidden">☀️</span>
     </.link>
     """
   end
