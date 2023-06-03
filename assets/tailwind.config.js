@@ -51,6 +51,9 @@ module.exports = {
           primary1: 'rgb(var(--color-primary1) / <alpha-value>)',
           secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
           secondary1: 'rgb(var(--color-secondary1) / <alpha-value>)',
+          tertiary: 'rgb(var(--color-blue) / <alpha-value>)',
+          quaternary: 'rgb(var(--color-purple) / <alpha-value>)',
+          quinary: 'rgb(var(--color-yellow) / <alpha-value>)',
           heading: 'rgb(var(--color-heading) / <alpha-value>)'
         } 
       }

@@ -22,6 +22,9 @@ defmodule ChiyaWeb.NoteShowLive do
         <.link href={~p"/admin/notes/#{@note}/raw"}>
           <.button>Raw</.button>
         </.link>
+        <.link href={~p"/admin/notes/#{@note}"} method="delete" data-confirm="Are you sure?">
+          <.button>Delete</.button>
+        </.link>
         <%= if is_nil(@note.published_at) do %>
           <.link href={~p"/admin/notes/#{@note}/publish"}>
             <.button>Publish</.button>

@@ -477,7 +477,7 @@ defmodule ChiyaWeb.CoreComponents do
 
   def header(assigns) do
     ~H"""
-    <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
+    <header class={[@actions != [] && "flex justify-between gap-6 flex-col lg:flex-row", @class]}>
       <div>
         <h1 class="text-lg font-semibold leading-8 text-gray-800 dark:text-gray-200">
           <%= render_slot(@inner_block) %>
