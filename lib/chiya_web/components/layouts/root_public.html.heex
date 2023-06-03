@@ -60,24 +60,50 @@
       <%= @inner_content %>
     </main>
 
-    <footer class="max-w-full mt-8 p-8 text-theme-base/75  bg-theme-background1">
-      <section class="max-w-xl mx-auto">
-        <p>
-          <span>Served by Chiya v<%= Application.spec(:chiya, :vsn) %></span>
-          <.dot />
-          <span>Made by Inhji</span>
-          <.dot />
-          <span>Struggling to make a decent website since 2011</span>
-        </p>
+    <footer class="max-w-full mt-8 p-8 text-theme-base/75 bg-theme-background1">
+      <section class="max-w-2xl mx-auto flex gap-3">
+        <div class="flex-1">
+          <h2 class="font-bold tracking-wider">Info</h2>
 
-        <p>
-          <%= for identity <- @public_identities do %>
-            <span><a href={identity.url}><%= identity.name %></a></span>
-            <.dot />
-          <% end %>
-          <span><a href={~p"/admin"}>Admin</a></span>
-        </p>
+          <ul class="list-disc list-inside">
+            <li>Served by Chiya v<%= Application.spec(:chiya, :vsn) %></li>
+            <li>Made by Inhji</li>
+          </ul>
+        </div>
+
+        <div class="flex-1">
+          <h2 class="font-bold tracking-wider">Links</h2>
+
+          <ul class="list-disc list-inside">
+            <li><a href="#"><del>Wiki</del></a></li>
+          </ul>
+        </div>
+
+        <div class="flex-1">
+          <h2 class="font-bold tracking-wider">Elsewhere</h2>
+
+          <ul class="list-disc list-inside">
+            <%= for identity <- @public_identities do %>
+              <li><a href={identity.url}><%= identity.name %></a></li>
+            <% end %>
+          </ul>
+        </div>
       </section>
+
+      <section class="max-w-2xl mx-auto">
+        <.divider />
+        <div data-dummy="true" />
+      </section>
+
+      <p class="mt-4 max-w-2xl mx-auto text-center">Struggling to make a decent website since 2011</p>
     </footer>
+
+    <section class="flex h-1 w-full flex-row">
+      <div class="bg-theme-primary w-full"></div>
+      <div class="bg-theme-secondary w-full"></div>
+      <div class="bg-theme-tertiary w-full"></div>
+      <div class="bg-theme-quaternary w-full"></div>
+      <div class="bg-theme-quinary w-full"></div>
+    </section>
   </body>
 </html>

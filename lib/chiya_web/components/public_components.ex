@@ -31,7 +31,7 @@ defmodule ChiyaWeb.PublicComponents do
 
   def divider(assigns) do
     ~H"""
-    <div class="flex items-center my-8 text-theme-base/75 before:flex-1 after:flex-1 before:content-[''] after:content-[''] before:p-[0.5px] after:p-[0.5px] before:bg-theme-background1 after:bg-theme-background1 w-full mx-auto last:hidden">
+    <div class="flex items-center my-8 text-theme-base/75 before:flex-1 after:flex-1 before:content-[''] after:content-[''] before:p-[0.5px] after:p-[0.5px] before:bg-theme-base/25 after:bg-theme-base/25 w-full mx-auto last:hidden">
       <%= assigns.text %>
     </div>
     """

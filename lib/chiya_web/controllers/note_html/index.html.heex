@@ -33,15 +33,4 @@
   <:col :let={note} label="Name"><%= note.name %></:col>
   <:col :let={note} label="Updated at"><%= from_now(note.updated_at) %></:col>
   <:col :let={note} label="Published at"><%= from_now(note.published_at) %></:col>
-  <:action :let={note}>
-    <div class="sr-only">
-      <.link navigate={~p"/admin/notes/#{note}"}>Show</.link>
-    </div>
-    <.link navigate={~p"/admin/notes/#{note}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={note}>
-    <.link href={~p"/admin/notes/#{note}"} method="delete" data-confirm="Are you sure?">
-      Delete
-    </.link>
-  </:action>
 </.table>
