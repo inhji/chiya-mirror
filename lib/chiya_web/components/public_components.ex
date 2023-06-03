@@ -28,6 +28,7 @@ defmodule ChiyaWeb.PublicComponents do
     """
 
   attr :text, :string, default: "⌘"
+
   def divider(assigns) do
     ~H"""
     <div class="flex items-center my-8 text-theme-base/75 before:flex-1 after:flex-1 before:content-[''] after:content-[''] before:p-[0.5px] after:p-[0.5px] before:bg-theme-background1 after:bg-theme-background1 w-full mx-auto last:hidden">
@@ -86,8 +87,7 @@ defmodule ChiyaWeb.PublicComponents do
                     data-gallery={gallery_name(note)}
                     data-description={ChiyaWeb.Markdown.render(image.content)}
                   >
-                    <img src={ChiyaWeb.Helpers.image_url(image, :thumb)} loading="lazy"
-                    />
+                    <img src={ChiyaWeb.Helpers.image_url(image, :thumb)} loading="lazy" />
                   </a>
                 <% end %>
               </section>
@@ -115,9 +115,11 @@ defmodule ChiyaWeb.PublicComponents do
               <% image = main_image(note) %>
               <%= if image do %>
                 <figure class="mb-4">
-                  <img 
-                    src={ChiyaWeb.Helpers.image_url(image, :full)} 
-                    class="rounded" title={image.content} />
+                  <img
+                    src={ChiyaWeb.Helpers.image_url(image, :full)}
+                    class="rounded"
+                    title={image.content}
+                  />
                 </figure>
               <% end %>
 
