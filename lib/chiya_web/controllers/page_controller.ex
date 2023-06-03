@@ -60,5 +60,4 @@ defmodule ChiyaWeb.PageController do
   def about(conn, _params) do
     redirect(conn, to: ~p"/note/about")
   end
-
 end

@@ -4,9 +4,9 @@ defmodule Chiya.Notes.Note do
   alias Chiya.Notes.{Note, NoteSlug, NoteNote, NoteTag}
 
   use Phoenix.VerifiedRoutes,
-        endpoint: ChiyaWeb.Endpoint,
-        router: ChiyaWeb.Router,
-        statics: ChiyaWeb.static_paths()
+    endpoint: ChiyaWeb.Endpoint,
+    router: ChiyaWeb.Router,
+    statics: ChiyaWeb.static_paths()
 
   @reserved_slugs ~w(user admin dev api)
 
@@ -51,7 +51,7 @@ defmodule Chiya.Notes.Note do
   end
 
   def note_url(note) do
-    URI.merge(ChiyaWeb.Endpoint.url(), ~p"/note/#{note.slug}") 
+    URI.merge(ChiyaWeb.Endpoint.url(), ~p"/note/#{note.slug}")
     |> to_string()
   end
 

@@ -27,6 +27,15 @@ defmodule ChiyaWeb.PublicComponents do
     <hr class="my-6 border-theme-base/20" />
     """
 
+  attr :text, :string, default: "⌘"
+  def divider(assigns) do
+    ~H"""
+    <div class="flex items-center my-8 text-theme-base/75 before:flex-1 after:flex-1 before:content-[''] after:content-[''] before:p-[0.5px] after:p-[0.5px] before:bg-theme-background1 after:bg-theme-background1 w-full mx-auto last:hidden">
+      <%= assigns.text %>
+    </div>
+    """
+  end
+
   @doc """
   Renders a note-header with title.
   """
@@ -72,14 +81,12 @@ defmodule ChiyaWeb.PublicComponents do
               <section class="flex flex-wrap justify-start gap-3">
                 <%= for image <- note.images do %>
                   <a
-                    href={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}
+                    href={ChiyaWeb.Helpers.image_url(image, :full)}
                     class="lightbox | w-28"
                     data-gallery={gallery_name(note)}
                     data-description={ChiyaWeb.Markdown.render(image.content)}
                   >
-                    <img
-                      src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
-                      loading="lazy"
+                    <img src={ChiyaWeb.Helpers.image_url(image, :thumb)} loading="lazy"
                     />
                   </a>
                 <% end %>
@@ -104,7 +111,16 @@ defmodule ChiyaWeb.PublicComponents do
         ~H"""
         <section class="note-list microblog | mt-6 text-theme-base">
           <%= for note <- assigns.notes do %>
-            <article class="mt-8 first:mt-0">
+            <article class="mt-4 first:mt-0">
+              <% image = main_image(note) %>
+              <%= if image do %>
+                <figure class="mb-4">
+                  <img 
+                    src={ChiyaWeb.Helpers.image_url(image, :full)} 
+                    class="rounded" title={image.content} />
+                </figure>
+              <% end %>
+
               <div class="prose prose-gruvbox">
                 <%= raw(render(note.content)) %>
               </div>
@@ -120,6 +136,8 @@ defmodule ChiyaWeb.PublicComponents do
                 <% end %>
               </footer>
             </article>
+
+            <.divider />
           <% end %>
         </section>
         """
@@ -145,4 +163,10 @@ defmodule ChiyaWeb.PublicComponents do
   end
 
   defp gallery_name(note), do: "gallery-#{note.id}"
+
+  defp main_image(note),
+    do:
+      note.images
+      |> Enum.filter(fn image -> image.featured end)
+      |> List.first()
 end
