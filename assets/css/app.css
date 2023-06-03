@@ -104,7 +104,7 @@
   .footnote:after { content: '}'; }
 
   body > header nav a {
-    @apply text-theme-base px-3 py-2.5 border border-theme-background1 hover:bg-theme-background1 rounded transition font-semibold;
+    @apply inline-block text-theme-base px-3 py-2.5 border border-theme-background1 hover:bg-theme-background1 rounded transition font-semibold;
   }
 }
 

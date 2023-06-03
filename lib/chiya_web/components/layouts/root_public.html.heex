@@ -35,7 +35,7 @@
     </style>
   </head>
   <body class="bg-theme-background mx-3 md:mx-0">
-    <header class="mt-8 max-w-xl mx-auto">
+    <header class="my-8 max-w-xl mx-auto block">
       <nav>
         <ul class="flex gap-3">
           <li>
@@ -60,22 +60,24 @@
       <%= @inner_content %>
     </main>
 
-    <footer class="mx-auto max-w-xl mt-8 mb-8 text-theme-base/75 border-t pt-8 border-theme-background1">
-      <p>
-        <span>Served by Chiya v<%= Application.spec(:chiya, :vsn) %></span>
-        <.dot />
-        <span>Made by Inhji</span>
-        <.dot />
-        <span>Struggling to make a decent website since 2011</span>
-      </p>
-
-      <p>
-        <%= for identity <- @public_identities do %>
-          <span><a href={identity.url}><%= identity.name %></a></span>
+    <footer class="max-w-full mt-8 p-8 text-theme-base/75  bg-theme-background1">
+      <section class="max-w-xl mx-auto">
+        <p>
+          <span>Served by Chiya v<%= Application.spec(:chiya, :vsn) %></span>
           <.dot />
-        <% end %>
-        <span><a href={~p"/admin"}>Admin</a></span>
-      </p>
+          <span>Made by Inhji</span>
+          <.dot />
+          <span>Struggling to make a decent website since 2011</span>
+        </p>
+
+        <p>
+          <%= for identity <- @public_identities do %>
+            <span><a href={identity.url}><%= identity.name %></a></span>
+            <.dot />
+          <% end %>
+          <span><a href={~p"/admin"}>Admin</a></span>
+        </p>
+      </section>
     </footer>
   </body>
 </html>
