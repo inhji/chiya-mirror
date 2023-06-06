@@ -1,6 +1,7 @@
 defmodule Chiya.Accounts.UserToken do
   use Ecto.Schema
   import Ecto.Query
+  import Ecto.Changeset
   alias Chiya.Accounts.UserToken
 
   @hash_algorithm :sha256
@@ -20,6 +21,23 @@ defmodule Chiya.Accounts.UserToken do
     belongs_to :user, Chiya.Accounts.User
 
     timestamps(updated_at: false)
+  end
+
+  def build_app_token(user, app_name, context) do
+    token = :crypto.strong_rand_bytes(@rand_size)
+
+    %{
+      token: token,
+      context: context,
+      user_id: user.id,
+      sent_to: app_name
+    }
+  end
+
+  def app_token_changeset(token, attrs) do
+    token
+    |> cast(attrs, [:context, :token, :sent_to, :user_id])
+    |> validate_required([:context, :token, :sent_to, :user_id])
   end
 
   @doc """

@@ -1,0 +1,8 @@
+<.header>
+  Edit Channel <%= @channel.id %>
+  <:subtitle>Use this form to manage channel records in your database.</:subtitle>
+</.header>
+
+<.token_form changeset={@changeset} action={~p"/admin/channels/#{@channel}"} />
+
+<.back navigate={~p"/admin/channels"}>Back to channels</.back>

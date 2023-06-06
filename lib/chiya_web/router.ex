@@ -73,6 +73,7 @@ defmodule ChiyaWeb.Router do
     resources "/settings", SettingController, singleton: true
     resources "/identities", IdentityController
     resources "/comments", CommentController, only: [:index, :show]
+    resources "/tokens", TokenController, only: [:index, :show, :new, :create, :delete]
 
     get "/notes/import", NoteController, :import_prepare
     post "/notes/import", NoteController, :import_run

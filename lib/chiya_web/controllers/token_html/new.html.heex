@@ -1,0 +1,8 @@
+<.header>
+  New Token
+  <:subtitle>Use this form to create new token records in your database.</:subtitle>
+</.header>
+
+<.token_form changeset={@changeset} action={~p"/admin/tokens"} />
+
+<.back navigate={~p"/admin/tokens"}>Back to channels</.back>

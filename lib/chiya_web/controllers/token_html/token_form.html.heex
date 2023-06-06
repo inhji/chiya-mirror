@@ -1,0 +1,11 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input field={f[:context]} type="text" label="Context" />
+  <.input field={f[:sent_to]} type="text" label="Application" />
+  <.input field={f[:user_id]} type="hidden" />
+  <:actions>
+    <.button>Save Token</.button>
+  </:actions>
+</.simple_form>
