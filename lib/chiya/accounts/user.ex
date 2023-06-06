@@ -11,6 +11,8 @@ defmodule Chiya.Accounts.User do
 
     field :user_image, ChiyaWeb.Uploaders.UserImage.Type
 
+    has_many :tokens, Chiya.Accounts.UserToken
+
     timestamps()
   end
 

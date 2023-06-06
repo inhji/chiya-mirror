@@ -1,0 +1,17 @@
+<.header>
+  Token <%= @token.id %>
+  <:subtitle>This is a token.</:subtitle>
+  <:actions></:actions>
+</.header>
+
+<.list>
+  <:item title="Id"><%= @token.id %></:item>
+  <:item title="App Name"><%= @token.sent_to %></:item>
+  <:item title="Context"><%= @token.context %></:item>
+  <:item title="Created"><%= @token.inserted_at %></:item>
+  <:item title="Value">
+    <p class="break-all"><%= :crypto.bytes_to_integer(@token.token) %></p>
+  </:item>
+</.list>
+
+<.back navigate={~p"/admin/tokens"}>Back to channels</.back>

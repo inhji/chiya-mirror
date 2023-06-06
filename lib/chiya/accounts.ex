@@ -8,6 +8,10 @@ defmodule Chiya.Accounts do
 
   alias Chiya.Accounts.{User, UserToken, UserNotifier}
 
+  defp preload_user(user) do
+    Repo.preload(user, [:tokens])
+  end
+
   def has_user?() do
     Repo.exists?(User)
   end
@@ -240,6 +244,21 @@ defmodule Chiya.Accounts do
     Repo.update(changeset)
   end
 
+  ## App Tokens
+
+  @doc """
+  Generates a application token.
+  """
+  def generate_app_token(user, app_name, context) do
+    attrs = UserToken.build_app_token(user, app_name, context)
+    changeset = UserToken.app_token_changeset(%UserToken{}, attrs)
+    Repo.insert(changeset)
+  end
+
+  def delete_app_token(id) do
+    Repo.delete(Repo.get(UserToken, id))
+  end
+
   ## Session
 
   @doc """
@@ -256,7 +275,7 @@ defmodule Chiya.Accounts do
   """
   def get_user_by_session_token(token) do
     {:ok, query} = UserToken.verify_session_token_query(token)
-    Repo.one(query)
+    Repo.one(query) |> preload_user()
   end
 
   @doc """

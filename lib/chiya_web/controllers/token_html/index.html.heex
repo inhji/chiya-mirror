@@ -1,0 +1,21 @@
+<.header>
+  <.icon name="hero-key" /> Tokens
+  <:subtitle>Tokens are like keys.</:subtitle>
+  <:actions>
+    <.link href={~p"/admin/tokens/new"}>
+      <.button>New Token</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="tokens" rows={@tokens} row_click={&JS.navigate(~p"/admin/tokens/#{&1}")}>
+  <:col :let={token} label="Id"><%= token.id %></:col>
+  <:col :let={token} label="Context"><%= token.context %></:col>
+  <:col :let={token} label="App Name"><%= token.sent_to %></:col>
+  <:col :let={token} label="Created"><%= pretty_date(token.inserted_at) %></:col>
+  <:action :let={token}>
+    <.link href={~p"/admin/tokens/#{token}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>
