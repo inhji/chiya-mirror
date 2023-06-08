@@ -255,6 +255,10 @@ defmodule Chiya.Accounts do
     Repo.insert(changeset)
   end
 
+  def get_app_token(app_name, context) do
+    Repo.one(UserToken.app_name_and_context_query(app_name, context))
+  end
+
   def delete_app_token(id) do
     Repo.delete(Repo.get(UserToken, id))
   end

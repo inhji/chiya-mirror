@@ -38,7 +38,7 @@ defmodule ChiyaWeb.TokenController do
   end
 
   def delete(conn, %{"id" => id}) do
-    {:ok, _token} = Chiya.Accounts.delete_app_token(id) 
+    {:ok, _token} = Chiya.Accounts.delete_app_token(id)
 
     conn
     |> put_flash(:info, "Token deleted successfully.")

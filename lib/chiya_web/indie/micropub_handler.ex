@@ -10,7 +10,7 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
     dbg(properties)
     dbg(type)
 
-    with :ok <- Token.verify(access_token, "create", get_hostname()),
+    with :ok <- verify_token(access_token),
          {:ok, post_type} <- Props.get_post_type(properties),
          {:ok, note_attrs} <- get_attrs(type, post_type, properties),
          {:ok, note} <- Chiya.Notes.create_note(note_attrs) do
@@ -51,12 +51,57 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
 
   @impl true
   def handle_config_query(_access_token) do
-    {:error, :insufficient_scope}
+    channels = Chiya.Channels.list_channels()
+
+    {:ok,
+     %{
+       "destination" => [],
+       "post-types" => [],
+       "channels" =>
+         Enum.map(channels, fn c ->
+           %{
+             uid: c.slug,
+             name: c.name
+           }
+         end)
+     }}
   end
 
   @impl true
   def handle_syndicate_to_query(_access_token) do
-    {:error, :insufficient_scope}
+    {:ok, %{"syndicate-to" => []}}
+  end
+
+  defp verify_token(access_token) do
+    Enum.reduce_while([&verify_app_token/1, &verify_micropub_token/1], nil, fn fun, result ->
+      case fun.(access_token) do
+        :ok -> {:halt, :ok}
+        error -> {:cont, error}
+      end
+    end)
+  end
+
+  defp verify_micropub_token(access_token) do
+    Token.verify(access_token, "create", get_hostname())
+  end
+
+  defp verify_app_token(access_token) do
+    token = Chiya.Accounts.get_app_token("obsidian", "app")
+
+    if not is_nil(token) do
+      token_string =
+        token.token
+        |> :crypto.bytes_to_integer()
+        |> to_string()
+
+      if token_string == access_token do
+        :ok
+      else
+        {:error, :insufficient_scope, "Could not verify app token"}
+      end
+    else
+      {:error, :insufficient_scope, "Could not verify app token"}
+    end
   end
 
   defp get_attrs(type, post_type, properties) do
@@ -85,7 +130,6 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
        tags_string: tags,
        published_at: published_at
      }}
-    |> dbg()
   end
 
   defp get_hostname(),
