@@ -56,7 +56,12 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
     {:ok,
      %{
        "destination" => [],
-       "post-types" => [],
+       "post-types" => [
+         %{
+           "type" => "note",
+           "name" => "Note"
+         }
+       ],
        "channels" =>
          Enum.map(channels, fn c ->
            %{
