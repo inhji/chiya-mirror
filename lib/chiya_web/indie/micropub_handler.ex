@@ -65,8 +65,8 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
        "channels" =>
          Enum.map(channels, fn c ->
            %{
-             uid: c.slug,
-             name: c.name
+             "uid" => c.slug,
+             "name" => c.name
            }
          end)
      }}
