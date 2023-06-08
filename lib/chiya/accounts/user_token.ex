@@ -184,6 +184,10 @@ defmodule Chiya.Accounts.UserToken do
     from UserToken, where: [token: ^token, context: ^context]
   end
 
+  def app_name_and_context_query(app_name, context) do
+    from UserToken, where: [sent_to: ^app_name, context: ^context]
+  end
+
   @doc """
   Gets all tokens for the given user for the given contexts.
   """
