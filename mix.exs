@@ -33,6 +33,7 @@ defmodule Chiya.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 3.0"},
+      {:cors_plug, "~> 3.0"},
       {:earmark, "~> 1.4"},
       {:ecto_autoslug_field, "~> 3.0"},
       {:ecto_sql, "~> 3.6"},
