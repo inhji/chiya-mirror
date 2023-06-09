@@ -34,6 +34,9 @@ chiya-*.tar
 !/priv/static/site.webmanifest
 !/priv/static/browserconfig.xml
 
+/log/*
+!/log/.gitkeep
+
 # Ignore digested assets cache.
 /priv/static/cache_manifest.json
 

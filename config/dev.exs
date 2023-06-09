@@ -77,3 +77,18 @@ config :phoenix, :plug_init_mode, :runtime
 
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
+
+log_directory = Path.join(File.cwd!(), "log")
+
+config :logger,
+  backends: [{LoggerFileBackend, :info_log}, {LoggerFileBackend, :error_log}]
+
+config :logger, :info_log,
+  path: Path.join(log_directory, "chiya-info.log"),
+  level: :info,
+  format: "[$date] [$time] [$level] $message\n"
+
+config :logger, :error_log,
+  path: Path.join(log_directory, "chiya-error.log"),
+  level: :error,
+  format: "[$date] [$time] [$level] $message\n"

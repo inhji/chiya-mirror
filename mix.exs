@@ -19,7 +19,7 @@ defmodule Chiya.MixProject do
   def application do
     [
       mod: {Chiya.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :logger_file_backend, :runtime_tools]
     ]
   end
 
