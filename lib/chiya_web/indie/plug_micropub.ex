@@ -313,7 +313,7 @@ defmodule ChiyaWeb.Indie.PlugMicropub do
 
   def parse_create_body("application/json", params) do
     Logger.info("Parsing body")
-    Logger.info("Params: #{params}")
+    Logger.info("Params: #{inspect(params)}")
 
     with {:ok, ["h-" <> type]} <- Map.fetch(params, "type"),
          {:ok, properties} when is_map(properties) <- Map.fetch(params, "properties") do
@@ -327,7 +327,7 @@ defmodule ChiyaWeb.Indie.PlugMicropub do
 
   def parse_create_body(_, params) do
     Logger.info("Parsing body")
-    Logger.info("Params: #{params}")
+    Logger.info("Params: #{inspect(params)}")
 
     with {type, params} when is_binary(type) <- Map.pop(params, "h") do
       properties =
