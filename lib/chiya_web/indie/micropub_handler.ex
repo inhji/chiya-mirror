@@ -1,5 +1,5 @@
 defmodule ChiyaWeb.Indie.MicropubHandler do
-  @behaviour PlugMicropub.HandlerBehaviour
+  @behaviour ChiyaWeb.Indie.PlugMicropub.HandlerBehaviour
   require Logger
 
   alias ChiyaWeb.Indie.Properties, as: Props

@@ -72,27 +72,7 @@ if config_env() == :prod do
 
   config :waffle,
     storage_dir_prefix: upload_dir
-
-  log_directory =
-    System.get_env("LOG_DIR") ||
-      raise """
-      environment variable LOG_DIR is missing.
-      It should look like: /path/to/chiya/logs
-      """
-
-  config :logger,
-    backends: [{LoggerFileBackend, :info_log}, {LoggerFileBackend, :error_log}]
-
-  config :logger, :info_log,
-    path: Path.join(log_directory, "chiya-info.log"),
-    level: :info,
-    format: "[$date] [$time] [$level] $message\n"
-
-  config :logger, :error_log,
-    path: Path.join(log_directory, "chiya-error.log"),
-    level: :error,
-    format: "[$date] [$time] [$level] $message\n"
-
+    
   # ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key
