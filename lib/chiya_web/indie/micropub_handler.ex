@@ -15,7 +15,7 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
          {:ok, post_type} <- Props.get_post_type(properties),
          {:ok, note_attrs} <- get_attrs(type, post_type, properties),
          {:ok, note} <- Chiya.Notes.create_note(note_attrs) do
-          Logger.info("Note created!")
+      Logger.info("Note created!")
       {:ok, :created, Chiya.Notes.Note.note_url(note)}
     else
       error ->
