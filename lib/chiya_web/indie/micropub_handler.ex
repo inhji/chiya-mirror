@@ -7,20 +7,22 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
 
   @impl true
   def handle_create(type, properties, access_token) do
-    dbg(properties)
-    dbg(type)
+    Logger.info("Handle create")
+    Logger.info("Properties: #{properties}")
+    Logger.info("Type: #{type}")
 
     with :ok <- verify_token(access_token),
          {:ok, post_type} <- Props.get_post_type(properties),
          {:ok, note_attrs} <- get_attrs(type, post_type, properties),
          {:ok, note} <- Chiya.Notes.create_note(note_attrs) do
-      {:ok, :created, Chiya.Notes.Note.note_url(note)} |> dbg()
+          Logger.info("Note created!")
+      {:ok, :created, Chiya.Notes.Note.note_url(note)}
     else
       error ->
         Logger.error("Error occurred while creating note from micropub:")
-        dbg(error)
+        Logger.error(inspect(error))
 
-        {:error, :unhandled_error}
+        {:error, :invalid_request}
     end
   end
 
