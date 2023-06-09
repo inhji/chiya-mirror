@@ -19,7 +19,7 @@ defmodule Chiya.MixProject do
   def application do
     [
       mod: {Chiya.Application, []},
-      extra_applications: [:logger, :logger_file_backend, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -41,7 +41,6 @@ defmodule Chiya.MixProject do
       {:floki, ">= 0.30.0", only: :test},
       {:gettext, "~> 0.22"},
       {:jason, "~> 1.2"},
-      {:logger_file_backend, "~> 0.0.13"},
       {:oban, "~> 2.14"},
       {:phoenix, "~> 1.7.1"},
       {:phoenix_ecto, "~> 4.4"},
