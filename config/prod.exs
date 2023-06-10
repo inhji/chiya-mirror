@@ -20,7 +20,8 @@ config :logger, level: :debug
 config :cors_plug,
   origin: ["app://obsidian.md"],
   max_age: 86400,
-  methods: ["GET", "POST"]
+  methods: ["GET", "POST"],
+  expose: ["Location", "location"]
 
 # Runtime production configuration, including reading
 # of environment variables, is done on config/runtime.exs.
