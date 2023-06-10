@@ -8,7 +8,7 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
   @impl true
   def handle_create(type, properties, access_token) do
     Logger.info("Handle create")
-    Logger.info("Properties: #{properties}")
+    Logger.info("Properties: #{inspect(properties)}")
     Logger.info("Type: #{type}")
 
     with :ok <- verify_token(access_token),
