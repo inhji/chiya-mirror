@@ -164,6 +164,59 @@ defmodule ChiyaWeb.PublicComponents do
     end
   end
 
+  def comment_form(assigns) do
+    ~H"""
+    <.simple_form :let={f} for={@changeset} action="" class="bg-theme-background -m-3">
+      <.error :if={@changeset.action}>
+        Oops, something went wrong! Please check the errors below.
+      </.error>
+      <.input
+        field={f[:author_name]}
+        type="text"
+        placeholder="Name"
+        class="bg-theme-background dark:bg-theme-background border-theme-base/20 dark:border-theme-base/20 text-theme-base dark:text-theme-base placeholder-theme-base/40 dark:placeholder-theme-base/60 dark:focus:border-theme-base/60 dark:focus:border-theme-base/60"
+      />
+      <.input
+        field={f[:content]}
+        type="textarea"
+        placeholder="Content"
+        rows="3"
+        class="bg-theme-background dark:bg-theme-background border-theme-base/20 dark:border-theme-base/20 text-theme-base dark:text-theme-base placeholder-theme-base/60 dark:placeholder-theme-base/60 focus:border-theme-base/60 dark:focus:border-theme-base/60"
+      />
+      <.input field={f[:note_id]} type="hidden" />
+      <:actions>
+        <.button>Submit Comment</.button>
+      </:actions>
+    </.simple_form>
+    """
+  end
+
+  def comment_list(assigns) do
+    ~H"""
+    <%= if not Enum.empty?(assigns.note.comments) do %>
+      <.line />
+
+      <h2 class="mb-6 text-theme-base"><%= Enum.count(assigns.note.comments) %> Comments</h2>
+
+      <aside id="comments" class="flex flex-col gap-6">
+        <%= for comment <- assigns.note.comments do %>
+          <article class="text-theme-base bg-theme-base/10 p-1">
+            <header class="flex flex-row justify-between">
+              <strong class="text-theme-primary"><%= comment.author_name %></strong>
+              <span class="text-theme-dim"><%= from_now(comment.inserted_at) %></span>
+            </header>
+            <p><%= comment.content %></p>
+          </article>
+        <% end %>
+      </aside>
+    <% else %>
+      <.line />
+
+      <h2 class="mb-6 text-theme-base">No comments yet.</h2>
+    <% end %>
+    """
+  end
+
   defp gallery_name(note), do: "gallery-#{note.id}"
 
   defp main_image(note),

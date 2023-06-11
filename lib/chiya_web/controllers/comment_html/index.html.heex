@@ -12,14 +12,14 @@
       <.link navigate={~p"/admin/comments/#{comment}"}>Show</.link>
     </div>
   </:action>
-  <:action :let={comment}>
-    <.link href={~p"/admin/comments/#{comment}"} method="delete" data-confirm="Are you sure?">
+  <:action :let={_comment}>
+    <.link href="#" method="delete" data-confirm="Are you sure?">
       Delete
     </.link>
   </:action>
-  <:action :let={comment}>
+  <:action :let={_comment}>
     <div class="sr-only">
-      <.link navigate={~p"/admin/comments/#{comment}/approve"}>Approve</.link>
+      <.link href="#">Approve</.link>
     </div>
   </:action>
 </.table>

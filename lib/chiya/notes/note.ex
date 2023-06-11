@@ -9,8 +9,9 @@ defmodule Chiya.Notes.Note do
     statics: ChiyaWeb.static_paths()
 
   @reserved_slugs ~w(user admin dev api)
+  @note_url_regex ~r/\/note\/([a-z0-9-]+)/
 
-  @derive {Jason.Encoder, only: [:id, :name, :content, :slug, :channels]}
+  @derive {Jason.Encoder, only: [:id, :name, :content, :slug, :channels, :tags]}
   schema "notes" do
     field :content, :string
 
@@ -50,9 +51,19 @@ defmodule Chiya.Notes.Note do
     timestamps()
   end
 
+  def note_path(note) do
+    ~p"/note/#{note.slug}"
+  end
+
   def note_url(note) do
-    URI.merge(ChiyaWeb.Endpoint.url(), ~p"/note/#{note.slug}")
-    |> to_string()
+    Phoenix.VerifiedRoutes.url(~p"/note/#{note.slug}")
+  end
+
+  def note_slug(note_url) do
+    case Regex.run(@note_url_regex, note_url) do
+      nil -> {:error, nil}
+      [_full, slug] -> {:ok, slug}
+    end
   end
 
   @doc false

@@ -2,7 +2,7 @@
   Comment <%= @comment.id %>
   <:subtitle>This is a comment record from your database.</:subtitle>
   <:actions>
-    <.link href={~p"/admin/notes/#{@comment}/approve"}>
+    <.link href="#">
       <.button>Approve note</.button>
     </.link>
   </:actions>
@@ -15,7 +15,7 @@
   <:item title="Approved at"><%= @comment.approved_at %></:item>
   <:item title="Kind"><%= @comment.kind %></:item>
   <:item title="Note">
-    <a href={"/admin/notes/#{@comment.note.id}"}><%= @comment.note.name %></a>
+    <a href="#"><%= @comment.note.name %></a>
   </:item>
 </.list>
 

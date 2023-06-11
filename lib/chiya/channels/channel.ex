@@ -3,7 +3,7 @@ defmodule Chiya.Channels.Channel do
   import Ecto.Changeset
   alias Chiya.Channels.ChannelSlug
 
-  @derive {Jason.Encoder, only: [:id, :name, :content, :slug, :visibility]}
+  @derive {Jason.Encoder, only: [:name]}
   schema "channels" do
     field :content, :string
     field :name, :string

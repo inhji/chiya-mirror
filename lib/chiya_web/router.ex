@@ -138,6 +138,8 @@ defmodule ChiyaWeb.Router do
 
     get "/about", PageController, :about
 
-    post "/note/:slug/comment", CommentController, :create
+    # TODO: Comments are disabled for now
+    # and need a better submit/approve flow
+    # post "/note/:slug/comment", CommentController, :create
   end
 end

@@ -5,6 +5,15 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
   alias ChiyaWeb.Indie.Properties, as: Props
   alias ChiyaWeb.Indie.Token
 
+  @default_properties [
+    "name",
+    "content",
+    "published_at",
+    "slug",
+    "channels",
+    "tags"
+  ]
+
   @impl true
   def handle_create(type, properties, access_token) do
     Logger.info("Handle create")
@@ -42,36 +51,58 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
   end
 
   @impl true
-  def handle_source_query(_url, _filter_properties, _access_token) do
-    {:error, :insufficient_scope}
-  end
-
-  @impl true
   def handle_media(_files, _access_token) do
     {:error, :insufficient_scope}
   end
 
   @impl true
-  def handle_config_query(_access_token) do
-    channels = Chiya.Channels.list_channels()
+  def handle_source_query(url, filter_properties, access_token) do
+    filter_properties =
+      if Enum.empty?(filter_properties),
+        do: @default_properties,
+        else: filter_properties
 
-    {:ok,
-     %{
-       "destination" => [],
-       "post-types" => [
+    with :ok <- verify_token(access_token),
+         {:ok, slug} <- Chiya.Notes.Note.note_slug(url),
+         note <- Chiya.Notes.get_public_note_by_slug_preloaded!(slug) do
+      filtered_note =
+        Map.filter(note, fn {key, _val} ->
+          Enum.member?(filter_properties, to_string(key))
+        end)
+
+      {:ok, filtered_note}
+    else
+      _ -> {:error, :insufficient_scope}
+    end
+  end
+
+  @impl true
+  def handle_config_query(access_token) do
+    case verify_token(access_token) do
+      :ok ->
+        channels = Chiya.Channels.list_channels()
+
+        {:ok,
          %{
-           "type" => "note",
-           "name" => "Note"
-         }
-       ],
-       "channels" =>
-         Enum.map(channels, fn c ->
-           %{
-             "uid" => c.slug,
-             "name" => c.name
-           }
-         end)
-     }}
+           "destination" => [],
+           "post-types" => [
+             %{
+               "type" => "note",
+               "name" => "Note"
+             }
+           ],
+           "channels" =>
+             Enum.map(channels, fn c ->
+               %{
+                 "uid" => c.slug,
+                 "name" => c.name
+               }
+             end)
+         }}
+
+      _ ->
+        {:error, :insufficient_scope}
+    end
   end
 
   @impl true
@@ -85,10 +116,12 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
   @impl true
   def handle_category_query(access_token) do
     case verify_token(access_token) do
-      :ok -> 
+      :ok ->
         tags = Enum.map(Chiya.Tags.list_tags(), fn t -> t.name end)
         {:ok, %{"categories" => tags}}
-      _ -> {:error, :insufficient_scope}
+
+      _ ->
+        {:error, :insufficient_scope}
     end
   end
 
