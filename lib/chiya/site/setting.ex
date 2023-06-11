@@ -15,6 +15,7 @@ defmodule Chiya.Site.Setting do
 
     belongs_to :home_channel, Chiya.Channels.Channel
     belongs_to :default_channel, Chiya.Channels.Channel
+    belongs_to :micropub_channel, Chiya.Channels.Channel
 
     timestamps()
   end

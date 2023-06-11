@@ -14,7 +14,17 @@
   <.input field={f[:user_agent]} type="text" label="User agent" />
   <.input field={f[:custom_css]} type="textarea" label="Custom css" class="font-mono" />
   <.input field={f[:custom_html]} type="textarea" label="Custom html" class="font-mono" />
-  <.input field={f[:home_channel_id]} type="select" label="Home Channel" options={@channels} />
+  <.input 
+    field={f[:home_channel_id]} 
+    type="select"
+    label="Home Channel"
+    options={@channels}
+  />
+  <.input 
+    field={f[:micropub_channel_id]} 
+    type="select" 
+    label="Micropub Channel" options={@channels} 
+  />
   <.input
     field={f[:default_channel_id]}
     type="select"
