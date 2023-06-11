@@ -34,7 +34,7 @@ defmodule Chiya.Tags do
   def list_tags do
     Tag
     |> with_preloads()
-    |> order_by(:title)
+    |> order_by(:name)
     |> Repo.all()
   end
 
