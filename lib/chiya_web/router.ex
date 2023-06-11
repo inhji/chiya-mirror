@@ -39,8 +39,8 @@ defmodule ChiyaWeb.Router do
   ## Indie routes
   scope "/indie" do
     forward "/micropub",
-            ChiyaWeb.Indie.PlugMicropub,
-            handler: ChiyaWeb.Indie.MicropubHandler,
+            PlugMicropub,
+            handler: MicropubHandler,
             json_encoder: Jason
   end
 
