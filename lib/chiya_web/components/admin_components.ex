@@ -61,11 +61,6 @@ defmodule ChiyaWeb.AdminComponents do
             <% end %>
           </article>
         <% end %>
-
-        <%!-- Phoenix.Component.upload_errors/1 returns a list of error atoms --%>
-        <%= for err <- upload_errors(@upload) do %>
-          <p class="alert alert-danger"><%= upload_error_to_string(err) %></p>
-        <% end %>
       </section>
     </div>
     """
