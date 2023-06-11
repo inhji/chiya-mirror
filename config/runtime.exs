@@ -72,7 +72,7 @@ if config_env() == :prod do
 
   config :waffle,
     storage_dir_prefix: upload_dir
-    
+
   # ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key

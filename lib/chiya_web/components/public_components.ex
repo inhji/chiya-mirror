@@ -166,12 +166,7 @@ defmodule ChiyaWeb.PublicComponents do
 
   def comment_form(assigns) do
     ~H"""
-    <.simple_form
-      :let={f}
-      for={@changeset}
-      action={~p"/note/#{assigns.note.slug}/comment"}
-      class="bg-theme-background -m-3"
-    >
+    <.simple_form :let={f} for={@changeset} action="" class="bg-theme-background -m-3">
       <.error :if={@changeset.action}>
         Oops, something went wrong! Please check the errors below.
       </.error>
