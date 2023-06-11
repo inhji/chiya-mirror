@@ -1,5 +1,5 @@
 defmodule ChiyaWeb.Indie.MicropubHandler do
-  @behaviour ChiyaWeb.Indie.PlugMicropub.HandlerBehaviour
+  @behaviour PlugMicropub.HandlerBehaviour
   require Logger
 
   alias ChiyaWeb.Indie.Properties, as: Props
@@ -75,12 +75,25 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
   end
 
   @impl true
-  def handle_syndicate_to_query(_access_token) do
-    {:ok, %{"syndicate-to" => []}}
+  def handle_syndicate_to_query(access_token) do
+    case verify_token(access_token) do
+      :ok -> {:ok, %{"syndicate-to" => []}}
+      _ -> {:error, :insufficient_scope}
+    end
+  end
+
+  @impl true
+  def handle_category_query(access_token) do
+    case verify_token(access_token) do
+      :ok -> 
+        tags = Enum.map(Chiya.Tags.list_tags(), fn t -> t.name end)
+        {:ok, %{"categories" => tags}}
+      _ -> {:error, :insufficient_scope}
+    end
   end
 
   defp verify_token(access_token) do
-    Enum.reduce_while([&verify_app_token/1, &verify_micropub_token/1], nil, fn fun, result ->
+    Enum.reduce_while([&verify_app_token/1, &verify_micropub_token/1], nil, fn fun, _result ->
       case fun.(access_token) do
         :ok -> {:halt, :ok}
         error -> {:cont, error}
