@@ -104,7 +104,11 @@ defmodule Chiya.Notes do
       ** (Ecto.NoResultsError)
 
   """
-  def get_note_preloaded!(id), do: Repo.get!(Note, id) |> preload_note()
+  def get_note_preloaded!(id),
+    do:
+      Note
+      |> Repo.get!(id)
+      |> preload_note()
 
   @doc """
   Gets a single note by its slug and preloads it.
@@ -120,7 +124,11 @@ defmodule Chiya.Notes do
       ** (Ecto.NoResultsError)
 
   """
-  def get_note_by_slug_preloaded!(slug), do: Repo.get_by!(Note, slug: slug) |> preload_note()
+  def get_note_by_slug_preloaded!(slug),
+    do:
+      Note
+      |> Repo.get_by!(slug: slug)
+      |> preload_note()
 
   @doc """
   Gets a single note by its slug and preloads it.
@@ -136,7 +144,25 @@ defmodule Chiya.Notes do
       nil
 
   """
-  def get_note_by_slug_preloaded(slug), do: Repo.get_by(Note, slug: slug) |> preload_note()
+  def get_note_by_slug_preloaded(slug),
+    do:
+      Note
+      |> Repo.get_by(slug: slug)
+      |> preload_note()
+
+  def get_public_note_by_slug_preloaded(slug),
+    do:
+      Note
+      |> where([n], not is_nil(n.published_at))
+      |> Repo.get_by(slug: slug)
+      |> preload_note()
+
+  def get_public_note_by_slug_preloaded!(slug),
+    do:
+      Note
+      |> where([n], not is_nil(n.published_at))
+      |> Repo.get_by!(slug: slug)
+      |> preload_note()
 
   @doc """
   Creates a note.

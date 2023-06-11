@@ -6,6 +6,7 @@ defmodule Chiya.Tags.Tag do
   import Ecto.Changeset
   alias Chiya.Tags.TagSlug
 
+  @derive {Jason.Encoder, only: [:name]}
   schema "tags" do
     field :name, :string
     field :slug, TagSlug.Type
