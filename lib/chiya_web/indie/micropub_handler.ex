@@ -20,9 +20,12 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
     Logger.info("Properties: #{inspect(properties)}")
     Logger.info("Type: #{type}")
 
+    settings = Chiya.Site.get_settings()
+    micropub_channel = settings.micropub_channel_id
+
     with :ok <- verify_token(access_token),
          {:ok, post_type} <- Props.get_post_type(properties),
-         {:ok, note_attrs} <- get_attrs(type, post_type, properties),
+         {:ok, note_attrs} <- get_attrs(type, post_type, properties, micropub_channel),
          {:ok, note} <- Chiya.Notes.create_note(note_attrs) do
       Logger.info("Note created!")
       {:ok, :created, Chiya.Notes.Note.note_url(note)}
@@ -157,16 +160,16 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
     end
   end
 
-  defp get_attrs(type, post_type, properties) do
+  defp get_attrs(type, post_type, properties, default_channel) do
     Logger.info("Creating a #{type}/#{post_type}..")
 
     case post_type do
-      :note -> get_note_attrs(properties)
+      :note -> get_note_attrs(properties, default_channel)
       _ -> {:error, :insufficient_scope}
     end
   end
 
-  defp get_note_attrs(p) do
+  defp get_note_attrs(p, default_channel) do
     content = Props.get_content(p)
     name = Props.get_title(p) || String.slice(content, 0..15)
     tags = Props.get_tags(p) |> Enum.join(",")
@@ -176,12 +179,14 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
         do: NaiveDateTime.local_now(),
         else: nil
 
+    # TODO: Add default channel
+
     {:ok,
      %{
        content: content,
        name: name,
        tags_string: tags,
-       published_at: published_at
+       published_at: published_at,
      }}
   end
 

@@ -31,7 +31,8 @@ defmodule Chiya.Site.Setting do
       :custom_css,
       :custom_html,
       :home_channel_id,
-      :default_channel_id
+      :default_channel_id,
+      :micropub_channel_id
     ])
     |> validate_required([:title, :subtitle, :theme, :user_agent])
   end
