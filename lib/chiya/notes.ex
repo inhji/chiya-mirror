@@ -218,6 +218,15 @@ defmodule Chiya.Notes do
     Repo.delete(note)
   end
 
+  def publish_note(%Note{} = note, published_at) do
+    {1, nil} =
+      Note
+      |> where([n], n.id == ^note.id)
+      |> Repo.update_all(set: [published_at: published_at])
+
+    {:ok, note}
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking note changes.
 

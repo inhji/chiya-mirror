@@ -105,10 +105,9 @@ defmodule ChiyaWeb.NoteController do
   end
 
   def publish(conn, %{"id" => id}) do
-    note_params = %{published_at: NaiveDateTime.local_now()}
     note = Notes.get_note_preloaded!(id)
 
-    case Notes.update_note(note, note_params) do
+    case Notes.publish_note(note, NaiveDateTime.local_now()) do
       {:ok, note} ->
         conn
         |> put_flash(:info, "Note published successfully.")
@@ -125,10 +124,9 @@ defmodule ChiyaWeb.NoteController do
   end
 
   def unpublish(conn, %{"id" => id}) do
-    note_params = %{published_at: nil}
     note = Notes.get_note_preloaded!(id)
 
-    case Notes.update_note(note, note_params) do
+    case Notes.publish_note(note, nil) do
       {:ok, note} ->
         conn
         |> put_flash(:info, "Note un-published successfully.")
