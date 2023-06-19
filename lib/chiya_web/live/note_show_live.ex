@@ -60,13 +60,21 @@ defmodule ChiyaWeb.NoteShowLive do
           <article>
             <a href={"/admin/notes/#{@note.id}/image/#{image.id}"}>
               <img
-                class="rounded-lg border border-theme-dim w-28 mb-3"
+                class={[
+                  "rounded-lg border border-theme-dim w-28 mb-3",
+                  image.featured && "border-theme-primary"
+                ]}
                 src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
-              />
-              <.button phx-click="delete_image" phx-value-id={image.id} data-confirm="Are you sure?">
-                Delete Image
-              </.button>
+              />        
             </a>
+            <div class="flex justify-between">
+              <.button phx-click="delete_image" phx-value-id={image.id} data-confirm="Are you sure?">
+                <.icon name="hero-trash" />
+              </.button>
+              <.button phx-click="toggle_favorite" phx-value-id={image.id}>
+                <.icon name="hero-star-solid" />
+              </.button>
+            </div>
           </article>
         <% end %>
       </div>
@@ -138,6 +146,7 @@ defmodule ChiyaWeb.NoteShowLive do
      |> assign(:note, Notes.get_note_preloaded!(socket.assigns.note.id))}
   end
 
+  @impl Phoenix.LiveView
   def handle_event("validate_edit_image", assigns, socket) do
     {:noreply,
      socket
@@ -147,6 +156,7 @@ defmodule ChiyaWeb.NoteShowLive do
      )}
   end
 
+  @impl Phoenix.LiveView
   def handle_event("update_edit_image", %{"id" => id} = assigns, socket) do
     id
     |> Notes.get_note_image!()
@@ -160,6 +170,14 @@ defmodule ChiyaWeb.NoteShowLive do
     :ok =
       Notes.get_note_image!(id)
       |> Notes.delete_note_image()
+
+    {:noreply, assign(socket, :note, Notes.get_note_preloaded!(socket.assigns.note.id))}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("toggle_favorite", %{"id" => id}, socket) do
+    image = Notes.get_note_image!(id)
+    Notes.update_note_image(image, %{featured: !image.featured})
 
     {:noreply, assign(socket, :note, Notes.get_note_preloaded!(socket.assigns.note.id))}
   end
