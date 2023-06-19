@@ -58,7 +58,7 @@ defmodule ChiyaWeb do
         layout: {ChiyaWeb.Layouts, :app}
 
       # Import admin components
-      import ChiyaWeb.AdminComponents
+      import ChiyaWeb.CoreComponents
 
       unquote(html_helpers())
     end
@@ -69,7 +69,7 @@ defmodule ChiyaWeb do
       use Phoenix.LiveComponent
 
       # Import admin components
-      import ChiyaWeb.AdminComponents
+      import ChiyaWeb.CoreComponents
 
       unquote(html_helpers())
     end
@@ -84,7 +84,7 @@ defmodule ChiyaWeb do
         only: [get_csrf_token: 0, view_module: 1, view_template: 1]
 
       # Import admin components
-      import ChiyaWeb.AdminComponents
+      import ChiyaWeb.CoreComponents
 
       # Include general helpers for rendering HTML
       unquote(html_helpers())
@@ -112,7 +112,6 @@ defmodule ChiyaWeb do
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
-      import ChiyaWeb.CoreComponents
       import ChiyaWeb.Gettext
 
       # Shortcut for generating JS commands

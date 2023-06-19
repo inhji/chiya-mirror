@@ -9,7 +9,35 @@ defmodule ChiyaWeb.PublicComponents do
   import ChiyaWeb.Format
   import ChiyaWeb.Markdown, only: [render: 1]
   import Phoenix.HTML, only: [raw: 1]
-  import ChiyaWeb.CoreComponents
+
+  @doc """
+  Renders a [Hero Icon](https://heroicons.com).
+
+  Hero icons come in three styles – outline, solid, and mini.
+  By default, the outline style is used, but solid an mini may
+  be applied by using the `-solid` and `-mini` suffix.
+
+  You can customize the size and colors of the icons by setting
+  width, height, and background color classes.
+
+  Icons are extracted from your `priv/hero_icons` directory and bundled
+  within your compiled app.css by the plugin in your `assets/tailwind.config.js`.
+
+  ## Examples
+
+      <.icon name="hero-cake" />
+      <.icon name="hero-cake-solid" />
+      <.icon name="hero-cake-mini" />
+      <.icon name="hero-bolt" class="bg-blue-500 w-10 h-10" />
+  """
+  attr :name, :string, required: true
+  attr :class, :string, default: nil
+
+  def icon(%{name: "hero-" <> _} = assigns) do
+    ~H"""
+    <span class={[@name, @class]} />
+    """
+  end
 
   @doc """
   Renders a middot as divider
@@ -164,58 +192,58 @@ defmodule ChiyaWeb.PublicComponents do
     end
   end
 
-  def comment_form(assigns) do
-    ~H"""
-    <.simple_form :let={f} for={@changeset} action="" class="bg-theme-background -m-3">
-      <.error :if={@changeset.action}>
-        Oops, something went wrong! Please check the errors below.
-      </.error>
-      <.input
-        field={f[:author_name]}
-        type="text"
-        placeholder="Name"
-        class="bg-theme-background dark:bg-theme-background border-theme-base/20 dark:border-theme-base/20 text-theme-base dark:text-theme-base placeholder-theme-base/40 dark:placeholder-theme-base/60 dark:focus:border-theme-base/60 dark:focus:border-theme-base/60"
-      />
-      <.input
-        field={f[:content]}
-        type="textarea"
-        placeholder="Content"
-        rows="3"
-        class="bg-theme-background dark:bg-theme-background border-theme-base/20 dark:border-theme-base/20 text-theme-base dark:text-theme-base placeholder-theme-base/60 dark:placeholder-theme-base/60 focus:border-theme-base/60 dark:focus:border-theme-base/60"
-      />
-      <.input field={f[:note_id]} type="hidden" />
-      <:actions>
-        <.button>Submit Comment</.button>
-      </:actions>
-    </.simple_form>
-    """
-  end
+  # def comment_form(assigns) do
+  #   ~H"""
+  #   <.simple_form :let={f} for={@changeset} action="" class="bg-theme-background -m-3">
+  #     <.error :if={@changeset.action}>
+  #       Oops, something went wrong! Please check the errors below.
+  #     </.error>
+  #     <.input
+  #       field={f[:author_name]}
+  #       type="text"
+  #       placeholder="Name"
+  #       class="bg-theme-background dark:bg-theme-background border-theme-base/20 dark:border-theme-base/20 text-theme-base dark:text-theme-base placeholder-theme-base/40 dark:placeholder-theme-base/60 dark:focus:border-theme-base/60 dark:focus:border-theme-base/60"
+  #     />
+  #     <.input
+  #       field={f[:content]}
+  #       type="textarea"
+  #       placeholder="Content"
+  #       rows="3"
+  #       class="bg-theme-background dark:bg-theme-background border-theme-base/20 dark:border-theme-base/20 text-theme-base dark:text-theme-base placeholder-theme-base/60 dark:placeholder-theme-base/60 focus:border-theme-base/60 dark:focus:border-theme-base/60"
+  #     />
+  #     <.input field={f[:note_id]} type="hidden" />
+  #     <:actions>
+  #       <.button>Submit Comment</.button>
+  #     </:actions>
+  #   </.simple_form>
+  #   """
+  # end
 
-  def comment_list(assigns) do
-    ~H"""
-    <%= if not Enum.empty?(assigns.note.comments) do %>
-      <.line />
+  # def comment_list(assigns) do
+  #   ~H"""
+  #   <%= if not Enum.empty?(assigns.note.comments) do %>
+  #     <.line />
 
-      <h2 class="mb-6 text-theme-base"><%= Enum.count(assigns.note.comments) %> Comments</h2>
+  #     <h2 class="mb-6 text-theme-base"><%= Enum.count(assigns.note.comments) %> Comments</h2>
 
-      <aside id="comments" class="flex flex-col gap-6">
-        <%= for comment <- assigns.note.comments do %>
-          <article class="text-theme-base bg-theme-base/10 p-1">
-            <header class="flex flex-row justify-between">
-              <strong class="text-theme-primary"><%= comment.author_name %></strong>
-              <span class="text-theme-dim"><%= from_now(comment.inserted_at) %></span>
-            </header>
-            <p><%= comment.content %></p>
-          </article>
-        <% end %>
-      </aside>
-    <% else %>
-      <.line />
+  #     <aside id="comments" class="flex flex-col gap-6">
+  #       <%= for comment <- assigns.note.comments do %>
+  #         <article class="text-theme-base bg-theme-base/10 p-1">
+  #           <header class="flex flex-row justify-between">
+  #             <strong class="text-theme-primary"><%= comment.author_name %></strong>
+  #             <span class="text-theme-dim"><%= from_now(comment.inserted_at) %></span>
+  #           </header>
+  #           <p><%= comment.content %></p>
+  #         </article>
+  #       <% end %>
+  #     </aside>
+  #   <% else %>
+  #     <.line />
 
-      <h2 class="mb-6 text-theme-base">No comments yet.</h2>
-    <% end %>
-    """
-  end
+  #     <h2 class="mb-6 text-theme-base">No comments yet.</h2>
+  #   <% end %>
+  #   """
+  # end
 
   defp gallery_name(note), do: "gallery-#{note.id}"
 
