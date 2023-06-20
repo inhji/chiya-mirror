@@ -68,10 +68,12 @@ defmodule Chiya.Notes.Note do
 
   @doc false
   def changeset(note, attrs) do
+    # if you need to have a preloaded note here,
+    # do it yourself before you come here. now GET OUT.
+
     note
-    |> Chiya.Notes.preload_note()
     |> cast(attrs, [:name, :content, :slug, :published_at, :kind, :url])
-    |> put_assoc(:channels, attrs["channels"] || [])
+    |> put_assoc(:channels, attrs["channels"] || attrs[:channels] || [])
     |> NoteSlug.maybe_generate_slug()
     |> NoteSlug.unique_constraint()
     |> validate_required([:name, :content, :slug, :kind])

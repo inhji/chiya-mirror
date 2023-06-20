@@ -37,5 +37,8 @@
     <:item title="Default Channel">
       <%= if @setting.default_channel, do: @setting.default_channel.name %>
     </:item>
+    <:item title="Micropub Default Channel">
+      <%= if @setting.micropub_channel, do: @setting.micropub_channel.name %>
+    </:item>
   </.list>
 <% end %>
