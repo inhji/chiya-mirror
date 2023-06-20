@@ -4,6 +4,8 @@ defmodule ChiyaWeb.NoteShowLive do
   alias Chiya.Notes
   alias Chiya.Notes.NoteImage
 
+  @accepted_extensions ~w(.jpg .jpeg .gif .png .webp)
+
   @impl true
   def render(assigns) do
     channels = Enum.map_join(assigns.note.channels, ", ", fn c -> c.name end)
@@ -115,7 +117,10 @@ defmodule ChiyaWeb.NoteShowLive do
      |> assign(:uploaded_files, [])
      |> assign(:image_edit_form, to_form(image_changeset))
      |> assign(:image_form, to_form(image_changeset))
-     |> allow_upload(:note_images, accept: ~w(.jpg .jpeg .gif .png), max_entries: 100)}
+     |> allow_upload(:note_images,
+       accept: @accepted_extensions,
+       max_entries: 100
+     )}
   end
 
   def handle_event("validate_image", _params, socket) do
