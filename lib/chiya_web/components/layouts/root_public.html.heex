@@ -48,6 +48,13 @@
               <.icon name="hero-hand-raised" /> About
             </a>
           </li>
+          <%= if @current_user do %>
+            <li>
+              <a href="/admin">
+                <.icon name="hero-beaker" /> Admin
+              </a>
+            </li>
+          <% end %>
           <li class="flex-1"></li>
           <li>
             <.darkmode_toggle />
@@ -76,7 +83,6 @@
 
           <ul class="list-disc list-inside">
             <li><a href="#"><del>Wiki</del></a></li>
-            <li><a href={~p"/admin"}>Admin</a></li>
           </ul>
         </div>
 
