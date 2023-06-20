@@ -66,6 +66,10 @@ defmodule Chiya.Notes.Note do
     end
   end
 
+  def note_title(note_content) do
+    String.slice(note_content, 0..25)
+  end
+
   @doc false
   def changeset(note, attrs) do
     # if you need to have a preloaded note here,
