@@ -23,7 +23,11 @@ defmodule ChiyaWeb.NoteController do
   end
 
   def new(conn, _params) do
-    changeset = Notes.change_note(%Note{})
+    settings = Chiya.Site.get_settings()
+
+    changeset =
+      %Note{channels: [settings.default_channel]}
+      |> Notes.change_note()
 
     render(conn, :new,
       changeset: changeset,
@@ -33,6 +37,7 @@ defmodule ChiyaWeb.NoteController do
   end
 
   def create(conn, %{"note" => note_params}) do
+    IO.inspect(note_params)
     note_params = from_channel_ids(note_params)
 
     case Notes.create_note(note_params) do
@@ -42,7 +47,7 @@ defmodule ChiyaWeb.NoteController do
         |> redirect(to: ~p"/admin/notes/#{note}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :new, changeset: changeset, channels: to_channel_options())
+        render(conn, :new, changeset: changeset, channels: to_channel_options(), tags: [])
     end
   end
 

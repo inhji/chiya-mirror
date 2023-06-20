@@ -65,7 +65,7 @@ defmodule ChiyaWeb.NoteShowLive do
                   image.featured && "border-theme-primary"
                 ]}
                 src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
-              />        
+              />
             </a>
             <div class="flex justify-between">
               <.button phx-click="delete_image" phx-value-id={image.id} data-confirm="Are you sure?">
