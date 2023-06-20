@@ -16,7 +16,7 @@ defmodule Chiya.Notes.Note do
     field :content, :string
 
     field :kind, Ecto.Enum,
-      values: [:post, :bookmark, :recipe],
+      values: [:post, :bookmark, :recipe, :like, :reply],
       default: :post
 
     field :name, :string
@@ -64,6 +64,10 @@ defmodule Chiya.Notes.Note do
       nil -> {:error, nil}
       [_full, slug] -> {:ok, slug}
     end
+  end
+
+  def note_title(note_content) do
+    String.slice(note_content, 0..25)
   end
 
   @doc false

@@ -259,7 +259,7 @@ defmodule ChiyaWeb.CoreComponents do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest} class={@class}>
-      <div class="space-y-8 p-3">
+      <div class="space-y-8">
         <%= render_slot(@inner_block, f) %>
         <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
           <%= render_slot(action, f) %>
@@ -723,41 +723,21 @@ defmodule ChiyaWeb.CoreComponents do
     <ul class="sticky top-0 backdrop-blur-sm z-10 flex items-center gap-4 py-3 px-4 sm:px-6 lg:px-8 bg-white/30 dark:bg-black/30">
       <li>
         <.link
-          href={~p"/"}
+          href={~p"/admin"}
           class="flex gap-3 text-sm leading-6 font-semibold text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
         >
-          <%= @settings.title %>
+          Dashboard
+        </.link>
+      </li>
+      <li>
+        <.link
+          href={~p"/"}
+          class="text-sm leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+        >
+          <.icon name="hero-arrow-top-right-on-square" class="w-4 h-4 align-sub" /> Public Site
         </.link>
       </li>
       <li class="flex-1"></li>
-      <%= if @current_user do %>
-        <li>
-          <.link
-            href={~p"/admin"}
-            class="text-sm leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
-          >
-            Admin
-          </.link>
-        </li>
-        <li>
-          <.link
-            href={~p"/user/log_out"}
-            method="delete"
-            class="text-sm leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
-          >
-            Log out
-          </.link>
-        </li>
-      <% else %>
-        <li>
-          <.link
-            href={~p"/user/log_in"}
-            class="text-xs leading-6 text-gray-900 dark:text-gray-100 font-semibold dark:hover:text-gray-300 hover:text-gray-700"
-          >
-            Log in
-          </.link>
-        </li>
-      <% end %>
       <li>
         <.darkmode_toggle />
       </li>

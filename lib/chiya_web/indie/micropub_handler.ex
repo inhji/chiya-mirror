@@ -173,7 +173,7 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
 
   defp get_note_attrs(p, default_channel) do
     content = Props.get_content(p)
-    name = Props.get_title(p) || String.slice(content, 0..15)
+    name = Props.get_title(p) || Chiya.Notes.Note.note_title(content)
     tags = Props.get_tags(p) |> Enum.join(",")
 
     published_at =
