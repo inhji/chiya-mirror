@@ -86,7 +86,7 @@ defmodule ChiyaWeb.NoteControllerTest do
       assert redirected_to(conn) == ~p"/admin/notes/#{note}"
 
       conn = get(conn, ~p"/admin/notes/#{note}")
-      assert html_response(conn, 200) =~ "some updated content"
+      assert html_response(conn, 200) =~ "some updated name"
     end
 
     test "renders errors when data is invalid", %{conn: conn, note: note} do

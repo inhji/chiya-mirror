@@ -19,7 +19,8 @@ defmodule Chiya.ChannelsFixtures do
         content: "some content",
         name: "some name",
         slug: unique_channel_slug(),
-        visibility: :public
+        visibility: :public,
+        layout: :default
       })
       |> Chiya.Channels.create_channel()
 

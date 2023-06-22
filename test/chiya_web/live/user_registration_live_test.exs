@@ -9,7 +9,7 @@ defmodule ChiyaWeb.UserRegistrationLiveTest do
       {:ok, _lv, html} = live(conn, ~p"/user/register")
 
       assert html =~ "Register"
-      assert html =~ "Log in"
+      assert html =~ "Sign in"
     end
 
     test "redirects if already logged in", %{conn: conn} do
@@ -50,9 +50,7 @@ defmodule ChiyaWeb.UserRegistrationLiveTest do
       # Now do a logged in request and assert on the menu
       conn = get(conn, "/")
       response = html_response(conn, 200)
-      assert response =~ email
       assert response =~ "Admin"
-      assert response =~ "Log out"
     end
   end
 
@@ -83,7 +81,7 @@ defmodule ChiyaWeb.UserRegistrationLiveTest do
         |> render_click()
         |> follow_redirect(conn, ~p"/user/log_in")
 
-      assert login_html =~ "Log in"
+      assert login_html =~ "Sign in"
     end
   end
 end

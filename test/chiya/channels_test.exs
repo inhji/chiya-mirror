@@ -23,7 +23,8 @@ defmodule Chiya.ChannelsTest do
       valid_attrs = %{
         content: "some content",
         name: "some name",
-        visibility: :public
+        visibility: :public,
+        layout: :default
       }
 
       assert {:ok, %Channel{} = channel} = Channels.create_channel(valid_attrs)
@@ -44,7 +45,8 @@ defmodule Chiya.ChannelsTest do
         content: "some updated content",
         name: "some updated name",
         slug: "some updated slug",
-        visibility: :private
+        visibility: :private,
+        layout: :default
       }
 
       assert {:ok, %Channel{} = channel} = Channels.update_channel(channel, update_attrs)

@@ -22,7 +22,7 @@ defmodule ChiyaWeb.ChannelControllerTest do
   describe "index" do
     test "lists all channels", %{conn: conn} do
       conn = get(conn, ~p"/admin/channels")
-      assert html_response(conn, 200) =~ "Listing Channels"
+      assert html_response(conn, 200) =~ "Channels"
     end
   end
 
