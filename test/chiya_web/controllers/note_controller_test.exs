@@ -26,7 +26,7 @@ defmodule ChiyaWeb.NoteControllerTest do
   describe "index" do
     test "lists all notes", %{conn: conn} do
       conn = get(conn, ~p"/admin/notes")
-      assert html_response(conn, 200) =~ "Listing Notes"
+      assert html_response(conn, 200) =~ "Notes"
     end
   end
 
@@ -45,7 +45,7 @@ defmodule ChiyaWeb.NoteControllerTest do
       assert redirected_to(conn) == ~p"/admin/notes/#{id}"
 
       conn = get(conn, ~p"/admin/notes/#{id}")
-      assert html_response(conn, 200) =~ "Note #{id}"
+      assert html_response(conn, 200) =~ @create_attrs.name
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -65,7 +65,7 @@ defmodule ChiyaWeb.NoteControllerTest do
       assert redirected_to(conn) == ~p"/admin/notes/#{id}"
 
       conn = get(conn, ~p"/admin/notes/#{id}")
-      assert html_response(conn, 200) =~ "Note #{id}"
+      assert html_response(conn, 200) =~ @create_attrs.name
     end
   end
 
@@ -113,7 +113,7 @@ defmodule ChiyaWeb.NoteControllerTest do
       assert redirected_to(conn) == ~p"/admin/notes/#{note}"
 
       conn = get(conn, ~p"/admin/notes/#{note}")
-      assert html_response(conn, 200) =~ "some updated content"
+      assert html_response(conn, 200) =~ "some updated name"
     end
   end
 

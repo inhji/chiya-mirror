@@ -17,8 +17,7 @@ defmodule Chiya.ChannelsFixtures do
       attrs
       |> Enum.into(%{
         content: "some content",
-        name: "some name",
-        slug: unique_channel_slug(),
+        name: "some name #{System.unique_integer([:positive])}",
         visibility: :public,
         layout: :default
       })

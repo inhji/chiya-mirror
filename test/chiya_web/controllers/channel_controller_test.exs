@@ -7,12 +7,14 @@ defmodule ChiyaWeb.ChannelControllerTest do
     content: "some content",
     name: "some name",
     slug: "some slug",
+    layout: :default,
     visibility: :public
   }
   @update_attrs %{
     content: "some updated content",
     name: "some updated name",
     slug: "some updated slug",
+    layout: :default,
     visibility: :private
   }
   @invalid_attrs %{content: nil, name: nil, slug: nil, visibility: nil}
