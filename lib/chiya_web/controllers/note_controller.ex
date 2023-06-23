@@ -23,21 +23,22 @@ defmodule ChiyaWeb.NoteController do
   end
 
   def new(conn, _params) do
-    settings = Chiya.Site.get_settings()
+    default_channels = get_default_channels(conn)
 
     changeset =
-      %Note{channels: [settings.default_channel]}
+      %Note{}
+      |> Notes.preload_note()
       |> Notes.change_note()
 
     render(conn, :new,
       changeset: changeset,
       channels: to_channel_options(),
+      selected_channels: default_channels,
       tags: []
     )
   end
 
   def create(conn, %{"note" => note_params}) do
-    IO.inspect(note_params)
     note_params = from_channel_ids(note_params)
 
     case Notes.create_note(note_params) do
@@ -46,8 +47,15 @@ defmodule ChiyaWeb.NoteController do
         |> put_flash(:info, "Note created successfully.")
         |> redirect(to: ~p"/admin/notes/#{note}")
 
+      # TODO: set channels from changeset when error happened?
+
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :new, changeset: changeset, channels: to_channel_options(), tags: [])
+        render(conn, :new,
+          changeset: changeset,
+          channels: to_channel_options(),
+          selected_channels: nil,
+          tags: []
+        )
     end
   end
 
@@ -60,11 +68,13 @@ defmodule ChiyaWeb.NoteController do
   def edit(conn, %{"id" => id}) do
     note = Notes.get_note_preloaded!(id)
     changeset = Notes.change_note(note)
+    selected_channels = Enum.map(note.channels, fn c -> c.id end)
 
     render(conn, :edit,
       note: note,
       changeset: changeset,
       channels: to_channel_options(),
+      selected_channels: selected_channels,
       tags: note.tags
     )
   end
@@ -79,11 +89,14 @@ defmodule ChiyaWeb.NoteController do
         |> put_flash(:info, "Note updated successfully.")
         |> redirect(to: ~p"/admin/notes/#{note}")
 
+      # TODO: set channels from changeset when error happened?
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :edit,
           note: note,
           changeset: changeset,
           channels: to_channel_options(),
+          selected_channels: nil,
           tags: note.tags
         )
     end
@@ -216,6 +229,14 @@ defmodule ChiyaWeb.NoteController do
       |> Chiya.Channels.preload_channel()
       |> Enum.filter(fn c -> not Enum.empty?(c.notes) end)
     )
+  end
+
+  defp get_default_channels(conn = %Plug.Conn{}) do
+    if conn.assigns.settings.default_channel do
+      [conn.assigns.settings.default_channel.id]
+    else
+      []
+    end
   end
 
   defp from_channel_ids(note_params) do
