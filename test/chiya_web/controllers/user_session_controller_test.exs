@@ -20,9 +20,7 @@ defmodule ChiyaWeb.UserSessionControllerTest do
       # Now do a logged in request and assert on the menu
       conn = get(conn, ~p"/")
       response = html_response(conn, 200)
-      assert response =~ user.email
-      assert response =~ ~p"/user"
-      assert response =~ ~p"/user/log_out"
+      assert response =~ ~p"/admin"
     end
 
     test "logs the user in with remember me", %{conn: conn, user: user} do

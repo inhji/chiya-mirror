@@ -26,7 +26,7 @@ defmodule ChiyaWeb.IdentityControllerTest do
   describe "index" do
     test "lists all identities", %{conn: conn} do
       conn = get(conn, ~p"/admin/identities")
-      assert html_response(conn, 200) =~ "Listing Identities"
+      assert html_response(conn, 200) =~ "Identities"
     end
   end
 

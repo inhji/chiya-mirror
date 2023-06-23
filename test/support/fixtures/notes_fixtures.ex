@@ -25,6 +25,6 @@ defmodule Chiya.NotesFixtures do
       })
       |> Chiya.Notes.create_note()
 
-    note
+    Chiya.Notes.preload_note(note)
   end
 end

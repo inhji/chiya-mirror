@@ -14,6 +14,10 @@ defmodule Chiya.Tags.TagUpdater do
     {:ok, note}
   end
 
+  def update_tags({:error, changeset}, _attrs) do
+    {:error, changeset}
+  end
+
   @doc """
   Updates the tags for the given schema
 
