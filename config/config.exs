@@ -43,9 +43,30 @@ config :tailwind,
   ]
 
 # Configures Elixir's Logger
-config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
+config :logger, :default_handler,
+  level: :debug
+
+config :logger, :default_formatter,
+  format: "$time $metadata[$level] $message\n"
+
+config :chiya, :logger, [
+  {:handler, :file_log, :logger_std_h, %{
+    level: :info,
+     config: %{
+       file: ~c"chiya.log",
+       filesync_repeat_interval: 5000,
+       file_check: 5000,
+       max_no_bytes: 10_000_000,
+       max_no_files: 5,
+       compress_on_rotate: true
+     },
+     formatter: Logger.Formatter.new()
+   }}
+]
+
+# config :logger, :console,
+#   format: "$time $metadata[$level] $message\n",
+#   metadata: [:request_id]
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason

@@ -24,6 +24,8 @@ defmodule Chiya.Application do
       # {Chiya.Worker, arg}
     ]
 
+    Logger.add_handlers(:chiya)
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Chiya.Supervisor]

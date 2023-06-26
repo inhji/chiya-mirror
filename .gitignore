@@ -49,3 +49,6 @@ npm-debug.log
 
 # elixir ls
 .elixir_ls
+
+# log files
+/*.log
