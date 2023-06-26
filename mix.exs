@@ -34,6 +34,7 @@ defmodule Chiya.MixProject do
     [
       {:bcrypt_elixir, "~> 3.0"},
       {:cors_plug, "~> 3.0"},
+      {:coverex, "~> 1.5", only: :test},
       {:earmark, "~> 1.4"},
       {:ecto_autoslug_field, "~> 3.0"},
       {:ecto_sql, "~> 3.6"},
@@ -51,7 +52,7 @@ defmodule Chiya.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:plug_micropub, git: "https://git.inhji.de/inhji/plug_micropub.git", branch: "main"},
       {:postgrex, ">= 0.0.0"},
-      {:swoosh, "~> 1.3"},
+      {:swoosh, "~> 1.11"},
       {:tailwind, "~> 0.2.0", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
