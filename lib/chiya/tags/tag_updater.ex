@@ -109,7 +109,7 @@ defmodule Chiya.Tags.TagUpdater do
           {:ok, _} = Notes.delete_note_tag(note_tag)
       end
     else
-      Logger.warn("Tag with slug #{slug} was not removed.")
+      Logger.warning("Tag with slug #{slug} was not removed.")
       nil
     end
   end
