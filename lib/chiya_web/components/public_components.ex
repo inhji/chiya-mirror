@@ -103,153 +103,173 @@ defmodule ChiyaWeb.PublicComponents do
   def note_list(assigns) do
     case assigns.layout do
       :gallery ->
-        ~H"""
-        <section class="note-list gallery | mt-6">
-          <%= for note <- assigns.notes do %>
-            <article>
-              <section class="flex flex-wrap justify-start gap-3">
-                <%= for image <- note.images do %>
-                  <a
-                    href={ChiyaWeb.Helpers.image_url(image, :full)}
-                    class="lightbox | w-28"
-                    data-gallery={gallery_name(note)}
-                    data-description={ChiyaWeb.Markdown.render(image.content)}
-                  >
-                    <img src={ChiyaWeb.Helpers.image_url(image, :thumb)} loading="lazy" />
-                  </a>
-                <% end %>
-              </section>
-              <a
-                href={~p"/note/#{note.slug}"}
-                class="text-theme-secondary text-lg/10 font-semibold rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-secondary/10 transition"
-              >
-                <%= note.name %>
-                <span class="text-theme-base/75 text-sm">
-                  <%= pretty_date(note.published_at) %>
-                </span>
-              </a>
-            </article>
-
-            <.line />
-          <% end %>
-        </section>
-        """
+        note_list_gallery(assigns)
 
       :microblog ->
-        ~H"""
-        <section class="note-list microblog | mt-6 text-theme-base">
-          <%= for note <- assigns.notes do %>
-            <article class="mt-4 first:mt-0">
-              <% image = main_image(note) %>
-              <%= if image do %>
-                <figure class="mb-4">
-                  <img
-                    src={ChiyaWeb.Helpers.image_url(image, :full)}
-                    class="rounded"
-                    title={image.content}
-                  />
-                </figure>
-              <% end %>
+        note_list_microblog(assigns)
 
-              <div class="prose prose-gruvbox">
-                <%= raw(render(note.content)) %>
-              </div>
-              <footer class="mt-1">
-                <time class="text-theme-base/75">
-                  <%= pretty_datetime(note.published_at) %>
-                </time>
-                <.dot />
-                <a href={~p"/note/#{note.slug}"} class="text-theme-base/75">Permalink</a>
-                <%= if not Enum.empty?(note.images) do %>
-                  <.dot />
-                  <.icon name="hero-photo" />
-                <% end %>
-              </footer>
-            </article>
-
-            <.divider />
-          <% end %>
-        </section>
-        """
-
-      # default, show headings only
       _ ->
-        ~H"""
-        <section class="note-list default | mt-6 sm:w-auto flex flex-col gap-1.5">
-          <%= for note <- assigns.notes do %>
-            <a
-              href={~p"/note/#{note.slug}"}
-              class="rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-secondary/10 transition"
-            >
-              <span class="text-theme-secondary text-lg font-semibold leading-8">
-                <%= note.name %>
-              </span>
-              <span class="text-theme-base/75 text-sm"><%= pretty_date(note.published_at) %></span>
-            </a>
-          <% end %>
-        </section>
-        """
+        note_list_headers(assigns)
     end
   end
 
-  # def comment_form(assigns) do
-  #   ~H"""
-  #   <.simple_form :let={f} for={@changeset} action="" class="bg-theme-background -m-3">
-  #     <.error :if={@changeset.action}>
-  #       Oops, something went wrong! Please check the errors below.
-  #     </.error>
-  #     <.input
-  #       field={f[:author_name]}
-  #       type="text"
-  #       placeholder="Name"
-  #       class="bg-theme-background dark:bg-theme-background border-theme-base/20 dark:border-theme-base/20 text-theme-base dark:text-theme-base placeholder-theme-base/40 dark:placeholder-theme-base/60 dark:focus:border-theme-base/60 dark:focus:border-theme-base/60"
-  #     />
-  #     <.input
-  #       field={f[:content]}
-  #       type="textarea"
-  #       placeholder="Content"
-  #       rows="3"
-  #       class="bg-theme-background dark:bg-theme-background border-theme-base/20 dark:border-theme-base/20 text-theme-base dark:text-theme-base placeholder-theme-base/60 dark:placeholder-theme-base/60 focus:border-theme-base/60 dark:focus:border-theme-base/60"
-  #     />
-  #     <.input field={f[:note_id]} type="hidden" />
-  #     <:actions>
-  #       <.button>Submit Comment</.button>
-  #     </:actions>
-  #   </.simple_form>
-  #   """
-  # end
+  def note_list_headers(assigns) do
+    ~H"""
+    <section class="note-list default | mt-6 sm:w-auto flex flex-col gap-1.5">
+      <%= for note <- assigns.notes do %>
+        <a
+          href={~p"/note/#{note.slug}"}
+          class="rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-secondary/10 transition"
+        >
+          <span class="text-theme-secondary text-lg font-semibold leading-8">
+            <%= note.name %>
+          </span>
+          <span class="text-theme-base/75 text-sm"><%= pretty_date(note.published_at) %></span>
+        </a>
+      <% end %>
+    </section>
+    """
+  end
 
-  # def comment_list(assigns) do
-  #   ~H"""
-  #   <%= if not Enum.empty?(assigns.note.comments) do %>
-  #     <.line />
+  attr :note, :map, required: true
 
-  #     <h2 class="mb-6 text-theme-base"><%= Enum.count(assigns.note.comments) %> Comments</h2>
+  def note_list_microblog(assigns) do
+    ~H"""
+    <section class="note-list microblog | mt-6 text-theme-base">
+      <%= for note <- assigns.notes do %>
+        <article class="mt-4 first:mt-0">
+          <.featured_images note={note} />
 
-  #     <aside id="comments" class="flex flex-col gap-6">
-  #       <%= for comment <- assigns.note.comments do %>
-  #         <article class="text-theme-base bg-theme-base/10 p-1">
-  #           <header class="flex flex-row justify-between">
-  #             <strong class="text-theme-primary"><%= comment.author_name %></strong>
-  #             <span class="text-theme-dim"><%= from_now(comment.inserted_at) %></span>
-  #           </header>
-  #           <p><%= comment.content %></p>
-  #         </article>
-  #       <% end %>
-  #     </aside>
-  #   <% else %>
-  #     <.line />
+          <div class="prose prose-gruvbox">
+            <%= raw(render(note.content)) %>
+          </div>
+          <footer class="mt-1">
+            <time class="text-theme-base/75">
+              <%= pretty_datetime(note.published_at) %>
+            </time>
+            <.dot />
+            <a href={~p"/note/#{note.slug}"} class="text-theme-base/75">Permalink</a>
+            <%= if not Enum.empty?(note.images) do %>
+              <.dot />
+              <.icon name="hero-photo" />
+            <% end %>
+          </footer>
+        </article>
 
-  #     <h2 class="mb-6 text-theme-base">No comments yet.</h2>
-  #   <% end %>
-  #   """
-  # end
+        <.divider />
+      <% end %>
+    </section>
+    """
+  end
+
+  def note_list_gallery(assigns) do
+    ~H"""
+    <section class="note-list gallery | mt-6">
+      <%= for note <- assigns.notes do %>
+        <article>
+          <section class="flex flex-wrap justify-start gap-3">
+            <%= for image <- note.images do %>
+              <a
+                href={ChiyaWeb.Helpers.image_url(image, :full)}
+                class="lightbox | w-28"
+                data-gallery={gallery_name(note)}
+                data-description={ChiyaWeb.Markdown.render(image.content)}
+              >
+                <img src={ChiyaWeb.Helpers.image_url(image, :thumb)} loading="lazy" />
+              </a>
+            <% end %>
+          </section>
+          <a
+            href={~p"/note/#{note.slug}"}
+            class="text-theme-secondary text-lg/10 font-semibold rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-secondary/10 transition"
+          >
+            <%= note.name %>
+            <span class="text-theme-base/75 text-sm">
+              <%= pretty_date(note.published_at) %>
+            </span>
+          </a>
+        </article>
+
+        <.line />
+      <% end %>
+    </section>
+    """
+  end
+
+  def featured_images(assigns) do
+    images = main_images(assigns.note)
+
+    case Enum.count(images) do
+      0 ->
+        ~H"""
+        <figure />
+        """
+
+      1 ->
+        assigns = assign(assigns, :image, List.first(images))
+
+        ~H"""
+        <figure class="mb-4">
+          <img
+            src={ChiyaWeb.Helpers.image_url(assigns.image, :full)}
+            class="rounded"
+            title={assigns.image.content}
+          />
+        </figure>
+        """
+
+      2 ->
+        assigns =
+          assigns
+          |> assign(:first, Enum.at(images, 0))
+          |> assign(:second, Enum.at(images, 1))
+
+        ~H"""
+        <figure class="flex gap-1">
+          <img
+            src={ChiyaWeb.Helpers.image_url(assigns.first, :thumb)}
+            class="rounded-l flex-1 w-full"
+            title={assigns.first.content}
+          />
+          <img
+            src={ChiyaWeb.Helpers.image_url(assigns.second, :thumb)}
+            class="rounded-r flex-1 w-full"
+            title={assigns.second.content}
+          />
+        </figure>
+        """
+
+        3 ->
+          assigns =
+            assigns
+            |> assign(:first, Enum.at(images, 0))
+            |> assign(:second, Enum.at(images, 1))
+            |> assign(:third, Enum.at(images, 2))
+
+          ~H"""
+          <figure class="flex gap-1">
+            <img
+              src={ChiyaWeb.Helpers.image_url(assigns.first, :thumb)}
+              class="flex-1 w-full rounded-l"
+              title={assigns.first.content}
+            />
+            <img
+              src={ChiyaWeb.Helpers.image_url(assigns.second, :thumb)}
+              class="flex-1 w-full"
+              title={assigns.second.content}
+            />
+            <img
+              src={ChiyaWeb.Helpers.image_url(assigns.third, :thumb)}
+              class="flex-1 w-full rounded-r"
+              title={assigns.third.content}
+            />
+          </figure>
+          """
+    end
+  end
 
   defp gallery_name(note), do: "gallery-#{note.id}"
 
-  defp main_image(note),
-    do:
-      note.images
-      |> Enum.filter(fn image -> image.featured end)
-      |> List.first()
+  defp main_images(note),
+    do: Enum.filter(note.images, fn image -> image.featured end)
 end
