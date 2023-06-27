@@ -7,6 +7,7 @@ defmodule ChiyaWeb.AdminHomeLive do
     {:ok, socket |> assign(:form, to_form(changeset))}
   end
 
+  @impl true
   def handle_event("validate", %{"note" => params}, socket) do
     form =
       %Chiya.Notes.Note{}
@@ -17,6 +18,7 @@ defmodule ChiyaWeb.AdminHomeLive do
     {:noreply, assign(socket, form: form)}
   end
 
+  @impl true
   def handle_event("save", %{"note" => params}, socket) do
     name = Chiya.Notes.Note.note_title(params["content"])
     settings = Chiya.Site.get_settings()
@@ -28,7 +30,7 @@ defmodule ChiyaWeb.AdminHomeLive do
       |> Map.put_new("published_at", NaiveDateTime.local_now())
 
     case Chiya.Notes.create_note(params) do
-      {:ok, note} ->
+      {:ok, _note} ->
         {:noreply, socket |> put_flash(:info, "Note created!")}
 
       {:error, %Ecto.Changeset{} = changeset} ->

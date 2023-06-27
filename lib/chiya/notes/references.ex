@@ -106,7 +106,7 @@ defmodule Chiya.Notes.References do
     Enum.each(slugs, fn slug ->
       case Chiya.Notes.get_note_by_slug_preloaded(slug) do
         nil ->
-          Logger.warn("Reference to '#{slug}' could not be resolved")
+          Logger.warning("Reference to '#{slug}' could not be resolved")
 
         note ->
           add_note_link(slug, origin_note, note)
@@ -122,7 +122,7 @@ defmodule Chiya.Notes.References do
         Logger.info("Reference to '#{slug}' created")
 
       {:error, changelog} ->
-        Logger.warn("Reference was not added.")
+        Logger.warning("Reference was not added.")
         Logger.error(inspect(changelog))
     end
   end
@@ -139,7 +139,7 @@ defmodule Chiya.Notes.References do
             Logger.info("Reference to '#{slug}' deleted")
 
           error ->
-            Logger.warn(error)
+            Logger.warning(error)
         end
       else
         Logger.debug("Note '#{slug}' does not exist anymore.")

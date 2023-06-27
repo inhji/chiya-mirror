@@ -1,6 +1,6 @@
 defmodule ChiyaWeb.Format do
   def from_now(%DateTime{} = later) do
-    now = DateTime.local_now()
+    now = NaiveDateTime.local_now()
     diff = DateTime.diff(now, later)
     do_from_now(diff)
   end
