@@ -81,6 +81,10 @@
   .prose a {
     @apply underline decoration-2 decoration-theme-primary hover:bg-theme-primary hover:text-theme-background transition;
   }
+
+  .prose em {
+    @apply text-theme-quaternary;
+  }
 }
 
 @layer components {
