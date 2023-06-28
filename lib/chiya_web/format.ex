@@ -32,4 +32,7 @@ defmodule ChiyaWeb.Format do
 
   def pretty_datetime(%NaiveDateTime{} = date), do: Calendar.strftime(date, "%d.%m.%Y %H:%M")
   def pretty_datetime(_), do: ""
+
+  def datetime(%NaiveDateTime{} = date), do: Calendar.strftime(date, "%c")
+  def datetime(_), do: ""
 end
