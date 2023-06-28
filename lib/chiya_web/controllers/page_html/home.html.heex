@@ -1,8 +1,8 @@
 <section class="mx-auto max-w-2xl p-10 bg-theme-background1">
-  <h1 class="text-3xl font-extrabold leading-10 tracking-tight text-theme-primary">
+  <h1 class="text-3xl font-extrabold leading-10 tracking-tight text-theme-primary | p-name">
     <%= @settings.title %>
   </h1>
-  <p class="mt-4 leading-7 text-theme-base/75 uppercase font-semibold">
+  <p class="mt-4 leading-7 text-theme-base/75 uppercase font-semibold | p-summary">
     <%= @settings.subtitle %>
   </p>
 </section>
@@ -31,7 +31,7 @@
 </section>
 
 <%= if @channel do %>
-  <section class="mx-auto max-2w-xl mt-8 border-t border-theme-background1">
+  <section class="mx-auto max-w-2xl mt-8 border-t border-theme-background1">
     <.note_list notes={@channel.notes} layout={@channel.layout} />
   </section>
 <% end %>
