@@ -82,6 +82,10 @@
     @apply underline decoration-2 decoration-theme-primary hover:bg-theme-primary hover:text-theme-background transition;
   }
 
+  .prose a[href^="http://"], .prose a[href^="https://"] {
+    @apply after:content-['_↗']
+  }
+
   .prose em {
     @apply text-theme-quaternary;
   }
