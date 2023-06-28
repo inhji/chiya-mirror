@@ -247,7 +247,7 @@ defmodule ChiyaWeb.CoreComponents do
   """
   attr :for, :any, required: true, doc: "the datastructure for the form"
   attr :as, :any, default: nil, doc: "the server side parameter to collect all input under"
-  attr :class, :string, default: "shadow rounded mt-10 bg-white dark:bg-gray-900"
+  attr :class, :string, default: "mt-10"
 
   attr :rest, :global,
     include: ~w(autocomplete name rel action enctype method novalidate target multipart),
