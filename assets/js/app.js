@@ -23,7 +23,7 @@ import { LiveSocket } from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 import lolight from "../vendor/lolight"
 import React from "react"
-import { createRoot } from 'react-dom/client'
+import { createRoot } from 'react-dom'
 import KBar from "./kbar"
 
 lolight("pre code")
