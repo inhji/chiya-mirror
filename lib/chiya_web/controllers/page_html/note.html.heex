@@ -35,11 +35,11 @@
     <%= Markdown.render(@note.content) |> raw %>
   </section>
 
-  <footer class="mt-8 mx-auto max-w-xl">
-    <a href={~p"/note/#{@note.slug}"} class="u-url u-uid">Permalink</a>
+  <footer class="mt-8 mx-auto max-w-2xl">
+    <a href={~p"/note/#{@note.slug}"} class="text-theme-base underline-link font-semibold | u-url u-uid">Permalink</a>
   </footer>
 
-  <section class="mt-8 mx-auto max-w-xl">
+  <section class="mt-8 mx-auto max-w-2xl">
     <%= if !Enum.empty?(@note.images) do %>
       <.line />
 
