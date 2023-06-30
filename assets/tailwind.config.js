@@ -18,6 +18,8 @@ module.exports = {
       typography: {
         gruvbox: {
           css: {
+            '--tw-prose-td-borders': 'rgb(var(--color-background1))',
+            '--tw-prose-th-borders': 'rgb(var(--color-background1))',
             '--tw-prose-body': 'rgb(var(--color-foreground))',
             '--tw-prose-links': 'rgb(var(--color-foreground))',
             '--tw-prose-headings': 'rgb(var(--color-foreground))',
@@ -28,6 +30,8 @@ module.exports = {
             '--tw-prose-pre-bg': 'rgb(var(--color-background1))',
             '--tw-prose-quote-borders': 'rgb(var(--color-primary))',
             '--tw-prose-counters': 'rgb(var(--color-foreground))',
+            '--tw-prose-invert-td-borders': 'rgb(var(--color-background1))',
+            '--tw-prose-invert-th-borders': 'rgb(var(--color-background1))',
             '--tw-prose-invert-body': 'rgb(var(--color-foreground))',
             '--tw-prose-invert-links': 'rgb(var(--color-foreground))',
             '--tw-prose-invert-headings': 'rgb(var(--color-foreground))',
