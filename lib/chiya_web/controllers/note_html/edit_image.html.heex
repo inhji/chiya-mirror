@@ -8,6 +8,8 @@
   src={ChiyaWeb.Uploaders.NoteImage.url({@image.path, @image}, :full_dithered)}
 />
 
+<pre>![<%= image.content %>](<%= ChiyaWeb.Uploaders.NoteImage.url({@image.path, @image}, :full_dithered) %>)</pre>
+
 <.simple_form
   :let={f}
   for={@changeset}
