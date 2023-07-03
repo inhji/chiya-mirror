@@ -7,7 +7,7 @@ defmodule Chiya.Site do
   alias Chiya.Repo
   alias Chiya.Site.Setting
 
-  @preloads [:home_channel, :default_channel, :micropub_channel]
+  @preloads [:home_channel, :default_channel, :micropub_channel, :wiki_channel]
   @default_settings %{
     title: "Site Title",
     subtitle: "Subtitle",
