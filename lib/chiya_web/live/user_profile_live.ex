@@ -13,6 +13,9 @@ defmodule ChiyaWeb.UserProfileLive do
     </.header>
 
     <.list>
+      <:item title="Name"><%= @current_user.name %></:item>
+      <:item title="Handle"><%= @current_user.handle %></:item>
+      <:item title="Bio"><%= @current_user.bio %></:item>
       <:item title="Email"><%= @current_user.email %></:item>
     </.list>
     """

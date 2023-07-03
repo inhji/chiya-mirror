@@ -55,9 +55,15 @@ defmodule ChiyaWeb.PageController do
     end
   end
 
-  ### ========= REDIRECTS
-
   def about(conn, _params) do
-    redirect(conn, to: ~p"/note/about")
+    note = Chiya.Notes.get_note_by_slug_preloaded("about")
+    user = Chiya.Accounts.get_user!(1)
+
+    render(conn, :about,
+      layout: {ChiyaWeb.Layouts, "public.html"},
+      note: note,
+      user: user,
+      page_title: "About"
+    )
   end
 end

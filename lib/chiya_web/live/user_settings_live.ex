@@ -29,6 +29,25 @@ defmodule ChiyaWeb.UserSettingsLive do
 
     <.line />
 
+    <.header>Change Profile</.header>
+
+    <.simple_form
+      for={@profile_form}
+      id="profile_form"
+      phx-submit="update_profile"
+      phx-change="validate_profile"
+    >
+      <.input field={@profile_form[:name]} label="Name" required />
+      <.input field={@profile_form[:handle]} label="Handle" required />
+      <.input field={@profile_form[:bio]} type="textarea" label="Bio" required />
+
+      <:actions>
+        <.button phx-disable-with="Changing...">Change Email</.button>
+      </:actions>
+    </.simple_form>
+
+    <.line />
+
     <.header>Change Email</.header>
 
     <.simple_form
@@ -107,6 +126,7 @@ defmodule ChiyaWeb.UserSettingsLive do
     email_changeset = Accounts.change_user_email(user)
     password_changeset = Accounts.change_user_password(user)
     image_changeset = Accounts.change_user_image(user)
+    profile_changeset = Accounts.change_user_profile(user)
 
     socket =
       socket
@@ -116,6 +136,7 @@ defmodule ChiyaWeb.UserSettingsLive do
       |> assign(:current_email, user.email)
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
+      |> assign(:profile_form, to_form(profile_changeset))
       |> assign(:image_form, to_form(image_changeset))
       |> assign(:trigger_submit, false)
       |> assign(:uploaded_files, [])
@@ -148,6 +169,31 @@ defmodule ChiyaWeb.UserSettingsLive do
      socket
      |> update(:uploaded_files, &(&1 ++ uploaded_files))
      |> assign(:user, Accounts.get_user!(user.id))}
+  end
+
+  def handle_event("validate_profile", params, socket) do
+    %{"user" => user_params} = params
+
+    profile_form =
+      socket.assigns.current_user
+      |> Accounts.change_user_profile(user_params)
+      |> Map.put(:action, :validate)
+      |> to_form()
+
+    {:noreply, assign(socket, profile_form: profile_form)}
+  end
+
+  def handle_event("update_profile", params, socket) do
+    %{"user" => user_params} = params
+    user = socket.assigns.current_user
+
+    case Accounts.update_user_profile(user, user_params) do
+      {:ok, _updated_user} ->
+        {:noreply, socket |> put_flash(:info, "User updated!")}
+
+      {:error, changeset} ->
+        {:noreply, assign(socket, :profile_form, to_form(Map.put(changeset, :action, :insert)))}
+    end
   end
 
   def handle_event("validate_email", params, socket) do

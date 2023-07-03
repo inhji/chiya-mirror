@@ -43,7 +43,12 @@ defmodule Chiya.Tags.TagUpdater do
   end
 
   def update_tags(%{tags: tags} = schema, new_tags) when is_list(new_tags) do
-    old_tags = Enum.map(tags, fn tag -> tag.name end)
+    old_tags = Enum.map(tags, fn tag -> String.downcase(tag.slug) end)
+    new_tags = Enum.map(new_tags, fn tag ->
+      tag
+      |> String.downcase()
+      |>  Slugger.slugify()
+    end)
 
     Logger.info("Adding tags #{inspect(new_tags -- old_tags)}")
     Logger.info("Removing tags #{inspect(old_tags -- new_tags)}")
