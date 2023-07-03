@@ -31,14 +31,17 @@
     <:item title="User agent"><%= @setting.user_agent %></:item>
     <:item title="Custom css"><%= @setting.custom_css %></:item>
     <:item title="Custom html"><%= @setting.custom_html %></:item>
-    <:item title="Home Channel">
-      <%= if @setting.home_channel, do: @setting.home_channel.name %>
-    </:item>
     <:item title="Default Channel">
       <%= if @setting.default_channel, do: @setting.default_channel.name %>
     </:item>
-    <:item title="Micropub Default Channel">
+    <:item title="Home Channel">
+      <%= if @setting.home_channel, do: @setting.home_channel.name %>
+    </:item>
+    <:item title="Micropub Channel">
       <%= if @setting.micropub_channel, do: @setting.micropub_channel.name %>
+    </:item>
+    <:item title="Wiki Channel">
+      <%= if @setting.micropub_channel, do: @setting.wiki_channel.name %>
     </:item>
   </.list>
 <% end %>
