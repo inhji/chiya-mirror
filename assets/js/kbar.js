@@ -44,7 +44,7 @@ function RenderResults() {
       items={results}
       onRender={({ item, active }) =>
         typeof item === "string" ? (
-          <div style={groupNameStyle} class="dark:text-white">{item}</div>
+          <div style={groupNameStyle} className="dark:text-white">{item}</div>
         ) : (
           <ResultItem
             action={item}
