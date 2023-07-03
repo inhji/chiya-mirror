@@ -1,6 +1,8 @@
 defmodule ChiyaWeb.PageController do
   use ChiyaWeb, :controller
 
+  plug :put_layout, html: {ChiyaWeb.Layouts, :public}
+
   def home(conn, _params) do
     settings = conn.assigns.settings
 
@@ -11,7 +13,6 @@ defmodule ChiyaWeb.PageController do
       end
 
     render(conn, :home,
-      layout: {ChiyaWeb.Layouts, "public.html"},
       channel: channel,
       page_title: "Home"
     )
@@ -23,7 +24,6 @@ defmodule ChiyaWeb.PageController do
       |> Chiya.Channels.preload_channel_public()
 
     render(conn, :channel,
-      layout: {ChiyaWeb.Layouts, "public.html"},
       channel: channel,
       page_title: channel.name
     )
@@ -33,7 +33,6 @@ defmodule ChiyaWeb.PageController do
     tag = Chiya.Tags.get_tag_by_slug!(tag_slug)
 
     render(conn, :tag,
-      layout: {ChiyaWeb.Layouts, "public.html"},
       tag: tag,
       page_title: tag.name
     )
@@ -47,7 +46,6 @@ defmodule ChiyaWeb.PageController do
       render_error(conn, :not_found)
     else
       render(conn, :note,
-        layout: {ChiyaWeb.Layouts, "public.html"},
         note: note,
         page_title: note.name,
         changeset: changeset
@@ -60,7 +58,6 @@ defmodule ChiyaWeb.PageController do
     user = Chiya.Accounts.get_user!(1)
 
     render(conn, :about,
-      layout: {ChiyaWeb.Layouts, "public.html"},
       note: note,
       user: user,
       page_title: "About"
