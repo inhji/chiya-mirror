@@ -16,6 +16,7 @@ defmodule Chiya.Site.Setting do
     belongs_to :home_channel, Chiya.Channels.Channel
     belongs_to :default_channel, Chiya.Channels.Channel
     belongs_to :micropub_channel, Chiya.Channels.Channel
+    belongs_to :wiki_channel, Chiya.Channels.Channel
 
     timestamps()
   end
@@ -32,7 +33,8 @@ defmodule Chiya.Site.Setting do
       :custom_html,
       :home_channel_id,
       :default_channel_id,
-      :micropub_channel_id
+      :micropub_channel_id,
+      :wiki_channel_id
     ])
     |> validate_required([:title, :subtitle, :theme, :user_agent])
   end
