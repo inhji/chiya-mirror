@@ -11,7 +11,7 @@ defmodule ChiyaWeb.NoteController do
 
     conn
     |> with_channels()
-    |> render(:index, notes: notes)
+    |> render(:index, notes: notes, page_title: "Notes")
   end
 
   def index(conn, _params) do
@@ -19,7 +19,7 @@ defmodule ChiyaWeb.NoteController do
 
     conn
     |> with_channels()
-    |> render(:index, notes: notes)
+    |> render(:index, notes: notes, page_title: "Notes")
   end
 
   def new(conn, _params) do
@@ -34,7 +34,8 @@ defmodule ChiyaWeb.NoteController do
       changeset: changeset,
       channels: to_channel_options(),
       selected_channels: default_channels,
-      tags: []
+      tags: [],
+      page_title: "New Note"
     )
   end
 
@@ -54,14 +55,13 @@ defmodule ChiyaWeb.NoteController do
           changeset: changeset,
           channels: to_channel_options(),
           selected_channels: nil,
-          tags: []
+          tags: [],
+          page_title: "New Note"
         )
     end
   end
 
   def show(conn, %{"id" => id}) do
-    # note = Notes.get_note!(id)
-    # render(conn, :show, note: note)
     live_render(conn, NoteShowLive, session: %{"note_id" => id})
   end
 
@@ -75,7 +75,8 @@ defmodule ChiyaWeb.NoteController do
       changeset: changeset,
       channels: to_channel_options(),
       selected_channels: selected_channels,
-      tags: note.tags
+      tags: note.tags,
+      page_title: "EDIT #{note.name}"
     )
   end
 
@@ -97,7 +98,8 @@ defmodule ChiyaWeb.NoteController do
           changeset: changeset,
           channels: to_channel_options(),
           selected_channels: nil,
-          tags: note.tags
+          tags: note.tags,
+          page_title: "EDIT #{note.name}"
         )
     end
   end
@@ -130,14 +132,6 @@ defmodule ChiyaWeb.NoteController do
         conn
         |> put_flash(:info, "Note published successfully.")
         |> redirect(to: ~p"/admin/notes/#{note}")
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :edit,
-          note: note,
-          changeset: changeset,
-          channels: to_channel_options(),
-          tags: note.tags
-        )
     end
   end
 
@@ -149,14 +143,6 @@ defmodule ChiyaWeb.NoteController do
         conn
         |> put_flash(:info, "Note un-published successfully.")
         |> redirect(to: ~p"/admin/notes/#{note}")
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :edit,
-          note: note,
-          changeset: changeset,
-          channels: to_channel_options(),
-          tags: note.tags
-        )
     end
   end
 
@@ -181,7 +167,10 @@ defmodule ChiyaWeb.NoteController do
   end
 
   def import_prepare(conn, _params) do
-    render(conn, :import, changeset: NoteImport.change_note_import(%{}))
+    render(conn, :import,
+      changeset: NoteImport.change_note_import(%{}),
+      page_title: "Import Note"
+    )
   end
 
   def import_run(conn, %{
@@ -211,14 +200,20 @@ defmodule ChiyaWeb.NoteController do
         end
 
       _ ->
-        render(conn, :import, changeset: NoteImport.change_note_import(%{}))
+        render(conn, :import,
+          changeset: NoteImport.change_note_import(%{}),
+          page_title: "Import Note"
+        )
     end
   end
 
   def import_run(conn, _params) do
     conn
     |> put_flash(:error, "Error while importing.")
-    |> redirect(to: ~p"/admin/notes")
+    |> render(:import,
+      changeset: NoteImport.change_note_import(%{}),
+      page_title: "Import Note"
+    )
   end
 
   defp with_channels(conn) do
