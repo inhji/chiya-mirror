@@ -3,15 +3,15 @@
   <:subtitle>Notes are the content, the heart of your site.</:subtitle>
   <:actions>
     <.link href={~p"/admin/notes/new"}>
-      <.button>New Note</.button>
+      <.button><.icon name="hero-plus-small" /> New Note</.button>
     </.link>
     <.link href={~p"/admin/notes/import"}>
-      <.button>Import Note</.button>
+      <.button><.icon name="hero-arrow-down-tray" /> Import Note</.button>
     </.link>
   </:actions>
 </.header>
 
-<section class="flex flex-row flex-wrap mt-4 -mb-6 gap-3">
+<section class="flex flex-row flex-wrap mt-6 -mb-6 gap-3">
   <a
     href={~p"/admin/notes"}
     class="text-sm dark:text-gray-300 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 px-2 py-1 border border-gray-300 dark:border-gray-600 shadow-sm transition"

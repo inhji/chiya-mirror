@@ -16,26 +16,26 @@ defmodule ChiyaWeb.NoteShowLive do
       <%= @note.name %>
       <:actions>
         <.link href={~p"/admin/notes/#{@note}/edit"}>
-          <.button>Edit</.button>
+          <.button><.icon name="hero-pencil" /> Edit</.button>
         </.link>
         <.link href={~p"/note/#{@note.slug}"}>
-          <.button>Preview</.button>
-        </.link>
-        <.link href={~p"/admin/notes/#{@note}/raw"}>
-          <.button>Raw</.button>
-        </.link>
-        <.link href={~p"/admin/notes/#{@note}"} method="delete" data-confirm="Are you sure?">
-          <.button>Delete</.button>
+          <.button><.icon name="hero-eye" /> Preview</.button>
         </.link>
         <%= if is_nil(@note.published_at) do %>
           <.link href={~p"/admin/notes/#{@note}/publish"}>
-            <.button>Publish</.button>
+            <.button><.icon name="hero-newspaper" /> Publish</.button>
           </.link>
         <% else %>
           <.link href={~p"/admin/notes/#{@note}/unpublish"}>
-            <.button>Un-Publish</.button>
+            <.button><.icon name="hero-newspaper" /> Un-Publish</.button>
           </.link>
         <% end %>
+        <.link href={~p"/admin/notes/#{@note}/raw"}>
+          <.button><.icon name="hero-code-bracket" /> Raw</.button>
+        </.link>
+        <.link href={~p"/admin/notes/#{@note}"} method="delete" data-confirm="Are you sure?">
+          <.button><.icon name="hero-trash" /> Delete</.button>
+        </.link>
       </:actions>
     </.header>
 
