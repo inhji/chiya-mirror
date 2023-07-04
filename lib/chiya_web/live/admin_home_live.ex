@@ -30,14 +30,18 @@ defmodule ChiyaWeb.AdminHomeLive do
       |> Map.put_new("published_at", NaiveDateTime.local_now())
 
     case Chiya.Notes.create_note(params) do
-      {:ok, _note} ->
-        {:noreply, socket |> put_flash(:info, "Note created!")}
+      {:ok, note} ->
+        {:noreply, socket 
+        |> put_flash(:info, "Note created!")
+        |> push_navigate(to: ~p"/note/#{note.slug}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         IO.inspect(changeset)
 
         {:noreply,
-         socket |> put_flash(:error, "Could not create note!") |> assign(form: to_form(changeset))}
+         socket 
+         |> put_flash(:error, "Could not create note!") 
+         |> assign(form: to_form(changeset))}
     end
   end
 
@@ -58,7 +62,7 @@ defmodule ChiyaWeb.AdminHomeLive do
       <.simple_form for={@form} phx-change="validate" phx-submit="save">
         <.input field={@form[:content]} type="textarea" />
         <:actions>
-          <.button>Save</.button>
+          <.button>Publish</.button>
         </:actions>
       </.simple_form>
     </section>
