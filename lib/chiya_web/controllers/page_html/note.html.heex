@@ -3,40 +3,40 @@
     <h1 class="mt-16 lg:text-5xl md:text-4xl text-3xl font-bold text-theme-base | p-name">
       <%= @note.name %>
     </h1>
-    <p class="mt-2 leading-6 text-theme-base">
-      <%= if @note.published_at do %>
-        <span>Published</span>
-      <% else %>
-        <span>Unpublished</span>
-      <% end %>
-      <time class="font-semibold | dt-published"><%= pretty_date(@note.published_at) %></time>
-      <.dot />
-      <span>Last Updated</span>
-      <time class="font-semibold" datetime={datetime(@note.updated_at)}><%= pretty_date(@note.updated_at) %></time>
-      <%= if not Enum.empty?(@note.tags) do %>
-        <.dot />
-        <span>Tags</span>
-        <span>
-          <%= for tag <- @note.tags do %>
-            <a href={~p"/tagged-with/#{tag.slug}"} class="underline-link font-semibold">
-              <%= tag.name %>
-            </a>
-          <% end %>
-        </span>
-      <% end %>
-      <%= if @current_user do %>
-        <.dot />
-        <a href={~p"/admin/notes/#{@note}"} class="underline-link font-semibold">Show in Admin</a>
-      <% end %>
-    </p>
   </header>
 
-  <section class="mx-auto mt-8 prose prose-gruvbox md:prose-lg lg:prose-xl | p-summary e-content">
+  <section class="mx-auto mt-8 prose prose-gruvbox md:prose-lg lg:prose-xl  | p-summary e-content">
     <%= Markdown.render(@note.content) |> raw %>
   </section>
 
-  <footer class="mt-8 mx-auto max-w-2xl">
-    <a href={~p"/note/#{@note.slug}"} class="text-theme-base underline-link font-semibold | u-url u-uid">Permalink</a>
+  <footer class="mt-8 mx-auto max-w-2xl text-theme-base">
+    <%= if @note.published_at do %>
+      <span>Published</span>
+    <% else %>
+      <span>Unpublished</span>
+    <% end %>
+    <time class="font-semibold | dt-published"><%= pretty_date(@note.published_at) %></time>
+    <.dot />
+    <span>Last Updated</span>
+    <time class="font-semibold" datetime={datetime(@note.updated_at)}><%= pretty_date(@note.updated_at) %></time>
+    <%= if not Enum.empty?(@note.tags) do %>
+      <.dot />
+      <span>Tags</span>
+      <span class="inline-flex flex-row gap-1">
+        <%= for tag <- @note.tags do %>
+          <a href={~p"/tagged-with/#{tag.slug}"} class="underline-link font-semibold | p-category">
+            <%= tag.name %>
+          </a>
+        <% end %>
+      </span>
+    <% end %>
+    <%= if @current_user do %>
+      <.dot />
+      <a href={~p"/admin/notes/#{@note}"} class="underline-link font-semibold">Show in Admin</a>
+    <% end %>
+
+    <a href={~p"/about"} class="hidden | u-author">Inhji</a>
+    <a href={~p"/note/#{@note.slug}"} class="hidden | u-url u-uid"><%= @note.name %></a>
   </footer>
 
   <section class="mt-8 mx-auto max-w-2xl">
