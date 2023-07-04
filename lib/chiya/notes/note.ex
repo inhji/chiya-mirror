@@ -67,7 +67,31 @@ defmodule Chiya.Notes.Note do
   end
 
   def note_title(note_content) do
-    String.slice(note_content, 0..25)
+    max_length = 25
+    max_words = 7
+    length = String.length(note_content)
+
+    cond do
+      length <= max_length ->
+        note_content
+
+      String.contains?(note_content, ".") ->
+        note_content
+        |> String.split(".")
+        |> List.first()
+
+      true ->
+        note_content
+        |> String.split(" ")
+        |> Enum.reduce_while([], fn word, list ->
+          if Enum.count(list) < max_words do
+            {:cont, list ++ [word]}
+          else
+            {:halt, list}
+          end
+        end)
+        |> Enum.join(" ")
+    end
   end
 
   @doc false
