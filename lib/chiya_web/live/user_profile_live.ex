@@ -9,6 +9,14 @@ defmodule ChiyaWeb.UserProfileLive do
         <.link href={~p"/user/settings"}>
           <.button>Edit User</.button>
         </.link>
+        <.link
+          href={~p"/user/log_out"}
+          method="delete"
+          data-confirm="Do you want to logout?"
+          class="text-sm leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+        >
+          <.button>Log out</.button>
+        </.link>
       </:actions>
     </.header>
 

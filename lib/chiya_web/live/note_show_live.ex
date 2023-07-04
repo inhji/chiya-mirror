@@ -16,26 +16,26 @@ defmodule ChiyaWeb.NoteShowLive do
       <%= @note.name %>
       <:actions>
         <.link href={~p"/admin/notes/#{@note}/edit"}>
-          <.button>Edit</.button>
+          <.button><.icon name="hero-pencil" /> Edit</.button>
         </.link>
         <.link href={~p"/note/#{@note.slug}"}>
-          <.button>Preview</.button>
-        </.link>
-        <.link href={~p"/admin/notes/#{@note}/raw"}>
-          <.button>Raw</.button>
-        </.link>
-        <.link href={~p"/admin/notes/#{@note}"} method="delete" data-confirm="Are you sure?">
-          <.button>Delete</.button>
+          <.button><.icon name="hero-eye" /> Preview</.button>
         </.link>
         <%= if is_nil(@note.published_at) do %>
           <.link href={~p"/admin/notes/#{@note}/publish"}>
-            <.button>Publish</.button>
+            <.button><.icon name="hero-newspaper" /> Publish</.button>
           </.link>
         <% else %>
           <.link href={~p"/admin/notes/#{@note}/unpublish"}>
-            <.button>Un-Publish</.button>
+            <.button><.icon name="hero-newspaper" /> Un-Publish</.button>
           </.link>
         <% end %>
+        <.link href={~p"/admin/notes/#{@note}/raw"}>
+          <.button><.icon name="hero-code-bracket" /> Raw</.button>
+        </.link>
+        <.link href={~p"/admin/notes/#{@note}"} method="delete" data-confirm="Are you sure?">
+          <.button><.icon name="hero-trash" /> Delete</.button>
+        </.link>
       </:actions>
     </.header>
 
@@ -110,13 +110,15 @@ defmodule ChiyaWeb.NoteShowLive do
   @impl true
   def mount(%{"id" => note_id}, _session, socket) do
     image_changeset = Notes.change_note_image(%NoteImage{})
+    note = Notes.get_note_preloaded!(note_id)
 
     {:ok,
      socket
-     |> assign(:note, Notes.get_note_preloaded!(note_id))
+     |> assign(:note, note)
      |> assign(:uploaded_files, [])
      |> assign(:image_edit_form, to_form(image_changeset))
      |> assign(:image_form, to_form(image_changeset))
+     |> assign(:page_title, note.name)
      |> allow_upload(:note_images,
        accept: @accepted_extensions,
        max_entries: 100

@@ -30,14 +30,18 @@ defmodule ChiyaWeb.AdminHomeLive do
       |> Map.put_new("published_at", NaiveDateTime.local_now())
 
     case Chiya.Notes.create_note(params) do
-      {:ok, _note} ->
-        {:noreply, socket |> put_flash(:info, "Note created!")}
+      {:ok, note} ->
+        {:noreply, socket 
+        |> put_flash(:info, "Note created!")
+        |> push_navigate(to: ~p"/note/#{note.slug}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         IO.inspect(changeset)
 
         {:noreply,
-         socket |> put_flash(:error, "Could not create note!") |> assign(form: to_form(changeset))}
+         socket 
+         |> put_flash(:error, "Could not create note!") 
+         |> assign(form: to_form(changeset))}
     end
   end
 
@@ -51,14 +55,6 @@ defmodule ChiyaWeb.AdminHomeLive do
         <.link href={~p"/user"}>
           <.button>Profile</.button>
         </.link>
-        <.link
-          href={~p"/user/log_out"}
-          method="delete"
-          data-confirm="Do you want to logout?"
-          class="text-sm leading-6 text-gray-900 dark:text-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
-        >
-          <.button>Log out</.button>
-        </.link>
       </:actions>
     </.header>
 
@@ -66,7 +62,7 @@ defmodule ChiyaWeb.AdminHomeLive do
       <.simple_form for={@form} phx-change="validate" phx-submit="save">
         <.input field={@form[:content]} type="textarea" />
         <:actions>
-          <.button>Save</.button>
+          <.button>Publish</.button>
         </:actions>
       </.simple_form>
     </section>
