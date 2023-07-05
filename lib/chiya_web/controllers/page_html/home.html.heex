@@ -1,4 +1,4 @@
-<section class="mx-auto max-w-2xl p-10 bg-theme-background1">
+<section class="p-10 bg-theme-background1">
   <h1 class="text-3xl font-extrabold leading-10 tracking-tight text-theme-primary | p-name">
     <%= @settings.title %>
   </h1>
@@ -7,7 +7,7 @@
   </p>
 </section>
 
-<section class="mx-auto max-w-2xl text-sm my-8">
+<section class="text-sm my-8">
   <ul class="flex flex-wrap gap-3">
     <li>
       <a
@@ -31,7 +31,7 @@
 </section>
 
 <%= if @channel do %>
-  <section class="mx-auto max-w-2xl mt-8 border-t border-theme-background1">
+  <section class="mt-8 border-t border-theme-background1">
     <.note_list notes={@channel.notes} layout={@channel.layout} />
   </section>
 <% end %>
