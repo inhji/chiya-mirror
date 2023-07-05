@@ -18,7 +18,9 @@
     <time class="font-semibold | dt-published"><%= pretty_date(@note.published_at) %></time>
     <.dot />
     <span>Last Updated</span>
-    <time class="font-semibold" datetime={datetime(@note.updated_at)}><%= pretty_date(@note.updated_at) %></time>
+    <time class="font-semibold" datetime={datetime(@note.updated_at)}>
+      <%= pretty_date(@note.updated_at) %>
+    </time>
     <%= if not Enum.empty?(@note.tags) do %>
       <.dot />
       <span>Tags</span>

@@ -16,8 +16,7 @@ config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: Chiya.Finch
 
 # Do not print debug messages in production
 # config :logger, level: :debug
-config :logger, :default_handler,
-  level: :info
+config :logger, :default_handler, level: :info
 
 config :cors_plug,
   origin: ["app://obsidian.md"],

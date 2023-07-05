@@ -239,32 +239,32 @@ defmodule ChiyaWeb.PublicComponents do
         </figure>
         """
 
-        3 ->
-          assigns =
-            assigns
-            |> assign(:first, Enum.at(images, 0))
-            |> assign(:second, Enum.at(images, 1))
-            |> assign(:third, Enum.at(images, 2))
+      3 ->
+        assigns =
+          assigns
+          |> assign(:first, Enum.at(images, 0))
+          |> assign(:second, Enum.at(images, 1))
+          |> assign(:third, Enum.at(images, 2))
 
-          ~H"""
-          <figure class="flex gap-1">
-            <img
-              src={ChiyaWeb.Helpers.image_url(assigns.first, :thumb)}
-              class="flex-1 w-full rounded-l"
-              title={assigns.first.content}
-            />
-            <img
-              src={ChiyaWeb.Helpers.image_url(assigns.second, :thumb)}
-              class="flex-1 w-full"
-              title={assigns.second.content}
-            />
-            <img
-              src={ChiyaWeb.Helpers.image_url(assigns.third, :thumb)}
-              class="flex-1 w-full rounded-r"
-              title={assigns.third.content}
-            />
-          </figure>
-          """
+        ~H"""
+        <figure class="flex gap-1">
+          <img
+            src={ChiyaWeb.Helpers.image_url(assigns.first, :thumb)}
+            class="flex-1 w-full rounded-l"
+            title={assigns.first.content}
+          />
+          <img
+            src={ChiyaWeb.Helpers.image_url(assigns.second, :thumb)}
+            class="flex-1 w-full"
+            title={assigns.second.content}
+          />
+          <img
+            src={ChiyaWeb.Helpers.image_url(assigns.third, :thumb)}
+            class="flex-1 w-full rounded-r"
+            title={assigns.third.content}
+          />
+        </figure>
+        """
     end
   end
 

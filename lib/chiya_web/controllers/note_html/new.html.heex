@@ -3,11 +3,12 @@
   <:subtitle>Use this form to manage note records in your database.</:subtitle>
 </.header>
 
-<.note_form 
-  changeset={@changeset} 
-  action={~p"/admin/notes"} 
-  channels={@channels} 
-  tags={@tags} 
-  selected_channels={@selected_channels} />
+<.note_form
+  changeset={@changeset}
+  action={~p"/admin/notes"}
+  channels={@channels}
+  tags={@tags}
+  selected_channels={@selected_channels}
+/>
 
 <.back navigate={~p"/admin/notes"}>Back to notes</.back>
