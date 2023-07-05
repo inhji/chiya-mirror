@@ -1,9 +1,7 @@
-<h1 class="mt-16 text-3xl font-extrabold tracking-tight text-theme-primary">
-  Tagged with &ldquo;<%= @tag.name %>&rdquo;
-</h1>
-<p class="mt-4 text-base leading-7 text-theme-base">
-  <%= @tag.content %>
-</p>
+<.header>
+  <:title>Tagged with &ldquo;<%= @tag.name %>&rdquo;</:title>
+  <:subtitle><%= @tag.content %></:subtitle>
+</.header>
 
 <div class="w-full mt-6 sm:w-auto flex flex-col gap-1.5">
   <.note_list notes={@tag.notes} />
