@@ -1,15 +1,15 @@
 <article class="h-entry hentry">
-  <header class="mx-auto max-w-2xl">
+  <header>
     <h1 class="mt-16 lg:text-5xl md:text-4xl text-3xl font-bold text-theme-base | p-name">
       <%= @note.name %>
     </h1>
   </header>
 
-  <section class="mx-auto mt-8 prose prose-gruvbox md:prose-lg lg:prose-xl  | p-summary e-content">
+  <section class="mt-8 prose prose-gruvbox md:prose-lg lg:prose-xl  | p-summary e-content">
     <%= Markdown.render(@note.content) |> raw %>
   </section>
 
-  <footer class="mt-8 mx-auto max-w-2xl text-theme-base">
+  <footer class="mt-8 text-theme-base">
     <%= if @note.published_at do %>
       <span>Published</span>
     <% else %>
@@ -41,7 +41,7 @@
     <a href={~p"/note/#{@note.slug}"} class="hidden | u-url u-uid"><%= @note.name %></a>
   </footer>
 
-  <section class="mt-8 mx-auto max-w-2xl">
+  <section class="mt-8">
     <%= if !Enum.empty?(@note.images) do %>
       <.line />
 
