@@ -14,7 +14,7 @@ defmodule Chiya.TagUpdaterTest do
       assert Enum.count(note.tags) == 1
     end
 
-    test "with a list of new tags replaces exisiting tags"do
+    test "with a list of new tags replaces exisiting tags" do
       note = note_fixture()
 
       assert note.tags == []

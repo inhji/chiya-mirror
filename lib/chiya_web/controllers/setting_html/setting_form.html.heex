@@ -27,12 +27,7 @@
     label="Default Channel"
     options={@channels}
   />
-  <.input
-    field={f[:wiki_channel_id]}
-    type="select"
-    label="Wiki Channel"
-    options={@channels}
-  />
+  <.input field={f[:wiki_channel_id]} type="select" label="Wiki Channel" options={@channels} />
   <:actions>
     <.button>Save Setting</.button>
   </:actions>

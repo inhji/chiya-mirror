@@ -7,15 +7,14 @@ defmodule ChiyaWeb.Markdown do
 
   import Ecto.Changeset, only: [get_change: 2, put_change: 3]
 
-  defp options() do
-    %Earmark.Options{
+  def options(),
+    do: %Earmark.Options{
       code_class_prefix: "lang- language-",
       footnotes: true,
       breaks: true,
       escape: false,
       registered_processors: processors()
     }
-  end
 
   @doc """
   Renders markdown with Earmark.

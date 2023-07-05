@@ -31,8 +31,7 @@ config :swoosh, :api_client, false
 
 # Print only warnings and errors during test
 # config :logger, level: :warning
-config :logger, :default_handler,
-  level: :warning
+config :logger, :default_handler, level: :warning
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime

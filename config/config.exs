@@ -43,15 +43,14 @@ config :tailwind,
   ]
 
 # Configures Elixir's Logger
-config :logger, :default_handler,
-  level: :debug
+config :logger, :default_handler, level: :debug
 
-config :logger, :default_formatter,
-  format: "$time $metadata[$level] $message\n"
+config :logger, :default_formatter, format: "$time $metadata[$level] $message\n"
 
 config :chiya, :logger, [
-  {:handler, :file_log, :logger_std_h, %{
-    level: :info,
+  {:handler, :file_log, :logger_std_h,
+   %{
+     level: :info,
      config: %{
        file: ~c"chiya.log",
        filesync_repeat_interval: 5000,

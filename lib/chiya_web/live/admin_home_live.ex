@@ -31,16 +31,17 @@ defmodule ChiyaWeb.AdminHomeLive do
 
     case Chiya.Notes.create_note(params) do
       {:ok, note} ->
-        {:noreply, socket 
-        |> put_flash(:info, "Note created!")
-        |> push_navigate(to: ~p"/note/#{note.slug}")}
+        {:noreply,
+         socket
+         |> put_flash(:info, "Note created!")
+         |> push_navigate(to: ~p"/note/#{note.slug}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         IO.inspect(changeset)
 
         {:noreply,
-         socket 
-         |> put_flash(:error, "Could not create note!") 
+         socket
+         |> put_flash(:error, "Could not create note!")
          |> assign(form: to_form(changeset))}
     end
   end

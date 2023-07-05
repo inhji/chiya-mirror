@@ -17,8 +17,8 @@
   </section>
 
   <%= if @note do %>
-  <section class="mx-auto mt-8 prose prose-gruvbox md:prose-lg lg:prose-xl | p-summary e-content">
-    <%= Markdown.render(@note.content) |> raw %>
-  </section>
+    <section class="mx-auto mt-8 prose prose-gruvbox md:prose-lg lg:prose-xl | p-summary e-content">
+      <%= Markdown.render(@note.content) |> raw %>
+    </section>
   <% end %>
 </article>
