@@ -1,9 +1,7 @@
-<h1 class="mt-16 text-3xl font-extrabold tracking-tight text-theme-primary">
-  <%= @channel.name %>
-</h1>
-<p class="mt-4 text-base leading-7 text-theme-base">
-  <%= @channel.content %>
-</p>
+<.header>
+  <:title><%= @channel.name %></:title>
+  <:subtitle><%= @channel.content %></:subtitle>
+</.header>
 
 <div class="w-full mt-6 sm:w-auto flex flex-col gap-1.5">
   <.note_list notes={@channel.notes} layout={@channel.layout} />
