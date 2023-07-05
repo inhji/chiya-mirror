@@ -22,38 +22,36 @@ defmodule ChiyaWeb.References do
   end
 
   @doc """
-  Checks each reference returned from `get_references/1` and validates its existence.
+  Checks a reference returned from `get_references/1` and validates its existence.
   """
-  def validate_references(references) do
-    Enum.map(references, fn {placeholder, slug, custom_title} ->
-      note = Chiya.Notes.get_note_by_slug_preloaded(slug)
+  def validate_reference({placeholder, slug, custom_title} = _reference) do
+    note = Chiya.Notes.get_note_by_slug_preloaded(slug)
 
-      valid =
-        case note do
-          nil -> false
-          _ -> true
-        end
+    valid =
+      case note do
+        nil -> false
+        _ -> true
+      end
 
-      # If a custom title was defined, use it, 
-      # otherwise use the note's title
-      title =
-        cond do
-          custom_title != slug ->
-            custom_title
+    # If a custom title was defined, use it, 
+    # otherwise use the note's title
+    title =
+      cond do
+        custom_title != slug ->
+          custom_title
 
-          valid ->
-            note.name
+        valid ->
+          note.name
 
-          true ->
-            slug
-        end
+        true ->
+          slug
+      end
 
-      {placeholder, slug, title, valid}
-    end)
+    {placeholder, slug, title, valid}
   end
 
   @doc """
-  Returns a list of slugs that are referenced in `string`, optionally filtering by `filter_type`.
+  Returns a list of slugs that are referenced in `string`.
   """
   def get_reference_ids(string) do
     string
@@ -67,7 +65,7 @@ defmodule ChiyaWeb.References do
   def replace_references(string) do
     string
     |> get_references()
-    |> validate_references()
+    |> Enum.map(&validate_reference/1)
     |> Enum.reduce(string, fn {placeholder, slug, title, valid}, s ->
       String.replace(s, placeholder, get_link(slug, title, valid))
     end)
@@ -78,7 +76,7 @@ defmodule ChiyaWeb.References do
   end
 
   defp get_link_class(valid) do
-    if valid, do: "{:.invalid}", else: ""
+    if not valid, do: "{:.invalid}", else: ""
   end
 
   defp map_to_tuple([placeholder, note_slug]),
