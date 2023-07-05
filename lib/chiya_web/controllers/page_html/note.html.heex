@@ -1,9 +1,7 @@
 <article class="h-entry hentry">
-  <header>
-    <h1 class="mt-16 lg:text-5xl md:text-4xl text-3xl font-bold text-theme-base | p-name">
-      <%= @note.name %>
-    </h1>
-  </header>
+  <.header titleclass="p-name">
+    <:title><%= @note.name %></:title>
+  </.header>
 
   <section class="mt-8 prose prose-gruvbox md:prose-lg lg:prose-xl  | p-summary e-content">
     <%= Markdown.render(@note.content) |> raw %>
