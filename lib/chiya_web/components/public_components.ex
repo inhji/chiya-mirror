@@ -115,16 +115,20 @@ defmodule ChiyaWeb.PublicComponents do
 
   def note_list_headers(assigns) do
     ~H"""
-    <section class="note-list default | mt-6 sm:w-auto flex flex-col gap-1.5">
+    <section class="note-list default | mt-6 sm:w-auto flex flex-col gap-3">
       <%= for note <- assigns.notes do %>
-        <a
-          href={~p"/note/#{note.slug}"}
-          class="rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-secondary/10 transition"
-        >
-          <span class="text-theme-secondary text-lg font-semibold leading-8">
-            <%= note.name %>
-          </span>
-          <span class="text-theme-base/75 text-sm"><%= pretty_date(note.published_at) %></span>
+        <a href={~p"/note/#{note.slug}"}
+          class="rounded-lg -mx-2 -my-0.5 px-2 py-0.5 border-theme-background1 hover:bg-theme-background1 transition">
+          <header>
+            <span class="text-theme-secondary text-lg font-semibold leading-8">
+              <%= note.name %>
+            </span>
+            <span class="text-theme-base/75 text-sm">
+              <%= pretty_date(note.published_at) %>
+            </span>
+          </header>
+
+          <p class="text-theme-base"><%= String.slice(note.content, 0..100) %></p>
         </a>
       <% end %>
     </section>
