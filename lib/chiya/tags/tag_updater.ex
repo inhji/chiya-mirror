@@ -1,6 +1,6 @@
 defmodule Chiya.Tags.TagUpdater do
   @moduledoc """
-  Updates tags for a schema like notes by adding new ones and removing old ones.
+  Updates tags for a note like notes by adding new ones and removing old ones.
   """
 
   require Logger
@@ -19,41 +19,43 @@ defmodule Chiya.Tags.TagUpdater do
   end
 
   @doc """
-  Updates the tags for the given schema
+  Updates the tags for the given note
 
   ## Examples
 
       iex> update_tags(note, "foo,bar")
 
   """
-  def update_tags(schema, %{tags_string: new_tags} = attrs) when is_map(attrs) do
-    update_tags(schema, new_tags)
+  def update_tags(note, %{tags_string: new_tags} = attrs) when is_map(attrs) do
+    update_tags(note, new_tags)
   end
 
-  def update_tags(schema, %{"tags_string" => new_tags} = attrs) when is_map(attrs) do
-    update_tags(schema, new_tags)
+  def update_tags(note, %{"tags_string" => new_tags} = attrs) when is_map(attrs) do
+    update_tags(note, new_tags)
   end
 
-  def update_tags(schema, attrs) when is_map(attrs) do
-    schema
+  def update_tags(note, attrs) when is_map(attrs) do
+    note
   end
 
-  def update_tags(schema, new_tags) when is_binary(new_tags) do
-    update_tags(schema, split_tags(new_tags))
+  def update_tags(note, new_tags) when is_binary(new_tags) do
+    update_tags(note, split_tags(new_tags))
   end
 
-  def update_tags(%{tags: tags} = schema, new_tags) when is_list(new_tags) do
+  def update_tags(%{tags: tags} = note, new_tags) when is_list(new_tags) do
     old_tags = Enum.map(tags, fn tag -> String.downcase(tag.slug) end)
-    new_tags = Enum.map(new_tags, fn tag ->
-      tag
-      |> String.downcase()
-      |>  Slugger.slugify()
-    end)
+
+    new_tags =
+      Enum.map(new_tags, fn tag ->
+        tag
+        |> String.downcase()
+        |> Slugger.slugify()
+      end)
 
     Logger.info("Adding tags #{inspect(new_tags -- old_tags)}")
     Logger.info("Removing tags #{inspect(old_tags -- new_tags)}")
 
-    schema
+    note
     |> add_tags(new_tags -- old_tags)
     |> remove_tags(old_tags -- new_tags)
   end
@@ -65,12 +67,12 @@ defmodule Chiya.Tags.TagUpdater do
     |> Enum.filter(&(String.length(&1) > 0))
   end
 
-  defp add_tags(schema, tags) do
-    Enum.each(tags, &add_tag(schema, &1))
-    schema
+  defp add_tags(note, tags) do
+    Enum.each(tags, &add_tag(note, &1))
+    note
   end
 
-  defp add_tag(%{id: schema_id} = schema, tag) when is_binary(tag) do
+  defp add_tag(%{id: note_id} = note, tag) when is_binary(tag) do
     slug = Slugger.slugify_downcase(tag)
 
     Logger.debug("Looking up tag [#{tag}] with slug [#{slug}]")
@@ -86,10 +88,10 @@ defmodule Chiya.Tags.TagUpdater do
           {:ok, tag}
       end
 
-    case schema do
+    case note do
       %Note{} ->
         attrs = %{
-          note_id: schema_id,
+          note_id: note_id,
           tag_id: tag.id
         }
 
@@ -97,18 +99,18 @@ defmodule Chiya.Tags.TagUpdater do
     end
   end
 
-  defp remove_tags(schema, tags) do
-    Enum.each(tags, &remove_tag(schema, &1))
-    schema
+  defp remove_tags(note, tags) do
+    Enum.each(tags, &remove_tag(note, &1))
+    note
   end
 
-  defp remove_tag(schema, tag) do
+  defp remove_tag(note, tag) do
     slug = Slugger.slugify_downcase(tag)
 
     if tag = Tags.get_tag_by_slug(slug) do
-      case schema do
+      case note do
         %Note{} ->
-          attrs = %{tag_id: tag.id, note_id: schema.id}
+          attrs = %{tag_id: tag.id, note_id: note.id}
           note_tag = Notes.get_note_tag!(attrs)
 
           {:ok, _} = Notes.delete_note_tag(note_tag)
