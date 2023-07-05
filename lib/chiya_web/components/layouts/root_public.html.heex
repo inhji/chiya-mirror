@@ -34,11 +34,11 @@
       <%= @settings.custom_css %>
     </style>
   </head>
-  <body class="bg-theme-background mx-3 md:mx-0 | h-feed hfeed">
+  <body class="bg-theme-background | h-feed hfeed">
     <aside class="max-w-2xl mx-auto block">
       <%= raw @settings.custom_html %>
     </aside>
-    <header class="my-8 max-w-2xl mx-auto block">
+    <header class="my-8 max-w-2xl mx-auto block mx-3 md:mx-0">
       <nav>
         <ul class="flex gap-3">
           <li>
@@ -66,7 +66,7 @@
       </nav>
     </header>
 
-    <main>
+    <main class="mx-3 md:mx-0">
       <%= @inner_content %>
     </main>
 
