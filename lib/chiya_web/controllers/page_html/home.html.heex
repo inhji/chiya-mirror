@@ -1,11 +1,7 @@
-<section class="p-10 bg-theme-background1">
-  <h1 class="text-3xl font-extrabold leading-10 tracking-tight text-theme-primary | p-name">
-    <%= @settings.title %>
-  </h1>
-  <p class="mt-4 leading-7 text-theme-base/75 uppercase font-semibold | p-summary">
-    <%= @settings.subtitle %>
-  </p>
-</section>
+<.header>
+  <:title><%= @settings.title %></:title>
+  <:subtitle><%= @settings.subtitle %></:subtitle>
+</.header>
 
 <section class="text-sm my-8">
   <ul class="flex flex-wrap gap-3">
