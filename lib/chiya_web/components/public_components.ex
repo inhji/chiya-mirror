@@ -69,19 +69,19 @@ defmodule ChiyaWeb.PublicComponents do
   Renders a note-header with title.
   """
   attr :class, :string, default: nil
-  attr :titleclass, :string, default: nil
-  attr :subtitleclass, :string, default: nil
+  attr :class_title, :string, default: nil
+  attr :class_subtitle, :string, default: nil
 
   slot :title, required: true
-  slot :subtitle
+  slot :subtitle, required: false
 
   def header(assigns) do
     ~H"""
-    <header class={["p-8 rounded", @class]}>
-      <h1 class={["text-3xl font-extrabold leading-10 tracking-tight text-theme-primary", @titleclass]}>
+    <header class={["p-8 rounded bg-theme-background1", @class]}>
+      <h1 class={["text-3xl leading-10 text-theme-base", @class_title]}>
         <%= render_slot(@title) %>
       </h1>
-      <p :if={@subtitle != []} class={["mt-4 leading-7 text-theme-base/75 uppercase font-semibold", @subtitleclass]}>
+      <p :if={@subtitle != []} class={["mt-4 leading-7 font-semibold text-theme-base/75", @class_subtitle]}>
         <%= render_slot(@subtitle) %>
       </p>
     </header>

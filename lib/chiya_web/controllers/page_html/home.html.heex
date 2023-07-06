@@ -1,4 +1,4 @@
-<.header titleclass="p-name" subtitleclass="p-summary">
+<.header class_title="text-theme-primary p-name" class_subtitle="p-summary">
   <:title><%= @settings.title %></:title>
   <:subtitle><%= @settings.subtitle %></:subtitle>
 </.header>
@@ -27,7 +27,7 @@
 </section>
 
 <%= if @channel do %>
-  <section class="mt-8 border-t border-theme-background1">
+  <section class="mt-8">
     <.note_list notes={@channel.notes} layout={@channel.layout} />
   </section>
 <% end %>
