@@ -19,6 +19,7 @@ defmodule ChiyaWeb.Router do
     plug :put_root_layout, {ChiyaWeb.Layouts, :root_public}
     plug :fetch_identities
     plug :fetch_public_channels
+    plug :fetch_profile
   end
 
   pipeline :api do
