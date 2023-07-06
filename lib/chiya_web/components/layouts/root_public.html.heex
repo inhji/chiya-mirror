@@ -113,9 +113,10 @@
     </footer>
 
     <section class="hidden | hcard h-card">
-      <a href="/" rel="me"><%= @profile.name %></a>
+      <a href="/" rel="me" class="u-url"><%= @profile.name %></a>
       <img class="u-photo" src={ChiyaWeb.Uploaders.UserImage.url({@profile.user_image, @profile}, :thumb)} />
-      <a href="acct:inhji@inhji.de" class="u-url" />
+      <span class="p-nickname"><%= @profile.handle %></span>
+      <span class="p-note"><%= @profile.bio %></span>
     </section>
 
     <section class="flex h-1 w-full flex-row">
