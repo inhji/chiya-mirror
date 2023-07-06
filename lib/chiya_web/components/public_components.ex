@@ -109,7 +109,7 @@ defmodule ChiyaWeb.PublicComponents do
     <section class="note-list default | mt-6 sm:w-auto flex flex-col gap-3">
       <%= for note <- assigns.notes do %>
         <a href={~p"/note/#{note.slug}"}
-          class="rounded-lg -mx-2 -my-0.5 px-2 py-0.5 border-theme-background1 hover:bg-theme-background1 transition">
+          class="rounded-lg px-6 pt-4 pb-5 border border-theme-background1 hover:bg-theme-background1 transition">
           <header>
             <span class="text-theme-secondary text-lg font-semibold leading-8">
               <%= note.name %>
@@ -119,7 +119,7 @@ defmodule ChiyaWeb.PublicComponents do
             </span>
           </header>
 
-          <p class="text-theme-base"><%= String.slice(note.content, 0..100) %></p>
+          <p class="text-theme-base"><%= String.slice(note.content, 0..150) %></p>
         </a>
       <% end %>
     </section>
