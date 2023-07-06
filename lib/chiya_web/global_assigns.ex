@@ -4,6 +4,16 @@ defmodule ChiyaWeb.GlobalAssigns do
   @token_endpoint Application.compile_env!(:chiya, [:indie, :token_endpoint])
   @auth_endpoint Application.compile_env!(:chiya, [:indie, :auth_endpoint])
 
+  def fetch_profile(conn, _opts) do
+    user = Chiya.Accounts.get_user(1)
+
+    if user do
+      assign(conn, :profile, user)
+    else
+      conn
+    end
+  end
+
   def fetch_settings(conn, _opts) do
     settings = Chiya.Site.get_settings()
 
