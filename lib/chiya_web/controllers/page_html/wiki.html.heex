@@ -1,9 +1,9 @@
-<.header titleclass="p-name">
+<.header>
   <:title>Wiki</:title>
 </.header>
 
 <%= if @channel do %>
 <div class="w-full mt-6 sm:w-auto flex flex-col gap-1.5">
-  <.note_list notes={@channel.notes} layout={:default} />
+  <.note_list notes={@channel.notes} layout={@channel.layout} />
 </div>
 <% end %>
