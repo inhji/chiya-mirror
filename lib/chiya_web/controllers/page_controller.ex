@@ -63,4 +63,19 @@ defmodule ChiyaWeb.PageController do
       page_title: "About"
     )
   end
+
+  def wiki(conn, _params) do
+    settings = conn.assigns.settings
+
+    channel =
+      case settings.wiki_channel_id do
+        nil -> nil
+        id -> Chiya.Channels.get_channel!(id) |> Chiya.Channels.preload_channel_public()
+      end
+
+    render(conn, :about,
+      channel: channel,
+      page_title: "Wiki"
+    )
+  end
 end
