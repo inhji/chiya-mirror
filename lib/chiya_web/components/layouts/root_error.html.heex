@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" style="scrollbar-gutter: stable;" data-theme={@settings.theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title>
+      <%= assigns[:page_title] || "Home" %>
+    </.live_title>
+
+    <.favicon />
+
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/public.js"}>
+    </script>
+    <script>
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.dataset["mode"] = "dark"
+      } else {
+        delete document.documentElement.dataset["mode"]
+      }
+    </script>
+  </head>
+  <body class="bg-theme-background | h-feed hfeed">
+    <main class="mx-3 md:mx-0">
+      <section class="mx-auto max-w-2xl">
+        <%= @inner_content %>
+      </section>
+    </main>
+
+    <section class="flex h-1 w-full flex-row">
+      <div class="bg-theme-primary w-full"></div>
+      <div class="bg-theme-secondary w-full"></div>
+      <div class="bg-theme-tertiary w-full"></div>
+      <div class="bg-theme-quaternary w-full"></div>
+      <div class="bg-theme-quinary w-full"></div>
+    </section>
+  </body>
+</html>
