@@ -67,14 +67,21 @@ defmodule ChiyaWeb.PageController do
   def wiki(conn, _params) do
     settings = conn.assigns.settings
 
-    channel =
+    [notes_updated, notes_published] =
       case settings.wiki_channel_id do
-        nil -> nil
-        id -> Chiya.Channels.get_channel!(id) |> Chiya.Channels.preload_channel_public()
+        nil -> 
+          [nil, nil]
+        id -> 
+          channel = Chiya.Channels.get_channel!(id)
+          updated = Chiya.Notes.list_notes_by_channel_updated(channel)
+          published = Chiya.Notes.list_notes_by_channel_published(channel)
+          [updated, published]
       end
 
     render(conn, :wiki,
       channel: channel,
+      notes_updated: notes_updated,
+      notes_published: notes_published,
       page_title: "Wiki"
     )
   end

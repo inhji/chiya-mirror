@@ -35,7 +35,7 @@
     </style>
   </head>
   <body class="bg-theme-background | h-feed hfeed">
-    <aside class="max-w-2xl mx-auto block">
+    <aside class="block">
       <%= raw @settings.custom_html %>
     </aside>
     <header class="my-8 block px-3">
@@ -48,7 +48,12 @@
           </li>
           <li>
             <a href="/about">
-              <.icon name="hero-hand-raised" /> About
+              <.icon name="hero-face-smile" /> About
+            </a>
+          </li>
+          <li>
+            <a href="/wiki">
+              <.icon name="hero-paper-clip" /> Wiki
             </a>
           </li>
           <%= if @current_user do %>
