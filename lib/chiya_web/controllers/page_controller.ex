@@ -67,7 +67,7 @@ defmodule ChiyaWeb.PageController do
   def wiki(conn, _params) do
     settings = conn.assigns.settings
 
-    [notes_updated, notes_published] =
+    [channel, notes_updated, notes_published] =
       case settings.wiki_channel_id do
         nil -> 
           [nil, nil]
@@ -75,7 +75,7 @@ defmodule ChiyaWeb.PageController do
           channel = Chiya.Channels.get_channel!(id)
           updated = Chiya.Notes.list_notes_by_channel_updated(channel)
           published = Chiya.Notes.list_notes_by_channel_published(channel)
-          [updated, published]
+          [channel, updated, published]
       end
 
     render(conn, :wiki,
