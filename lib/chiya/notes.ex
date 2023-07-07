@@ -40,12 +40,26 @@ defmodule Chiya.Notes do
   end
 
   def list_notes_by_channel(%Chiya.Channels.Channel{} = channel) do
-    Note
-    |> join(:inner, [n], c in assoc(n, :channels))
-    |> where([n, c], c.id == ^channel.id)
+    list_notes_by_channel_query(channel)
     |> order_by([n], desc: n.updated_at, desc: n.published_at)
     |> Repo.all()
     |> Repo.preload(@preloads)
+  end
+
+  def list_notes_by_channel_published(%Chiya.Channels.Channel{} = channel) do
+    list_notes_by_channel_query(channel)
+    |> order_by([n], desc: n.published_at)
+  end
+
+  def list_notes_by_channel_updated(%Chiya.Channels.Channel{} = channel) do
+    list_notes_by_channel_query(channel)
+    |> order_by([n], desc: n.published_at)
+  end
+
+  defp list_notes_by_channel_query(%Chiya.Channels.Channel{} = channel) do
+    Note
+    |> join(:inner, [n], c in assoc(n, :channels))
+    |> where([n, c], c.id == ^channel.id)
   end
 
   @doc """
