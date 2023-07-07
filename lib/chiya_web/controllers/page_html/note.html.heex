@@ -22,13 +22,7 @@
     <%= if not Enum.empty?(@note.tags) do %>
       <.dot />
       <span>Tags</span>
-      <span class="inline-flex flex-row gap-1">
-        <%= for tag <- @note.tags do %>
-          <a href={~p"/tagged-with/#{tag.slug}"} class="underline-link font-semibold | p-category">
-            <%= tag.name %>
-          </a>
-        <% end %>
-      </span>
+      <.tags note={@note} />
     <% end %>
     <%= if @current_user do %>
       <.dot />

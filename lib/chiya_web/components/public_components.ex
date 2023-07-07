@@ -65,6 +65,20 @@ defmodule ChiyaWeb.PublicComponents do
     """
   end
 
+  attr :note, :map, required: true
+
+  def tags(assigns) do
+    ~H"""
+    <span class="inline-flex flex-row gap-1">
+      <%= for tag <- @note.tags do %>
+        <a href={~p"/tagged-with/#{tag.slug}"} class="underline-link font-semibold | p-category">
+          <%= tag.name %>
+        </a>
+      <% end %>
+    </span>
+    """
+  end
+
   @doc """
   Renders a note-header with title.
   """
@@ -142,6 +156,8 @@ defmodule ChiyaWeb.PublicComponents do
             <time class="text-theme-base/75">
               <%= pretty_datetime(note.published_at) %>
             </time>
+            <.dot />
+            <.tags note={note} />
             <.dot />
             <a href={~p"/note/#{note.slug}"} class="text-theme-base/75">Permalink</a>
             <%= if not Enum.empty?(note.images) do %>
