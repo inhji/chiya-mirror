@@ -66,12 +66,13 @@ defmodule ChiyaWeb.PublicComponents do
   end
 
   attr :note, :map, required: true
+  attr :class_tag, :string, default: ""
 
   def tags(assigns) do
     ~H"""
     <span class="inline-flex flex-row gap-1">
       <%= for tag <- @note.tags do %>
-        <a href={~p"/tagged-with/#{tag.slug}"} class="underline-link font-semibold | p-category">
+        <a href={~p"/tagged-with/#{tag.slug}"} class={["p-category", @class_tag]}>
           <%= tag.name %>
         </a>
       <% end %>

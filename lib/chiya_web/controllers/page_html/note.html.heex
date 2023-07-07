@@ -1,57 +1,59 @@
-<article class="h-entry hentry">
-  <.header class_title="p-name">
-    <:title><%= @note.name %></:title>
-  </.header>
+<section class="max-w-2xl mx-auto">
+  <article class="h-entry hentry">
+    <.header class_title="p-name">
+      <:title><%= @note.name %></:title>
+    </.header>
 
-  <section class="mt-8 prose prose-gruvbox md:prose-lg lg:prose-xl  | p-summary e-content">
-    <%= Markdown.render(@note.content) |> raw %>
-  </section>
+    <section class="mt-8 prose prose-gruvbox md:prose-lg lg:prose-xl  | p-summary e-content">
+      <%= Markdown.render(@note.content) |> raw %>
+    </section>
 
-  <footer class="mt-8 text-theme-base">
-    <%= if @note.published_at do %>
-      <span>Published</span>
-    <% else %>
-      <span>Unpublished</span>
-    <% end %>
-    <time class="font-semibold | dt-published"><%= pretty_date(@note.published_at) %></time>
-    <.dot />
-    <span>Last Updated</span>
-    <time class="font-semibold" datetime={datetime(@note.updated_at)}>
-      <%= pretty_date(@note.updated_at) %>
-    </time>
-    <%= if not Enum.empty?(@note.tags) do %>
+    <footer class="mt-8 text-theme-base">
+      <%= if @note.published_at do %>
+        <span>Published</span>
+      <% else %>
+        <span>Unpublished</span>
+      <% end %>
+      <time class="font-semibold | dt-published"><%= pretty_date(@note.published_at) %></time>
       <.dot />
-      <span>Tags</span>
-      <.tags note={@note} />
-    <% end %>
-    <%= if @current_user do %>
-      <.dot />
-      <a href={~p"/admin/notes/#{@note}"} class="underline-link font-semibold">Show in Admin</a>
-    <% end %>
+      <span>Last Updated</span>
+      <time class="font-semibold" datetime={datetime(@note.updated_at)}>
+        <%= pretty_date(@note.updated_at) %>
+      </time>
+      <%= if not Enum.empty?(@note.tags) do %>
+        <.dot />
+        <span>Tags</span>
+        <.tags note={@note} />
+      <% end %>
+      <%= if @current_user do %>
+        <.dot />
+        <a href={~p"/admin/notes/#{@note}"} class="underline-link font-semibold">Show in Admin</a>
+      <% end %>
 
-    <a href={~p"/"} class="hidden | h-card u-author">Inhji</a>
-    <a href={~p"/note/#{@note.slug}"} class="hidden | u-url u-uid"><%= @note.name %></a>
-  </footer>
+      <a href={~p"/"} class="hidden | h-card u-author">Inhji</a>
+      <a href={~p"/note/#{@note.slug}"} class="hidden | u-url u-uid"><%= @note.name %></a>
+    </footer>
 
-  <section class="mt-8">
-    <%= if !Enum.empty?(@note.images) do %>
-      <.line />
+    <section class="mt-8">
+      <%= if !Enum.empty?(@note.images) do %>
+        <.line />
 
-      <div class="flex flex-wrap gap-3">
-        <%= for image <- @note.images do %>
-          <a
-            href={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}
-            class="lightbox | w-28"
-            data-gallery="note"
-            data-description={ChiyaWeb.Markdown.render(image.content)}
-          >
-            <img
-              src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
-              class="rounded"
-            />
-          </a>
-        <% end %>
-      </div>
-    <% end %>
-  </section>
-</article>
+        <div class="flex flex-wrap gap-3">
+          <%= for image <- @note.images do %>
+            <a
+              href={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}
+              class="lightbox | w-28"
+              data-gallery="note"
+              data-description={ChiyaWeb.Markdown.render(image.content)}
+            >
+              <img
+                src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
+                class="rounded"
+              />
+            </a>
+          <% end %>
+        </div>
+      <% end %>
+    </section>
+  </article>
+</section>
