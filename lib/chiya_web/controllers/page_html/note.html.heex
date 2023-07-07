@@ -1,9 +1,9 @@
 <article class="h-entry hentry">
-  <.header class_title="max-w-2xl mx-auto | p-name">
+  <.header class="max-w-2xl mx-auto" class_title="p-name">
     <:title><%= @note.name %></:title>
   </.header>
 
-  <section class="mt-8 prose prose-gruvbox md:prose-lg lg:prose-xl  | p-summary e-content">
+  <section class="mt-8 mx-auto prose prose-gruvbox md:prose-lg lg:prose-xl  | p-summary e-content">
     <%= Markdown.render(@note.content) |> raw %>
   </section>
 
