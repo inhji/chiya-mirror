@@ -2,6 +2,10 @@
   <:title>Wiki</:title>
 </.header>
 
+<section class="prose prose-gruvbox">
+  <%= Markdown.render(@channel.content) |> raw %>
+</section>
+
 <%= if @channel do %>
 <section class="flex flex-col md:col-row">
   <div class="w-full mt-6 sm:w-auto flex flex-1 flex-col gap-1.5">
