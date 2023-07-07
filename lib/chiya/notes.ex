@@ -49,11 +49,15 @@ defmodule Chiya.Notes do
   def list_notes_by_channel_published(%Chiya.Channels.Channel{} = channel) do
     list_notes_by_channel_query(channel)
     |> order_by([n], desc: n.published_at)
+    |> Repo.all()
+    |> Repo.preload(@preloads)
   end
 
   def list_notes_by_channel_updated(%Chiya.Channels.Channel{} = channel) do
     list_notes_by_channel_query(channel)
     |> order_by([n], desc: n.published_at)
+    |> Repo.all()
+    |> Repo.preload(@preloads)
   end
 
   defp list_notes_by_channel_query(%Chiya.Channels.Channel{} = channel) do
