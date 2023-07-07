@@ -157,6 +157,8 @@ defmodule ChiyaWeb.PublicComponents do
               <%= pretty_datetime(note.published_at) %>
             </time>
             <.dot />
+            <.tags note={note} />
+            <.dot />
             <a href={~p"/note/#{note.slug}"} class="text-theme-base/75">Permalink</a>
             <%= if not Enum.empty?(note.images) do %>
               <.dot />
