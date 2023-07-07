@@ -73,7 +73,7 @@ defmodule ChiyaWeb.PageController do
         id -> Chiya.Channels.get_channel!(id) |> Chiya.Channels.preload_channel_public()
       end
 
-    render(conn, :about,
+    render(conn, :wiki,
       channel: channel,
       page_title: "Wiki"
     )
