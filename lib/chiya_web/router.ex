@@ -137,11 +137,8 @@ defmodule ChiyaWeb.Router do
     get "/tagged-with/:slug", PageController, :tag
 
     get "/about", PageController, :about
+    get "/wiki", PageController, :wiki
 
     get "/", PageController, :home
-
-    # TODO: Comments are disabled for now
-    # and need a better submit/approve flow
-    # post "/note/:slug/comment", CommentController, :create
   end
 end
