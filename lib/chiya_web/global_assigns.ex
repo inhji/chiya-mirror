@@ -6,12 +6,7 @@ defmodule ChiyaWeb.GlobalAssigns do
 
   def fetch_profile(conn, _opts) do
     user = Chiya.Accounts.get_user(1)
-
-    if user do
-      assign(conn, :profile, user)
-    else
-      conn
-    end
+    assign(conn, :profile, user)
   end
 
   def fetch_settings(conn, _opts) do

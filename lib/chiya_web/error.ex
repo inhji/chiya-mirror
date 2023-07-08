@@ -1,10 +1,9 @@
 defmodule ChiyaWeb.Error do
   import Plug.Conn, only: [put_status: 2]
-  import Phoenix.Controller, only: [put_view: 2, render: 3, put_root_layout: 2]
+  import Phoenix.Controller, only: [put_view: 2, render: 3]
 
   def render_error(conn, :not_found, assigns \\ []) do
     conn
-    |> put_root_layout(html: {ChiyaWeb.Layouts, :root_error})
     |> put_status(:not_found)
     |> put_view(ChiyaWeb.ErrorHTML)
     |> render("404.html", assigns)

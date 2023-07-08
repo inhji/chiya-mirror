@@ -115,12 +115,14 @@
       </p>
     </footer>
 
+    <%= if @profile do %>
     <section class="hidden | hcard h-card">
       <a href="/" rel="me" class="u-url"><%= @profile.name %></a>
       <img class="u-photo" src={ChiyaWeb.Uploaders.UserImage.url({@profile.user_image, @profile}, :thumb)} />
       <span class="p-nickname"><%= @profile.handle %></span>
       <span class="p-note"><%= @profile.bio %></span>
     </section>
+    <% end %>
 
     <section class="flex h-1 w-full flex-row">
       <div class="bg-theme-primary w-full"></div>
