@@ -14,14 +14,16 @@ defmodule Chiya.Channels.Channel do
         :public,
         :private,
         :unlisted
-      ]
+      ],
+      default: :private
 
     field :layout, Ecto.Enum,
       values: [
         :default,
         :microblog,
         :gallery
-      ]
+      ],
+      default: :default
 
     many_to_many :notes, Chiya.Notes.Note,
       join_through: "channels_notes",
