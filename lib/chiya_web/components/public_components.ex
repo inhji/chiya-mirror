@@ -87,16 +87,18 @@ defmodule ChiyaWeb.PublicComponents do
   attr :class_title, :string, default: nil
   attr :class_subtitle, :string, default: nil
 
-  slot :title, required: true
   slot :subtitle, required: false
 
   def header(assigns) do
     ~H"""
     <header class={["p-8 rounded bg-theme-background1", @class]}>
       <h1 class={["text-3xl leading-10 text-theme-base", @class_title]}>
-        <%= render_slot(@title) %>
+        <%= render_slot(@inner_block) %>
       </h1>
-      <p :if={@subtitle != []} class={["mt-4 leading-7 font-semibold text-theme-base/75", @class_subtitle]}>
+      <p
+        :if={@subtitle != []}
+        class={["mt-4 leading-7 font-semibold text-theme-base/75", @class_subtitle]}
+      >
         <%= render_slot(@subtitle) %>
       </p>
     </header>
@@ -119,12 +121,16 @@ defmodule ChiyaWeb.PublicComponents do
     end
   end
 
+  attr :notes, :list, required: true
+
   def note_list_headers(assigns) do
     ~H"""
     <section class="note-list default | mt-6 sm:w-auto flex flex-col gap-3">
       <%= for note <- assigns.notes do %>
-        <a href={~p"/note/#{note.slug}"}
-          class="rounded-lg px-6 pt-4 pb-5 border border-theme-background1 hover:bg-theme-background1 transition">
+        <a
+          href={~p"/note/#{note.slug}"}
+          class="rounded-lg px-6 pt-4 pb-5 border border-theme-background1 hover:bg-theme-background1 transition"
+        >
           <header>
             <span class="text-theme-secondary text-lg font-semibold leading-8">
               <%= note.name %>
@@ -134,7 +140,9 @@ defmodule ChiyaWeb.PublicComponents do
             </span>
           </header>
 
-          <p class="text-theme-base"><%= String.slice(note.content, 0..150) %></p>
+          <p class="text-theme-base">
+            <%= String.slice(note.content, 0..150) %>
+          </p>
         </a>
       <% end %>
     </section>
@@ -158,8 +166,10 @@ defmodule ChiyaWeb.PublicComponents do
               <%= pretty_datetime(note.published_at) %>
             </time>
             <.dot />
-            <.tags note={note} />
-            <.dot />
+            <%= if not Enum.empty?(note.tags) do %>
+              <.tags note={note} />
+              <.dot />
+            <% end %>
             <a href={~p"/note/#{note.slug}"} class="text-theme-base/75">Permalink</a>
             <%= if not Enum.empty?(note.images) do %>
               <.dot />

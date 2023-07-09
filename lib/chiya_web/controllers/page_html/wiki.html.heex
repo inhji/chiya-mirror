@@ -1,25 +1,35 @@
-<section class="mx-auto max-w-2xl">
-  <.header>
-    <:title><%= @channel.name %></:title>
-  </.header>
-
-  <section class="prose prose-gruvbox mt-6">
-    <%= Markdown.render(@channel.content) |> raw %>
-  </section>
-</section>
-
 <%= if @channel do %>
-<section class="flex flex-col md:flex-row gap-3 mt-6 w-full px-3">
-  <div class="w-full mt-6 sm:w-auto flex flex-1 flex-col gap-1.5">
-    <h2 class="text-xl text-theme-base">Recently Updated</h2>
+  <section class="mx-auto max-w-2xl">
+    <.header>
+      <%= @channel.name %>
+    </.header>
 
-    <.note_list notes={@notes_updated} layout={@channel.layout} />
-  </div>
+    <section class="prose prose-gruvbox mt-6">
+      <%= Markdown.render(@channel.content) |> raw %>
+    </section>
+  </section>
 
-  <div class="w-full mt-6 sm:w-auto flex flex-1 flex-col gap-1.5">
-    <h2 class="text-xl text-theme-base">Recently Published</h2>
+  <section class="flex flex-col md:flex-row gap-3 mt-6 w-full sm:px-3">
+    <div class="w-full mt-6 sm:w-auto flex flex-1 flex-col gap-1.5">
+      <h2 class="text-xl text-theme-base">Recently Updated</h2>
 
-    <.note_list notes={@notes_published} layout={@channel.layout} />
-  </div>
-</section>
+      <.note_list notes={@notes_updated} layout={@channel.layout} />
+    </div>
+
+    <div class="w-full mt-6 sm:w-auto flex flex-1 flex-col gap-1.5">
+      <h2 class="text-xl text-theme-base">Recently Published</h2>
+
+      <.note_list notes={@notes_published} layout={@channel.layout} />
+    </div>
+  </section>
+<% else %>
+  <section class="mx-auto max-w-2xl">
+    <.header>
+      Wiki
+    </.header>
+
+    <section class="prose prose-gruvbox mt-6">
+      Wiki is not set up.
+    </section>
+  </section>
 <% end %>

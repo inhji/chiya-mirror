@@ -36,7 +36,7 @@
   </head>
   <body class="text-theme-base bg-theme-background | h-feed hfeed">
     <aside class="block">
-      <%= raw @settings.custom_html %>
+      <%= raw(@settings.custom_html) %>
     </aside>
     <header class="my-8 block px-3">
       <nav class="mx-auto max-w-2xl">
@@ -116,12 +116,15 @@
     </footer>
 
     <%= if @profile do %>
-    <section class="hidden | hcard h-card">
-      <a href="/" rel="me" class="u-url"><%= @profile.name %></a>
-      <img class="u-photo" src={ChiyaWeb.Uploaders.UserImage.url({@profile.user_image, @profile}, :thumb)} />
-      <span class="p-nickname"><%= @profile.handle %></span>
-      <span class="p-note"><%= @profile.bio %></span>
-    </section>
+      <section class="hidden | hcard h-card">
+        <a href="/" rel="me" class="u-url"><%= @profile.name %></a>
+        <img
+          class="u-photo"
+          src={ChiyaWeb.Uploaders.UserImage.url({@profile.user_image, @profile}, :thumb)}
+        />
+        <span class="p-nickname"><%= @profile.handle %></span>
+        <span class="p-note"><%= @profile.bio %></span>
+      </section>
     <% end %>
 
     <section class="flex h-1 w-full flex-row">
