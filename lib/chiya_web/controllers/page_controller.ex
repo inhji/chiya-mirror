@@ -69,12 +69,13 @@ defmodule ChiyaWeb.PageController do
 
     [channel, notes_updated, notes_published] =
       case settings.wiki_channel_id do
-        nil -> 
-          [nil, nil]
-        id -> 
+        nil ->
+          [nil, nil, nil]
+
+        id ->
           channel = Chiya.Channels.get_channel!(id)
-          updated = Chiya.Notes.list_notes_by_channel_updated(channel)
-          published = Chiya.Notes.list_notes_by_channel_published(channel)
+          updated = Chiya.Notes.list_notes_by_channel_updated(channel, 5)
+          published = Chiya.Notes.list_notes_by_channel_published(channel, 5)
           [channel, updated, published]
       end
 
