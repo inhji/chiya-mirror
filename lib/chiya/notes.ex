@@ -46,18 +46,20 @@ defmodule Chiya.Notes do
     |> Repo.preload(@preloads)
   end
 
-  def list_notes_by_channel_published(%Chiya.Channels.Channel{} = channel) do
+  def list_notes_by_channel_published(%Chiya.Channels.Channel{} = channel, count \\ 10) do
     list_notes_by_channel_query(channel)
     |> order_by([n], desc: n.published_at)
     |> where([n], not is_nil(n.published_at))
+    |> limit(^count)
     |> Repo.all()
     |> Repo.preload(@preloads)
   end
 
-  def list_notes_by_channel_updated(%Chiya.Channels.Channel{} = channel) do
+  def list_notes_by_channel_updated(%Chiya.Channels.Channel{} = channel, count \\ 10) do
     list_notes_by_channel_query(channel)
     |> order_by([n], desc: n.published_at)
     |> where([n], not is_nil(n.published_at))
+    |> limit(^count)
     |> Repo.all()
     |> Repo.preload(@preloads)
   end
