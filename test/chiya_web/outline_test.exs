@@ -5,16 +5,32 @@ defmodule ChiyaWeb.OutlineTest do
 
   describe "extract_outline/1" do
     test "extracts headlines from markdown" do
-      markdown = "# Heading\nsome paragraph\n## Sub Heading\n# Second Heading"
+      markdown =
+        "# Heading\nsome paragraph\n## Sub Heading\nsome text\n## Second Sub Heading\nmore text\n# Second Heading"
 
-      assert [{1, "Heading", [{2, "Sub Heading", []}]}, {1, "Second Heading", []}] =
-               Outline.get(markdown)
+      result = [
+        %{
+          level: 1,
+          text: "Heading",
+          children: [
+            %{level: 2, text: "Sub Heading", children: []},
+            %{level: 2, text: "Second Sub Heading", children: []}
+          ]
+        },
+        %{level: 1, text: "Second Heading", children: []}
+      ]
+
+      assert result == Outline.get(markdown)
     end
   end
 
-  describe "outline_level/1" do
-    test "extracts outline level" do
-      assert {1, "Heading"} = Outline.level("# Heading")
-    end
+  test "extracts headlines from markdown 2" do
+    markdown = "## Second Level"
+
+    result = [
+      %{level: 2, text: "Second Level", children: []}
+    ]
+
+    assert result == Outline.get(markdown)
   end
 end
