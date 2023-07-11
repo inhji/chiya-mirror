@@ -89,6 +89,26 @@
   .prose em {
     @apply text-theme-quaternary;
   }
+
+  .prose h1, h2, h3, h4 {
+    @apply before:font-light before:text-theme-base/25;
+  }
+
+  .prose h1 {
+    @apply before:content-['#'];
+  }
+
+  .prose h2 {
+    @apply before:content-['##'];
+  }
+
+  .prose h3 {
+    @apply before:content-['###'];
+  }
+
+  .prose h4 {
+    @apply before:content-['####'];
+  }
 }
 
 @layer components {
