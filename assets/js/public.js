@@ -1,10 +1,14 @@
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
 
-import lolight from "../vendor/lolight"
+import hljs from "highlight.js"
 import GLightbox from 'glightbox'
 
-lolight("pre code")
+document.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelectorAll('pre code').forEach((el) => {
+    hljs.highlightElement(el);
+  });
+});
 
 document
 	.querySelector("#dark-mode-toggle")
@@ -21,3 +25,5 @@ document
 	})
 
 GLightbox({ selector: ".lightbox" })
+
+window.hljs = hljs
