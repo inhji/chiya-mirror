@@ -11,6 +11,7 @@ defmodule ChiyaWeb.PageHTML do
     note.content
     |> ChiyaWeb.Outline.get()
     |> Enum.map(&do_render_outline/1)
+    |> Enum.map(&safe_to_string/1)
   end
 
   def do_render_outline(%{text: text, children: children, level: _level}) do
@@ -21,6 +22,6 @@ defmodule ChiyaWeb.PageHTML do
           content_tag(:a, text, href: "##{slug}")),
         Enum.map(children, &do_render_outline/1)
       ]
-    ) |> safe_to_string()
+    )
   end
 end
