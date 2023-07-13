@@ -3,7 +3,7 @@
 @import "tailwindcss/utilities";
 
 @import "./reset.css";
-@import "./lolight.css";
+@import "./gruvbox.css";
 @import "./lightbox.css";
 
 @layer base {
@@ -108,6 +108,10 @@
 
   .prose h4 {
     @apply before:content-['####'];
+  }
+
+  .prose pre {
+    @apply p-0;
   }
 }
 
