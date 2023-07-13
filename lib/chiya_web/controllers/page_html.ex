@@ -8,16 +8,19 @@ defmodule ChiyaWeb.PageHTML do
   def tag_list(tags), do: Enum.map_join(tags, ", ", fn t -> t.name end)
 
   def render_outline(note) do
-    list = ChiyaWeb.Outline.get(note.content)
-    Enum.map(list, &do_render_outline/1)
+    note.content
+    |> ChiyaWeb.Outline.get()
+    |> Enum.map(&do_render_outline/1)
   end
 
   def do_render_outline(%{text: text, children: children, level: _level}) do
+    slug = Slugger.slugify_downcase(text)
     content_tag(:ul, [class: "m-0"],
       do: [
-        content_tag(:li, do: content_tag(:a, text, href: "##{Slugger.slugify_downcase(text)}")),
+        content_tag(:li, do: 
+          content_tag(:a, text, href: "##{slug}")),
         Enum.map(children, &do_render_outline/1)
       ]
-    )
+    ) |> safe_to_string()
   end
 end

@@ -3,9 +3,7 @@
     <%= @note.name %>
   </.header>
 
-  <aside class="max-w-2xl mx-auto mt-8 prose prose-gruvbox bg-theme-background1 rounded p-2 empty:hidden">
-    <%= raw Enum.map(render_outline(@note), &safe_to_string/1) %>
-  </aside>
+  <aside class="max-w-2xl mx-auto mt-8 prose prose-gruvbox bg-theme-background1 rounded p-2 empty:hidden"><%= raw render_outline(@note) %></aside>
 
   <section class="mt-8 mx-auto prose prose-gruvbox md:prose-lg lg:prose-xl  | p-summary e-content">
     <%= Markdown.render(@note.content) |> raw %>
