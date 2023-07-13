@@ -9,6 +9,18 @@
     <%= Markdown.render(@note.content) |> raw %>
   </section>
 
+  <%= if not Enum.empty?(@note.links_to) do %>
+  <section class="mt-8 prose prose-gruvbox max-w-2xl mx-auto">
+    <.divider text="" />
+    Notes linking here:
+    <ul class="">
+    <%= for link <- @note.links_to do %>
+      <li><a href={~p"/note/#{link.slug}"}><%= link.name %></a></li>
+    <% end %>
+    </ul>
+  </section>
+  <% end %>
+
   <footer class="max-w-2xl mx-auto mt-8 text-theme-base">
     <%= if @note.published_at do %>
       <span>Published</span>
