@@ -51,7 +51,7 @@ defmodule Chiya.TagUpdaterTest do
       assert Enum.count(note.tags) == 1
 
       tag = List.first(note.tags)
-      assert tag.name == "Foo"
+      assert tag.name == "foo"
     end
   end
 end
