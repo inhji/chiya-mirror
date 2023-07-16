@@ -54,8 +54,15 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
   end
 
   @impl true
-  def handle_media(_files, _access_token) do
-    {:error, :insufficient_scope}
+  def handle_media(file, access_token) do
+    with :ok <- verify_token(access_token),
+         {:ok, image} <- Chiya.Notes.create_note_image_temp(%{path: file.path}) do
+      url = ChiyaWeb.Uploaders.UserImageTemp.url({image.path, image}, :original)
+      {:ok, url}
+    else
+      _ ->  
+      {:error, :insufficient_scope}
+    end
   end
 
   @impl true
@@ -175,7 +182,8 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
     content = Props.get_content(p)
     name = Props.get_title(p) || Chiya.Notes.Note.note_title(content)
     tags = Props.get_tags(p) |> Enum.join(",")
-
+    photo = Props.get_photo(p)
+    
     published_at =
       if Props.is_published?(p),
         do: NaiveDateTime.local_now(),

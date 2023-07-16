@@ -5,7 +5,7 @@ defmodule Chiya.Notes do
 
   import Ecto.Query, warn: false
   alias Chiya.Repo
-  alias Chiya.Notes.{Note, NoteImage, NoteNote, NoteTag, NoteComment}
+  alias Chiya.Notes.{Note, NoteImage, NoteImageTemp, NoteNote, NoteTag, NoteComment}
 
   @preloads [
     :channels,
@@ -263,6 +263,13 @@ defmodule Chiya.Notes do
   end
 
   @doc """
+  Returns an `%Ecto.Changeset{}` for tracking note_image changes.
+  """
+  def change_note_image(%NoteImage{} = note_image, attrs \\ %{}) do
+    NoteImage.update_changeset(note_image, attrs)
+  end
+
+  @doc """
   Gets a single note image.
   """
   def get_note_image!(id), do: Repo.get!(NoteImage, id) |> Repo.preload(:note)
@@ -296,6 +303,12 @@ defmodule Chiya.Notes do
     :ok
   end
 
+  def create_note_image_temp(attrs \\ %{}) do
+    %NoteImageTemp{}
+    |> NoteImageTemp.changeset(attrs)
+    |> Repo.insert()
+  end
+
   def get_note_note!(attrs \\ %{}) do
     Repo.get_by!(NoteNote, attrs)
   end
@@ -312,13 +325,6 @@ defmodule Chiya.Notes do
 
   def delete_note_note(%NoteNote{} = note_note) do
     Repo.delete(note_note)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking note_image changes.
-  """
-  def change_note_image(%NoteImage{} = note_image, attrs \\ %{}) do
-    NoteImage.update_changeset(note_image, attrs)
   end
 
   def get_note_tag!(attrs \\ %{}) do
