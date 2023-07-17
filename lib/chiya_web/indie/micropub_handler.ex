@@ -36,13 +36,16 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
       # TODO: Make separate function for this
       note_attrs
       |> Props.get_photos()
-      |> Enum.map(fn photo_url ->
+      |> Enum.map(fn photo ->
         Chiya.Notes.create_note_image(%{
           note_id: note.id,
-          path: photo_url
+          path: photo.path
         })
       end)
-      |> Enum.each(&IO.inspect/1)
+      |> Enum.each(fn result ->
+        Logger.info("Photo created!")
+        Logger.info(inspect(result))
+      end)
 
       {:ok, :created, Chiya.Notes.Note.note_url(note)}
     else
