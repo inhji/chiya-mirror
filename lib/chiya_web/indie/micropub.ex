@@ -16,10 +16,13 @@ defmodule ChiyaWeb.Indie.Micropub do
       # TODO: Make separate function for this
       properties
       |> Props.get_photos()
-      |> Enum.map(fn photo ->
+      |> Enum.with_index()
+      |> Enum.map(fn {photo, index} ->
+        featured = index == 0
         Chiya.Notes.create_note_image(%{
           note_id: note.id,
-          path: photo.path
+          path: photo.path,
+          featured: featured
         })
       end)
       |> Enum.each(fn result ->
