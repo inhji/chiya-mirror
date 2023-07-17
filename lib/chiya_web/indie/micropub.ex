@@ -4,9 +4,12 @@ defmodule ChiyaWeb.Indie.Micropub do
   alias ChiyaWeb.Indie.Properties, as: Props
   alias ChiyaWeb.Indie.Token
 
-  def create_note(type, properties, channel_id) do
+  def create_note(type, properties) do
+    settings = Chiya.Site.get_settings()
+
     with {:ok, post_type} <- Props.get_post_type(properties),
-         {:ok, note_attrs} <- get_attrs(type, post_type, properties, channel_id),
+         {:ok, note_attrs} <-
+           get_attrs(type, post_type, properties, settings.micropub_channel_id),
          {:ok, note} <- Chiya.Notes.create_note(note_attrs) do
       Logger.info("Note created!")
 
@@ -50,12 +53,12 @@ defmodule ChiyaWeb.Indie.Micropub do
     )
   end
 
-  defp get_attrs(type, post_type, properties, default_channel_id) do
+  defp get_attrs(type, post_type, properties, channel_id) do
     Logger.info("Creating a #{type}/#{post_type}..")
 
     channel =
-      if default_channel_id,
-        do: Chiya.Channels.get_channel(default_channel_id),
+      if channel_id,
+        do: Chiya.Channels.get_channel(channel_id),
         else: nil
 
     case post_type do
@@ -87,7 +90,7 @@ defmodule ChiyaWeb.Indie.Micropub do
     end
   end
 
-  defp get_note_attrs(p, default_channel) do
+  defp get_note_attrs(p, channel) do
     content = Props.get_content(p)
     name = Props.get_title(p) || Chiya.Notes.Note.note_title(content)
     tags = Props.get_tags(p) |> Enum.join(",")
@@ -105,8 +108,8 @@ defmodule ChiyaWeb.Indie.Micropub do
     }
 
     attrs =
-      if default_channel,
-        do: Map.put(attrs, :channel, default_channel),
+      if channel,
+        do: Map.put(attrs, :channels, [channel]),
         else: attrs
 
     {:ok, attrs}

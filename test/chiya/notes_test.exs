@@ -2,9 +2,11 @@ defmodule Chiya.NotesTest do
   use Chiya.DataCase
 
   import Chiya.NotesFixtures
+  import Chiya.ChannelsFixtures
 
   alias Chiya.Notes
   alias Chiya.Notes.Note
+  alias Chiya.Channels.Channel
 
   describe "notes" do
     @invalid_attrs %{content: nil, kind: nil, name: nil, published_at: nil, slug: nil, url: nil}
@@ -20,12 +22,15 @@ defmodule Chiya.NotesTest do
     end
 
     test "create_note/1 with valid data creates a note" do
+      channel = channel_fixture()
+
       valid_attrs = %{
         content: "some content",
         kind: "post",
         name: "some name",
         published_at: ~N[2023-03-04 16:22:00],
-        url: "some url"
+        url: "some url",
+        channels: [channel]
       }
 
       assert {:ok, %Note{} = note} = Notes.create_note(valid_attrs)
@@ -35,6 +40,7 @@ defmodule Chiya.NotesTest do
       assert note.published_at == ~N[2023-03-04 16:22:00]
       assert note.slug == "some-name"
       assert note.url == "some url"
+      assert [%Channel{}] = note.channels
     end
 
     test "create_note/1 with invalid data returns error changeset" do

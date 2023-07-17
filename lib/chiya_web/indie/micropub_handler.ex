@@ -23,11 +23,8 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
     Logger.info("Properties: #{inspect(properties)}")
     Logger.info("Type: #{type}")
 
-    settings = Chiya.Site.get_settings()
-    channel_id = settings.micropub_channel_id
-
     case Micropub.verify_token(access_token) do
-      :ok -> Micropub.create_note(type, properties, channel_id)
+      :ok -> Micropub.create_note(type, properties)
       _ -> {:error, :invalid_request}
     end
   end
@@ -129,5 +126,5 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
       _ ->
         {:error, :insufficient_scope}
     end
-  end  
+  end
 end
