@@ -2,6 +2,10 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
   @behaviour PlugMicropub.HandlerBehaviour
   require Logger
 
+  use Phoenix.VerifiedRoutes,
+    endpoint: ChiyaWeb.Endpoint,
+    router: ChiyaWeb.Router
+
   alias ChiyaWeb.Indie.Properties, as: Props
   alias ChiyaWeb.Indie.Token
 
@@ -104,23 +108,25 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
       :ok ->
         channels = Chiya.Channels.list_channels()
 
-        {:ok,
-         %{
-           "destination" => [],
-           "post-types" => [
-             %{
-               "type" => "note",
-               "name" => "Note"
-             }
-           ],
-           "channels" =>
-             Enum.map(channels, fn c ->
-               %{
-                 "uid" => c.slug,
-                 "name" => c.name
-               }
-             end)
-         }}
+        config = %{
+          "media-endpoint" => url(~p"/indie/micropub/media"),
+          "destination" => [],
+          "post-types" => [
+            %{
+              "type" => "note",
+              "name" => "Note"
+            }
+          ],
+          "channels" =>
+            Enum.map(channels, fn c ->
+              %{
+                "uid" => c.slug,
+                "name" => c.name
+              }
+            end)
+        }
+
+        {:ok, config}
 
       _ ->
         {:error, :insufficient_scope}
