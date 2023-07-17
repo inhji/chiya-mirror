@@ -50,8 +50,8 @@ defmodule ChiyaWeb.Indie.Properties do
   def is_published?(%{"post-status" => ["draft"]} = _props), do: false
   def is_published?(_props), do: true
 
-  def get_photo(%{"photo" => [photo]} = _props), do: photo
-  def get_photo(_props), do: nil
+  def get_photos(%{"photo" => photos} = _props), do: photos
+  def get_photos(_props), do: []
 
   def get_syndication_targets(%{"mp-syndicate-to" => targets} = _props), do: targets
   def get_syndication_targets(_props), do: []
