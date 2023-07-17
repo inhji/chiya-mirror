@@ -28,6 +28,18 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
          {:ok, note_attrs} <- get_attrs(type, post_type, properties, micropub_channel_id),
          {:ok, note} <- Chiya.Notes.create_note(note_attrs) do
       Logger.info("Note created!")
+
+      # TODO: Make separate function for this
+      note_attrs
+      |> Props.get_photos()
+      |> Enum.map(fn photo_url ->
+        Chiya.Notes.create_note_image(%{
+          note_id: note.id,
+          path: photo_url
+        })
+      end)
+      |> Enum.each(&IO.inspect/1)
+
       {:ok, :created, Chiya.Notes.Note.note_url(note)}
     else
       error ->
@@ -54,8 +66,15 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
   end
 
   @impl true
-  def handle_media(_files, _access_token) do
-    {:error, :insufficient_scope}
+  def handle_media(file, access_token) do
+    with :ok <- verify_token(access_token),
+         {:ok, image} <- Chiya.Notes.create_note_image_temp(%{path: file.path}) do
+      url = ChiyaWeb.Uploaders.UserImageTemp.url({image.path, image}, :original)
+      {:ok, url}
+    else
+      _ ->
+        {:error, :insufficient_scope}
+    end
   end
 
   @impl true

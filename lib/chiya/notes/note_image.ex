@@ -3,6 +3,11 @@ defmodule Chiya.Notes.NoteImage do
   use Waffle.Ecto.Schema
   import Ecto.Changeset
 
+  @attachment_options [
+    allow_paths: true,
+    allow_urls: true
+  ]
+
   schema "note_images" do
     field :content, :string, default: ""
     field :path, ChiyaWeb.Uploaders.NoteImage.Type
@@ -24,7 +29,7 @@ defmodule Chiya.Notes.NoteImage do
   def update_changeset(note_image, attrs) do
     note_image
     |> cast(attrs, [:content, :note_id, :featured])
-    |> cast_attachments(attrs, [:path], allow_paths: true)
+    |> cast_attachments(attrs, [:path], @attachment_options)
     |> validate_required([:path, :note_id])
   end
 end

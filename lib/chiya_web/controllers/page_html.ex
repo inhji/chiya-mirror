@@ -16,10 +16,10 @@ defmodule ChiyaWeb.PageHTML do
 
   def do_render_outline(%{text: text, children: children, level: _level}) do
     slug = Slugger.slugify_downcase(text)
+
     content_tag(:ul, [class: "m-0"],
       do: [
-        content_tag(:li, do: 
-          content_tag(:a, text, href: "##{slug}")),
+        content_tag(:li, do: content_tag(:a, text, href: "##{slug}")),
         Enum.map(children, &do_render_outline/1)
       ]
     )
