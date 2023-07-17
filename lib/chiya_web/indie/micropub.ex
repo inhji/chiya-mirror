@@ -11,7 +11,7 @@ defmodule ChiyaWeb.Indie.Micropub do
       Logger.info("Note created!")
 
       # TODO: Make separate function for this
-      note_attrs
+      properties
       |> Props.get_photos()
       |> Enum.map(fn photo ->
         Chiya.Notes.create_note_image(%{
