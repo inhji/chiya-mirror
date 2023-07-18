@@ -24,7 +24,7 @@
     </section>
   <% end %>
 
-  <%= if String.length(@note.url) > 0 do %>
+  <%= if String.length(@note.url || "") > 0 do %>
     <section class="mt-8 max-w-2xl mx-auto text-center text-lg">
       <.divider text=" " />
       <.icon name="hero-link" /> <a href={@note.url}><%= @note.url %></a>
