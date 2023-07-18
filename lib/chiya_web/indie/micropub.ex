@@ -19,6 +19,7 @@ defmodule ChiyaWeb.Indie.Micropub do
       |> Enum.with_index()
       |> Enum.map(fn {photo, index} ->
         featured = index == 0
+
         Chiya.Notes.create_note_image(%{
           note_id: note.id,
           path: photo.path,

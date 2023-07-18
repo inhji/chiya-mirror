@@ -3,11 +3,13 @@
     <%= @note.name %>
   </.header>
 
-  <aside class="max-w-2xl mx-auto mt-8 prose prose-gruvbox bg-theme-background1 rounded p-2 empty:hidden">
-    <%= raw(render_outline(@note)) %>
+  <aside class="max-w-2xl mx-auto mt-8 prose prose-gruvbox">
+    <div class="bg-theme-background1 rounded p-2 empty:hidden">
+      <%= raw(render_outline(@note)) %>
+    </div>
   </aside>
 
-  <section class="mt-8 mx-auto prose prose-gruvbox md:prose-lg lg:prose-xl  | p-summary e-content">
+  <section class="mt-8 mx-auto prose prose-gruvbox md:prose-lg lg:prose-xl | p-summary e-content">
     <%= Markdown.render(@note.content) |> raw %>
   </section>
 
@@ -19,6 +21,13 @@
           <li><a href={~p"/note/#{link.slug}"}><%= link.name %></a></li>
         <% end %>
       </ul>
+    </section>
+  <% end %>
+
+  <%= if String.length(@note.url) > 0 do %>
+    <section class="mt-8 max-w-2xl mx-auto text-center text-lg">
+      <.divider text=" " />
+      <.icon name="hero-link" /> <a href={@note.url}><%= @note.url %></a>
     </section>
   <% end %>
 
