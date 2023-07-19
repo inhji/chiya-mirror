@@ -3,11 +3,13 @@
     <%= @note.name %>
   </.header>
 
+  <%= if has_outline?(@note) do %>
   <aside class="max-w-2xl mx-auto mt-8 prose prose-gruvbox">
-    <div class="bg-theme-background1 rounded p-2 empty:hidden">
+    <div class="bg-theme-background1 rounded p-2">
       <%= raw(render_outline(@note)) %>
     </div>
   </aside>
+  <% end %>
 
   <section class="mt-8 mx-auto prose prose-gruvbox md:prose-lg lg:prose-xl | p-summary e-content">
     <%= Markdown.render(@note.content) |> raw %>
