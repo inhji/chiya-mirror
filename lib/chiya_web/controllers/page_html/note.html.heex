@@ -50,6 +50,10 @@
       <span>Tags</span>
       <.tags note={@note} />
     <% end %>
+    <%= if @note.kind != :post do %>
+      <.dot />
+      <span><%= @note.kind %></span>
+    <% end %>
     <%= if @current_user do %>
       <.dot />
       <a href={~p"/admin/notes/#{@note}"} class="underline-link font-semibold">Show in Admin</a>

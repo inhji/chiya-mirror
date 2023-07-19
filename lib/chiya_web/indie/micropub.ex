@@ -6,30 +6,12 @@ defmodule ChiyaWeb.Indie.Micropub do
 
   def create_note(type, properties) do
     settings = Chiya.Site.get_settings()
+    channel_id = settings.micropub_channel_id
 
-    with {:ok, post_type} <- Props.get_post_type(properties),
-         {:ok, note_attrs} <-
-           get_attrs(type, post_type, properties, settings.micropub_channel_id),
+    with {:ok, note_attrs} <- get_attrs(type, properties, channel_id),
          {:ok, note} <- Chiya.Notes.create_note(note_attrs) do
+      create_photos(note, properties)
       Logger.info("Note created!")
-
-      # TODO: Make separate function for this
-      properties
-      |> Props.get_photos()
-      |> Enum.with_index()
-      |> Enum.map(fn {photo, index} ->
-        featured = index == 0
-
-        Chiya.Notes.create_note_image(%{
-          note_id: note.id,
-          path: photo.path,
-          featured: featured
-        })
-      end)
-      |> Enum.each(fn result ->
-        Logger.info("Photo created!")
-        Logger.info(inspect(result))
-      end)
 
       {:ok, :created, Chiya.Notes.Note.note_url(note)}
     else
@@ -39,6 +21,21 @@ defmodule ChiyaWeb.Indie.Micropub do
 
         {:error, :invalid_request}
     end
+  end
+
+  defp create_photos(note, properties) do
+    properties
+    |> Props.get_photos()
+    |> Enum.with_index()
+    |> Enum.each(fn {photo, index} ->
+      featured = index == 0
+
+      Chiya.Notes.create_note_image(%{
+        note_id: note.id,
+        path: photo.path,
+        featured: featured
+      })
+    end)
   end
 
   def verify_token(access_token) do
@@ -57,7 +54,8 @@ defmodule ChiyaWeb.Indie.Micropub do
     )
   end
 
-  defp get_attrs(type, post_type, properties, channel_id) do
+  defp get_attrs(type, properties, channel_id) do
+    {:ok, post_type} = Props.get_post_type(properties)
     Logger.info("Creating a #{type}/#{post_type}..")
 
     channel =
@@ -67,6 +65,7 @@ defmodule ChiyaWeb.Indie.Micropub do
 
     case post_type do
       :note -> get_note_attrs(properties, channel)
+      :bookmark -> get_bookmark_attrs(properties, channel)
       _ -> {:error, :insufficient_scope}
     end
   end
@@ -94,13 +93,35 @@ defmodule ChiyaWeb.Indie.Micropub do
     end
   end
 
-  defp get_note_attrs(p, channel) do
-    content = Props.get_content(p)
-    name = Props.get_title(p) || Chiya.Notes.Note.note_title(content)
-    tags = Props.get_tags(p) |> Enum.join(",")
+  defp get_note_attrs(properties, channel) do
+    attrs =
+      properties
+      |> get_base_attrs()
+      |> get_channel(channel)
+
+    {:ok, attrs}
+  end
+
+  defp get_bookmark_attrs(properties, channel) do
+    url = Props.get_bookmarked_url(properties)
+
+    attrs =
+      properties
+      |> get_base_attrs()
+      |> get_channel(channel)
+      |> Map.put_new(:url, url)
+      |> Map.put_new(:kind, :bookmark)
+
+    {:ok, attrs}
+  end
+
+  defp get_base_attrs(properties) do
+    content = Props.get_content(properties)
+    name = Props.get_title(properties) || Chiya.Notes.Note.note_title(content)
+    tags = Props.get_tags(properties) |> Enum.join(",")
 
     published_at =
-      if Props.is_published?(p),
+      if Props.is_published?(properties),
         do: NaiveDateTime.local_now(),
         else: nil
 
@@ -111,12 +132,13 @@ defmodule ChiyaWeb.Indie.Micropub do
       published_at: published_at
     }
 
-    attrs =
-      if channel,
-        do: Map.put(attrs, :channels, [channel]),
-        else: attrs
+    attrs
+  end
 
-    {:ok, attrs}
+  def get_channel(attrs, channel) do
+    if channel,
+      do: Map.put(attrs, :channels, [channel]),
+      else: attrs
   end
 
   defp get_hostname(),
