@@ -42,15 +42,3 @@ const promise = esbuild.build(opts)
 if (watch) {
   esbuild.context(opts).then(ctx => ctx.watch())
 }
-
-/*
-if (watch) {
-  promise.then(_result => {
-    process.stdin.on('close', () => {
-      process.exit(0)
-    })
-
-    process.stdin.resume()
-  })
-}
-*/

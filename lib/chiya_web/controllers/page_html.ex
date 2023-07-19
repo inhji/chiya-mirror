@@ -14,6 +14,15 @@ defmodule ChiyaWeb.PageHTML do
     |> Enum.map(&safe_to_string/1)
   end
 
+  def has_outline?(note) do
+    outline_empty =
+      note.content
+      |> ChiyaWeb.Outline.get()
+      |> Enum.empty?()
+
+    !outline_empty
+  end
+
   def do_render_outline(%{text: text, children: children, level: _level}) do
     slug = Slugger.slugify_downcase(text)
 
