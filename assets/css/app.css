@@ -5,6 +5,7 @@
 @import "./reset.css";
 @import "./gruvbox.css";
 @import "./lightbox.css";
+@import "./tablesort.css";
 
 @layer base {
   :root {
@@ -78,8 +79,8 @@
     @apply prose-invert;
   }
 
-  .prose a {
-    @apply underline decoration-2 decoration-theme-primary hover:bg-theme-primary hover:text-theme-background transition;
+  .prose a, a.underline-link {
+    @apply underline decoration-1 decoration-theme-primary hover:decoration-theme-base transition;
   }
 
   .prose a[href^="http://"], .prose a[href^="https://"] {
@@ -115,7 +116,7 @@
   }
 
   .prose img {
-    @apply rounded;
+    @apply rounded-lg;
   }
 }
 
@@ -141,11 +142,5 @@
 
   body > header nav a {
     @apply inline-block text-theme-base px-3 py-2.5 border border-theme-background1 hover:bg-theme-background1 rounded transition font-semibold;
-  }
-}
-
-@layer utilities {
-  a.underline-link {
-    @apply underline decoration-2 decoration-theme-primary hover:decoration-theme-secondary transition;
   }
 }
