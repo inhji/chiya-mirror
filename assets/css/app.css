@@ -5,6 +5,7 @@
 @import "./reset.css";
 @import "./gruvbox.css";
 @import "./lightbox.css";
+@import "./tablesort.css";
 
 @layer base {
   :root {
