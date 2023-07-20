@@ -202,6 +202,8 @@ defmodule Chiya.Notes do
     %Note{}
     |> Note.changeset(attrs)
     |> Repo.insert()
+    |> Chiya.Tags.TagUpdater.update_tags(attrs)
+    |> Chiya.Notes.References.update_references(attrs)
   end
 
   @doc """

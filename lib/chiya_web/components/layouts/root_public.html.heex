@@ -42,30 +42,30 @@
       <nav class="mx-auto max-w-2xl">
         <ul class="flex gap-3">
           <li>
-            <a href="/">
+            <a href="/" class="button">
               <.icon name="hero-home" /> Home
             </a>
           </li>
           <li>
-            <a href="/about">
+            <a href="/about" class="button">
               <.icon name="hero-face-smile" /> About
             </a>
           </li>
           <li>
-            <a href="/wiki">
+            <a href="/wiki" class="button">
               <.icon name="hero-paper-clip" /> Wiki
             </a>
           </li>
           <%= if @current_user do %>
             <li>
-              <a href="/admin">
+              <a href="/admin" class="button">
                 <.icon name="hero-beaker" /> Admin
               </a>
             </li>
           <% end %>
           <li class="flex-1"></li>
           <li>
-            <.darkmode_toggle />
+            <.darkmode_toggle class="button" />
           </li>
         </ul>
       </nav>

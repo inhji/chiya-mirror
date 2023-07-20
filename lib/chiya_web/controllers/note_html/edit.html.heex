@@ -1,6 +1,10 @@
 <.header>
-  Edit Note <%= @note.id %>
-  <:subtitle>Use this form to manage note records in your database.</:subtitle>
+  Edit Note “<%= @note.name %>”
+  <:actions>
+    <.link href={~p"/admin/notes/#{@note.id}"}>
+      <.button><.icon name="hero-arrow-left" /> Back to Note</.button>
+    </.link>
+  </:actions>
 </.header>
 
 <.note_form
@@ -10,5 +14,3 @@
   selected_channels={@selected_channels}
   tags={@tags}
 />
-
-<.back navigate={~p"/admin/notes/#{@note.id}"}>Back to note</.back>

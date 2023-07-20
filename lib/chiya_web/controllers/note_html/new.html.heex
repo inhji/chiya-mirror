@@ -1,6 +1,11 @@
 <.header>
   New Note
   <:subtitle>Use this form to manage note records in your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/admin/notes"}>
+      <.button><.icon name="hero-arrow-left" /> Back to Notes</.button>
+    </.link>
+  </:actions>
 </.header>
 
 <.note_form
@@ -10,5 +15,3 @@
   tags={@tags}
   selected_channels={@selected_channels}
 />
-
-<.back navigate={~p"/admin/notes"}>Back to notes</.back>

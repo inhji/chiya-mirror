@@ -9,7 +9,9 @@ defmodule Chiya.Tags.TagUpdater do
   alias Chiya.Notes.Note
 
   def update_tags({:ok, %Note{} = note}, attrs) do
-    update_tags(note, attrs)
+    note
+    |> Notes.preload_note()
+    |> update_tags(attrs)
 
     {:ok, note}
   end
