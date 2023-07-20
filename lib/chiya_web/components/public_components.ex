@@ -131,8 +131,8 @@ defmodule ChiyaWeb.PublicComponents do
           href={~p"/note/#{note.slug}"}
           class="rounded-lg px-6 pt-4 pb-5 border border-theme-background1 hover:bg-theme-background1 transition"
         >
-          <header>
-            <span class="text-theme-secondary text-lg font-semibold leading-8">
+          <header class="flex flex-row items-center">
+            <span class="text-theme-primary text-lg font-semibold leading-8 flex-1">
               <%= note.name %>
             </span>
             <span class="text-theme-base/75 text-sm">
