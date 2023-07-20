@@ -102,8 +102,6 @@ defmodule ChiyaWeb.NoteShowLive do
         <.button phx-disable-with="Changing...">Add Images</.button>
       </:actions>
     </.simple_form>
-
-    <.back navigate={~p"/admin/notes"}>Back to notes</.back>
     """
   end
 

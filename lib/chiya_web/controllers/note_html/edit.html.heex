@@ -1,13 +1,11 @@
 <.header>
-  <%= @note.name %>
+  Edit Note “<%= @note.name %>”
   <:actions>
     <.link href={~p"/admin/notes/#{@note.id}"}>
       <.button><.icon name="hero-arrow-left" /> Back to Note</.button>
     </.link>
   </:actions>
 </.header>
-
-
 
 <.note_form
   changeset={@changeset}
@@ -16,5 +14,3 @@
   selected_channels={@selected_channels}
   tags={@tags}
 />
-
-<.back navigate={~p"/admin/notes/#{@note.id}"}>Back to note</.back>
