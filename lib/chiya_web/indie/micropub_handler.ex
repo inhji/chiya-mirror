@@ -44,7 +44,7 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
   def handle_update(url, replace, add, delete, access_token) do
     with :ok <- Micropub.verify_token(access_token),
          {:ok, note} <- Micropub.find_note(url),
-         {:ok, note} <- Micropub.update_note(note, replace, add, delete) do
+         {:ok, _note} <- Micropub.update_note(note, replace, add, delete) do
       :ok
     else
       error -> error
@@ -98,19 +98,11 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
   def handle_config_query(access_token) do
     case Micropub.verify_token(access_token) do
       :ok ->
-        channels = Chiya.Channels.list_channels()
-
         config = %{
           "media-endpoint" => url(~p"/indie/micropub/media"),
           "destination" => [],
           "post-types" => @post_types,
-          "channels" =>
-            Enum.map(channels, fn c ->
-              %{
-                "uid" => c.slug,
-                "name" => c.name
-              }
-            end)
+          "channels" => get_channels()
         }
 
         {:ok, config}
@@ -132,11 +124,37 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
   def handle_category_query(access_token) do
     case Micropub.verify_token(access_token) do
       :ok ->
-        tags = Enum.map(Chiya.Tags.list_tags(), fn t -> t.name end)
-        {:ok, %{"categories" => tags}}
+        {:ok, %{"categories" => get_categories()}}
 
       _ ->
         {:error, :insufficient_scope}
     end
+  end
+
+  @impl true
+  def handle_channel_query(access_token) do
+    case Micropub.verify_token(access_token) do
+      :ok ->
+        {:ok, %{"channels" => get_channels()}}
+
+      _ ->
+        {:error, :insufficient_scope}
+    end
+  end
+
+  defp get_channels() do
+    channels = Chiya.Channels.list_channels()
+
+    Enum.map(channels, fn c ->
+      %{
+        "uid" => c.slug,
+        "name" => c.name
+      }
+    end)
+  end
+
+  defp get_categories() do
+    tags = Chiya.Tags.list_tags()
+    Enum.map(tags, fn t -> t.name end)
   end
 end
