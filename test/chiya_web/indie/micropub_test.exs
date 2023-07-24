@@ -4,6 +4,7 @@ defmodule ChiyaWeb.MicropubTest do
   alias ChiyaWeb.Indie.Micropub
   alias Chiya.Notes.Note
   alias Chiya.Channels.Channel
+  import Chiya.NoteFixtures
 
   @valid_props %{
     "content" => ["this is a test"]
@@ -19,6 +20,14 @@ defmodule ChiyaWeb.MicropubTest do
       assert url =~ note.slug
       assert %Note{} = note
       assert [%Channel{}] = note.channels
+    end
+  end
+
+  describe "update_note" do
+    test "updates a note" do
+      note = note_fixture()
+
+      assert :ok = Micropub.update_note(note, %{"content" => ["replaced content"]})
     end
   end
 

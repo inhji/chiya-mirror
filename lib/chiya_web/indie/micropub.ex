@@ -11,9 +11,36 @@ defmodule ChiyaWeb.Indie.Micropub do
     with {:ok, note_attrs} <- get_attrs(type, properties, channel_id),
          {:ok, note} <- Chiya.Notes.create_note(note_attrs) do
       create_photos(note, properties)
-      Logger.info("Note created!")
 
+      Logger.info("Note created!")
       {:ok, :created, Chiya.Notes.Note.note_url(note)}
+    else
+      error ->
+        Logger.error("Error occurred while creating note from micropub:")
+        Logger.error(inspect(error))
+
+        {:error, :invalid_request}
+    end
+  end
+
+  def find_note(note_url) do
+    slug = Chiya.Notes.Note.note_slug(note_url)
+    Chiya.Notes.get_note_preloaded_by_slug(slug)
+  end
+
+  def update_note(note, replace, add, _delete) do
+    settings = Chiya.Site.get_settings()
+    channel_id = settings.micropub_channel_id
+
+    properties =
+      %{}
+      |> Enum.into(replace)
+      |> Enum.into(add)
+
+    with {:ok, note_attrs} <- get_attrs("entry", properties, channel_id),
+         {:ok, note} <- Chiya.Notes.update_note(note, note_attrs) do
+      Logger.info("Note updated!")
+      {:ok, note}
     else
       error ->
         Logger.error("Error occurred while creating note from micropub:")
