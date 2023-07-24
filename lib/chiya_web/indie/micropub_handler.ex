@@ -41,8 +41,14 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
   end
 
   @impl true
-  def handle_update(_, _, _, _, _) do
-    {:error, :insufficient_scope}
+  def handle_update(url, replace, add, delete, access_token) do
+    with :ok <- Micropub.verify_token(access_token),
+         {:ok, note} <- Micropub.find_note(url),
+         {:ok, note} <- Micropub.update_note(note, replace, add, delete) do
+      :ok
+    else
+      error -> error
+    end
   end
 
   @impl true
