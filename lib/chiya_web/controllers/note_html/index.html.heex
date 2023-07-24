@@ -14,14 +14,14 @@
 <section class="flex flex-row flex-wrap mt-6 -mb-6 gap-3">
   <a
     href={~p"/admin/notes"}
-    class="text-sm dark:text-gray-300 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 px-2 py-1 border border-gray-300 dark:border-gray-600 shadow-sm transition"
+    class="dark:text-gray-300 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm transition"
   >
     All
   </a>
   <%= for channel <- @channels do %>
     <a
       href={~p"/admin/notes?channel=#{channel.slug}"}
-      class="text-sm dark:text-gray-300 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 px-2 py-1 border border-gray-300 dark:border-gray-600 shadow-sm transition"
+      class="dark:text-gray-300 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm transition"
     >
       <%= channel.name %>
       <span class="text-gray-600 dark:text-gray-500">(<%= Enum.count(channel.notes) %>)</span>
