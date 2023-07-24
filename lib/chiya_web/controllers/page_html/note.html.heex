@@ -6,19 +6,22 @@
   <%= if @current_user do %>
     <section class="max-w-2xl mx-auto mt-8">
       <ul class="flex gap-3">
-        <li><a href={~p"/admin/notes/#{@note}/edit"} class="button">
-          <.icon name="hero-pencil-square" /> Edit</a></li>
+        <li>
+          <a href={~p"/admin/notes/#{@note}/edit"} class="button">
+            <.icon name="hero-pencil-square" /> Edit
+          </a>
+        </li>
         <li><a href={~p"/admin/notes/#{@note}"} class="button">Show in Admin</a></li>
       </ul>
     </section>
   <% end %>
 
   <%= if has_outline?(@note) do %>
-  <aside class="max-w-2xl mx-auto mt-8 prose prose-gruvbox">
-    <div class="bg-theme-background1 rounded p-2">
-      <%= raw(render_outline(@note)) %>
-    </div>
-  </aside>
+    <aside class="max-w-2xl mx-auto mt-8 prose prose-gruvbox">
+      <div class="bg-theme-background1 rounded p-2">
+        <%= raw(render_outline(@note)) %>
+      </div>
+    </aside>
   <% end %>
 
   <section class="mt-8 mx-auto prose prose-gruvbox md:prose-lg lg:prose-xl | p-summary e-content">
