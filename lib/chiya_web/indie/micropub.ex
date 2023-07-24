@@ -8,7 +8,7 @@ defmodule ChiyaWeb.Indie.Micropub do
     settings = Chiya.Site.get_settings()
     channel_id = settings.micropub_channel_id
 
-    with {:ok, note_attrs} <- get_attrs(type, properties, channel_id),
+    with {:ok, note_attrs} <- get_create_attrs(type, properties, channel_id),
          {:ok, note} <- Chiya.Notes.create_note(note_attrs) do
       create_photos(note, properties)
 
@@ -25,19 +25,17 @@ defmodule ChiyaWeb.Indie.Micropub do
 
   def find_note(note_url) do
     slug = Chiya.Notes.Note.note_slug(note_url)
-    Chiya.Notes.get_note_preloaded_by_slug(slug)
+    note = Chiya.Notes.get_note_by_slug_preloaded(slug)
+
+    if is_nil(note) do
+      {:error, :invalid_request}
+    else
+      {:ok, note}
+    end
   end
 
-  def update_note(note, replace, add, _delete) do
-    settings = Chiya.Site.get_settings()
-    channel_id = settings.micropub_channel_id
-
-    properties =
-      %{}
-      |> Enum.into(replace)
-      |> Enum.into(add)
-
-    with {:ok, note_attrs} <- get_attrs("entry", properties, channel_id),
+  def update_note(note, replace, add, delete) do
+    with {:ok, note_attrs} <- get_update_attrs(replace, add, delete),
          {:ok, note} <- Chiya.Notes.update_note(note, note_attrs) do
       Logger.info("Note updated!")
       {:ok, note}
@@ -81,7 +79,7 @@ defmodule ChiyaWeb.Indie.Micropub do
     )
   end
 
-  defp get_attrs(type, properties, channel_id) do
+  defp get_create_attrs(type, properties, channel_id) do
     {:ok, post_type} = Props.get_post_type(properties)
     Logger.info("Creating a #{type}/#{post_type}..")
 
@@ -95,6 +93,51 @@ defmodule ChiyaWeb.Indie.Micropub do
       :bookmark -> get_bookmark_attrs(properties, channel)
       _ -> {:error, :insufficient_scope}
     end
+  end
+
+  defp get_update_attrs(replace, add, _delete) do
+    replace_attrs = put_update_attrs(replace)
+    add_attrs = put_update_attrs(add)
+
+    attrs =
+      %{}
+      |> Enum.into(replace_attrs)
+      |> Enum.into(add_attrs)
+
+    {:ok, attrs}
+  end
+
+  defp put_update_attrs(source) do
+    name = Props.get_title(source)
+    attrs = %{}
+
+    attrs =
+      if name do
+        Map.put(attrs, :name, name)
+      else
+        attrs
+      end
+
+    content = Props.get_content(source)
+
+    attrs =
+      if content do
+        Map.put(attrs, :content, content)
+      else
+        attrs
+      end
+
+    tags = Props.get_tags(source)
+
+    attrs =
+      if !Enum.empty?(tags) do
+        tags_string = Enum.join(tags, ",")
+        Map.put(attrs, :tags_string, tags_string)
+      else
+        attrs
+      end
+
+    attrs
   end
 
   defp verify_micropub_token(access_token) do

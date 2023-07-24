@@ -8,7 +8,7 @@
   src={ChiyaWeb.Uploaders.NoteImage.url({@image.path, @image}, :full_dithered)}
 />
 
-<pre>![<%= @image.content %>](<%= ChiyaWeb.Uploaders.NoteImage.url({@image.path, @image}, :full_dithered) %>)</pre>
+<pre class="mt-4 p-1 bg-gray-100 text-black rounded select-all">![<%= @image.content %>](<%= ChiyaWeb.Uploaders.NoteImage.url({@image.path, @image}, :full_dithered) %>)</pre>
 
 <.simple_form
   :let={f}
