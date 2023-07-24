@@ -17,6 +17,17 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
     "tags"
   ]
 
+  @post_types [
+    %{
+      "type" => "note",
+      "name" => "Note"
+    },
+    %{
+      "type" => "bookmark",
+      "name" => "Bookmark"
+    }
+  ]
+
   @impl true
   def handle_create(type, properties, access_token) do
     Logger.info("Handle create")
@@ -86,12 +97,7 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
         config = %{
           "media-endpoint" => url(~p"/indie/micropub/media"),
           "destination" => [],
-          "post-types" => [
-            %{
-              "type" => "note",
-              "name" => "Note"
-            }
-          ],
+          "post-types" => @post_types,
           "channels" =>
             Enum.map(channels, fn c ->
               %{
