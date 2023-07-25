@@ -149,7 +149,7 @@ defmodule ChiyaWeb.PublicComponents do
     """
   end
 
-  attr :note, :map, required: true
+  attr :notes, :list, required: true
 
   def note_list_microblog(assigns) do
     ~H"""
@@ -184,6 +184,8 @@ defmodule ChiyaWeb.PublicComponents do
     """
   end
 
+  attr :notes, :list, required: true
+
   def note_list_gallery(assigns) do
     ~H"""
     <section class="note-list gallery | mt-6">
@@ -217,6 +219,8 @@ defmodule ChiyaWeb.PublicComponents do
     </section>
     """
   end
+
+  attr :note, :map, required: true
 
   def featured_images(assigns) do
     images = main_images(assigns.note)
@@ -275,13 +279,13 @@ defmodule ChiyaWeb.PublicComponents do
         ~H"""
         <figure class="flex gap-1 flex-col">
           <section class="flex gap-1">
-          <.featured_image image={assigns.first} size={:thumb} class="flex-1 w-full rounded-tl-lg" />
-          <.featured_image image={assigns.second} size={:thumb} class="flex-1 w-full rounded-tr-lg" />
-        </section>
-        <section class="flex gap-1">
-          <.featured_image image={assigns.third} size={:thumb} class="flex-1 w-full rounded-bl-lg" />
-          <.featured_image image={assigns.fourth} size={:thumb} class="flex-1 w-full rounded-br-lg" />
-        </section>
+            <.featured_image image={assigns.first} size={:thumb} class="flex-1 w-full rounded-tl-lg" />
+            <.featured_image image={assigns.second} size={:thumb} class="flex-1 w-full rounded-tr-lg" />
+          </section>
+          <section class="flex gap-1">
+            <.featured_image image={assigns.third} size={:thumb} class="flex-1 w-full rounded-bl-lg" />
+            <.featured_image image={assigns.fourth} size={:thumb} class="flex-1 w-full rounded-br-lg" />
+          </section>
         </figure>
         """
     end

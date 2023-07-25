@@ -18,30 +18,29 @@
   <.list>
     <:item title="Title"><%= @setting.title %></:item>
     <:item title="Subtitle"><%= @setting.subtitle %></:item>
-    <:item title="Theme">
-      <%= @setting.theme %>
-      <div class="flex flex-row gap-2 bg-theme-background p-1 rounded-lg border">
-        <.icon name="hero-heart-solid" class="bg-theme-primary" />
-        <.icon name="hero-heart-solid" class="bg-theme-heading" />
-        <.icon name="hero-heart-solid" class="bg-theme-base" />
-        <.icon name="hero-heart-solid" class="bg-theme-muted" />
-        <.icon name="hero-heart-solid" class="bg-theme-dim" />
-      </div>
-    </:item>
-    <:item title="User agent"><%= @setting.user_agent %></:item>
     <:item title="Custom css"><%= @setting.custom_css %></:item>
     <:item title="Custom html"><%= @setting.custom_html %></:item>
-    <:item title="Default Channel">
-      <%= if @setting.default_channel, do: @setting.default_channel.name %>
-    </:item>
-    <:item title="Home Channel">
-      <%= if @setting.home_channel, do: @setting.home_channel.name %>
-    </:item>
-    <:item title="Micropub Channel">
-      <%= if @setting.micropub_channel, do: @setting.micropub_channel.name %>
-    </:item>
-    <:item title="Wiki Channel">
-      <%= if @setting.micropub_channel, do: @setting.wiki_channel.name %>
+  </.list>
+
+  <.list>
+   <:item title="Default Channel">
+     <%= if @setting.default_channel, do: @setting.default_channel.name %>
+   </:item>
+   <:item title="Home Channel">
+     <%= if @setting.home_channel, do: @setting.home_channel.name %>
+   </:item>
+   <:item title="Micropub Channel">
+     <%= if @setting.micropub_channel, do: @setting.micropub_channel.name %>
+   </:item>
+   <:item title="Wiki Channel">
+     <%= if @setting.micropub_channel, do: @setting.wiki_channel.name %>
+   </:item>
+  </.list>
+
+  <.list>
+    <:item title="Show Images on Home">
+      <%= if @setting.show_images_on_home, do: "✅", else: "❌" %>
     </:item>
   </.list>
+  
 <% end %>
