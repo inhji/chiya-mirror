@@ -149,7 +149,7 @@ defmodule ChiyaWeb.PublicComponents do
     """
   end
 
-  attr :note, :map, required: true
+  attr :notes, :list, required: true
 
   def note_list_microblog(assigns) do
     ~H"""
@@ -158,10 +158,10 @@ defmodule ChiyaWeb.PublicComponents do
         <article class="mt-4 first:mt-0">
           <.featured_images note={note} />
 
-          <div class="prose prose-gruvbox">
+          <div class="prose prose-gruvbox mt-2">
             <%= raw(render(note.content)) %>
           </div>
-          <footer class="mt-1">
+          <footer class="mt-4">
             <time class="text-theme-base/75">
               <%= pretty_datetime(note.published_at) %>
             </time>
@@ -183,6 +183,8 @@ defmodule ChiyaWeb.PublicComponents do
     </section>
     """
   end
+
+  attr :notes, :list, required: true
 
   def note_list_gallery(assigns) do
     ~H"""
@@ -218,6 +220,8 @@ defmodule ChiyaWeb.PublicComponents do
     """
   end
 
+  attr :note, :map, required: true
+
   def featured_images(assigns) do
     images = main_images(assigns.note)
 
@@ -231,12 +235,8 @@ defmodule ChiyaWeb.PublicComponents do
         assigns = assign(assigns, :image, List.first(images))
 
         ~H"""
-        <figure class="mb-4">
-          <img
-            src={ChiyaWeb.Helpers.image_url(assigns.image, :full)}
-            class="rounded"
-            title={assigns.image.content}
-          />
+        <figure>
+          <.featured_image image={assigns.image} size={:full} class="rounded-lg" />
         </figure>
         """
 
@@ -248,16 +248,8 @@ defmodule ChiyaWeb.PublicComponents do
 
         ~H"""
         <figure class="flex gap-1">
-          <img
-            src={ChiyaWeb.Helpers.image_url(assigns.first, :thumb)}
-            class="rounded-l flex-1 w-full"
-            title={assigns.first.content}
-          />
-          <img
-            src={ChiyaWeb.Helpers.image_url(assigns.second, :thumb)}
-            class="rounded-r flex-1 w-full"
-            title={assigns.second.content}
-          />
+          <.featured_image image={assigns.first} size={:thumb} class="rounded-l flex-1 w-full" />
+          <.featured_image image={assigns.second} size={:thumb} class="rounded-r flex-1 w-full" />
         </figure>
         """
 
@@ -270,24 +262,47 @@ defmodule ChiyaWeb.PublicComponents do
 
         ~H"""
         <figure class="flex gap-1">
-          <img
-            src={ChiyaWeb.Helpers.image_url(assigns.first, :thumb)}
-            class="flex-1 w-full rounded-l"
-            title={assigns.first.content}
-          />
-          <img
-            src={ChiyaWeb.Helpers.image_url(assigns.second, :thumb)}
-            class="flex-1 w-full"
-            title={assigns.second.content}
-          />
-          <img
-            src={ChiyaWeb.Helpers.image_url(assigns.third, :thumb)}
-            class="flex-1 w-full rounded-r"
-            title={assigns.third.content}
-          />
+          <.featured_image image={assigns.first} size={:thumb} class="flex-1 w-full rounded-l" />
+          <.featured_image image={assigns.second} size={:thumb} class="flex-1 w-full" />
+          <.featured_image image={assigns.third} size={:thumb} class="flex-1 w-full rounded-r" />
+        </figure>
+        """
+
+      _ ->
+        assigns =
+          assigns
+          |> assign(:first, Enum.at(images, 0))
+          |> assign(:second, Enum.at(images, 1))
+          |> assign(:third, Enum.at(images, 2))
+          |> assign(:fourth, Enum.at(images, 3))
+
+        ~H"""
+        <figure class="flex gap-1 flex-col">
+          <section class="flex gap-1">
+            <.featured_image image={assigns.first} size={:thumb} class="flex-1 w-full rounded-tl-lg" />
+            <.featured_image image={assigns.second} size={:thumb} class="flex-1 w-full rounded-tr-lg" />
+          </section>
+          <section class="flex gap-1">
+            <.featured_image image={assigns.third} size={:thumb} class="flex-1 w-full rounded-bl-lg" />
+            <.featured_image image={assigns.fourth} size={:thumb} class="flex-1 w-full rounded-br-lg" />
+          </section>
         </figure>
         """
     end
+  end
+
+  attr :image, :map, required: true
+  attr :class, :string
+  attr :size, :atom, default: :thumb
+
+  defp featured_image(assigns) do
+    ~H"""
+    <img
+      src={ChiyaWeb.Helpers.image_url(assigns.image, assigns.size)}
+      class={assigns.class}
+      title={assigns.image.content}
+    />
+    """
   end
 
   defp gallery_name(note), do: "gallery-#{note.id}"

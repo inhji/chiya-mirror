@@ -55,6 +55,10 @@ defmodule Chiya.Notes.Note do
     ~p"/note/#{note.slug}"
   end
 
+  def note_path_admin(note) do
+    ~p"/admin/note/#{note.slug}"
+  end
+
   def note_url(note) do
     Phoenix.VerifiedRoutes.url(~p"/note/#{note.slug}")
   end

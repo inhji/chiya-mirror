@@ -18,6 +18,8 @@ defmodule Chiya.Site.Setting do
     belongs_to :micropub_channel, Chiya.Channels.Channel
     belongs_to :wiki_channel, Chiya.Channels.Channel
 
+    field :show_images_on_home, :boolean, default: true
+
     timestamps()
   end
 
@@ -34,8 +36,15 @@ defmodule Chiya.Site.Setting do
       :home_channel_id,
       :default_channel_id,
       :micropub_channel_id,
-      :wiki_channel_id
+      :wiki_channel_id,
+      :show_images_on_home
     ])
-    |> validate_required([:title, :subtitle, :theme, :user_agent])
+    |> validate_required([
+      :title,
+      :subtitle,
+      :theme,
+      :user_agent,
+      :show_images_on_home
+    ])
   end
 end
