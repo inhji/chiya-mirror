@@ -56,7 +56,7 @@ defmodule Chiya.Notes.Note do
   end
 
   def note_path_admin(note) do
-    ~p"/admin/note/#{note.slug}"
+    ~p"/admin/notes/#{note.slug}"
   end
 
   def note_url(note) do
