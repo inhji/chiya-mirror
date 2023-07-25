@@ -3,14 +3,12 @@ defmodule ChiyaWeb.NoteShowLive do
 
   alias Chiya.Notes
   alias Chiya.Notes.NoteImage
+  import Phoenix.HTML.Tag
 
   @accepted_extensions ~w(.jpg .jpeg .gif .png .webp)
 
   @impl true
   def render(assigns) do
-    channels = Enum.map_join(assigns.note.channels, ", ", fn c -> c.name end)
-    assigns = assign(assigns, :channels, channels)
-
     ~H"""
     <.header>
       <%= @note.name %>
@@ -43,7 +41,7 @@ defmodule ChiyaWeb.NoteShowLive do
       <:item title="Published at">
         <%= pretty_date(@note.published_at) %> <span>(<%= from_now(@note.published_at) %>)</span>
       </:item>
-      <:item title="Channels"><%= @channels %></:item>
+      <:item title="Channels"><%= note_channels(@note.channels) %></:item>
       <:item title="Kind"><%= @note.kind %></:item>
       <:item title="Url"><%= @note.url %></:item>
       <:item title="Tags"><%= note_tags(@note.tags) %></:item>
@@ -187,6 +185,20 @@ defmodule ChiyaWeb.NoteShowLive do
     {:noreply, assign(socket, :note, Notes.get_note_preloaded!(socket.assigns.note.id))}
   end
 
-  defp note_links(notes), do: Enum.map_join(notes, ", ", fn n -> n.name end)
-  defp note_tags(tags), do: Enum.map_join(tags, ", ", fn t -> t.name end)
+  defp note_links(notes), do: content_tag(:ul, do: Enum.map(notes, &note_link/1))
+
+  defp note_link(note) do
+    content_tag(:li, do: content_tag(:a, note.name, href: Chiya.Notes.Note.note_path_admin(note)))
+  end
+
+  defp note_tags(tags), do: content_tag(:ul, do: Enum.map(tags, &note_tag/1))
+
+  defp note_tag(tag),
+    do: content_tag(:li, do: content_tag(:a, tag.name, href: ~p"/tagged-with/#{tag.slug}"))
+
+  defp note_channels(channels), do: content_tag(:ul, do: Enum.map(channels, &note_channel/1))
+
+  defp note_channel(channel),
+    do:
+      content_tag(:li, do: content_tag(:a, channel.name, href: ~p"/admin/channels/#{channel.id}"))
 end
