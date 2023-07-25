@@ -123,6 +123,10 @@ defmodule ChiyaWeb.PublicComponents do
 
   attr :notes, :list, required: true
 
+  @doc """
+  Default note list that renders a list of rounded boxes, 
+  which show the note title and an excerpt of the content
+  """
   def note_list_headers(assigns) do
     ~H"""
     <section class="note-list default | mt-6 sm:w-auto flex flex-col gap-3">
@@ -158,9 +162,16 @@ defmodule ChiyaWeb.PublicComponents do
         <article class="mt-4 first:mt-0">
           <.featured_images note={note} />
 
-          <div class="prose prose-gruvbox mt-2">
+          <header class="mt-4 text-lg">
+            <%= if(note.kind == :bookmark) do %>
+            <strong><%= note.name %></strong>
+            <% end %>
+          </header>
+
+          <div class="prose prose-gruvbox mt-4">
             <%= raw(render(note.content)) %>
           </div>
+
           <footer class="mt-4">
             <time class="text-theme-base/75">
               <%= pretty_datetime(note.published_at) %>
