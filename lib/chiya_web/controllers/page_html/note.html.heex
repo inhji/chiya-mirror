@@ -16,6 +16,10 @@
     </section>
   <% end %>
 
+  <aside class="max-w-2xl mx-auto mt-8">
+    <.featured_images note={@note} />
+  </aside>
+
   <%= if has_outline?(@note) do %>
     <aside class="max-w-2xl mx-auto mt-8 prose prose-gruvbox">
       <div class="bg-theme-background1 rounded p-2">
