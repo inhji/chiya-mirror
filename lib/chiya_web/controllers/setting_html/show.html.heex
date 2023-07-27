@@ -23,18 +23,18 @@
   </.list>
 
   <.list>
-   <:item title="Default Channel">
-     <%= if @setting.default_channel, do: @setting.default_channel.name %>
-   </:item>
-   <:item title="Home Channel">
-     <%= if @setting.home_channel, do: @setting.home_channel.name %>
-   </:item>
-   <:item title="Micropub Channel">
-     <%= if @setting.micropub_channel, do: @setting.micropub_channel.name %>
-   </:item>
-   <:item title="Wiki Channel">
-     <%= if @setting.micropub_channel, do: @setting.wiki_channel.name %>
-   </:item>
+    <:item title="Default Channel">
+      <%= if @setting.default_channel, do: @setting.default_channel.name %>
+    </:item>
+    <:item title="Home Channel">
+      <%= if @setting.home_channel, do: @setting.home_channel.name %>
+    </:item>
+    <:item title="Micropub Channel">
+      <%= if @setting.micropub_channel, do: @setting.micropub_channel.name %>
+    </:item>
+    <:item title="Wiki Channel">
+      <%= if @setting.micropub_channel, do: @setting.wiki_channel.name %>
+    </:item>
   </.list>
 
   <.list>
@@ -42,5 +42,4 @@
       <%= if @setting.show_images_on_home, do: "✅", else: "❌" %>
     </:item>
   </.list>
-  
 <% end %>

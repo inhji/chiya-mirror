@@ -64,7 +64,6 @@
     </time>
     <%= if not Enum.empty?(@note.tags) do %>
       <.dot />
-      <span>Tags</span>
       <.tags note={@note} />
     <% end %>
     <%= if @note.kind != :post do %>

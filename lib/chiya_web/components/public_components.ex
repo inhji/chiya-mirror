@@ -42,9 +42,11 @@ defmodule ChiyaWeb.PublicComponents do
   @doc """
   Renders a middot as divider
   """
+  attr :class, :string, default: "text-theme-primary"
+
   def dot(assigns),
     do: ~H"""
-    <span class="text-theme-primary font-bold">·</span>
+    <span class={["font-bold", @class]}>·</span>
     """
 
   @doc """
@@ -75,6 +77,7 @@ defmodule ChiyaWeb.PublicComponents do
         <a href={~p"/tagged-with/#{tag.slug}"} class={["p-category", @class_tag]}>
           <%= tag.name %>
         </a>
+        <.dot class="text-theme-base/50 last:hidden" />
       <% end %>
     </span>
     """
@@ -146,9 +149,9 @@ defmodule ChiyaWeb.PublicComponents do
           </header>
 
           <%= if assigns.show_content do %>
-          <p class="text-theme-base">
-            <%= String.slice(note.content, 0..150) %>
-          </p>
+            <p class="text-theme-base">
+              <%= String.slice(note.content, 0..150) %>
+            </p>
           <% end %>
         </a>
       <% end %>
@@ -167,7 +170,7 @@ defmodule ChiyaWeb.PublicComponents do
 
           <header class="mt-4 text-lg">
             <%= if(note.kind == :bookmark) do %>
-            <strong><%= note.name %></strong>
+              <strong><%= note.name %></strong>
             <% end %>
           </header>
 
@@ -176,18 +179,14 @@ defmodule ChiyaWeb.PublicComponents do
           </div>
 
           <footer class="mt-4">
-            <time class="text-theme-base/75">
-              <%= pretty_datetime(note.published_at) %>
-            </time>
-            <.dot />
+            <a href={~p"/note/#{note.slug}"}>
+              <time class="text-theme-base/75">
+                <%= pretty_datetime(note.published_at) %>
+              </time>
+            </a>
             <%= if not Enum.empty?(note.tags) do %>
-              <.tags note={note} />
               <.dot />
-            <% end %>
-            <a href={~p"/note/#{note.slug}"} class="text-theme-base/75">Permalink</a>
-            <%= if not Enum.empty?(note.images) do %>
-              <.dot />
-              <.icon name="hero-photo" />
+              <.tags note={note} class_tag="text-theme-base/75" />
             <% end %>
           </footer>
         </article>
