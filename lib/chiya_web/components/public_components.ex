@@ -107,6 +107,7 @@ defmodule ChiyaWeb.PublicComponents do
 
   attr :layout, :atom, default: :list
   attr :notes, :list, required: true
+  attr :show_content, :boolean, default: true
 
   def note_list(assigns) do
     case assigns.layout do
@@ -133,9 +134,9 @@ defmodule ChiyaWeb.PublicComponents do
       <%= for note <- assigns.notes do %>
         <a
           href={~p"/note/#{note.slug}"}
-          class="rounded-lg px-6 pt-4 pb-5 border border-theme-background1 hover:bg-theme-background1 transition"
+          class="rounded-lg px-6 py-4 border border-theme-background1 hover:bg-theme-background1 transition"
         >
-          <header class="flex flex-row items-center">
+          <header class="flex flex-row items-center gap-1">
             <span class="text-theme-primary text-lg font-semibold leading-8 flex-1">
               <%= note.name %>
             </span>
@@ -144,9 +145,11 @@ defmodule ChiyaWeb.PublicComponents do
             </span>
           </header>
 
+          <%= if assigns.show_content do %>
           <p class="text-theme-base">
             <%= String.slice(note.content, 0..150) %>
           </p>
+          <% end %>
         </a>
       <% end %>
     </section>
