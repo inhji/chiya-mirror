@@ -3,25 +3,28 @@
     <.header>
       <%= @channel.name %>
     </.header>
+  </section>
 
-    <section class="prose prose-gruvbox mt-6">
+  <section class="mt-6 flex flex-col gap-3 max-w-2xl mx-auto">
+    <section class="prose prose-gruvbox md:prose-lg lg:prose-xl max-w-none">
       <%= Markdown.render(@channel.content) |> raw %>
     </section>
+
+    <aside class="flex flex-col md:flex-row gap-3 mt-6">
+      <div class="mt-6 flex flex-1 flex-col gap-1.5">
+        <h2 class="text-xl text-theme-base">Recently Updated</h2>
+
+        <.note_list notes={@notes_updated} layout={@channel.layout} show_content={false} />
+      </div>
+
+      <div class="mt-6 flex flex-1 flex-col gap-1.5">
+        <h2 class="text-xl text-theme-base">Recently Published</h2>
+
+        <.note_list notes={@notes_published} layout={@channel.layout} show_content={false} />
+      </div>
+    </aside>
   </section>
-
-  <section class="flex flex-col md:flex-row gap-3 mt-6 w-full sm:px-3">
-    <div class="w-full mt-6 sm:w-auto flex flex-1 flex-col gap-1.5">
-      <h2 class="text-xl text-theme-base">Recently Updated</h2>
-
-      <.note_list notes={@notes_updated} layout={@channel.layout} />
-    </div>
-
-    <div class="w-full mt-6 sm:w-auto flex flex-1 flex-col gap-1.5">
-      <h2 class="text-xl text-theme-base">Recently Published</h2>
-
-      <.note_list notes={@notes_published} layout={@channel.layout} />
-    </div>
-  </section>
+  
 <% else %>
   <section class="mx-auto max-w-2xl">
     <.header>
