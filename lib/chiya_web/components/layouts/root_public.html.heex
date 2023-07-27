@@ -35,10 +35,10 @@
     </style>
   </head>
   <body class="text-theme-base bg-theme-background | h-feed hfeed">
-    <aside class="block">
+    <aside class="block print:hidden">
       <%= raw(@settings.custom_html) %>
     </aside>
-    <header class="my-8 block px-3">
+    <header class="my-8 block px-3 print:hidden">
       <nav class="mx-auto max-w-2xl">
         <ul class="flex gap-3">
           <li>
@@ -75,7 +75,7 @@
       <%= @inner_content %>
     </main>
 
-    <footer class="max-w-full mt-8 p-8 text-theme-base/75 bg-theme-background1">
+    <footer class="max-w-full mt-8 p-8 text-theme-base/75 bg-theme-background1 print:hidden">
       <section class="max-w-2xl mx-auto flex gap-3">
         <div class="flex-1">
           <h2 class="font-bold tracking-wider">Info</h2>
@@ -90,7 +90,8 @@
           <h2 class="font-bold tracking-wider">Links</h2>
 
           <ul class="list-disc list-inside">
-            <li><a href="#"><del>Wiki</del></a></li>
+            <li><a href={~p"/wiki"}>Wiki</a></li>
+            <li><a href={~p"/about"}>About</a></li>
           </ul>
         </div>
 

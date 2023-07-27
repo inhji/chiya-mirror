@@ -4,7 +4,7 @@
   </.header>
 
   <%= if @current_user do %>
-    <section class="max-w-2xl mx-auto mt-8">
+    <section class="max-w-2xl mx-auto mt-8 print:hidden">
       <ul class="flex gap-3">
         <li>
           <a href={~p"/admin/notes/#{@note}/edit"} class="button">
@@ -21,7 +21,7 @@
   </aside>
 
   <%= if has_outline?(@note) do %>
-    <aside class="max-w-2xl mx-auto mt-8 prose prose-gruvbox">
+    <aside class="max-w-2xl mx-auto mt-8 prose prose-gruvbox print:hidden">
       <div class="bg-theme-background1 rounded p-2">
         <%= raw(render_outline(@note)) %>
       </div>
@@ -64,7 +64,6 @@
     </time>
     <%= if not Enum.empty?(@note.tags) do %>
       <.dot />
-      <span>Tags</span>
       <.tags note={@note} />
     <% end %>
     <%= if @note.kind != :post do %>
