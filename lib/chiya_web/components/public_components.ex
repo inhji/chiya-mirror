@@ -137,7 +137,7 @@ defmodule ChiyaWeb.PublicComponents do
       <%= for note <- assigns.notes do %>
         <a
           href={~p"/note/#{note.slug}"}
-          class="rounded-lg px-6 py-4 border border-theme-background1 hover:bg-theme-background1 transition"
+          class="block rounded-lg px-6 py-4 border border-theme-background1 hover:bg-theme-background1 transition"
         >
           <header class="flex flex-row items-center gap-1">
             <span class="text-theme-primary text-lg font-semibold leading-8 flex-1">
@@ -155,9 +155,9 @@ defmodule ChiyaWeb.PublicComponents do
           <% end %>
 
           <%= if not Enum.empty?(note.tags) do %>
-          <footer class="mt-2">
+          <aside class="mt-2">
             <.tags note={note} />
-          </footer>
+          </aside>
           <% end %>
         </a>
       <% end %>
