@@ -97,7 +97,7 @@ defmodule ChiyaWeb.PageController do
           [channel, notes]
       end
 
-    render(conn, :wiki,
+    render(conn, :bookmarks,
       channel: channel,
       notes: notes,
       page_title: "Bookmarks"
