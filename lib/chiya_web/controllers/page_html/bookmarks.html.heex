@@ -1,0 +1,27 @@
+<%= if @channel do %>
+  <section class="mx-auto max-w-2xl">
+    <.header>
+      <%= @channel.name %>
+    </.header>
+  </section>
+
+  <section class="mt-6 flex flex-col gap-3 max-w-2xl mx-auto">
+    <section class="prose prose-gruvbox md:prose-lg lg:prose-xl max-w-none">
+      <%= Markdown.render(@channel.content) |> raw %>
+    </section>
+
+    <section class="mt-6">
+      <.note_list notes={@notes} layout={@channel.layout} show_content={false} />
+    </section>
+  </section>
+<% else %>
+  <section class="mx-auto max-w-2xl">
+    <.header>
+      Wiki
+    </.header>
+
+    <section class="prose prose-gruvbox mt-6">
+      Wiki is not set up.
+    </section>
+  </section>
+<% end %>

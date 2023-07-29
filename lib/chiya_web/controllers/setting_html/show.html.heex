@@ -32,6 +32,9 @@
     <:item title="Micropub Channel">
       <%= if @setting.micropub_channel, do: @setting.micropub_channel.name %>
     </:item>
+    <:item title="Bookmark Channel">
+      <%= if @setting.bookmark_channel, do: @setting.bookmark_channel.name %>
+    </:item>
     <:item title="Wiki Channel">
       <%= if @setting.micropub_channel, do: @setting.wiki_channel.name %>
     </:item>

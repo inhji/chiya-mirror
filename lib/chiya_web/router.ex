@@ -138,6 +138,7 @@ defmodule ChiyaWeb.Router do
 
     get "/about", PageController, :about
     get "/wiki", PageController, :wiki
+    get "/bookmarks", PageController, :bookmarks
 
     get "/", PageController, :home
   end
