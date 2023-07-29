@@ -153,6 +153,12 @@ defmodule ChiyaWeb.PublicComponents do
               <%= String.slice(note.content, 0..150) %>
             </p>
           <% end %>
+
+          <%= not Enum.empty?(note.tags) do %>
+          <footer class="mt-2">
+            <.tags note={note}>
+          </footer>
+          <% end %>
         </a>
       <% end %>
     </section>
