@@ -86,4 +86,23 @@ defmodule ChiyaWeb.PageController do
       page_title: "Wiki"
     )
   end
+
+  def bookmarks(conn, _params) do
+    [channel, notes] =
+      case conn.assigns.settings.wiki_channel_id do
+        nil ->
+          [nil, nil]
+
+        id ->
+          channel = Chiya.Channels.get_channel!(id)
+          notes = Chiya.Notes.list_notes_by_channel_updated(channel, 5)
+          [channel, notes]
+      end
+
+    render(conn, :wiki,
+      channel: channel,
+      notes: notes,
+      page_title: "Bookmarks"
+    )
+  end
 end
