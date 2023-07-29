@@ -93,7 +93,7 @@ defmodule ChiyaWeb.PageController do
 
         id ->
           channel = Chiya.Channels.get_channel!(id)
-          notes = Chiya.Notes.list_notes_by_channel_updated(channel, 999)
+          notes = Chiya.Notes.list_notes_by_channel_published(channel, 999)
           [channel, notes]
       end
 
