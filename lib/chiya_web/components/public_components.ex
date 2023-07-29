@@ -156,7 +156,7 @@ defmodule ChiyaWeb.PublicComponents do
 
           <%= if not Enum.empty?(note.tags) do %>
           <footer class="mt-2">
-            <.tags note={note}>
+            <.tags note={note} />
           </footer>
           <% end %>
         </a>
