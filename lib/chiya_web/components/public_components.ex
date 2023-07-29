@@ -155,9 +155,9 @@ defmodule ChiyaWeb.PublicComponents do
           <% end %>
 
           <%= if not Enum.empty?(note.tags) do %>
-          <aside class="mt-2">
+          <span class="inline-block">
             <.tags note={note} />
-          </aside>
+          </span>
           <% end %>
         </a>
       <% end %>
