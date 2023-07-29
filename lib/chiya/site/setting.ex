@@ -17,6 +17,7 @@ defmodule Chiya.Site.Setting do
     belongs_to :default_channel, Chiya.Channels.Channel
     belongs_to :micropub_channel, Chiya.Channels.Channel
     belongs_to :wiki_channel, Chiya.Channels.Channel
+    belongs_to :bookmark_channel, Chiya.Channels.Channel
 
     field :show_images_on_home, :boolean, default: true
 
@@ -37,6 +38,7 @@ defmodule Chiya.Site.Setting do
       :default_channel_id,
       :micropub_channel_id,
       :wiki_channel_id,
+      :bookmark_channel_id,
       :show_images_on_home
     ])
     |> validate_required([
