@@ -87,7 +87,7 @@ defmodule ChiyaWeb.PageController do
 
   def bookmarks(conn, _params) do
     [channel, notes] =
-      case conn.assigns.settings.wiki_channel_id do
+      case conn.assigns.settings.bookmark_channel_id do
         nil ->
           [nil, nil]
 
