@@ -74,9 +74,9 @@ defmodule ChiyaWeb.PublicComponents do
     ~H"""
     <span class="inline-flex flex-row gap-1">
       <%= for tag <- @note.tags do %>
-        <a href={~p"/tagged-with/#{tag.slug}"} class={["p-category", @class_tag]}>
+        <span class={["p-category", @class_tag]}>
           <%= tag.name %>
-        </a>
+        </span>
         <.dot class="text-theme-base/50 last:hidden" />
       <% end %>
     </span>
