@@ -86,7 +86,7 @@ defmodule ChiyaWeb.PageController do
   end
 
   def bookmarks(conn, _params) do
-    [channel, notes] =
+    [channel, notes, tags] =
       case conn.assigns.settings.bookmark_channel_id do
         nil ->
           [nil, nil]
@@ -94,13 +94,29 @@ defmodule ChiyaWeb.PageController do
         id ->
           channel = Chiya.Channels.get_channel!(id)
           notes = Chiya.Notes.list_notes_by_channel_published(channel, 999)
-          [channel, notes]
+          tags = group_tags(notes)
+
+          [channel, notes, tags]
       end
 
     render(conn, :bookmarks,
       channel: channel,
       notes: notes,
+      tags: tags,
       page_title: "Bookmarks"
     )
+  end
+
+  defp group_tags(notes) do
+    Enum.reduce(notes, [], fn n, acc ->
+      acc ++ n.tags
+    end)
+    |> Enum.uniq_by(fn t -> t.id end)
+    |> Enum.sort_by(fn t -> t.slug end, :asc)
+    |> Enum.group_by(
+      fn n -> String.first(n.name) end,
+      fn n -> n end
+    )
+    |> IO.inspect()
   end
 end

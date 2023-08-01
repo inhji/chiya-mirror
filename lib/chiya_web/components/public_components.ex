@@ -69,14 +69,21 @@ defmodule ChiyaWeb.PublicComponents do
 
   attr :note, :map, required: true
   attr :class_tag, :string, default: ""
+  attr :linked, :boolean, default: true
 
   def tags(assigns) do
     ~H"""
     <span class="inline-flex flex-row gap-1">
       <%= for tag <- @note.tags do %>
+        <%= if assigns.linked do %>
+        <a class={["p-category", @class_tag]} href={~p"/tagged-with/#{tag.slug}"}>
+          <%= tag.name %>
+        </a>
+        <% else %>
         <span class={["p-category", @class_tag]}>
           <%= tag.name %>
         </span>
+        <% end %>
         <.dot class="text-theme-base/50 last:hidden" />
       <% end %>
     </span>
@@ -121,7 +128,7 @@ defmodule ChiyaWeb.PublicComponents do
         note_list_microblog(assigns)
 
       _ ->
-        note_list_headers(assigns)
+        note_list_default(assigns)
     end
   end
 
@@ -131,9 +138,9 @@ defmodule ChiyaWeb.PublicComponents do
   Default note list that renders a list of rounded boxes, 
   which show the note title and an excerpt of the content
   """
-  def note_list_headers(assigns) do
+  def note_list_default(assigns) do
     ~H"""
-    <section class="note-list default | mt-6 sm:w-auto flex flex-col gap-3">
+    <section class="note-list default | sm:w-auto flex flex-col gap-3">
       <%= for note <- assigns.notes do %>
         <a
           href={~p"/note/#{note.slug}"}
@@ -156,7 +163,7 @@ defmodule ChiyaWeb.PublicComponents do
 
           <%= if not Enum.empty?(note.tags) do %>
           <span class="inline-block">
-            <.tags note={note} />
+            <.tags note={note} linked={false} />
           </span>
           <% end %>
         </a>

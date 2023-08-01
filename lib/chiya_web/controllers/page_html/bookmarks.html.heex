@@ -5,13 +5,24 @@
     </.header>
   </section>
 
-  <section class="mt-6 flex flex-col gap-3 max-w-2xl mx-auto">
-    <section class="prose prose-gruvbox md:prose-lg lg:prose-xl max-w-none">
-      <%= Markdown.render(@channel.content) |> raw %>
+  <section class="mt-6 flex flex-row gap-3 max-w-4xl mx-auto">
+    <section>
+      <.note_list notes={@notes} layout={@channel.layout} show_content={false} />
     </section>
 
-    <section class="mt-6">
-      <.note_list notes={@notes} layout={@channel.layout} show_content={false} />
+    <section>
+      <ul>
+      <%= for {letter, tag_group} <- @tags do %>
+        <li class="mb-2">
+          <span class="capitalize text-theme-primary border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2"><%= letter %></span>
+          
+          <%= for tag <- tag_group do %>
+            <a href={~p"/tagged-with/#{tag.slug}"} class="border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2 hover:bg-theme-background1 transition"><%= tag.name %></a>
+          <% end %>
+          
+        </li>
+      <% end %>
+      </ul>
     </section>
   </section>
 <% else %>
