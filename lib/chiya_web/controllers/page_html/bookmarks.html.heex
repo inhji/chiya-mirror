@@ -12,16 +12,22 @@
 
     <section>
       <ul>
-      <%= for {letter, tag_group} <- @tags do %>
-        <li class="mb-2">
-          <span class="capitalize text-theme-primary border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2"><%= letter %></span>
-          
-          <%= for tag <- tag_group do %>
-            <a href={~p"/tagged-with/#{tag.slug}"} class="border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2 hover:bg-theme-background1 transition"><%= tag.name %></a>
-          <% end %>
-          
-        </li>
-      <% end %>
+        <%= for {letter, tag_group} <- @tags do %>
+          <li class="mb-2">
+            <span class="capitalize text-theme-primary border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2">
+              <%= letter %>
+            </span>
+
+            <%= for tag <- tag_group do %>
+              <a
+                href={~p"/tagged-with/#{tag.slug}"}
+                class="border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2 hover:bg-theme-background1 transition"
+              >
+                <%= tag.name %>
+              </a>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </section>
   </section>
