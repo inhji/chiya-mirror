@@ -5,23 +5,29 @@
     </.header>
   </section>
 
-  <section class="mt-6 flex flex-row gap-3 max-w-4xl mx-auto">
-    <section>
+  <section class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3 max-w-4xl mx-auto">
+    <section class="col-span-1 md:col-span-2">
       <.note_list notes={@notes} layout={@channel.layout} show_content={false} />
     </section>
 
     <section>
       <ul>
-      <%= for {letter, tag_group} <- @tags do %>
-        <li class="mb-2">
-          <span class="capitalize text-theme-primary border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2"><%= letter %></span>
-          
-          <%= for tag <- tag_group do %>
-            <a href={~p"/tagged-with/#{tag.slug}"} class="border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2 hover:bg-theme-background1 transition"><%= tag.name %></a>
-          <% end %>
-          
-        </li>
-      <% end %>
+        <%= for {letter, tag_group} <- @tags do %>
+          <li class="mb-2">
+            <span class="capitalize text-theme-primary border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2">
+              <%= letter %>
+            </span>
+
+            <%= for tag <- tag_group do %>
+              <a
+                href={~p"/tagged-with/#{tag.slug}"}
+                class="border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2 hover:bg-theme-background1 transition"
+              >
+                <%= tag.name %>
+              </a>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </section>
   </section>

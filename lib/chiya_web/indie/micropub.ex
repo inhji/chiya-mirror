@@ -6,9 +6,8 @@ defmodule ChiyaWeb.Indie.Micropub do
 
   def create_note(type, properties) do
     settings = Chiya.Site.get_settings()
-    channel_id = settings.micropub_channel_id
 
-    with {:ok, note_attrs} <- get_create_attrs(type, properties, channel_id),
+    with {:ok, note_attrs} <- get_create_attrs(type, properties, settings),
          {:ok, note} <- Chiya.Notes.create_note(note_attrs) do
       create_photos(note, properties)
 
@@ -79,18 +78,13 @@ defmodule ChiyaWeb.Indie.Micropub do
     )
   end
 
-  defp get_create_attrs(type, properties, channel_id) do
+  defp get_create_attrs(type, properties, settings) do
     {:ok, post_type} = Props.get_post_type(properties)
     Logger.info("Creating a #{type}/#{post_type}..")
 
-    channel =
-      if channel_id,
-        do: Chiya.Channels.get_channel(channel_id),
-        else: nil
-
     case post_type do
-      :note -> get_note_attrs(properties, channel)
-      :bookmark -> get_bookmark_attrs(properties, channel)
+      :note -> get_note_attrs(properties, settings.micropub_channel_id)
+      :bookmark -> get_bookmark_attrs(properties, settings.bookmark_channel_id)
       _ -> {:error, :insufficient_scope}
     end
   end
@@ -163,22 +157,22 @@ defmodule ChiyaWeb.Indie.Micropub do
     end
   end
 
-  defp get_note_attrs(properties, channel) do
+  defp get_note_attrs(properties, channel_id) do
     attrs =
       properties
       |> get_base_attrs()
-      |> get_channel(channel)
+      |> get_channel(channel_id)
 
     {:ok, attrs}
   end
 
-  defp get_bookmark_attrs(properties, channel) do
+  defp get_bookmark_attrs(properties, channel_id) do
     url = Props.get_bookmarked_url(properties)
 
     attrs =
       properties
       |> get_base_attrs()
-      |> get_channel(channel)
+      |> get_channel(channel_id)
       |> Map.put_new(:url, url)
       |> Map.put_new(:kind, :bookmark)
 
@@ -205,9 +199,9 @@ defmodule ChiyaWeb.Indie.Micropub do
     attrs
   end
 
-  def get_channel(attrs, channel) do
-    if channel,
-      do: Map.put(attrs, :channels, [channel]),
+  def get_channel(attrs, channel_id) do
+    if channel_id,
+      do: Map.put(attrs, :channels, [Chiya.Channels.get_channel(channel_id)]),
       else: attrs
   end
 
