@@ -70,7 +70,10 @@ defmodule Chiya.Tags.TagUpdater do
   end
 
   defp add_tags(note, tags) do
-    Enum.each(tags, &add_tag(note, &1))
+    tags
+    |> Enum.uniq()
+    |> Enum.each(&add_tag(note, &1))
+
     note
   end
 
@@ -102,7 +105,10 @@ defmodule Chiya.Tags.TagUpdater do
   end
 
   defp remove_tags(note, tags) do
-    Enum.each(tags, &remove_tag(note, &1))
+    tags
+    |> Enum.uniq()
+    |> Enum.each(&remove_tag(note, &1))
+
     note
   end
 

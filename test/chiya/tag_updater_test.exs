@@ -53,5 +53,14 @@ defmodule Chiya.TagUpdaterTest do
       tag = List.first(note.tags)
       assert tag.name == "foo"
     end
+
+    test "with the same tag twice only adds unique tags" do
+      note = note_fixture()
+      assert note.tags == []
+
+      TagUpdater.update_tags(note, "foo,foo")
+      note = Chiya.Notes.get_note_preloaded!(note.id)
+      assert Enum.count(note.tags) == 1
+    end
   end
 end
