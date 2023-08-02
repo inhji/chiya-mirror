@@ -11,8 +11,8 @@ defmodule ChiyaWeb.NoteController do
 
     conn
     |> with_channels()
-    |> render(:index, 
-      notes: notes, 
+    |> render(:index,
+      notes: notes,
       page_title: "Notes"
     )
   end
@@ -22,8 +22,8 @@ defmodule ChiyaWeb.NoteController do
 
     conn
     |> with_channels()
-    |> render(:index, 
-      notes: notes, 
+    |> render(:index,
+      notes: notes,
       page_title: "Notes"
     )
   end

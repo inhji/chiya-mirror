@@ -76,13 +76,13 @@ defmodule ChiyaWeb.PublicComponents do
     <span class="inline-flex flex-row gap-1">
       <%= for tag <- @note.tags do %>
         <%= if assigns.linked do %>
-        <a class={["p-category", @class_tag]} href={~p"/tagged-with/#{tag.slug}"}>
-          <%= tag.name %>
-        </a>
+          <a class={["p-category", @class_tag]} href={~p"/tagged-with/#{tag.slug}"}>
+            <%= tag.name %>
+          </a>
         <% else %>
-        <span class={["p-category", @class_tag]}>
-          <%= tag.name %>
-        </span>
+          <span class={["p-category", @class_tag]}>
+            <%= tag.name %>
+          </span>
         <% end %>
         <.dot class="text-theme-base/50 last:hidden" />
       <% end %>
@@ -162,9 +162,9 @@ defmodule ChiyaWeb.PublicComponents do
           <% end %>
 
           <%= if not Enum.empty?(note.tags) do %>
-          <span class="inline-block">
-            <.tags note={note} linked={false} />
-          </span>
+            <span class="inline-block">
+              <.tags note={note} linked={false} />
+            </span>
           <% end %>
         </a>
       <% end %>
