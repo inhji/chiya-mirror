@@ -1,7 +1,8 @@
 <%= if @channel do %>
   <section class="mx-auto max-w-2xl">
     <.header>
-      <%= @channel.name %>
+      Bookmarks
+      <:subtitle><%= Enum.count(@notes) in total %></:subtitle>
     </.header>
   </section>
 
@@ -23,7 +24,7 @@
                 href={~p"/tagged-with/#{tag.slug}"}
                 class="border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2 hover:bg-theme-background1 transition"
               >
-                <%= tag.name %>
+                <%= tag.name %> <%= Enum.count(tag.notes) %>
               </a>
             <% end %>
           </li>
