@@ -18,6 +18,8 @@ defmodule ChiyaWeb.CoreComponents do
   alias Phoenix.LiveView.JS
   import ChiyaWeb.Gettext
 
+  import ChiyaWeb.DarkModeToggle
+
   def favicon(assigns) do
     ~H"""
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
@@ -27,17 +29,6 @@ defmodule ChiyaWeb.CoreComponents do
     <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5" />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
-    """
-  end
-
-  attr :class, :string, default: nil
-
-  def darkmode_toggle(assigns) do
-    ~H"""
-    <.link href="#" id="dark-mode-toggle" class={["text-sm leading-6", @class]}>
-      <span class="hidden dark:inline">🌙</span>
-      <span class="inline dark:hidden">☀️</span>
-    </.link>
     """
   end
 

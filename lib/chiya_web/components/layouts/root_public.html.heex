@@ -38,42 +38,9 @@
     <aside class="block print:hidden">
       <%= raw(@settings.custom_html) %>
     </aside>
+    
     <header class="my-8 block px-3 print:hidden">
-      <nav class="mx-auto max-w-2xl">
-        <ul class="flex gap-3">
-          <li>
-            <a href="/" class="button">
-              <.icon name="hero-home" />
-            </a>
-          </li>
-          <li>
-            <a href="/about" class="button">
-              <.icon name="hero-face-smile" /> About
-            </a>
-          </li>
-          <li>
-            <a href="/wiki" class="button">
-              <.icon name="hero-paper-clip" /> Wiki
-            </a>
-          </li>
-          <li>
-            <a href="/bookmarks" class="button">
-              <.icon name="hero-bookmark" /> Bookmarks
-            </a>
-          </li>
-          <li class="flex-1"></li>
-          <%= if @current_user do %>
-            <li>
-              <a href="/admin" class="button">
-                <.icon name="hero-beaker" />
-              </a>
-            </li>
-          <% end %>
-          <li>
-            <.darkmode_toggle class="button" />
-          </li>
-        </ul>
-      </nav>
+      <.site_header user={@current_user} />
     </header>
 
     <main class="mx-3 md:mx-0">
