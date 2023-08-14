@@ -83,6 +83,13 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
     with :ok <- Micropub.verify_token(access_token),
          {:ok, slug} <- Chiya.Notes.Note.note_slug(url),
          note <- Chiya.Notes.get_public_note_by_slug_preloaded!(slug) do
+      properties = %{
+        "name" => [note.name],
+        "content" => [note.content],
+        "category" => Enum.map(note.tags, fn tag -> tag.name end),
+        "published" => note.published_at
+      }
+
       filtered_note =
         Map.filter(note, fn {key, _val} ->
           Enum.member?(filter_properties, to_string(key))
