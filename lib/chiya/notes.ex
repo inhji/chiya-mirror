@@ -12,7 +12,7 @@ defmodule Chiya.Notes do
     :images,
     :links_from,
     :links_to,
-    :tags,
+    tags: [:notes],
     comments:
       from(c in NoteComment,
         order_by: [

@@ -25,6 +25,14 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
     %{
       "type" => "bookmark",
       "name" => "Bookmark"
+    },
+    %{
+      "type" => "like",
+      "name" => "Like"
+    },
+    %{
+      "type" => "repost",
+      "name" => "Repost"
     }
   ]
 
@@ -91,7 +99,7 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
       }
 
       filtered_note =
-        Map.filter(note, fn {key, _val} ->
+        Map.filter(properties, fn {key, _val} ->
           Enum.member?(filter_properties, to_string(key))
         end)
 

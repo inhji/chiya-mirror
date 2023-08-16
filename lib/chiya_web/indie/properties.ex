@@ -1,17 +1,14 @@
 defmodule ChiyaWeb.Indie.Properties do
   def get_post_type(properties) do
     cond do
-      Map.has_key?(properties, "like-of") ->
-        {:ok, :like}
-
-      Map.has_key?(properties, "bookmark-of") ->
-        {:ok, :bookmark}
-
-      Map.has_key?(properties, "content") ->
-        {:ok, :note}
-
-      true ->
-        {:error, :unsupported_posttype}
+      Map.has_key?(properties, "like-of") -> {:ok, :like}
+      Map.has_key?(properties, "bookmark-of") -> {:ok, :bookmark}
+      Map.has_key?(properties, "content") -> {:ok, :note}
+      Map.has_key?(properties, "repost-of") -> {:ok, :repost}
+      Map.has_key?(properties, "read-of") -> {:ok, :read}
+      Map.has_key?(properties, "watch-of") -> {:ok, :watch}
+      Map.has_key?(properties, "listen-of") -> {:ok, :listen}
+      true -> {:error, :unsupported_posttype}
     end
   end
 
