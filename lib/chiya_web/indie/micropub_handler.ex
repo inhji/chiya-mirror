@@ -25,6 +25,14 @@ defmodule ChiyaWeb.Indie.MicropubHandler do
     %{
       "type" => "bookmark",
       "name" => "Bookmark"
+    },
+    %{
+      "type" => "like",
+      "name" => "Like"
+    },
+    %{
+      "type" => "repost",
+      "name" => "Repost"
     }
   ]
 
