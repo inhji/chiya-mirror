@@ -33,11 +33,22 @@ defmodule ChiyaWeb.MicropubTest do
       assert note.content == "replaced content"
     end
 
+    test "updates a note by replacing name" do
+      note = note_fixture()
+
+      assert {:ok, %Note{} = note} =
+               Micropub.update_note(note, %{"name" => ["replaced name"]}, %{}, %{})
+
+      assert note.name == "replaced name"
+    end
+
     test "updates a note by adding categories" do
       note = note_fixture()
 
       assert {:ok, %Note{} = note} =
-               Micropub.update_note(note, %{}, %{"category" => ["foo", "bar"]}, %{})
+               Micropub.update_note(note, %{"category" => ["foo", "bar"]}, %{}, %{})
+
+               IO.inspect(note)
 
       assert Enum.empty?(note.tags) == false
     end

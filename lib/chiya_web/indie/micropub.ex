@@ -27,6 +27,7 @@ defmodule ChiyaWeb.Indie.Micropub do
     note = Chiya.Notes.get_note_by_slug_preloaded(slug)
 
     if is_nil(note) do
+      Logger.error("Note with #{note_url} was not found.")
       {:error, :invalid_request}
     else
       {:ok, note}
