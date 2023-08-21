@@ -41,23 +41,22 @@ defmodule ChiyaWeb.Indie.Micropub do
   def find_note(note_url) do
     Logger.info("Looking up note by url #{note_url}")
 
-    slug = Chiya.Notes.Note.note_slug(note_url)
+    case Chiya.Notes.Note.note_slug(note_url) do
+      {:ok, slug} ->
+        Logger.info("Found note with slug #{slug}, fetching note.")
+        note = Chiya.Notes.get_note_by_slug_preloaded(slug)
 
+        if is_nil(note) do
+          Logger.error("Note with #{note_url} was not found.")
+          {:error, :invalid_request}
+        else
+          Logger.info("Note found!")
+          {:ok, note}
+        end
 
-    if is_nil(slug) do
-      Logger.error("Note with #{note_url} was not found.")
-      {:error, :invalid_request}
-    else
-      Logger.info("Found note with slug #{slug}, fetching note.")
-      note = Chiya.Notes.get_note_by_slug_preloaded(slug)
-
-      if is_nil(note) do
+      _ ->
         Logger.error("Note with #{note_url} was not found.")
         {:error, :invalid_request}
-      else
-        Logger.info("Note found!")
-        {:ok, note}
-      end
     end
   end
 
