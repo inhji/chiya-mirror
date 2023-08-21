@@ -1,5 +1,5 @@
 defmodule ChiyaWeb.Indie.MicropubHandler do
-  @behaviour PlugMicropub.HandlerBehaviour
+  @behaviour ChiyaWeb.Plugs.PlugMicropub.HandlerBehaviour
   require Logger
 
   use Phoenix.VerifiedRoutes,
