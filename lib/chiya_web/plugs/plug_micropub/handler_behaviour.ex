@@ -36,10 +36,6 @@ defmodule ChiyaWeb.Plugs.PlugMicropub.HandlerBehaviour do
               {:ok, map}
               | handler_error
 
-  @callback handle_config_query(access_token) ::
-              {:ok, map}
-              | handler_error
-
   @callback handle_channel_query(access_token) ::
               {:ok, map}
               | handler_error

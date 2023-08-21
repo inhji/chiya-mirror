@@ -6,6 +6,7 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
 
   """
   use Plug.Router
+  require Logger
 
   plug :match
   plug :dispatch
@@ -14,6 +15,9 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
 
   @doc false
   def init(opts) do
+    logging =
+      Keyword.get(opts, :logging) || false
+
     handler =
       Keyword.get(opts, :handler) || raise ArgumentError, "Micropub Plug requires :handler option"
 
@@ -21,7 +25,7 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
       Keyword.get(opts, :json_encoder) ||
         raise ArgumentError, "Micropub Plug requires :json_encoder option"
 
-    [handler: handler, json_encoder: json_encoder]
+    [handler: handler, json_encoder: json_encoder, logging: logging]
   end
 
   @doc false
@@ -35,6 +39,8 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
   post "/" do
     with {:ok, access_token, conn} <- get_access_token(conn),
          {:ok, action, conn} <- get_action(conn) do
+      Logger.info("Micropub: Handling action [#{action}]")
+      Logger.info("Micropub: Request Body #{inspect(conn.body_params)}")
       handle_action(action, access_token, conn)
     else
       error -> send_error(conn, error)
@@ -44,6 +50,7 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
   get "/" do
     with {:ok, access_token, conn} <- get_access_token(conn),
          {:ok, query} <- get_query(conn) do
+      Logger.info("Micropub: Handling query [#{query}]")
       handle_query(query, access_token, conn)
     else
       error -> send_error(conn, error)
@@ -52,6 +59,8 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
 
   post "/media" do
     handler = conn.private[:plug_micropub][:handler]
+
+    Logger.info("Micropub: Handling media")
 
     with {:ok, access_token, conn} <- get_access_token(conn),
          {:ok, file} <- get_file(conn),
@@ -65,6 +74,7 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
   end
 
   match _ do
+    Logger.warning("Micropub: Unsupported url")
     send_error(conn, {:error, :invalid_request})
   end
 
@@ -95,6 +105,8 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
     code = get_error_code(body.error)
     body = json_encoder.encode!(body)
 
+    Logger.warning("Micropub: Sending error with code #{code}: #{inspect(body)}")
+
     conn
     |> put_resp_content_type("application/json")
     |> send_resp(code, body)
@@ -122,7 +134,7 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
 
   defp get_query(conn) do
     case Map.fetch(conn.query_params, "q") do
-      {:ok, query} when query in ["config", "source", "syndicate-to"] ->
+      {:ok, query} when query in ["config", "source", "syndicate-to", "channel", "category"] ->
         {:ok, String.to_existing_atom(query)}
 
       _ ->
@@ -156,6 +168,8 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
   end
 
   defp handle_action(:create, access_token, conn) do
+    Logger.info("Micropub: Handle create")
+
     content_type = conn |> get_req_header("content-type") |> List.first()
     handler = conn.private[:plug_micropub][:handler]
 
@@ -165,53 +179,113 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
       |> put_resp_header("location", url)
       |> send_resp(code, "")
     else
-      error -> send_error(conn, error)
+      error ->
+        Logger.warning("Micropub: Error while handling create: #{inspect(error)}")
+        send_error(conn, error)
     end
   end
 
   defp handle_action(:update, access_token, conn) do
+    Logger.info("Micropub: Handle update")
+
     content_type = conn |> get_req_header("content-type") |> List.first()
 
     with "application/json" <- content_type,
          {url, properties} when is_binary(url) <- Map.pop(conn.body_params, "url"),
-         {:ok, replace, add, delete} <- parse_update_properties(properties),
-         do: do_update(conn, access_token, url, replace, add, delete),
-         else: (_ -> send_error(conn, {:error, :invalid_request}))
+         {:ok, replace, add, delete} <- parse_update_properties(properties) do
+      do_update(conn, access_token, url, replace, add, delete)
+    else
+      error ->
+        Logger.warning("Micropub: Error while handling update: #{inspect(error)}")
+        send_error(conn, {:error, :invalid_request})
+    end
   end
 
   defp handle_action(:delete, access_token, conn) do
+    Logger.info("Micropub: Handle delete")
+
     with {:ok, url} <- Map.fetch(conn.body_params, "url"),
          do: do_delete(conn, access_token, url),
          else: (_ -> send_error(conn, {:error, :invalid_request}))
   end
 
   defp handle_action(:undelete, access_token, conn) do
+    Logger.info("Micropub: Handle undelete")
+
     with {:ok, url} <- Map.fetch(conn.body_params, "url"),
          do: do_undelete(conn, access_token, url),
          else: (_ -> send_error(conn, {:error, :invalid_request}))
   end
 
   defp handle_query(:config, access_token, conn) do
+    Logger.info("Micropub: Handle config query")
+
     handler = conn.private[:plug_micropub][:handler]
 
     case handler.handle_config_query(access_token) do
-      {:ok, content} -> send_content(conn, content)
-      error -> send_error(conn, error)
+      {:ok, content} ->
+        send_content(conn, content)
+
+      error ->
+        Logger.warning("Micropub: Error while handling config: #{inspect(error)}")
+        send_error(conn, error)
+    end
+  end
+
+  defp handle_query(:category, access_token, conn) do
+    Logger.info("Micropub: Handle category query")
+
+    handler = conn.private[:plug_micropub][:handler]
+
+    case handler.handle_category_query(access_token) do
+      {:ok, content} ->
+        send_content(conn, content)
+
+      error ->
+        Logger.warning("Micropub: Error while handling category: #{inspect(error)}")
+        send_error(conn, error)
     end
   end
 
   defp handle_query(:source, access_token, conn) do
-    with {:ok, url} <- Map.fetch(conn.query_params, "url"),
-         do: do_source_query(conn, access_token, url),
-         else: (_ -> send_error(conn, {:error, :invalid_request}))
+    Logger.info("Micropub: Handle source query")
+
+    with {:ok, url} <- Map.fetch(conn.query_params, "url") do
+      do_source_query(conn, access_token, url)
+    else
+      error ->
+        Logger.warning("Micropub: Error while handling source: #{inspect(error)}")
+        send_error(conn, {:error, :invalid_request})
+    end
   end
 
   defp handle_query(:"syndicate-to", access_token, conn) do
+    Logger.info("Micropub: Handle syndicate-to query")
+
     handler = conn.private[:plug_micropub][:handler]
 
     case handler.handle_syndicate_to_query(access_token) do
-      {:ok, content} -> send_content(conn, content)
-      error -> send_error(conn, error)
+      {:ok, content} ->
+        send_content(conn, content)
+
+      error ->
+        Logger.warning("Micropub: Error while handling syndicate-to: #{inspect(error)}")
+        send_error(conn, error)
+    end
+  end
+
+  defp handle_query(:channel, access_token, conn) do
+    Logger.info("Micropub: Handle channel query")
+
+    handler = conn.private[:plug_micropub][:handler]
+
+    case handler.handle_channel_query(access_token) do
+      {:ok, content} ->
+        send_content(conn, content)
+
+      error ->
+        Logger.warning("Micropub: Error while handling channel: #{inspect(error)}")
+        send_error(conn, error)
     end
   end
 
@@ -301,6 +375,7 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
          {:ok, properties} when is_map(properties) <- Map.fetch(params, "properties") do
       properties = Map.new(properties)
 
+      Logger.info("Micropub: Parsed properties #{inspect(properties)}")
       {:ok, type, properties}
     else
       _ -> {:error, :invalid_request}
@@ -314,6 +389,7 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
         |> Enum.map(fn {k, v} -> {k, List.wrap(v)} end)
         |> Map.new()
 
+      Logger.info("Micropub: Parsed properties #{inspect(properties)}")
       {:ok, type, properties}
     else
       _ -> {:error, :invalid_request}
