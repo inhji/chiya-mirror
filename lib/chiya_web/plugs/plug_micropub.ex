@@ -171,6 +171,7 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
     Logger.info("Micropub: Handle create")
 
     content_type = conn |> get_req_header("content-type") |> List.first()
+    Logger.info("Micropub: Content type #{content_type}")
     handler = conn.private[:plug_micropub][:handler]
 
     with {:ok, type, properties} <- parse_create_body(content_type, conn.body_params),
@@ -189,6 +190,7 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
     Logger.info("Micropub: Handle update")
 
     content_type = conn |> get_req_header("content-type") |> List.first()
+    Logger.info("Micropub: Content type #{content_type}")
 
     with "application/json" <- content_type,
          {url, properties} when is_binary(url) <- Map.pop(conn.body_params, "url"),
@@ -298,14 +300,22 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
           Enum.all?(prop, &is_binary/1)
 
         {_k, prop} when is_map(prop) ->
+          Logger.debug("Micropub: Parsing Add/Replace maps")
+
           Enum.all?(prop, fn
-            {_k, v} when is_list(v) -> true
-            _ -> false
+            {_k, v} when is_list(v) ->
+              true
+
+            _ ->
+              Logger.warning("Micropub: Property value of #{prop} is not a list")
+              false
           end)
 
         _ ->
           false
       end)
+
+    Logger.info("Valid check successful: #{valid?}")
 
     if valid? do
       replace = Map.get(properties, "replace", %{})
