@@ -99,6 +99,8 @@ defmodule ChiyaWeb.Indie.Micropub do
       |> Enum.into(replace_attrs)
       |> Enum.into(add_attrs)
 
+    Logger.info("Update attributes: #{inspect(attrs)}")
+
     {:ok, attrs}
   end
 
@@ -164,6 +166,8 @@ defmodule ChiyaWeb.Indie.Micropub do
       |> get_base_attrs()
       |> get_channel(channel_id)
 
+    Logger.info("Note attributes: #{inspect(attrs)}")
+
     {:ok, attrs}
   end
 
@@ -176,6 +180,8 @@ defmodule ChiyaWeb.Indie.Micropub do
       |> get_channel(channel_id)
       |> Map.put_new(:url, url)
       |> Map.put_new(:kind, :bookmark)
+
+    Logger.info("Bookmark attributes: #{inspect(attrs)}")
 
     {:ok, attrs}
   end
@@ -196,6 +202,8 @@ defmodule ChiyaWeb.Indie.Micropub do
       tags_string: tags,
       published_at: published_at
     }
+
+    Logger.info("Base attributes: #{inspect(attrs)}")
 
     attrs
   end
