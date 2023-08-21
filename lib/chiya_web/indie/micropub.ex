@@ -22,18 +22,6 @@ defmodule ChiyaWeb.Indie.Micropub do
     end
   end
 
-  def find_note(note_url) do
-    slug = Chiya.Notes.Note.note_slug(note_url)
-    note = Chiya.Notes.get_note_by_slug_preloaded(slug)
-
-    if is_nil(note) do
-      Logger.error("Note with #{note_url} was not found.")
-      {:error, :invalid_request}
-    else
-      {:ok, note}
-    end
-  end
-
   def update_note(note, replace, add, delete) do
     with {:ok, note_attrs} <- get_update_attrs(replace, add, delete),
          {:ok, note} <- Chiya.Notes.update_note(note, note_attrs) do
@@ -45,6 +33,18 @@ defmodule ChiyaWeb.Indie.Micropub do
         Logger.error(inspect(error))
 
         {:error, :invalid_request}
+    end
+  end
+
+  def find_note(note_url) do
+    slug = Chiya.Notes.Note.note_slug(note_url)
+    note = Chiya.Notes.get_note_by_slug_preloaded(slug)
+
+    if is_nil(note) do
+      Logger.error("Note with #{note_url} was not found.")
+      {:error, :invalid_request}
+    else
+      {:ok, note}
     end
   end
 

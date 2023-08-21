@@ -14,9 +14,8 @@ config :chiya, ChiyaWeb.Endpoint, cache_static_manifest: "priv/static/cache_mani
 # Configures Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: Chiya.Finch
 
-# Do not print debug messages in production
-# config :logger, level: :debug
-config :logger, :default_handler, level: :info
+# Do print debug messages in production
+config :logger, :default_handler, level: :debug
 
 config :cors_plug,
   origin: ["app://obsidian.md"],
