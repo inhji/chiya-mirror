@@ -104,7 +104,7 @@ defmodule ChiyaWeb.PublicComponents do
   def header(assigns) do
     ~H"""
     <header class={[@class]}>
-      <h1 class={["text-3xl leading-10 text-theme-base1", @class_title]}>
+      <h1 class={["text-3xl leading-10 font-bold text-theme-base1", @class_title]}>
         <%= render_slot(@inner_block) %>
       </h1>
       <p
