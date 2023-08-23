@@ -336,7 +336,7 @@ defmodule ChiyaWeb.PublicComponents do
         assigns = assign(assigns, :image, List.first(images))
 
         ~H"""
-        <figure>
+        <figure class="images-1">
           <.featured_image image={assigns.image} size={:full} class="rounded-lg" />
         </figure>
         """
@@ -348,7 +348,7 @@ defmodule ChiyaWeb.PublicComponents do
           |> assign(:second, Enum.at(images, 1))
 
         ~H"""
-        <figure class="flex gap-1">
+        <figure class="images-2 | flex gap-1">
           <.featured_image image={assigns.first} size={:thumb} class="rounded-l flex-1 w-full" />
           <.featured_image image={assigns.second} size={:thumb} class="rounded-r flex-1 w-full" />
         </figure>
@@ -362,7 +362,7 @@ defmodule ChiyaWeb.PublicComponents do
           |> assign(:third, Enum.at(images, 2))
 
         ~H"""
-        <figure class="flex gap-1">
+        <figure class="images-3 | flex gap-1">
           <.featured_image image={assigns.first} size={:thumb} class="flex-1 w-full rounded-l" />
           <.featured_image image={assigns.second} size={:thumb} class="flex-1 w-full" />
           <.featured_image image={assigns.third} size={:thumb} class="flex-1 w-full rounded-r" />
@@ -378,7 +378,7 @@ defmodule ChiyaWeb.PublicComponents do
           |> assign(:fourth, Enum.at(images, 3))
 
         ~H"""
-        <figure class="flex gap-1 flex-col">
+        <figure class="images-4 | flex gap-1 flex-col">
           <section class="flex gap-1">
             <.featured_image image={assigns.first} size={:thumb} class="flex-1 w-full rounded-tl-lg" />
             <.featured_image image={assigns.second} size={:thumb} class="flex-1 w-full rounded-tr-lg" />
