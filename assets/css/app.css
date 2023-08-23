@@ -9,7 +9,7 @@
 
 @layer base {
   :root {
-    --font-features: "case", "cpsp", "frac", "salt", "ss02", "ccmp";
+    --font-features: "case", "cpsp", "frac", "salt", "ccmp", "cv01", "cv02", "cv03", "cv04", "cv05", "cv06", "cv07", "cv09", "cv10", "cv11";
   }
 
   :root {
