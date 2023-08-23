@@ -349,8 +349,8 @@ defmodule ChiyaWeb.PublicComponents do
 
         ~H"""
         <figure class="images-2 | flex gap-1">
-          <.featured_image image={assigns.first} size={:thumb} class="rounded-l flex-1 w-full" />
-          <.featured_image image={assigns.second} size={:thumb} class="rounded-r flex-1 w-full" />
+          <.featured_image image={assigns.first} size={:full} class="rounded-l flex-1 w-full" />
+          <.featured_image image={assigns.second} size={:full} class="rounded-r flex-1 w-full" />
         </figure>
         """
 
