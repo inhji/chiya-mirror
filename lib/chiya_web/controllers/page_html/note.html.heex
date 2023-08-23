@@ -28,7 +28,7 @@
     </aside>
   <% end %>
 
-  <section class="mt-8 mx-auto prose prose-gruvbox md:prose-lg lg:prose-xl | p-summary e-content">
+  <section class="mt-8 mx-auto max-w-2xl prose prose-gruvbox md:prose-lg lg:prose-xl | p-summary e-content">
     <%= Markdown.render(@note.content) |> raw %>
   </section>
 
