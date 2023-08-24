@@ -92,8 +92,8 @@
   }
 
   .prose h2 { @apply before:font-light before:text-theme-secondary; }
-  .prose h3 { @apply before:font-light before:text-theme-blue; }
-  .prose h4 { @apply before:font-light before:text-theme-purple; }
+  .prose h3 { @apply before:font-light before:text-theme-tertiary; }
+  .prose h4 { @apply before:font-light before:text-theme-quaternary; }
 
 
 
