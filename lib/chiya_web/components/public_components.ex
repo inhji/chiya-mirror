@@ -109,7 +109,7 @@ defmodule ChiyaWeb.PublicComponents do
       </h1>
       <p
         :if={@subtitle != []}
-        class={["mt-4 leading-7 font-semibold text-theme-base/75", @class_subtitle]}
+        class={["mt-4 leading-7 text-theme-base", @class_subtitle]}
       >
         <%= render_slot(@subtitle) %>
       </p>
