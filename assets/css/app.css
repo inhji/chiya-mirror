@@ -91,9 +91,11 @@
     @apply text-theme-quaternary;
   }
 
-  .prose h1, h2, h3, h4 {
-    @apply before:font-light before:text-theme-base/25;
-  }
+  .prose h2 { @apply before:font-light before:text-theme-secondary; }
+  .prose h3 { @apply before:font-light before:text-theme-blue; }
+  .prose h4 { @apply before:font-light before:text-theme-purple; }
+
+
 
   .prose h1 {
     @apply before:content-['#'];
