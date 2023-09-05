@@ -1,29 +1,11 @@
-<section class="max-w-2xl mx-auto">
-  <.header class_title="text-theme-primary p-name" class_subtitle="p-summary">
-    <%= @settings.title %>
-    <:subtitle><%= @settings.subtitle %></:subtitle>
-  </.header>
-
-  <section class="text-sm my-8">
-    <ul class="flex flex-wrap gap-3">
-      <li>
-        <a href="#" class="button">
-          <.icon name="hero-megaphone" />
-        </a>
-      </li>
-      <%= for channel <- @channels do %>
-        <li>
-          <a href={~p"/channel/#{channel.slug}"} class="button">
-            <%= channel.name %>
-          </a>
-        </li>
-      <% end %>
-    </ul>
-  </section>
-
-  <%= if @channel do %>
-    <section class="mt-8">
-      <.note_list notes={@channel.notes} layout={@channel.layout} />
-    </section>
+<%= if @channel do %>
+  <%= if @channel.layout == :default do %>
+    <.note_list_default notes={@channel.notes}/>
   <% end %>
-</section>
+  <%= if @channel.layout == :gallery do %>
+    <.note_list_gallery notes={@channel.notes}/>
+  <% end %>
+  <%= if @channel.layout == :microblog do %>
+    <.note_list_microblog notes={@channel.notes}/>
+  <% end %>
+<% end %>

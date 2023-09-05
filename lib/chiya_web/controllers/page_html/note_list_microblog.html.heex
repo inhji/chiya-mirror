@@ -1,0 +1,29 @@
+<section class="note-list microblog | stack">
+  <%= for note <- assigns.notes do %>
+    <article class="stack">
+      <.featured_images note={note} />
+
+      <header class="text-lg">
+        <%= if(note.kind == :bookmark) do %>
+          <strong><%= note.name %></strong>
+        <% end %>
+      </header>
+
+      <div class="prose">
+        <%= raw(Markdown.render(note.content)) %>
+      </div>
+
+      <footer>
+        <a href={~p"/note/#{note.slug}"}>
+          <time>
+            <%= pretty_datetime(note.published_at) %>
+          </time>
+        </a>
+        <%= if not Enum.empty?(note.tags) do %>
+          <.dot />
+          <.tags note={note} />
+        <% end %>
+      </footer>
+    </article>
+  <% end %>
+</section>

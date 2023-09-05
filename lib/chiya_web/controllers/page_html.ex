@@ -1,8 +1,13 @@
 defmodule ChiyaWeb.PageHTML do
   use ChiyaWeb, :html_public
   import Phoenix.HTML.Tag, only: [content_tag: 3, content_tag: 2]
+  import ChiyaWeb.Format, only: [pretty_datetime: 1, pretty_date: 1, datetime: 1]
 
   embed_templates "page_html/*"
+
+  
+  attr :notes, :list, required: true
+  def note_list_default(assigns)
 
   def tag_list([]), do: "No Tags"
   def tag_list(tags), do: Enum.map_join(tags, ", ", fn t -> t.name end)
