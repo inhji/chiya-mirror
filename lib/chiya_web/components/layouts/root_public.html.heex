@@ -34,56 +34,96 @@
       <%= @settings.custom_css %>
     </style>
   </head>
-  <body class="text-theme-base bg-theme-background | h-feed hfeed">
-    <aside class="block print:hidden">
-      <%= raw(@settings.custom_html) %>
-    </aside>
-
-    <header class="my-8 block px-3 print:hidden">
-      <.site_header user={@current_user} />
+  <body class="stack | h-feed hfeed">
+    <header id="site-header">
+      <nav class="container">
+        <ul>
+          <li>
+            <a href="/">
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="/about">
+              <span>About</span>
+            </a>
+          </li>
+          <li>
+            <a href="/wiki">
+              <span>Wiki</span>
+            </a>
+          </li>
+          <li>
+            <a href="/bookmarks">
+              <span>Bookmarks</span>
+            </a>
+          </li>
+          <li class="flex-1"></li>
+          <%= if @current_user do %>
+            <li>
+              <a href="/admin">
+                Admin
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
     </header>
 
-    <main class="mx-3 md:mx-0">
-      <%= @inner_content %>
+    <main id="site-content" class="container print:hidden">
+      <aside id="primary-sidebar">
+        <nav>
+          <div class="menu">
+            <h2>Info</h2>
+
+            <ul>
+              <li>Served by Chiya v<%= Application.spec(:chiya, :vsn) %></li>
+              <li>Made by Inhji</li>
+            </ul>
+          </div>
+
+          <div class="menu">
+            <h2>Links</h2>
+
+            <ul>
+              <li><a href={~p"/wiki"}>Wiki</a></li>
+              <li><a href={~p"/about"}>About</a></li>
+            </ul>
+          </div>
+
+          <div class="menu">
+            <h2>Elsewhere</h2>
+
+            <ul>
+              <%= for identity <- @public_identities do %>
+                <li><a href={identity.url}><%= identity.name %></a></li>
+              <% end %>
+            </ul>
+          </div>          
+
+          <div class="menu">
+            <h2>Elsewhere</h2>
+
+            <ul>
+              <%= for channel <- @channels do %>
+                <li>
+                  <a href={~p"/channel/#{channel.slug}"}>
+                    <%= channel.name %>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </nav>
+      </aside>
+      
+      <section id="content-wrapper">
+        <%= @inner_content %>
+      </section>
     </main>
 
     <footer class="max-w-full mt-8 p-8 text-theme-base/75 bg-theme-background1 print:hidden">
-      <section class="max-w-2xl mx-auto flex gap-3">
-        <div class="flex-1">
-          <h2 class="font-bold tracking-wider">Info</h2>
-
-          <ul class="list-disc list-inside">
-            <li>Served by Chiya v<%= Application.spec(:chiya, :vsn) %></li>
-            <li>Made by Inhji</li>
-          </ul>
-        </div>
-
-        <div class="flex-1">
-          <h2 class="font-bold tracking-wider">Links</h2>
-
-          <ul class="list-disc list-inside">
-            <li><a href={~p"/wiki"}>Wiki</a></li>
-            <li><a href={~p"/about"}>About</a></li>
-          </ul>
-        </div>
-
-        <div class="flex-1">
-          <h2 class="font-bold tracking-wider">Elsewhere</h2>
-
-          <ul class="list-disc list-inside">
-            <%= for identity <- @public_identities do %>
-              <li><a href={identity.url}><%= identity.name %></a></li>
-            <% end %>
-          </ul>
-        </div>
-      </section>
-
-      <section class="max-w-2xl mx-auto">
-        <.divider />
-        <div data-dummy="true" />
-      </section>
-
-      <p class="mt-4 max-w-2xl mx-auto text-center">
+      <p class="container text-center">
         Struggling to make a decent website since 2011
       </p>
     </footer>

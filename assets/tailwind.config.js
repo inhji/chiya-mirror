@@ -14,59 +14,7 @@ module.exports = {
   ],
   darkMode: ['class', '[data-mode="dark"]'],
   theme: {
-    extend: {
-      typography: {
-        gruvbox: {
-          css: {
-            '--tw-prose-td-borders': 'rgb(var(--color-background1))',
-            '--tw-prose-th-borders': 'rgb(var(--color-background1))',
-            '--tw-prose-body': 'rgb(var(--color-foreground))',
-            '--tw-prose-links': 'rgb(var(--color-foreground))',
-            '--tw-prose-headings': 'rgb(var(--color-foreground))',
-            '--tw-prose-bold': 'rgb(var(--color-yellow1))',
-            '--tw-prose-quotes': 'rgb(var(--color-foreground))',
-            '--tw-prose-bullets': 'rgb(var(--color-primary))',
-            '--tw-prose-code': 'rgb(var(--color-yellow1))',
-            '--tw-prose-pre-bg': 'rgb(var(--color-background1))',
-            '--tw-prose-quote-borders': 'rgb(var(--color-primary))',
-            '--tw-prose-counters': 'rgb(var(--color-foreground))',
-            '--tw-prose-invert-td-borders': 'rgb(var(--color-background1))',
-            '--tw-prose-invert-th-borders': 'rgb(var(--color-background1))',
-            '--tw-prose-invert-body': 'rgb(var(--color-foreground))',
-            '--tw-prose-invert-links': 'rgb(var(--color-foreground))',
-            '--tw-prose-invert-headings': 'rgb(var(--color-foreground))',
-            '--tw-prose-invert-bold': 'rgb(var(--color-yellow))',
-            '--tw-prose-invert-quotes': 'rgb(var(--color-foreground))',
-            '--tw-prose-invert-bullets': 'rgb(var(--color-primary))',
-            '--tw-prose-invert-quote-borders': 'rgb(var(--color-primary))',
-            '--tw-prose-invert-code': 'rgb(var(--color-yellow))',
-            '--tw-prose-invert-pre-bg': 'rgb(var(--color-background1))',
-            '--tw-prose-invert-counters': 'rgb(var(--color-foreground))',
-          }
-        }
-      },
-      colors: {
-        code: colors.emerald,
-        gray: colors.zinc,
-        theme: {
-          background: 'rgb(var(--color-background) / <alpha-value>)',
-          background1: 'rgb(var(--color-background1) / <alpha-value>)',
-          base: 'rgb(var(--color-foreground) / <alpha-value>)',
-          base1: 'rgb(var(--color-foreground1) / <alpha-value>)',
-          primary: 'rgb(var(--color-primary) / <alpha-value>)',
-          primary1: 'rgb(var(--color-primary1) / <alpha-value>)',
-          secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
-          secondary1: 'rgb(var(--color-secondary1) / <alpha-value>)',
-          tertiary: 'rgb(var(--color-blue) / <alpha-value>)',
-          tertiary1: 'rgb(var(--color-blue1) / <alpha-value>)',
-          quaternary: 'rgb(var(--color-purple) / <alpha-value>)',
-          quaternary1: 'rgb(var(--color-purple1) / <alpha-value>)',
-          quinary: 'rgb(var(--color-yellow) / <alpha-value>)',
-          quinary1: 'rgb(var(--color-yellow1) / <alpha-value>)',
-          heading: 'rgb(var(--color-heading) / <alpha-value>)'
-        } 
-      }
-    },
+    container: { center: true }
   },
   plugins: [
     require("@tailwindcss/forms"),

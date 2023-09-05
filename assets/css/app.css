@@ -2,147 +2,83 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import "./reset.css";
-@import "./gruvbox.css";
 @import "./lightbox.css";
 @import "./tablesort.css";
 
+/*
+  The base layer is for things like reset rules or default styles applied to plain HTML elements.
+*/
 @layer base {
   :root {
-    --font-features: "case", "cpsp", "frac", "salt", "ccmp", "cv01", "cv02", "cv03", "cv04", "cv05", "cv06", "cv07", "cv09", "cv10", "cv11";
+    --color-background: 255 255 255;
+    --color-foreground: 0 0 0;
+    --color-primary: 0 0 0;
   }
 
-  :root {
+  :root[mode=dark] {
+    --color-background: 0 0 0;
+    --color-foreground: 255 255 255;
+    --color-primary: 255 255 255;
+  }
+
+  html {
     font-family: 'Inter', sans-serif;
-    font-feature-settings: var(--font-features);
-  }
-  @supports (font-variation-settings: normal) {
-    :root { 
-      font-family: 'Inter var', sans-serif;
-      font-feature-settings: var(--font-features);
-    }
+    font-feature-settings: "case", "cpsp", "frac", "salt", "ccmp", "cv01", "cv02", "cv03", "cv04", "cv05", "cv06", "cv07", "cv09", "cv10", "cv11";
   }
 
-  :root {
-    --color-primary: 214 93 14; /* orange */
-    --color-primary1: 175 58 3; /* orange faded */
-
-    --color-secondary: 104 157 106; /* aqua */
-    --color-secondary1: 66 123 88; /* aqua faded */
-
-    --color-blue: 69 133 136 ; /* blue */
-    --color-blue1: 7 102 120; /* blue faded */
-
-    --color-purple: 177 98 134 ; /* purple */
-    --color-purple1: 143 63 113; /* purple faded */
-
-    --color-yellow: 215 153 33; /* yellow */
-    --color-yellow1: 181 118 20; /* yellow faded */
-
-    --color-background: 253 244 193; /* light0 */
-    --color-background1: 235 219 178; /* light1 */
-
-    --color-foreground: 60 56 54; /* dark1 */
-    --color-foreground1: 80 73 69; /* dark2 */
-
-    --color-heading: var(--color-secondary);
-
-    @apply selection:bg-theme-primary/50;
-  }
-
-  :root[data-mode=dark] {
-    --color-primary: 214 93 14; /* orange */
-    --color-primary1: 254 128 25; /* orange bright */
-
-    --color-secondary: 104 157 106; /* aqua */
-    --color-secondary1: 142 192 124; /* aqua bright */
-
-    --color-blue: 69 133 136 ; /* blue */
-    --color-blue1: 131 165 152; /* blue bright */
-
-    --color-purple: 177 98 134 ; /* purple */
-    --color-purple1: 250 189 47; /* purple bright */
-
-    --color-yellow: 215 153 33; /* yellow */
-    --color-yellow1: 181 118 20; /* yellow bright */
-
-    --color-background: 40 40 40; /* dark0 */
-    --color-background1: 60 56 54; /* dark1 */
-
-    --color-foreground: 235 219 178; /* light1 */
-    --color-foreground1: 213 196 161; /* light2 */
-
-    --color-heading: var(--color-secondary);
-  }
-
-  :root[data-mode=dark] .prose {
-    @apply prose-invert;
-  }
-
-  .prose a, a.underline-link {
-    @apply underline decoration-1 decoration-theme-primary hover:decoration-theme-base transition;
-  }
-
-  .prose a[href^="http://"], .prose a[href^="https://"] {
-    @apply after:content-['_↗']
-  }
-
-  .prose em {
-    @apply text-theme-quaternary;
-  }
-
-  .prose h2 { @apply before:font-light before:text-theme-secondary; }
-  .prose h3 { @apply before:font-light before:text-theme-tertiary; }
-  .prose h4 { @apply before:font-light before:text-theme-quaternary; }
-
-
-
-  .prose h1 {
-    @apply before:content-['#'];
-  }
-
-  .prose h2 {
-    @apply before:content-['##'];
-  }
-
-  .prose h3 {
-    @apply before:content-['###'];
-  }
-
-  .prose h4 {
-    @apply before:content-['####'];
-  }
-
-  .prose pre {
-    @apply p-0;
-  }
-
-  .prose img {
-    @apply rounded-lg;
+  .stack > * + * {
+    margin-block-start: var(--flow-space, 1em);
   }
 }
 
+/* 
+  The components layer is for class-based styles that you want to be able to override with utilities.
+*/
 @layer components {
-  /* Set width and color for identity icons */
-  a[rel] svg { 
-    width: 1em;
-    fill: rgb(var(--color-foreground));
-  } 
-
-  .alert {
-    @apply p-3 mt-3 rounded;
+  
+  #site-header {
+    @apply py-8 block px-3 bg-black text-white print:hidden;
   }
 
-  .alert.alert-danger {
-    @apply bg-red-100 text-red-500 dark:bg-red-950 dark:text-red-500;
+  #site-header nav ul {
+     @apply flex gap-3; 
   }
 
-  .footnotes li p { display: inline; }
-  .footnotes hr { display: none; }
-  .footnote:before { content: '{'; }
-  .footnote:after { content: '}'; }
-
-  a.button {
-    @apply inline-block text-theme-base px-3 py-2.5 border border-theme-background1 hover:bg-theme-background1 rounded transition font-semibold;
+  #site-content {
+    @apply grid grid-cols-1 lg:grid-cols-4 gap-3;
   }
+
+  aside#primary-sidebar {
+    @apply col-span-1;
+  }
+
+  aside#primary-sidebar nav {
+    @apply flex flex-col md:flex-row;
+  }
+  aside#primary-sidebar .menu {
+    @apply flex-1;
+  }
+
+  aside#primary-sidebar .menu h2 {
+    @apply font-bold;
+  }
+
+  aside#secondary-sidebar {
+    @apply col-span-1;
+  }
+
+  section#content-wrapper {
+    @apply col-span-3;
+  }
+
+  .divider {
+    @apply flex items-center my-8 before:flex-1 after:flex-1 before:content-[''] after:content-[''] before:p-[0.5px] after:p-[0.5px] w-full mx-auto last:hidden;
+  }
+}
+
+/*
+  The utilities layer is for small, single-purpose classes that should always take precedence over any other styles.
+*/
+@layer utilities {
+  
 }

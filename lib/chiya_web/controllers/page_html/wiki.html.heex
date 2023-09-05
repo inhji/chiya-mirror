@@ -14,13 +14,29 @@
       <div class="mt-6 flex flex-1 flex-col gap-1.5">
         <h2 class="text-xl text-theme-base">Recently Updated</h2>
 
-        <.note_list notes={@notes_updated} layout={@channel.layout} show_content={false} />
+        <%= if @channel.layout == :default do %>
+          <.note_list_default note={@channel.notes}/>
+        <% end %>
+        <%= if @channel.layout == :gallery do %>
+          <.note_list_gallery note={@channel.notes}/>
+        <% end %>
+        <%= if @channel.layout == :microblog do %>
+          <.note_list_microblog note={@channel.notes}/>
+        <% end %>
       </div>
 
       <div class="mt-6 flex flex-1 flex-col gap-1.5">
         <h2 class="text-xl text-theme-base">Recently Published</h2>
 
-        <.note_list notes={@notes_published} layout={@channel.layout} show_content={false} />
+        <%= if @channel.layout == :default do %>
+          <.note_list_default note={@channel.notes}/>
+        <% end %>
+        <%= if @channel.layout == :gallery do %>
+          <.note_list_gallery note={@channel.notes}/>
+        <% end %>
+        <%= if @channel.layout == :microblog do %>
+          <.note_list_microblog note={@channel.notes}/>
+        <% end %>
       </div>
     </aside>
   </section>

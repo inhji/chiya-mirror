@@ -1,0 +1,148 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "./reset.css";
+@import "./gruvbox.css";
+@import "./lightbox.css";
+@import "./tablesort.css";
+
+@layer base {
+  :root {
+    --font-features: "case", "cpsp", "frac", "salt", "ccmp", "cv01", "cv02", "cv03", "cv04", "cv05", "cv06", "cv07", "cv09", "cv10", "cv11";
+  }
+
+  :root {
+    font-family: 'Inter', sans-serif;
+    font-feature-settings: var(--font-features);
+  }
+  @supports (font-variation-settings: normal) {
+    :root { 
+      font-family: 'Inter var', sans-serif;
+      font-feature-settings: var(--font-features);
+    }
+  }
+
+  :root {
+    --color-primary: 214 93 14; /* orange */
+    --color-primary1: 175 58 3; /* orange faded */
+
+    --color-secondary: 104 157 106; /* aqua */
+    --color-secondary1: 66 123 88; /* aqua faded */
+
+    --color-blue: 69 133 136 ; /* blue */
+    --color-blue1: 7 102 120; /* blue faded */
+
+    --color-purple: 177 98 134 ; /* purple */
+    --color-purple1: 143 63 113; /* purple faded */
+
+    --color-yellow: 215 153 33; /* yellow */
+    --color-yellow1: 181 118 20; /* yellow faded */
+
+    --color-background: 253 244 193; /* light0 */
+    --color-background1: 235 219 178; /* light1 */
+
+    --color-foreground: 60 56 54; /* dark1 */
+    --color-foreground1: 80 73 69; /* dark2 */
+
+    --color-heading: var(--color-secondary);
+
+    @apply selection:bg-theme-primary/50;
+  }
+
+  :root[data-mode=dark] {
+    --color-primary: 214 93 14; /* orange */
+    --color-primary1: 254 128 25; /* orange bright */
+
+    --color-secondary: 104 157 106; /* aqua */
+    --color-secondary1: 142 192 124; /* aqua bright */
+
+    --color-blue: 69 133 136 ; /* blue */
+    --color-blue1: 131 165 152; /* blue bright */
+
+    --color-purple: 177 98 134 ; /* purple */
+    --color-purple1: 250 189 47; /* purple bright */
+
+    --color-yellow: 215 153 33; /* yellow */
+    --color-yellow1: 181 118 20; /* yellow bright */
+
+    --color-background: 40 40 40; /* dark0 */
+    --color-background1: 60 56 54; /* dark1 */
+
+    --color-foreground: 235 219 178; /* light1 */
+    --color-foreground1: 213 196 161; /* light2 */
+
+    --color-heading: var(--color-secondary);
+  }
+
+  :root[data-mode=dark] .prose {
+    @apply prose-invert;
+  }
+
+  .prose a, a.underline-link {
+    @apply underline decoration-1 decoration-theme-primary hover:decoration-theme-base transition;
+  }
+
+  .prose a[href^="http://"], .prose a[href^="https://"] {
+    @apply after:content-['_↗']
+  }
+
+  .prose em {
+    @apply text-theme-quaternary;
+  }
+
+  .prose h2 { @apply before:font-light before:text-theme-secondary; }
+  .prose h3 { @apply before:font-light before:text-theme-tertiary; }
+  .prose h4 { @apply before:font-light before:text-theme-quaternary; }
+
+
+
+  .prose h1 {
+    @apply before:content-['#'];
+  }
+
+  .prose h2 {
+    @apply before:content-['##'];
+  }
+
+  .prose h3 {
+    @apply before:content-['###'];
+  }
+
+  .prose h4 {
+    @apply before:content-['####'];
+  }
+
+  .prose pre {
+    @apply p-0;
+  }
+
+  .prose img {
+    @apply rounded-lg;
+  }
+}
+
+@layer components {
+  /* Set width and color for identity icons */
+  a[rel] svg { 
+    width: 1em;
+    fill: rgb(var(--color-foreground));
+  } 
+
+  .alert {
+    @apply p-3 mt-3 rounded;
+  }
+
+  .alert.alert-danger {
+    @apply bg-red-100 text-red-500 dark:bg-red-950 dark:text-red-500;
+  }
+
+  .footnotes li p { display: inline; }
+  .footnotes hr { display: none; }
+  .footnote:before { content: '{'; }
+  .footnote:after { content: '}'; }
+
+  a.button {
+    @apply inline-block text-theme-base px-3 py-2.5 border border-theme-background1 hover:bg-theme-background1 rounded transition font-semibold;
+  }
+}

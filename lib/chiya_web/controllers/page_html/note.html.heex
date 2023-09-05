@@ -34,8 +34,8 @@
 
   <%= if not Enum.empty?(@note.links_to) do %>
     <section class="mt-8 prose prose-gruvbox max-w-2xl mx-auto">
-      <.divider text="" /> Notes linking here:
-      <ul class="">
+      Notes linking here:
+      <ul>
         <%= for link <- @note.links_to do %>
           <li><a href={~p"/note/#{link.slug}"}><%= link.name %></a></li>
         <% end %>
@@ -45,7 +45,6 @@
 
   <%= if String.length(@note.url || "") > 0 do %>
     <section class="mt-8 max-w-2xl mx-auto text-center text-lg">
-      <.divider text=" " />
       <.icon name="hero-link" /> <a href={@note.url}><%= @note.url %></a>
     </section>
   <% end %>
@@ -77,8 +76,6 @@
 
   <section class="max-w-2xl mx-auto mt-8">
     <%= if !Enum.empty?(@note.images) do %>
-      <.line />
-
       <div class="flex flex-wrap gap-3">
         <%= for image <- @note.images do %>
           <a

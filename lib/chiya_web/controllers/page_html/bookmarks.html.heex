@@ -8,7 +8,15 @@
 
   <section class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3 max-w-4xl mx-auto">
     <section class="col-span-1 md:col-span-2">
-      <.note_list notes={@notes} layout={@channel.layout} show_content={false} />
+      <%= if @channel.layout == :default do %>
+        <.note_list_default notes={@channel.notes}/>
+      <% end %>
+      <%= if @channel.layout == :gallery do %>
+        <.note_list_gallery notes={@channel.notes}/>
+      <% end %>
+      <%= if @channel.layout == :microblog do %>
+        <.note_list_microblog notes={@channel.notes}/>
+      <% end %>
     </section>
 
     <section>

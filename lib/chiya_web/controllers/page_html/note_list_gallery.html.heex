@@ -1,0 +1,30 @@
+
+<section class="note-list gallery | stack">
+  <%= for note <- assigns.notes do %>
+    <article>
+      <section class="flex flex-wrap justify-start gap-3">
+        <%= for image <- note.images do %>
+          <a
+            href={ChiyaWeb.Helpers.image_url(image, :full)}
+            class="lightbox | w-28"
+            data-gallery={"gallery-#{note.id}"}
+            data-description={ChiyaWeb.Markdown.render(image.content)}
+          >
+            <img src={ChiyaWeb.Helpers.image_url(image, :thumb)} loading="lazy" />
+          </a>
+        <% end %>
+      </section>
+      <a
+        href={~p"/note/#{note.slug}"}
+        class="text-theme-secondary text-lg/10 font-semibold rounded-lg -mx-2 -my-0.5 px-2 py-0.5 hover:bg-theme-secondary/10 transition"
+      >
+        <%= note.name %>
+        <span class="text-theme-base/75 text-sm">
+          <%= pretty_date(note.published_at) %>
+        </span>
+      </a>
+    </article>
+
+    <.line />
+  <% end %>
+</section>
