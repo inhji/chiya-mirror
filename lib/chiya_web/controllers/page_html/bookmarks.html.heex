@@ -9,13 +9,13 @@
   <section class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3 max-w-4xl mx-auto">
     <section class="col-span-1 md:col-span-2">
       <%= if @channel.layout == :default do %>
-        <.note_list_default notes={@channel.notes}/>
+        <.note_list_default notes={@notes}/>
       <% end %>
       <%= if @channel.layout == :gallery do %>
-        <.note_list_gallery notes={@channel.notes}/>
+        <.note_list_gallery notes={@notes}/>
       <% end %>
       <%= if @channel.layout == :microblog do %>
-        <.note_list_microblog notes={@channel.notes}/>
+        <.note_list_microblog notes={@notes}/>
       <% end %>
     </section>
 
