@@ -21,14 +21,14 @@
   </aside>
 
   <%= if has_outline?(@note) do %>
-    <aside class="prose print:hidden">
+    <aside class="prose max-w-none print:hidden">
       <div class="bg-theme-background1 rounded p-2">
         <%= raw(render_outline(@note)) %>
       </div>
     </aside>
   <% end %>
 
-  <section class="p-summary e-content | prose">
+  <section class="p-summary e-content | prose max-w-none">
     <%= Markdown.render(@note.content) |> raw %>
   </section>
 

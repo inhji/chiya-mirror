@@ -45,7 +45,7 @@
   }
 
   #site-content {
-    @apply grid grid-cols-1 lg:grid-cols-4 gap-3;
+    @apply grid grid-cols-1 lg:grid-cols-5 gap-12;
   }
 
   aside#primary-sidebar {
@@ -68,7 +68,7 @@
   }
 
   section#content-wrapper {
-    @apply col-span-3;
+    @apply col-span-4;
   }
 
   .divider {
