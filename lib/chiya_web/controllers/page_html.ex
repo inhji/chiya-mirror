@@ -7,6 +7,7 @@ defmodule ChiyaWeb.PageHTML do
 
   
   attr :notes, :list, required: true
+  attr :show_content, :boolean, default: true
   def note_list_default(assigns)
 
   def tag_list([]), do: "No Tags"
