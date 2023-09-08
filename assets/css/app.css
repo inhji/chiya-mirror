@@ -26,6 +26,8 @@
     font-feature-settings: "case", "cpsp", "frac", "salt", "ccmp", "cv01", "cv02", "cv03", "cv04", "cv05", "cv06", "cv07", "cv09", "cv10", "cv11";
   }
 
+  header h1 { @apply text-xl; }
+
   .stack > * + * {
     margin-block-start: var(--flow-space, 1em);
   }

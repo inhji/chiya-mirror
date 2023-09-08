@@ -1,11 +1,3 @@
 <%= if @channel do %>
-  <%= if @channel.layout == :default do %>
-    <.note_list_default notes={@channel.notes}/>
-  <% end %>
-  <%= if @channel.layout == :gallery do %>
-    <.note_list_gallery notes={@channel.notes}/>
-  <% end %>
-  <%= if @channel.layout == :microblog do %>
-    <.note_list_microblog notes={@channel.notes}/>
-  <% end %>
+  <.note_list notes={@channel.notes} channel={@channel} />
 <% end %>

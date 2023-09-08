@@ -11,9 +11,11 @@ defmodule ChiyaWeb.PageHTML do
   def note_list_default(assigns)
 
   attr :notes, :list, required: true
+  attr :show_content, :boolean, default: true
   def note_list_microblog(assigns)
 
   attr :notes, :list, required: true
+  attr :show_content, :boolean, default: true
   def note_list_gallery(assigns)
 
   def tag_list([]), do: "No Tags"

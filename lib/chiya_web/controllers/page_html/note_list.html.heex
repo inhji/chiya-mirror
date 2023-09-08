@@ -1,0 +1,9 @@
+<%= if @channel.layout == :default do %>
+  <.note_list_default notes={@notes_updated}/>
+<% end %>
+<%= if @channel.layout == :gallery do %>
+  <.note_list_gallery notes={@notes_updated}/>
+<% end %>
+<%= if @channel.layout == :microblog do %>
+  <.note_list_microblog notes={@notes_updated}/>
+<% end %>

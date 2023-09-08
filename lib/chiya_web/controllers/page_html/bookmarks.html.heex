@@ -1,12 +1,9 @@
 <%= if @channel do %>
-  <section class="mx-auto max-w-2xl">
-    <.header>
-      Bookmarks
-      <:subtitle><%= Enum.count(@notes) %> in total</:subtitle>
-    </.header>
-  </section>
+  <header>
+    <h1><%= Enum.count(@notes) %> Bookmarks</h1>
+  </header>
 
-  <section class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3 max-w-4xl mx-auto">
+  <section class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
     <section class="col-span-1 md:col-span-2">
       <%= if @channel.layout == :default do %>
         <.note_list_default notes={@notes}/>
@@ -38,16 +35,6 @@
           </li>
         <% end %>
       </ul>
-    </section>
-  </section>
-<% else %>
-  <section class="mx-auto max-w-2xl">
-    <.header>
-      Bookmarks
-    </.header>
-
-    <section class="prose prose-gruvbox mt-6">
-      Bookmarks not set up.
     </section>
   </section>
 <% end %>
