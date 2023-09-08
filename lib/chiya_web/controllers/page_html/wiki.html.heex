@@ -15,13 +15,13 @@
         <h2 class="text-xl text-theme-base">Recently Updated</h2>
 
         <%= if @channel.layout == :default do %>
-          <.note_list_default note={@channel.notes}/>
+          <.note_list_default note={@notes_updated}/>
         <% end %>
         <%= if @channel.layout == :gallery do %>
-          <.note_list_gallery note={@channel.notes}/>
+          <.note_list_gallery note={@notes_updated}/>
         <% end %>
         <%= if @channel.layout == :microblog do %>
-          <.note_list_microblog note={@channel.notes}/>
+          <.note_list_microblog note={@notes_updated}/>
         <% end %>
       </div>
 
@@ -29,13 +29,13 @@
         <h2 class="text-xl text-theme-base">Recently Published</h2>
 
         <%= if @channel.layout == :default do %>
-          <.note_list_default note={@channel.notes}/>
+          <.note_list_default note={@notes_published}/>
         <% end %>
         <%= if @channel.layout == :gallery do %>
-          <.note_list_gallery note={@channel.notes}/>
+          <.note_list_gallery note={@notes_published}/>
         <% end %>
         <%= if @channel.layout == :microblog do %>
-          <.note_list_microblog note={@channel.notes}/>
+          <.note_list_microblog note={@notes_published}/>
         <% end %>
       </div>
     </aside>
