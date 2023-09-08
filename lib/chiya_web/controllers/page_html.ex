@@ -10,6 +10,12 @@ defmodule ChiyaWeb.PageHTML do
   attr :show_content, :boolean, default: true
   def note_list_default(assigns)
 
+  attr :notes, :list, required: true
+  def note_list_microblog(assigns)
+
+  attr :notes, :list, required: true
+  def note_list_gallery(assigns)
+
   def tag_list([]), do: "No Tags"
   def tag_list(tags), do: Enum.map_join(tags, ", ", fn t -> t.name end)
 
