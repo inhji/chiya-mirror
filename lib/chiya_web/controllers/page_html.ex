@@ -6,7 +6,7 @@ defmodule ChiyaWeb.PageHTML do
   embed_templates "page_html/*"
 
   attr :notes, :list, required: true
-  attr :layout, :atom, default: :default 
+  attr :layout, :atom, default: :default
   attr :show_content, :boolean, default: true
   def note_list(assigns)
 

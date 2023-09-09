@@ -58,16 +58,13 @@ defmodule ChiyaWeb.PublicComponents do
       <h1 class={["text-3xl leading-10 font-bold text-theme-base1", @class_title]}>
         <%= render_slot(@inner_block) %>
       </h1>
-      <p
-        :if={@subtitle != []}
-        class={["mt-4 leading-7 text-theme-base", @class_subtitle]}
-      >
+      <p :if={@subtitle != []} class={["mt-4 leading-7 text-theme-base", @class_subtitle]}>
         <%= render_slot(@subtitle) %>
       </p>
     </header>
     """
   end
-  
+
   attr :note, :map, required: true
 
   def featured_images(assigns) do

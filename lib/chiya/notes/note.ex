@@ -11,6 +11,10 @@ defmodule Chiya.Notes.Note do
   @reserved_slugs ~w(user admin dev api)
   @note_url_regex ~r/\/note\/([a-z0-9-]+)/
 
+  @derive {
+    Flop.Schema,
+    filterable: [:name, :kind], sortable: [:name], default_limit: 10, max_limit: 100
+  }
   @derive {Jason.Encoder, only: [:id, :name, :content, :slug, :channels, :tags]}
   schema "notes" do
     field :content, :string

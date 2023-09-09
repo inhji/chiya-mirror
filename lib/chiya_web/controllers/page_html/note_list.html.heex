@@ -1,9 +1,9 @@
 <%= if @layout == :default do %>
-  <.note_list_default notes={@notes} show_content={@show_content}/>
+  <.note_list_default notes={@notes} show_content={@show_content} />
 <% end %>
 <%= if @layout == :gallery do %>
-  <.note_list_gallery notes={@notes} show_content={@show_content}/>
+  <.note_list_gallery notes={@notes} show_content={@show_content} />
 <% end %>
 <%= if @layout == :microblog do %>
-  <.note_list_microblog notes={@notes} show_content={@show_content}/>
+  <.note_list_microblog notes={@notes} show_content={@show_content} />
 <% end %>

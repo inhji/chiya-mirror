@@ -40,6 +40,8 @@ defmodule Chiya.MixProject do
       {:ecto_sql, "~> 3.6"},
       {:finch, "~> 0.16"},
       {:floki, ">= 0.30.0", only: :test},
+      {:flop, "~> 0.22.1"},
+      {:flop_phoenix, "~> 0.21.1"},
       {:gettext, "~> 0.23"},
       {:jason, "~> 1.2"},
       {:oban, "~> 2.14"},

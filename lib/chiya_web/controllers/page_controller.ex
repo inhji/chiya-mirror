@@ -4,17 +4,24 @@ defmodule ChiyaWeb.PageController do
 
   plug :put_layout, html: {ChiyaWeb.Layouts, :public}
 
-  def home(conn, _params) do
+  def home(conn, params) do
     settings = conn.assigns.settings
 
-    channel =
+    {channel, notes, meta} =
       case settings.home_channel_id do
-        nil -> nil
-        id -> Channels.get_channel!(id) |> Channels.preload_channel_public()
+        nil ->
+          nil
+
+        id ->
+          channel = Channels.get_channel!(id)
+          {:ok, {notes, meta}} = Chiya.Notes.list_home_notes(channel, params)
+          {channel, notes, meta}
       end
 
     render(conn, :home,
       channel: channel,
+      notes: notes,
+      meta: meta,
       page_title: "Home"
     )
   end
@@ -81,7 +88,7 @@ defmodule ChiyaWeb.PageController do
       )
     else
       render_error(conn, :not_found)
-    end 
+    end
   end
 
   def bookmarks(conn, _params) do
@@ -96,6 +103,6 @@ defmodule ChiyaWeb.PageController do
       )
     else
       render_error(conn, :not_found)
-    end  
+    end
   end
 end

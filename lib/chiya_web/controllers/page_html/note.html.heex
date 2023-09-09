@@ -57,7 +57,6 @@
         <% end %>
       </section>
     </article>
-
   </section>
 
   <aside class="prose max-w-none">
@@ -78,14 +77,16 @@
             <strong>Published</strong>
           <% else %>
             <strong>Unpublished</strong>
-          <% end %> <time class="dt-published"><%= pretty_date(@note.published_at) %></time>
+          <% end %>
+          <time class="dt-published"><%= pretty_date(@note.published_at) %></time>
         </li>
         <li>
-          <strong>Last updated</strong> <time class="dt-published"><%= pretty_date(@note.published_at) %></time>
+          <strong>Last updated</strong>
+          <time class="dt-published"><%= pretty_date(@note.published_at) %></time>
         </li>
         <li><strong>Tags</strong> <.tag_list note={@note} /></li>
         <li><strong>Kind</strong> <%= @note.kind %></li>
-      </ul>  
+      </ul>
     </section>
 
     <h3>Admin</h3>
@@ -106,4 +107,3 @@
     </section>
   </aside>
 </section>
-
