@@ -15,7 +15,6 @@ const plugins = [
   postCssPlugin({
     postcss: {
       plugins: [
-        require('tailwindcss/nesting'),
         require('tailwindcss'),
         require('autoprefixer')
       ]
@@ -26,7 +25,7 @@ const plugins = [
 let opts = {
   entryPoints: ['js/app.js', 'js/public.js'],
   bundle: true,
-  target: 'es2017',
+  target: 'es2016',
   outdir: '../priv/static/assets',
   logLevel: 'info',
   loader,
