@@ -22,7 +22,7 @@ import { Socket } from "phoenix"
 import { LiveSocket } from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 import React from "react"
-import { createRoot } from 'react-dom/client'
+import { createRoot } from 'react-dom'
 import KBar from "./kbar"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
