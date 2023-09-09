@@ -1,28 +1,30 @@
 <section class="note-list default stack">
   <%= for note <- assigns.notes do %>
-    <article>
-      <a href={~p"/note/#{note.slug}"} class="block">
-        <header class="flex flex-row items-center gap-1">
-          <span class="text-theme-primary text-lg font-semibold leading-8 flex-1">
+    <article class="prose max-w-none">
+      <header class="flex flex-row items-center gap-1">
+        <span class="text-theme-primary text-lg font-semibold leading-8 flex-1">
+          <a href={~p"/note/#{note.slug}"}>
             <%= note.name %>
-          </span>
-          <span class="text-theme-base/75 text-sm">
-            <%= pretty_date(note.published_at) %>
-          </span>
-        </header>
+          </a>
+        </span>
+      </header>
 
-        <%= if assigns.show_content do %>
-          <p class="text-theme-base">
-            <%= String.slice(note.content, 0..150) %>
-          </p>
-        <% end %>
+      <%= if assigns.show_content do %>
+        <p class="text-theme-base mb-3">
+          <%= Chiya.Notes.Note.note_excerpt(note.content) %>
+        </p>
+      <% end %>
 
+      <footer class="flex">
+        <span class="text-theme-base/75 flex-1">
+          <%= pretty_date(note.published_at) %>
+        </span>
         <%= if not Enum.empty?(note.tags) do %>
           <span class="inline-block">
             <.tag_list note={note} linked={false} />
           </span>
         <% end %>
-      </a>
+      </footer>
     </article>
   <% end %>
 </section>
