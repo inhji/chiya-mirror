@@ -72,19 +72,9 @@
 
     <main id="site-content" class="container print:hidden">
       <aside id="primary-sidebar">
-        <nav>
+        <nav class="prose">
           <div class="menu">
-            <h2>Pages</h2>
-
-            <ul>
-              <li><a href={~p"/wiki"}>Wiki</a></li>
-              <li><a href={~p"/about"}>About</a></li>
-              <li><a href={~p"/bookmarks"}>Bookmarks</a></li>
-            </ul>
-          </div>
-
-          <div class="menu">
-            <h2>Channels</h2>
+            <strong>Channels</strong>
 
             <ul>
               <%= for channel <- @channels do %>
@@ -98,7 +88,7 @@
           </div>
 
           <div class="menu">
-            <h2>Elsewhere</h2>
+            <strong>Elsewhere</strong>
 
             <ul>
               <%= for identity <- @public_identities do %>

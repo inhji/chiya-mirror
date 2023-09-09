@@ -26,37 +26,34 @@
   #site-header {
     @apply block px-3 py-6 bg-gradient-to-r from-slate-900 to-slate-950 text-white print:hidden;
 
-    nav ul {
-       @apply flex gap-3;
+    & nav ul {
+      @apply flex;
 
-       a { @apply p-3 rounded hover:bg-primary-500 transition; }
+      & a { @apply p-3 rounded hover:bg-primary-500 transition; }
     }
   }
 
   #primary-sidebar {
     @apply col-span-1;
 
-    nav {
-      @apply flex flex-col md:flex-row lg:flex-col mb-6 lg:mb-0;
+    & nav {
+      @apply flex md:flex-row lg:flex-col mb-6 lg:mb-0;
     }
 
     .menu {
       @apply flex-1;
-
-      h2 {
-        @apply font-bold;
-      }
     }
   }
 
   #site-content {
     @apply grid grid-cols-1 lg:grid-cols-5 gap-0 lg:gap-12;
+    @apply px-3 sm:px-0;
 
-    #secondary-sidebar {
+    > #secondary-sidebar {
       @apply col-span-1;
     }
 
-    #content-wrapper {
+    > #content-wrapper {
       @apply col-span-4;
     }
   }
