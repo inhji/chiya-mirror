@@ -13,17 +13,19 @@
         <%= raw(Markdown.render(note.content)) %>
       </div>
 
-      <footer>
+      <footer class="text-slate-700">
         <a href={~p"/note/#{note.slug}"}>
           <time>
             <%= pretty_datetime(note.published_at) %>
           </time>
         </a>
         <%= if not Enum.empty?(note.tags) do %>
-          <.dot />
-          <.tags note={note} />
+          <span class="dot" />
+          <.tag_list note={note} />
         <% end %>
       </footer>
     </article>
+
+    <div class="divider">⌘</div>
   <% end %>
 </section>

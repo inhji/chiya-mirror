@@ -104,7 +104,11 @@
 */
 @layer components {
   .divider {
-    @apply flex items-center my-8 before:flex-1 after:flex-1 before:content-[''] after:content-[''] before:p-[0.5px] after:p-[0.5px] w-full mx-auto last:hidden;
+    @apply flex items-center my-8 before:flex-1 after:flex-1 before:content-[''] after:content-[''] before:p-[0.5px] after:p-[0.5px] w-full mx-auto last:hidden before:bg-slate-500/25 after:bg-slate-500/25 before:mr-2 after:ml-2;
+  }
+
+  .dot {
+    @apply before:content-['·']
   }
 }
 

@@ -1,18 +1,20 @@
-<ul>
-  <%= for {letter, tag_group} <- group_tags(@notes) do %>
-    <li class="mb-2">
-      <span class="capitalize text-theme-primary border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2">
-        <%= letter %>
+<span class="tags | inline-flex flex-row gap-1 whitespace-normal">
+  <%= for tag <- @note.tags do %>
+    <%= if @linked do %>
+      <a class="tag | flex gap-0" href={~p"/tagged-with/#{tag.slug}"}>
+        <span>#</span>
+        <span class="p-category" >
+          <%= tag.name %>
+        </span>
+      </a>
+    <% else %>
+      <span class="tag | flex gap-0">
+        <span>#</span>
+        <span class="p-category">
+          <%= tag.name %>
+        </span>
       </span>
-
-      <%= for tag <- tag_group do %>
-        <a
-          href={~p"/tagged-with/#{tag.slug}"}
-          class="border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2 hover:bg-theme-background1 transition"
-        >
-          <%= tag.name %> <span class="text-theme-base text-xs font-mono bg-theme-primary/25 rounded-full py-0.5 px-1 align-middle"><%= Enum.count(tag.notes) %></span>
-        </a>
-      <% end %>
-    </li>
+    <% end %>
+    <span class="dot last:hidden" />
   <% end %>
-</ul>
+</span>

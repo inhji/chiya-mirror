@@ -33,25 +33,6 @@
       <% end %>
 
       <footer>
-        <dl>
-          <dt>
-            <%= if @note.published_at do %>
-              <span>Published</span>
-            <% else %>
-              <span>Unpublished</span>
-            <% end %>
-          </dt>
-          <dd><time class="dt-published"><%= pretty_date(@note.published_at) %></time></dd>
-          <dt>Last updated</dt>
-          <dd>
-            <time class="dt-published"><%= pretty_date(@note.published_at) %></time>
-          </dd>
-          <dt>Tags</dt>
-          <dd><.tags note={@note} /></dd>
-          <dt>Kind</dt>
-          <dd><%= @note.kind %></dd>
-        </dl>  
-
         <a href={~p"/"} class="hidden | h-card u-author">Inhji</a>
         <a href={~p"/note/#{@note.slug}"} class="hidden | u-url u-uid"><%= @note.name %></a>
       </footer>
@@ -80,6 +61,33 @@
   </section>
 
   <aside class="prose max-w-none">
+    <h3>Outline</h3>
+
+    <%= if has_outline?(@note) do %>
+      <section>
+        <%= raw(render_outline(@note)) %>
+      </section>
+    <% end %>
+
+    <h3>Properties</h3>
+
+    <section>
+      <ul>
+        <li>
+          <%= if @note.published_at do %>
+            <strong>Published</strong>
+          <% else %>
+            <strong>Unpublished</strong>
+          <% end %> <time class="dt-published"><%= pretty_date(@note.published_at) %></time>
+        </li>
+        <li>
+          <strong>Last updated</strong> <time class="dt-published"><%= pretty_date(@note.published_at) %></time>
+        </li>
+        <li><strong>Tags</strong> <.tag_list note={@note} /></li>
+        <li><strong>Kind</strong> <%= @note.kind %></li>
+      </ul>  
+    </section>
+
     <h3>Admin</h3>
 
     <section>
@@ -96,16 +104,6 @@
         </li>
       </ul>
     </section>
-
-    <h3>Outline</h3>
-
-    <%= if has_outline?(@note) do %>
-      <aside>
-        <div class="bg-theme-background1 rounded p-2">
-          <%= raw(render_outline(@note)) %>
-        </div>
-      </aside>
-    <% end %>
   </aside>
 </section>
 
