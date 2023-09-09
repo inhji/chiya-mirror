@@ -9,27 +9,72 @@
   The base layer is for things like reset rules or default styles applied to plain HTML elements.
 */
 @layer base {
-  :root {
-    --color-background: 255 255 255;
-    --color-foreground: 0 0 0;
-    --color-primary: 0 0 0;
-  }
-
-  :root[mode=dark] {
-    --color-background: 0 0 0;
-    --color-foreground: 255 255 255;
-    --color-primary: 255 255 255;
-  }
-
   html {
     font-family: 'Inter', sans-serif;
     font-feature-settings: "case", "cpsp", "frac", "salt", "ccmp", "cv01", "cv02", "cv03", "cv04", "cv05", "cv06", "cv07", "cv09", "cv10", "cv11";
+    @apply text-slate-800;
   }
-
-  header h1 { @apply text-xl; }
 
   .stack > * + * {
     margin-block-start: var(--flow-space, 1em);
+  }
+
+  /*
+   * ============= SITE LAYOUT =============
+   */
+
+  #site-header {
+    @apply block px-3 py-6 bg-gradient-to-r from-slate-900 to-slate-950 text-white print:hidden;
+
+    nav ul {
+       @apply flex gap-3;
+
+       a { @apply p-3 rounded hover:bg-primary-500 transition; }
+    }
+  }
+
+  #primary-sidebar {
+    @apply col-span-1;
+
+    nav {
+      @apply flex flex-col md:flex-row lg:flex-col mb-6 lg:mb-0;
+    }
+
+    .menu {
+      @apply flex-1;
+
+      h2 {
+        @apply font-bold;
+      }
+    }
+  }
+
+  #site-content {
+    @apply grid grid-cols-1 lg:grid-cols-5 gap-0 lg:gap-12;
+
+    #secondary-sidebar {
+      @apply col-span-1;
+    }
+
+    #content-wrapper {
+      @apply col-span-4;
+    }
+  }
+
+  /*
+   * ============= PAGE LAYOUT =============
+   */
+
+  header.page-header { 
+    @apply border-b border-slate-300;
+
+    > h1 {
+      @apply text-3xl leading-loose font-bold text-slate-900;
+    }
+
+    > p {
+      @apply mb-3;
+    }
   }
 }
 
@@ -37,42 +82,6 @@
   The components layer is for class-based styles that you want to be able to override with utilities.
 */
 @layer components {
-  
-  #site-header {
-    @apply py-8 block px-3 bg-black text-white print:hidden;
-  }
-
-  #site-header nav ul {
-     @apply flex gap-3; 
-  }
-
-  #site-content {
-    @apply grid grid-cols-1 lg:grid-cols-5 gap-12;
-  }
-
-  aside#primary-sidebar {
-    @apply col-span-1;
-  }
-
-  aside#primary-sidebar nav {
-    @apply flex flex-col md:flex-row lg:flex-col;
-  }
-  aside#primary-sidebar .menu {
-    @apply flex-1;
-  }
-
-  aside#primary-sidebar .menu h2 {
-    @apply font-bold;
-  }
-
-  aside#secondary-sidebar {
-    @apply col-span-1;
-  }
-
-  section#content-wrapper {
-    @apply col-span-4;
-  }
-
   .divider {
     @apply flex items-center my-8 before:flex-1 after:flex-1 before:content-[''] after:content-[''] before:p-[0.5px] after:p-[0.5px] w-full mx-auto last:hidden;
   }

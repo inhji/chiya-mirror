@@ -1,5 +1,6 @@
 defmodule ChiyaWeb.PageController do
   use ChiyaWeb, :controller
+  alias Chiya.Channels
 
   plug :put_layout, html: {ChiyaWeb.Layouts, :public}
 
@@ -9,7 +10,7 @@ defmodule ChiyaWeb.PageController do
     channel =
       case settings.home_channel_id do
         nil -> nil
-        id -> Chiya.Channels.get_channel!(id) |> Chiya.Channels.preload_channel_public()
+        id -> Channels.get_channel!(id) |> Channels.preload_channel_public()
       end
 
     render(conn, :home,
@@ -20,8 +21,8 @@ defmodule ChiyaWeb.PageController do
 
   def channel(conn, %{"slug" => channel_slug}) do
     channel =
-      Chiya.Channels.get_channel_by_slug!(channel_slug)
-      |> Chiya.Channels.preload_channel_public()
+      Channels.get_channel_by_slug!(channel_slug)
+      |> Channels.preload_channel_public()
 
     render(conn, :channel,
       channel: channel,
@@ -42,14 +43,14 @@ defmodule ChiyaWeb.PageController do
     note = Chiya.Notes.get_note_by_slug_preloaded!(note_slug)
     changeset = Chiya.Notes.change_note_comment(%Chiya.Notes.NoteComment{}, %{note_id: note.id})
 
-    if is_nil(note.published_at) and is_nil(conn.assigns.current_user) do
-      render_error(conn, :not_found)
-    else
+    if note.published_at || conn.assigns.current_user do
       render(conn, :note,
         note: note,
         page_title: note.name,
         changeset: changeset
       )
+    else
+      render_error(conn, :not_found)
     end
   end
 
@@ -57,66 +58,44 @@ defmodule ChiyaWeb.PageController do
     note = Chiya.Notes.get_note_by_slug_preloaded("about")
     user = Chiya.Accounts.get_user!(1)
 
-    render(conn, :about,
-      note: note,
-      user: user,
-      page_title: "About"
-    )
+    if note && user do
+      render(conn, :about,
+        note: note,
+        user: user,
+        page_title: "About"
+      )
+    else
+      render_error(conn, :not_found)
+    end
   end
 
   def wiki(conn, _params) do
-    [channel, notes_updated, notes_published] =
-      case conn.assigns.settings.wiki_channel_id do
-        nil ->
-          [nil, nil, nil]
+    if id = conn.assigns.settings.wiki_channel_id do
+      channel = Chiya.Channels.get_channel!(id)
+      notes = Chiya.Notes.list_notes_by_channel_updated(channel, 999)
 
-        id ->
-          channel = Chiya.Channels.get_channel!(id)
-          updated = Chiya.Notes.list_notes_by_channel_updated(channel, 5)
-          published = Chiya.Notes.list_notes_by_channel_published(channel, 5)
-          [channel, updated, published]
-      end
-
-    render(conn, :wiki,
-      channel: channel,
-      notes_updated: notes_updated,
-      notes_published: notes_published,
-      page_title: "Wiki"
-    )
+      render(conn, :wiki,
+        channel: channel,
+        notes: notes,
+        page_title: "Wiki"
+      )
+    else
+      render_error(conn, :not_found)
+    end 
   end
 
   def bookmarks(conn, _params) do
-    [channel, notes, tags] =
-      case conn.assigns.settings.bookmark_channel_id do
-        nil ->
-          [nil, nil]
+    if id = conn.assigns.settings.bookmark_channel_id do
+      channel = Chiya.Channels.get_channel!(id)
+      notes = Chiya.Notes.list_notes_by_channel_published(channel, 999)
 
-        id ->
-          channel = Chiya.Channels.get_channel!(id)
-          notes = Chiya.Notes.list_notes_by_channel_published(channel, 999)
-          tags = group_tags(notes)
-
-          [channel, notes, tags]
-      end
-
-    render(conn, :bookmarks,
-      channel: channel,
-      notes: notes,
-      tags: tags,
-      page_title: "Bookmarks"
-    )
-  end
-
-  defp group_tags(notes) do
-    Enum.reduce(notes, [], fn n, acc ->
-      acc ++ n.tags
-    end)
-    |> Enum.uniq_by(fn t -> t.id end)
-    |> Enum.sort_by(fn t -> t.slug end, :asc)
-    |> Enum.group_by(
-      fn n -> String.first(n.name) end,
-      fn n -> n end
-    )
-    |> IO.inspect()
+      render(conn, :bookmarks,
+        channel: channel,
+        notes: notes,
+        page_title: "Bookmarks"
+      )
+    else
+      render_error(conn, :not_found)
+    end  
   end
 end

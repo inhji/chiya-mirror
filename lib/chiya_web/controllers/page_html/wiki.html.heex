@@ -1,51 +1,14 @@
-<%= if @channel do %>
-  <header>
-    <h1><%= @channel.name %></h1>
-  </header>
+<header class="page-header">
+  <h1><%= @channel.name %></h1>
+  <p><%= Markdown.render(@channel.content) |> raw %></p>
+</header>
 
-  <section class="mt-6 flex flex-col">
-    <section class="prose prose-gruvbox md:prose-lg lg:prose-xl max-w-none">
-      <%= Markdown.render(@channel.content) |> raw %>
-    </section>
-
-    <aside class="flex flex-col md:flex-row gap-3 mt-6">
-      <div class="mt-6 flex flex-1 flex-col gap-1.5">
-        <h2 class="text-xl text-theme-base">Recently Updated</h2>
-
-        <%= if @channel.layout == :default do %>
-          <.note_list_default notes={@notes_updated}/>
-        <% end %>
-        <%= if @channel.layout == :gallery do %>
-          <.note_list_gallery notes={@notes_updated}/>
-        <% end %>
-        <%= if @channel.layout == :microblog do %>
-          <.note_list_microblog notes={@notes_updated}/>
-        <% end %>
-      </div>
-
-      <div class="mt-6 flex flex-1 flex-col gap-1.5">
-        <h2 class="text-xl text-theme-base">Recently Published</h2>
-
-        <%= if @channel.layout == :default do %>
-          <.note_list_default notes={@notes_published}/>
-        <% end %>
-        <%= if @channel.layout == :gallery do %>
-          <.note_list_gallery notes={@notes_published}/>
-        <% end %>
-        <%= if @channel.layout == :microblog do %>
-          <.note_list_microblog notes={@notes_published}/>
-        <% end %>
-      </div>
-    </aside>
+<section class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+  <section class="col-span-1 md:col-span-2">
+    <.note_list notes={@notes} />
   </section>
-<% else %>
+
   <section>
-    <.header>
-      Wiki
-    </.header>
-
-    <section class="prose">
-      Wiki is not set up.
-    </section>
+    <.tag_list notes={@notes} />
   </section>
-<% end %>
+</section>

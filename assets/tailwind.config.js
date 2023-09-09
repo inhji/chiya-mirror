@@ -14,7 +14,12 @@ module.exports = {
   ],
   darkMode: ['class', '[data-mode="dark"]'],
   theme: {
-    container: { center: true }
+    container: { center: true },
+    extend: {
+      colors: {
+        primary: colors.pink
+      }
+    }
   },
   plugins: [
     require("@tailwindcss/forms"),

@@ -1,20 +1,18 @@
-<section class="max-w-2xl mx-auto">
-  <article class="h-card hcard">
-    <section class="flex gap-3">
-      <img
-        class="rounded-lg block text-center w-28 h-28 | u-photo"
-        src={ChiyaWeb.Uploaders.UserImage.url({@user.user_image, @current_user}, :thumb)}
-      />
-      <.header class="flex-1">
-        <span class="p-name"><%= @user.name %></span>
-        <:subtitle><%= @user.bio %></:subtitle>
-      </.header>
-    </section>
+<article class="h-card hcard | stack">
+  <section class="flex gap-3">
+    <img
+      class="rounded-lg block text-center w-28 h-28 | u-photo"
+      src={ChiyaWeb.Uploaders.UserImage.url({@user.user_image, @current_user}, :thumb)}
+    />
+    <header class="page-header | flex-1">
+      <h1 class="p-name"><%= @user.name %></h1>
+      <p><%= @user.bio %></p>
+    </header>
+  </section>
 
-    <%= if @note do %>
-      <section class="mx-auto mt-8 prose prose-gruvbox md:prose-lg lg:prose-xl | p-summary e-content">
-        <%= Markdown.render(@note.content) |> raw %>
-      </section>
-    <% end %>
-  </article>
-</section>
+  <%= if @note do %>
+    <section class="prose max-w-none | p-summary e-content">
+      <%= Markdown.render(@note.content) |> raw %>
+    </section>
+  <% end %>
+</article>

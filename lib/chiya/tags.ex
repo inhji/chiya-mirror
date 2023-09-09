@@ -8,7 +8,7 @@ defmodule Chiya.Tags do
 
   alias Chiya.Tags.Tag
 
-  @preloads [notes: [:tags]]
+  @preloads [notes: [tags: [:notes]]]
   defp with_preloads(query), do: preload(query, ^@preloads)
 
   @doc """

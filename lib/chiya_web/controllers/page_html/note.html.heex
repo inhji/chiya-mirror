@@ -9,10 +9,14 @@
     <ul class="flex gap-3">
       <li>
         <a href={~p"/admin/notes/#{@note}/edit"} class="button">
-          <.icon name="hero-pencil-square" /> Edit
+          Edit
         </a>
       </li>
-      <li><a href={~p"/admin/notes/#{@note}"} class="button">Show in Admin</a></li>
+      <li>
+        <a href={~p"/admin/notes/#{@note}"} class="button">
+          Show in Admin
+        </a>
+      </li>
     </ul>
   </section>
 
@@ -50,25 +54,24 @@
   <% end %>
 
   <footer>
-    <%= if @note.published_at do %>
-      <span>Published</span>
-    <% else %>
-      <span>Unpublished</span>
-    <% end %>
-    <time class="font-semibold | dt-published"><%= pretty_date(@note.published_at) %></time>
-    <.dot />
-    <span>Last Updated</span>
-    <time class="font-semibold" datetime={datetime(@note.updated_at)}>
-      <%= pretty_date(@note.updated_at) %>
-    </time>
-    <%= if not Enum.empty?(@note.tags) do %>
-      <.dot />
-      <.tags note={@note} />
-    <% end %>
-    <%= if @note.kind != :post do %>
-      <.dot />
-      <span><%= @note.kind %></span>
-    <% end %>
+    <dl>
+      <dt>
+        <%= if @note.published_at do %>
+          <span>Published</span>
+        <% else %>
+          <span>Unpublished</span>
+        <% end %>
+      </dt>
+      <dd><time class="dt-published"><%= pretty_date(@note.published_at) %></time></dd>
+      <dt>Last updated</dt>
+      <dd>
+        <time class="dt-published"><%= pretty_date(@note.published_at) %></time>
+      </dd>
+      <dt>Tags</dt>
+      <dd><.tags note={@note} /></dd>
+      <dt>Kind</dt>
+      <dd><%= @note.kind %></dd>
+    </dl>  
 
     <a href={~p"/"} class="hidden | h-card u-author">Inhji</a>
     <a href={~p"/note/#{@note.slug}"} class="hidden | u-url u-uid"><%= @note.name %></a>

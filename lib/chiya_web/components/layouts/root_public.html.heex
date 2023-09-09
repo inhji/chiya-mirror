@@ -74,20 +74,26 @@
       <aside id="primary-sidebar">
         <nav>
           <div class="menu">
-            <h2>Info</h2>
-
-            <ul>
-              <li>Served by Chiya v<%= Application.spec(:chiya, :vsn) %></li>
-              <li>Made by Inhji</li>
-            </ul>
-          </div>
-
-          <div class="menu">
-            <h2>Links</h2>
+            <h2>Pages</h2>
 
             <ul>
               <li><a href={~p"/wiki"}>Wiki</a></li>
               <li><a href={~p"/about"}>About</a></li>
+              <li><a href={~p"/bookmarks"}>Bookmarks</a></li>
+            </ul>
+          </div>
+
+          <div class="menu">
+            <h2>Channels</h2>
+
+            <ul>
+              <%= for channel <- @channels do %>
+                <li>
+                  <a href={~p"/channel/#{channel.slug}"}>
+                    <%= channel.name %>
+                  </a>
+                </li>
+              <% end %>
             </ul>
           </div>
 
@@ -97,20 +103,6 @@
             <ul>
               <%= for identity <- @public_identities do %>
                 <li><a href={identity.url}><%= identity.name %></a></li>
-              <% end %>
-            </ul>
-          </div>          
-
-          <div class="menu">
-            <h2>Elsewhere</h2>
-
-            <ul>
-              <%= for channel <- @channels do %>
-                <li>
-                  <a href={~p"/channel/#{channel.slug}"}>
-                    <%= channel.name %>
-                  </a>
-                </li>
               <% end %>
             </ul>
           </div>
@@ -139,13 +131,5 @@
         <span class="p-note"><%= @profile.bio %></span>
       </section>
     <% end %>
-
-    <section class="flex h-1 w-full flex-row">
-      <div class="bg-rose-500 w-full"></div>
-      <div class="bg-violet-500 w-full"></div>
-      <div class="bg-blue-500 w-full"></div>
-      <div class="bg-cyan-500 w-full"></div>
-      <div class="bg-emerald-500 w-full"></div>
-    </section>
   </body>
 </html>

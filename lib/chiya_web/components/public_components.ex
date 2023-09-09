@@ -76,7 +76,7 @@ defmodule ChiyaWeb.PublicComponents do
             <%= tag.name %>
           </span>
         <% end %>
-        <.dot class="text-theme-base/50 last:hidden" />
+        <.dot class="last:hidden" />
       <% end %>
     </span>
     """
