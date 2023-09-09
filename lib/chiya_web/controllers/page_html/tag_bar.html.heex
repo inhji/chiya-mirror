@@ -10,7 +10,10 @@
           href={~p"/tagged-with/#{tag.slug}"}
           class="border border-theme-background1 rounded font-sm px-2 py-1 inline-block mb-2 hover:bg-theme-background1 transition"
         >
-          <%= tag.name %> <span class="text-theme-base text-xs font-mono bg-theme-primary/25 rounded-full py-0.5 px-1 align-middle"><%= Enum.count(tag.notes) %></span>
+          <%= tag.name %>
+          <span class="text-theme-base text-xs font-mono bg-theme-primary/25 rounded-full py-0.5 px-1 align-middle">
+            <%= Enum.count(tag.notes) %>
+          </span>
         </a>
       <% end %>
     </li>

@@ -4,6 +4,7 @@
 
 @import "./lightbox.css";
 @import "./tablesort.css";
+@import "./tokyo-night-dark.css";
 
 /*
   The base layer is for things like reset rules or default styles applied to plain HTML elements.
@@ -110,11 +111,29 @@
   .dot {
     @apply before:content-['·']
   }
+
+  .pagination {
+    @apply flex justify-between mt-6;
+
+    & .pagination-previous, & .pagination-next {
+      @apply block py-2 px-3 bg-slate-700 text-white rounded;
+    }
+
+    & .pagination-previous.disabled, & .pagination-next.disabled {
+      @apply bg-slate-500;
+    }
+
+    & .pagination-list {
+      @apply hidden;
+    }
+  }
 }
 
 /*
   The utilities layer is for small, single-purpose classes that should always take precedence over any other styles.
 */
 @layer utilities {
-  
+  .hljs {
+    background: transparent !important;
+  }
 }
