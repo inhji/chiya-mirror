@@ -72,30 +72,24 @@
 
     <main id="site-content" class="container print:hidden">
       <aside id="primary-sidebar">
-        <nav class="prose">
-          <div class="menu">
-            <strong>Channels</strong>
+        <nav class="prose max-w-none">
+          <h3>Channels</h3>
+          <ul class="menu">
+            <%= for channel <- @channels do %>
+              <li>
+                <a href={~p"/channel/#{channel.slug}"}>
+                  <%= channel.name %>
+                </a>
+              </li>
+            <% end %>
+          </ul>
 
-            <ul>
-              <%= for channel <- @channels do %>
-                <li>
-                  <a href={~p"/channel/#{channel.slug}"}>
-                    <%= channel.name %>
-                  </a>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-
-          <div class="menu">
-            <strong>Elsewhere</strong>
-
-            <ul>
-              <%= for identity <- @public_identities do %>
-                <li><a href={identity.url}><%= identity.name %></a></li>
-              <% end %>
-            </ul>
-          </div>
+          <h3>Elsewhere</h3>
+          <ul class="menu">
+            <%= for identity <- @public_identities do %>
+              <li><a href={identity.url}><%= identity.name %></a></li>
+            <% end %>
+          </ul>
         </nav>
       </aside>
 

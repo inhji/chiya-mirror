@@ -102,6 +102,16 @@ defmodule Chiya.Notes.Note do
     end
   end
 
+  def note_excerpt(note_content) do
+    if String.contains?(note_content, "<!-- more -->") do
+      note_content
+      |> String.split("<!-- more -->")
+      |> List.first()
+    else
+      String.slice(note_content, 0..150) <> ".."
+    end
+  end
+
   @doc false
   def changeset(note, attrs) do
     # if you need to have a preloaded note here,

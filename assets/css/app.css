@@ -47,8 +47,8 @@
       @apply flex md:flex-row lg:flex-col mb-6 lg:mb-0;
     }
 
-    & .menu {
-      @apply flex-1;
+    & ul.menu {
+      @apply m-0;
     }
   }
 
