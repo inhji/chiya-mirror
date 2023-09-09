@@ -1,5 +1,4 @@
 const esbuild = require('esbuild')
-const postCssPlugin = require('esbuild-style-plugin')
 
 const args = process.argv.slice(2)
 const watch = args.includes('--watch')
@@ -12,18 +11,13 @@ const loader = {
 
 const plugins = [
   // Add and configure plugins here
-  postCssPlugin({
-    postcss: {
-      plugins: [
-        require('tailwindcss'),
-        require('autoprefixer')
-      ]
-    }
-  })
 ]
 
 let opts = {
-  entryPoints: ['js/app.js', 'js/public.js'],
+  entryPoints: [
+    'js/app.js', 
+    'js/public.js'
+  ],
   bundle: true,
   target: 'es2016',
   outdir: '../priv/static/assets',
