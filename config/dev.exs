@@ -59,7 +59,7 @@ config :chiya, ChiyaWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/chiya_web/(controllers|live|components)/.*(ex|heex)$"
-    ]
+    ],
   ]
 
 # Enable dev routes for dashboard and mailbox

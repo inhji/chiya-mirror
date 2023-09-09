@@ -21,6 +21,7 @@ let opts = {
   bundle: true,
   target: 'es2016',
   outdir: '../priv/static/assets',
+  external: ["*.css", "fonts/*", "images/*"],
   logLevel: 'info',
   loader,
   plugins
