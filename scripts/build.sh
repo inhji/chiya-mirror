@@ -17,4 +17,3 @@ MIX_ENV=prod mix assets.deploy
 
 echo "Generating release.."
 MIX_ENV=prod mix release --overwrite
-
