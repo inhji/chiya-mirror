@@ -6,12 +6,6 @@ defmodule ChiyaWeb.PublicComponents do
     router: ChiyaWeb.Router,
     statics: ChiyaWeb.static_paths()
 
-  import ChiyaWeb.Format
-  import ChiyaWeb.Markdown, only: [render: 1]
-  import Phoenix.HTML, only: [raw: 1]
-
-  import ChiyaWeb.DarkModeToggle
-
   @doc """
   Renders a [Hero Icon](https://heroicons.com).
 
