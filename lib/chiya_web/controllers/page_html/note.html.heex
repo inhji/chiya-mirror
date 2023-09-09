@@ -1,99 +1,111 @@
-<article class="h-entry hentry | stack container">
-  <header>
-    <h1 class="p-name | text-3xl leading-10 font-bold text-theme-base1">
-      <%= @note.name %>
-    </h1>
-  </header>
+<section class="page-grid">
+  <section>
+    <article class="h-entry hentry | stack container">
+      <header>
+        <h1 class="p-name | text-3xl leading-10 font-bold text-theme-base1">
+          <%= @note.name %>
+        </h1>
+      </header>
 
-  <section class="print:hidden">
-    <ul class="flex gap-3">
-      <li>
-        <a href={~p"/admin/notes/#{@note}/edit"} class="button">
-          Edit
-        </a>
-      </li>
-      <li>
-        <a href={~p"/admin/notes/#{@note}"} class="button">
-          Show in Admin
-        </a>
-      </li>
-    </ul>
-  </section>
+      <aside>
+        <.featured_images note={@note} />
+      </aside>
 
-  <aside>
-    <.featured_images note={@note} />
-  </aside>
+      <section class="p-summary e-content | prose max-w-none">
+        <%= Markdown.render(@note.content) |> raw %>
+      </section>
 
-  <%= if has_outline?(@note) do %>
-    <aside class="prose max-w-none print:hidden">
-      <div class="bg-theme-background1 rounded p-2">
-        <%= raw(render_outline(@note)) %>
-      </div>
-    </aside>
-  <% end %>
+      <%= if not Enum.empty?(@note.links_to) do %>
+        <section class="prose ">
+          Notes linking here:
+          <ul>
+            <%= for link <- @note.links_to do %>
+              <li><a href={~p"/note/#{link.slug}"}><%= link.name %></a></li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
 
-  <section class="p-summary e-content | prose max-w-none">
-    <%= Markdown.render(@note.content) |> raw %>
-  </section>
+      <%= if String.length(@note.url || "") > 0 do %>
+        <section class="text-center">
+          <.icon name="hero-link" /> <a href={@note.url}><%= @note.url %></a>
+        </section>
+      <% end %>
 
-  <%= if not Enum.empty?(@note.links_to) do %>
-    <section class="prose ">
-      Notes linking here:
-      <ul>
-        <%= for link <- @note.links_to do %>
-          <li><a href={~p"/note/#{link.slug}"}><%= link.name %></a></li>
+      <footer>
+        <dl>
+          <dt>
+            <%= if @note.published_at do %>
+              <span>Published</span>
+            <% else %>
+              <span>Unpublished</span>
+            <% end %>
+          </dt>
+          <dd><time class="dt-published"><%= pretty_date(@note.published_at) %></time></dd>
+          <dt>Last updated</dt>
+          <dd>
+            <time class="dt-published"><%= pretty_date(@note.published_at) %></time>
+          </dd>
+          <dt>Tags</dt>
+          <dd><.tags note={@note} /></dd>
+          <dt>Kind</dt>
+          <dd><%= @note.kind %></dd>
+        </dl>  
+
+        <a href={~p"/"} class="hidden | h-card u-author">Inhji</a>
+        <a href={~p"/note/#{@note.slug}"} class="hidden | u-url u-uid"><%= @note.name %></a>
+      </footer>
+
+      <section>
+        <%= if !Enum.empty?(@note.images) do %>
+          <div class="flex flex-wrap gap-3">
+            <%= for image <- @note.images do %>
+              <a
+                href={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}
+                class="lightbox | w-28"
+                data-gallery="note"
+                data-description={ChiyaWeb.Markdown.render(image.content)}
+              >
+                <img
+                  src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
+                  class="rounded"
+                />
+              </a>
+            <% end %>
+          </div>
         <% end %>
+      </section>
+    </article>
+
+  </section>
+
+  <aside class="prose max-w-none">
+    <h3>Admin</h3>
+
+    <section>
+      <ul>
+        <li>
+          <a href={~p"/admin/notes/#{@note}/edit"} class="button">
+            Edit
+          </a>
+        </li>
+        <li>
+          <a href={~p"/admin/notes/#{@note}"} class="button">
+            Show in Admin
+          </a>
+        </li>
       </ul>
     </section>
-  <% end %>
 
-  <%= if String.length(@note.url || "") > 0 do %>
-    <section class="text-center">
-      <.icon name="hero-link" /> <a href={@note.url}><%= @note.url %></a>
-    </section>
-  <% end %>
+    <h3>Outline</h3>
 
-  <footer>
-    <dl>
-      <dt>
-        <%= if @note.published_at do %>
-          <span>Published</span>
-        <% else %>
-          <span>Unpublished</span>
-        <% end %>
-      </dt>
-      <dd><time class="dt-published"><%= pretty_date(@note.published_at) %></time></dd>
-      <dt>Last updated</dt>
-      <dd>
-        <time class="dt-published"><%= pretty_date(@note.published_at) %></time>
-      </dd>
-      <dt>Tags</dt>
-      <dd><.tags note={@note} /></dd>
-      <dt>Kind</dt>
-      <dd><%= @note.kind %></dd>
-    </dl>  
-
-    <a href={~p"/"} class="hidden | h-card u-author">Inhji</a>
-    <a href={~p"/note/#{@note.slug}"} class="hidden | u-url u-uid"><%= @note.name %></a>
-  </footer>
-
-  <section>
-    <%= if !Enum.empty?(@note.images) do %>
-      <div class="flex flex-wrap gap-3">
-        <%= for image <- @note.images do %>
-          <a
-            href={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :full_dithered)}
-            class="lightbox | w-28"
-            data-gallery="note"
-            data-description={ChiyaWeb.Markdown.render(image.content)}
-          >
-            <img
-              src={ChiyaWeb.Uploaders.NoteImage.url({image.path, image}, :thumb_dithered)}
-              class="rounded"
-            />
-          </a>
-        <% end %>
-      </div>
+    <%= if has_outline?(@note) do %>
+      <aside>
+        <div class="bg-theme-background1 rounded p-2">
+          <%= raw(render_outline(@note)) %>
+        </div>
+      </aside>
     <% end %>
-  </section>
-</article>
+  </aside>
+</section>
+

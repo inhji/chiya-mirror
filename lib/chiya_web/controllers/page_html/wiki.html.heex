@@ -3,12 +3,12 @@
   <p><%= Markdown.render(@channel.content) |> raw %></p>
 </header>
 
-<section class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
-  <section class="col-span-1 md:col-span-2">
+<section class="page-grid">
+  <section>
     <.note_list notes={@notes} />
   </section>
 
-  <section>
+  <aside>
     <.tag_list notes={@notes} />
-  </section>
+  </aside>
 </section>
