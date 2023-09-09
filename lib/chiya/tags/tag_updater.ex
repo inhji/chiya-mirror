@@ -51,7 +51,7 @@ defmodule Chiya.Tags.TagUpdater do
       Enum.map(new_tags, fn tag ->
         tag
         |> String.downcase()
-        |> Slugger.slugify()
+        |> Slugger.slugify(45)
       end)
 
     Logger.info("Adding tags #{inspect(new_tags -- old_tags)}")
