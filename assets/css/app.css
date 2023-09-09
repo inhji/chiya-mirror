@@ -31,10 +31,10 @@
     & nav ul {
       @apply flex;
     }
-  }
 
-  #site-header a {
-    @apply p-3 rounded hover:bg-primary-700 transition; 
+    & a {
+      @apply p-3 rounded hover:bg-primary-700 transition; 
+    }
   }
 
   /* === PRIMARY SIDEBAR === */
