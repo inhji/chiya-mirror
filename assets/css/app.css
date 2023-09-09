@@ -23,57 +23,65 @@
    * ============= SITE LAYOUT =============
    */
 
+  /* === SITE HEADER === */
+
   #site-header {
     @apply block px-3 py-6 bg-gradient-to-r from-slate-900 to-slate-950 text-white print:hidden;
-
-    & nav ul {
-      @apply flex;
-
-      & a { 
-        @apply p-3 rounded hover:bg-primary-700 transition; 
-      }
-    }
   }
+
+  #site-header nav ul {
+    @apply flex;
+  }
+
+  #site-header a {
+    @apply p-3 rounded hover:bg-primary-700 transition; 
+  }
+
+  /* === PRIMARY SIDEBAR === */
 
   #primary-sidebar {
     @apply col-span-1;
-
-    & nav {
-      @apply flex md:flex-row lg:flex-col mb-6 lg:mb-0;
-    }
-
-    .menu {
-      @apply flex-1;
-    }
   }
+
+  #primary-sidebar nav {
+    @apply flex md:flex-row lg:flex-col mb-6 lg:mb-0;
+  }
+
+  #primary-sidebar .menu {
+    @apply flex-1;
+  }
+
+  /* === SITE CONTENT === */
 
   #site-content {
     @apply grid grid-cols-1 lg:grid-cols-5 gap-0 lg:gap-12;
     @apply px-3 sm:px-0;
+  }
 
-    > #secondary-sidebar {
-      @apply col-span-1;
-    }
+  #content-wrapper {
+    @apply col-span-4;
+  }
 
-    > #content-wrapper {
-      @apply col-span-4;
-    }
+  #secondary-sidebar {
+    @apply col-span-1;
   }
 
   /*
    * ============= PAGE LAYOUT =============
    */
 
+  /* === PAGE HEADER === */
+
   header.page-header { 
     @apply border-b border-slate-300;
+  }
 
-    > h1 {
-      @apply text-3xl leading-loose font-bold text-slate-900;
-    }
+  header.page-header h1 {
+    @apply text-3xl leading-loose font-bold text-slate-900;
+  }
 
-    > p {
-      @apply mb-3;
-    }
+  header.page-header p {
+    @apply mb-3;
   }
 }
 
