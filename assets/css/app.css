@@ -41,14 +41,14 @@
 
   #primary-sidebar {
     @apply col-span-1;
-  }
 
-  #primary-sidebar nav {
-    @apply flex md:flex-row lg:flex-col mb-6 lg:mb-0;
-  }
+    & nav {
+      @apply flex md:flex-row lg:flex-col mb-6 lg:mb-0;
+    }
 
-  #primary-sidebar .menu {
-    @apply flex-1;
+    & .menu {
+      @apply flex-1;
+    }
   }
 
   /* === SITE CONTENT === */
