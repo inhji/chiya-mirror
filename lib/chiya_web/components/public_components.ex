@@ -36,45 +36,12 @@ defmodule ChiyaWeb.PublicComponents do
   end
 
   @doc """
-  Renders a middot as divider
-  """
-  attr :class, :string, default: "text-theme-primary"
-
-  def dot(assigns),
-    do: ~H"""
-    <span class={["font-bold", @class]}>·</span>
-    """
-
-  @doc """
   Renders a horizontal line
   """
   def line(assigns),
     do: ~H"""
     <hr class="my-6 border-theme-base/20" />
     """
-  
-  attr :note, :map, required: true
-  attr :class_tag, :string, default: ""
-  attr :linked, :boolean, default: true
-
-  def tags(assigns) do
-    ~H"""
-    <span class="inline-flex flex-row gap-1">
-      <%= for tag <- @note.tags do %>
-        <%= if assigns.linked do %>
-          <a class={["p-category", @class_tag]} href={~p"/tagged-with/#{tag.slug}"}>
-            <%= tag.name %>
-          </a>
-        <% else %>
-          <span class={["p-category", @class_tag]}>
-            <%= tag.name %>
-          </span>
-        <% end %>
-        <.dot class="last:hidden" />
-      <% end %>
-    </span>
-    """
-  end
 
   @doc """
   Renders a note-header with title.

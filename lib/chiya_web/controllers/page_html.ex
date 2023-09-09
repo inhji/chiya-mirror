@@ -22,8 +22,9 @@ defmodule ChiyaWeb.PageHTML do
   attr :show_content, :boolean, default: true
   def note_list_gallery(assigns)
 
-  def tag_list([]), do: "No Tags"
-  def tag_list(tags), do: Enum.map_join(tags, ", ", fn t -> t.name end)
+  attr :note, :map, required: true
+  attr :linked, :boolean, default: true
+  def tag_list(assigns)
 
   def render_outline(note) do
     note.content

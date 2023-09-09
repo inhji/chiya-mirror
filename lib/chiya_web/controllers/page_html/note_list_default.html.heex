@@ -22,7 +22,7 @@
 
         <%= if not Enum.empty?(note.tags) do %>
           <span class="inline-block">
-            <.tags note={note} linked={false} />
+            <.tag_list note={note} linked={false} />
           </span>
         <% end %>
       </a>
