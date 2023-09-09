@@ -15,17 +15,6 @@
         <%= Markdown.render(@note.content) |> raw %>
       </section>
 
-      <%= if not Enum.empty?(@note.links_to) do %>
-        <section class="prose ">
-          Notes linking here:
-          <ul>
-            <%= for link <- @note.links_to do %>
-              <li><a href={~p"/note/#{link.slug}"}><%= link.name %></a></li>
-            <% end %>
-          </ul>
-        </section>
-      <% end %>
-
       <%= if String.length(@note.url || "") > 0 do %>
         <section class="text-center">
           <.icon name="hero-link" /> <a href={@note.url}><%= @note.url %></a>
@@ -60,9 +49,9 @@
   </section>
 
   <aside class="prose max-w-none">
-    <h3>Outline</h3>
-
     <%= if has_outline?(@note) do %>
+      <h3>Outline</h3>
+
       <section>
         <%= raw(render_outline(@note)) %>
       </section>
@@ -88,6 +77,17 @@
         <li><strong>Kind</strong> <%= @note.kind %></li>
       </ul>
     </section>
+
+    <%= if not Enum.empty?(@note.links_to) do %>
+      <h3>Notes linking here</h3>
+      <section>
+        <ul>
+          <%= for link <- @note.links_to do %>
+            <li><a href={~p"/note/#{link.slug}"}><%= link.name %></a></li>
+          <% end %>
+        </ul>
+      </section>
+    <% end %>
 
     <h3>Admin</h3>
 
