@@ -1,9 +1,9 @@
-<%= if @channel.layout == :default do %>
-  <.note_list_default notes={@notes_updated}/>
+<%= if @layout == :default do %>
+  <.note_list_default notes={@notes} show_content={@show_content}/>
 <% end %>
-<%= if @channel.layout == :gallery do %>
-  <.note_list_gallery notes={@notes_updated}/>
+<%= if @layout == :gallery do %>
+  <.note_list_gallery notes={@notes} show_content={@show_content}/>
 <% end %>
-<%= if @channel.layout == :microblog do %>
-  <.note_list_microblog notes={@notes_updated}/>
+<%= if @layout == :microblog do %>
+  <.note_list_microblog notes={@notes} show_content={@show_content}/>
 <% end %>

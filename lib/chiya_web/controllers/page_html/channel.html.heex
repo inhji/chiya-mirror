@@ -1,18 +1,8 @@
-<section class="max-w-2xl mx-auto">
-  <.header>
-    <%= @channel.name %>
-    <:subtitle><%= Markdown.render(@channel.content) |> raw %></:subtitle>
-  </.header>
+<header class="page-header">
+  <h1><%= @channel.name %></h1>
+  <p><%= Markdown.render(@channel.content) |> raw %></p>
+</header>
 
-  <div class="w-full mt-6 sm:w-auto flex flex-col gap-1.5">
-    <%= if @channel.layout == :default do %>
-      <.note_list_default notes={@channel.notes}/>
-    <% end %>
-    <%= if @channel.layout == :gallery do %>
-      <.note_list_gallery notes={@channel.notes}/>
-    <% end %>
-    <%= if @channel.layout == :microblog do %>
-      <.note_list_microblog notes={@channel.notes}/>
-    <% end %>
-  </div>
-</section>
+<div class="w-full mt-6 sm:w-auto flex flex-col gap-1.5">
+  <.note_list notes={@channel.notes}/>
+</div>
