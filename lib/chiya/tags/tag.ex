@@ -6,6 +6,10 @@ defmodule Chiya.Tags.Tag do
   import Ecto.Changeset
   alias Chiya.Tags.TagSlug
 
+  @derive {
+    Flop.Schema,
+    filterable: [], sortable: [], default_limit: 100
+  }
   @derive {Jason.Encoder, only: [:name]}
   schema "tags" do
     field :name, :string

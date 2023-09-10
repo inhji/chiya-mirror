@@ -38,6 +38,16 @@ defmodule Chiya.Tags do
     |> Repo.all()
   end
 
+  def list_admin_tags(params) do
+    q =
+      Tag
+      |> with_preloads()
+
+    Repo.all(q)
+  end
+
+  def get_tag!(id), do: Repo.get!(Tag, id) |> preload_tag()
+
   @doc """
   Gets a single tag.
 
