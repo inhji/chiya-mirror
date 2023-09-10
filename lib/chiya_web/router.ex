@@ -70,7 +70,7 @@ defmodule ChiyaWeb.Router do
     live "/", AdminHomeLive, :index
 
     resources "/channels", ChannelController
-    resources "/notes", NoteController, except: [:show]
+    resources "/notes", NoteController, except: [:show, :index]
     resources "/settings", SettingController, singleton: true
     resources "/identities", IdentityController
     resources "/comments", CommentController, only: [:index, :show]
@@ -79,7 +79,9 @@ defmodule ChiyaWeb.Router do
     get "/notes/import", NoteController, :import_prepare
     post "/notes/import", NoteController, :import_run
 
+    live "/notes", NoteListLive, :index
     live "/notes/:id", NoteShowLive, :show
+
     get "/notes/:id/raw", NoteController, :raw
     get "/notes/:id/publish", NoteController, :publish
     get "/notes/:id/unpublish", NoteController, :unpublish

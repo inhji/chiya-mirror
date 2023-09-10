@@ -1,29 +1,10 @@
-// If you want to use Phoenix channels, run `mix help phx.gen.channel`
-// to get started and then uncomment the line below.
-// import "./user_socket.js"
-
-// You can include dependencies in two ways.
-//
-// The simplest option is to put them in assets/vendor and
-// import them using relative paths:
-//
-//     import "../vendor/some-package.js"
-//
-// Alternatively, you can `npm install some-package --prefix assets` and import
-// them using a path starting with the package name:
-//
-//     import "some-package"
-//
-
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html"
 // Establish Phoenix Socket and LiveView configuration.
 import { Socket } from "phoenix"
 import { LiveSocket } from "phoenix_live_view"
 import topbar from "../vendor/topbar"
-import React from "react"
-import { createRoot } from 'react-dom'
-import KBar from "./kbar"
+import darkmode from "./darkmode"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, { params: { _csrf_token: csrfToken } })
@@ -42,41 +23,24 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
-const reactRoot = document.querySelector('#react-root')
-if (reactRoot) {
-    const root = createRoot(reactRoot); 
-    root.render(<KBar/>);
-}
+document.addEventListener("DOMContentLoaded", function() {
+    darkmode()
 
-document
-    .querySelector("#dark-mode-toggle")
-    .addEventListener("click", (e) => {
-        e.preventDefault()
-        const data = document.documentElement.dataset
-        if (data["mode"] && data["mode"] == "dark") {
-            delete data["mode"]
-            window.localStorage.removeItem("theme")
-        } else {
-            data["mode"] = "dark"
-            window.localStorage.setItem("theme", "dark")
-        }
-    })
+    document
+        .querySelectorAll('textarea')
+        .forEach(e => e.addEventListener('keydown', function(e) {
+          if (e.key == 'Tab') {
+            e.preventDefault();
+            var start = this.selectionStart;
+            var end = this.selectionEnd;
 
-document
-    .querySelectorAll('textarea')
-    .forEach(e => e.addEventListener('keydown', function(e) {
-      if (e.key == 'Tab') {
-        e.preventDefault();
-        var start = this.selectionStart;
-        var end = this.selectionEnd;
+            // set textarea value to: text before caret + tab + text after caret
+            this.value = this.value.substring(0, start) +
+              "\t" + this.value.substring(end);
 
-        // set textarea value to: text before caret + tab + text after caret
-        this.value = this.value.substring(0, start) +
-          "\t" + this.value.substring(end);
-
-        // put caret at right position again
-        this.selectionStart =
-          this.selectionEnd = start + 1;
-      }
-    }))
-    
+            // put caret at right position again
+            this.selectionStart =
+              this.selectionEnd = start + 1;
+          }
+        }))
+})   

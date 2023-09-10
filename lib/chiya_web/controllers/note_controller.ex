@@ -5,29 +5,6 @@ defmodule ChiyaWeb.NoteController do
   alias Chiya.Notes
   alias Chiya.Notes.{Note, NoteImport}
 
-  def index(conn, %{"channel" => channel_slug}) do
-    channel = Chiya.Channels.get_channel_by_slug!(channel_slug)
-    notes = Notes.list_notes_by_channel(channel)
-
-    conn
-    |> with_channels()
-    |> render(:index,
-      notes: notes,
-      page_title: "Notes"
-    )
-  end
-
-  def index(conn, _params) do
-    notes = Notes.list_notes()
-
-    conn
-    |> with_channels()
-    |> render(:index,
-      notes: notes,
-      page_title: "Notes"
-    )
-  end
-
   def new(conn, _params) do
     default_channels = get_default_channels(conn)
 
@@ -65,10 +42,6 @@ defmodule ChiyaWeb.NoteController do
           page_title: "New Note"
         )
     end
-  end
-
-  def show(conn, %{"id" => id}) do
-    live_render(conn, NoteShowLive, session: %{"note_id" => id})
   end
 
   def edit(conn, %{"id" => id}) do

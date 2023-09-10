@@ -13,12 +13,20 @@
   html {
     font-family: 'Inter', sans-serif;
     font-feature-settings: "case", "cpsp", "frac", "salt", "ccmp", "cv01", "cv02", "cv03", "cv04", "cv05", "cv06", "cv07", "cv09", "cv10", "cv11";
-    @apply text-slate-800;
+  }
+
+  body {
+    @apply dark:bg-slate-800;
   }
 
   .stack > * + * {
     margin-block-start: var(--flow-space, 1em);
   }
+
+  :root[data-mode=dark] .prose {
+    @apply prose-invert;
+  }
+
 
   /*
    * ============= SITE LAYOUT =============
@@ -47,7 +55,7 @@
       @apply flex md:flex-row lg:flex-col mb-6 lg:mb-0;
     }
 
-    & ul.menu {
+    & h3 {
       @apply m-0;
     }
   }
@@ -57,14 +65,20 @@
   #site-content {
     @apply grid grid-cols-1 lg:grid-cols-5 gap-0 lg:gap-12;
     @apply px-3 sm:px-0;
+
+    #content-wrapper {
+      @apply col-span-4;
+    }
+
+    #secondary-sidebar {
+      @apply col-span-1;
+    }
   }
 
-  #content-wrapper {
-    @apply col-span-4;
-  }
+  /* === SITE FOOTER === */
 
-  #secondary-sidebar {
-    @apply col-span-1;
+  #site-footer {
+    @apply mt-8 prose max-w-none;
   }
 
   /*

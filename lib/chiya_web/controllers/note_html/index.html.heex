@@ -34,3 +34,15 @@
   <:col :let={note} label="Updated at"><%= from_now(note.updated_at) %></:col>
   <:col :let={note} label="Published at"><%= from_now(note.published_at) %></:col>
 </.table>
+
+<.filter_form fields={[:name]} meta={@meta} id="user-filter-form" />
+
+<Flop.Phoenix.table items={@notes} meta={@meta} path={~p"/admin/notes"}>
+  <:col :let={note} label="Name" field={:name}><%= note.name %></:col>
+  <:col :let={note} label="Updated at" field={:updated_at}><%= from_now(note.updated_at) %></:col>
+  <:col :let={note} label="Published at" field={:published_at}>
+    <%= from_now(note.published_at) %>
+  </:col>
+</Flop.Phoenix.table>
+
+<Flop.Phoenix.pagination meta={@meta} path={~p"/admin/notes"} />
