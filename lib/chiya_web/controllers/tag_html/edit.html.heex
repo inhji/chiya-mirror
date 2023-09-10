@@ -1,0 +1,10 @@
+<.header>
+  Edit Tag “<%= @tag.name %>”
+  <:actions>
+    <.link href={~p"/admin/tags"}>
+      <.button><.icon name="hero-arrow-left" /> Back to Tags</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.tag_form changeset={@changeset} action={~p"/admin/tags/#{@tag}"} />

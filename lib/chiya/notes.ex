@@ -57,6 +57,12 @@ defmodule Chiya.Notes do
     Chiya.Flop.validate_and_run(q, params, for: Chiya.Notes.Note)
   end
 
+  def list_apply_notes(regex) do
+    Note
+    |> where([n], fragment("? ~ ?", n.name, ^regex))
+    |> Repo.all()
+  end
+
   def list_notes_by_channel(%Chiya.Channels.Channel{} = channel) do
     list_notes_by_channel_query(channel)
     |> order_by([n], desc: n.updated_at, desc: n.published_at)

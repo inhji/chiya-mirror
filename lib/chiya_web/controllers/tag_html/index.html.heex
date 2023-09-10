@@ -1,0 +1,20 @@
+<.header>
+  <.icon name="hero-document-text" /> Tags
+  <:subtitle>Tags are tags.</:subtitle>
+</.header>
+
+<section class="flex flex-col gap-3 mt-6">
+  <%= for tag <- @tags do %>
+    <article class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 p-3 rounded">
+      <header>
+        <h2 class="text-xl leading-normal">
+          <a href={"/admin/tags/#{tag.id}"}><%= tag.name %></a>
+        </h2>
+      </header>
+      <footer class="flex gap-3 text-sm ">
+        <span><%= Enum.count(tag.notes) %> notes</span>
+        <span>Updated <%= from_now(tag.updated_at) %></span>
+      </footer>
+    </article>
+  <% end %>
+</section>
