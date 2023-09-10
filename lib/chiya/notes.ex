@@ -39,6 +39,14 @@ defmodule Chiya.Notes do
     |> Repo.preload(@preloads)
   end
 
+  def list_admin_notes(params) do
+    q =
+      Note
+      |> order_by([n], desc: n.updated_at, desc: n.published_at)
+
+    Chiya.Flop.validate_and_run(q, params, for: Chiya.Notes.Note)
+  end
+
   def list_home_notes(channel, params) do
     q =
       list_notes_by_channel_query(channel)
@@ -46,10 +54,7 @@ defmodule Chiya.Notes do
       |> order_by([n], desc: n.updated_at, desc: n.published_at)
       |> preload(^@preloads)
 
-    Flop.validate_and_run(q, params,
-      for: Chiya.Notes.Note,
-      repo: Chiya.Repo
-    )
+    Chiya.Flop.validate_and_run(q, params, for: Chiya.Notes.Note)
   end
 
   def list_notes_by_channel(%Chiya.Channels.Channel{} = channel) do

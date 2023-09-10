@@ -4,6 +4,7 @@ import 'phoenix_html'
 import hljs from 'highlight.js'
 import GLightbox from 'glightbox'
 import Tablesort from 'tablesort'
+import darkmode from "./darkmode"
 
 document.addEventListener('DOMContentLoaded', (event) => {
   document.querySelectorAll('.prose pre code').forEach((el) => 
@@ -11,22 +12,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   document.querySelectorAll('.prose table').forEach(el => 
   	new Tablesort(el))
+
+  darkmode()
+
+  GLightbox({ selector: '.lightbox' })
 });
-
-document
-	.querySelector('#dark-mode-toggle')
-	.addEventListener('click', (e) => {
-		e.preventDefault()
-		const data = document.documentElement.dataset
-		if (data['mode'] && data['mode'] == 'dark') {
-			delete data['mode']
-			window.localStorage.removeItem('theme')
-		} else {
-			data['mode'] = 'dark'
-			window.localStorage.setItem('theme', 'dark')
-		}
-	})
-
-GLightbox({ selector: '.lightbox' })
-
-window.hljs = hljs

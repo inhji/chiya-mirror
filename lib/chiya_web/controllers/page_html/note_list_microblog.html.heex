@@ -13,7 +13,7 @@
         <%= raw(Markdown.render(note.content)) %>
       </div>
 
-      <footer class="text-slate-700">
+      <footer class="prose max-w-none">
         <a href={~p"/note/#{note.slug}"}>
           <time>
             <%= pretty_datetime(note.published_at) %>
