@@ -126,6 +126,24 @@
     @apply before:content-['·']
   }
 
+  .tag-bar {
+    & .letter {
+      @apply capitalize border rounded font-sm px-2 py-1 inline-block mb-2;
+    }
+
+    & li {
+      @apply mb-2;
+    }
+
+    & a {
+      @apply border rounded font-sm px-2 py-1 inline-block mb-2 transition;
+    }
+
+    & .count {
+      @apply text-xs font-mono rounded-full py-0.5 px-1 align-middle;
+    }
+  }
+
   .pagination {
     @apply flex justify-between mt-6;
 
