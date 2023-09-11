@@ -136,7 +136,7 @@
     }
 
     & a {
-      @apply text-neutral-900 dark:text-neutral-100 border rounded font-sm px-2 py-1 inline-block mb-2 transition;
+      @apply text-neutral-900 dark:text-neutral-100 border rounded text-sm px-2 py-1 inline-block mb-2 transition;
     }
 
     & .count {
