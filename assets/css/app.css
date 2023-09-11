@@ -10,13 +10,23 @@
   The base layer is for things like reset rules or default styles applied to plain HTML elements.
 */
 @layer base {
+  :root {
+    --color-foreground: 15 23 42;
+    --color-background: 241 245 249;
+  }
+
+  :root[data-mode=dark] {
+    --color-foreground: 241 245 249;
+    --color-background: 15 23 42;   
+  }
+
   html {
     font-family: 'Inter', sans-serif;
     font-feature-settings: "case", "cpsp", "frac", "salt", "ccmp", "cv01", "cv02", "cv03", "cv04", "cv05", "cv06", "cv07", "cv09", "cv10", "cv11";
   }
 
   body {
-    @apply dark:bg-neutral-800;
+    @apply bg-background text-foreground;
   }
 
   .stack > * + * {
@@ -119,7 +129,9 @@
 */
 @layer components {
   .divider {
-    @apply flex items-center my-8 before:flex-1 after:flex-1 before:content-[''] after:content-[''] before:p-[0.5px] after:p-[0.5px] w-full mx-auto last:hidden before:bg-neutral-500/25 after:bg-neutral-500/25 before:mr-2 after:ml-2;
+    @apply flex text-red-500 items-center my-8 w-full mx-auto last:hidden;
+    @apply before:flex-1 before:content-[''] before:bg-neutral-500/25 before:p-[0.5px] before:mr-2;
+    @apply after:flex-1 after:content-[''] after:bg-neutral-500/25 after:p-[0.5px] after:ml-2;
   }
 
   .dot {

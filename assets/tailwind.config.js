@@ -18,7 +18,9 @@ module.exports = {
     extend: {
       colors: {
         primary: colors.sky,
-        neutral: colors.slate
+        neutral: colors.slate,
+        foreground: 'rgb(var(--color-foreground) / <alpha-value>)',
+        background: 'rgb(var(--color-background) / <alpha-value>)'
       }
     }
   },
