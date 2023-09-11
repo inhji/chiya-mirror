@@ -128,7 +128,7 @@
 
   .tag-bar {
     & .letter {
-      @apply capitalize border rounded font-sm px-2 py-1 inline-block mb-2;
+      @apply text-neutral-900 dark:text-neutral-100 capitalize border rounded font-sm px-2 py-1 inline-block mb-2;
     }
 
     & li {
@@ -136,11 +136,11 @@
     }
 
     & a {
-      @apply border rounded font-sm px-2 py-1 inline-block mb-2 transition;
+      @apply text-neutral-900 dark:text-neutral-100 border rounded font-sm px-2 py-1 inline-block mb-2 transition;
     }
 
     & .count {
-      @apply text-xs font-mono rounded-full py-0.5 px-1 align-middle;
+      @apply text-sm font-mono rounded-full py-0.5 px-1 align-middle;
     }
   }
 
