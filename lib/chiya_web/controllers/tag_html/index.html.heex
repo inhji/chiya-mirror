@@ -5,7 +5,7 @@
 
 <section class="flex flex-col gap-3 mt-6">
   <%= for tag <- @tags do %>
-    <article class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 p-3 rounded">
+    <article class="bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 p-3 rounded">
       <header>
         <h2 class="text-xl leading-normal">
           <a href={"/admin/tags/#{tag.id}"}><%= tag.name %></a>
