@@ -15,12 +15,6 @@
         <%= Markdown.render(@note.content) |> raw %>
       </section>
 
-      <%= if String.length(@note.url || "") > 0 do %>
-        <section class="note-link">
-          <.icon name="hero-link" /> <a href={@note.url}><%= @note.url %></a>
-        </section>
-      <% end %>
-
       <footer>
         <a href={~p"/"} class="hidden | h-card u-author">Inhji</a>
         <a href={~p"/note/#{@note.slug}"} class="hidden | u-url u-uid"><%= @note.name %></a>
@@ -77,6 +71,16 @@
         <li><strong>Kind</strong> <%= @note.kind %></li>
       </ul>
     </section>
+
+    <%= if String.length(@note.url || "") > 0 do %>
+      <h3><.icon name="hero-link" /> URL</h3>
+
+      <section>
+        <ul>
+          <li><a href={@note.url}><%= @note.url %></a></li>
+        </ul>
+      </section>
+    <% end %>
 
     <%= if not Enum.empty?(@note.links_to) do %>
       <h3>Notes linking here</h3>
