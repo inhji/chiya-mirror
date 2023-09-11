@@ -146,6 +146,7 @@ defmodule ChiyaWeb.PublicComponents do
       src={ChiyaWeb.Helpers.image_url(assigns.image, assigns.size)}
       class={assigns.class}
       title={assigns.image.content}
+      loading="lazy"
     />
     """
   end
