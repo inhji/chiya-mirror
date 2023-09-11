@@ -17,11 +17,43 @@ module.exports = {
     container: { center: true },
     extend: {
       colors: {
-        primary: colors.sky,
+        primary: colors.rose,
         neutral: colors.slate,
         foreground: 'rgb(var(--color-foreground) / <alpha-value>)',
         background: 'rgb(var(--color-background) / <alpha-value>)'
-      }
+      },
+      typography: ({ theme }) => ({
+        colorful: {
+          css: {
+            '--tw-prose-lead': theme('colors.rose[700]'),
+            '--tw-prose-links': theme('colors.rose[900]'),
+            '--tw-prose-counters': theme('colors.rose[600]'),
+            '--tw-prose-bullets': theme('colors.rose[400]'),
+            '--tw-prose-hr': theme('colors.rose[300]'),
+            '--tw-prose-quotes': theme('colors.rose[900]'),
+            '--tw-prose-quote-borders': theme('colors.rose[300]'),
+            '--tw-prose-captions': theme('colors.rose[700]'),
+            '--tw-prose-code': theme('colors.rose[900]'),
+            '--tw-prose-pre-code': theme('colors.rose[100]'),
+            '--tw-prose-pre-bg': theme('colors.rose[900]'),
+            '--tw-prose-th-borders': theme('colors.rose[300]'),
+            '--tw-prose-td-borders': theme('colors.rose[200]'),
+            '--tw-prose-invert-lead': theme('colors.rose[300]'),
+            '--tw-prose-invert-links': theme('colors.white'),
+            '--tw-prose-invert-counters': theme('colors.rose[400]'),
+            '--tw-prose-invert-bullets': theme('colors.rose[600]'),
+            '--tw-prose-invert-hr': theme('colors.rose[700]'),
+            '--tw-prose-invert-quotes': theme('colors.rose[100]'),
+            '--tw-prose-invert-quote-borders': theme('colors.rose[700]'),
+            '--tw-prose-invert-captions': theme('colors.rose[400]'),
+            '--tw-prose-invert-code': theme('colors.white'),
+            '--tw-prose-invert-pre-code': theme('colors.rose[300]'),
+            '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 50%)',
+            '--tw-prose-invert-th-borders': theme('colors.rose[600]'),
+            '--tw-prose-invert-td-borders': theme('colors.rose[700]'),
+          },
+        },
+      }),
     }
   },
   plugins: [

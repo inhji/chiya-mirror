@@ -25,6 +25,7 @@
     </script>
     <script>
       if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        console.log("Dark Mode")
         document.documentElement.dataset["mode"] = "dark"
       } else {
         delete document.documentElement.dataset["mode"]
@@ -39,9 +40,7 @@
       <nav class="container">
         <ul>
           <li>
-            <a href="/">
-              <span>Home</span>
-            </a>
+            <a href="/">Home</a>
           </li>
           <li class="flex-1"></li>
           <%= if @current_user do %>
@@ -68,19 +67,13 @@
             <h3>Pages</h3>
             <ul>
               <li>
-                <a href="/about">
-                  <span>About</span>
-                </a>
+                <%= active_link(@conn, "About", to: "/about") %>
               </li>
               <li>
-                <a href="/wiki">
-                  <span>Wiki</span>
-                </a>
+                <%= active_link(@conn, "Wiki", to: "/wiki") %>
               </li>
               <li>
-                <a href="/bookmarks">
-                  <span>Bookmarks</span>
-                </a>
+                <%= active_link(@conn, "Bookmarks", to: "/bookmarks") %>
               </li>
             </ul>
           </div>
@@ -90,9 +83,7 @@
             <ul>
               <%= for channel <- @channels do %>
                 <li>
-                  <a href={~p"/channel/#{channel.slug}"}>
-                    <%= channel.name %>
-                  </a>
+                  <%= active_link(@conn, channel.name, to: ~p"/channel/#{channel.slug}") %>
                 </li>
               <% end %>
             </ul>

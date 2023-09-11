@@ -1,14 +1,7 @@
-<header class="page-header">
-  <h1><%= Enum.count(@tag.notes) %> Tagged with &ldquo;<%= @tag.name %>&rdquo;</h1>
-  <p><%= @tag.content %></p>
-</header>
-
-<section class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
-  <section class="col-span-1 md:col-span-2">
-    <.note_list notes={@tag.notes} />
-  </section>
-
-  <section>
-    <.tag_bar notes={@tag.notes} />
-  </section>
+<section class="col-span-1 md:col-span-2">
+  <.note_list notes={@tag.notes} />
 </section>
+
+<aside>
+  <.tag_bar notes={@tag.notes} />
+</aside>
