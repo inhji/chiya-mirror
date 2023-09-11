@@ -16,7 +16,7 @@
   }
 
   body {
-    @apply dark:bg-slate-800;
+    @apply dark:bg-neutral-800;
   }
 
   .stack > * + * {
@@ -35,7 +35,7 @@
   /* === SITE HEADER === */
 
   #site-header {
-    @apply block px-3 py-6 bg-gradient-to-r from-slate-900 to-slate-950 text-white print:hidden;
+    @apply block px-3 py-6 bg-gradient-to-r from-neutral-900 to-neutral-950 text-white print:hidden;
 
     & nav ul {
       @apply flex;
@@ -88,11 +88,11 @@
   /* === PAGE HEADER === */
 
   header.page-header { 
-    @apply border-b border-slate-300 mb-6;
+    @apply border-b border-neutral-300 mb-6 prose max-w-none;
   }
 
   header.page-header h1 {
-    @apply text-3xl leading-loose font-bold text-slate-900;
+    @apply text-3xl leading-loose font-bold;
   }
 
   header.page-header p {
@@ -119,22 +119,40 @@
 */
 @layer components {
   .divider {
-    @apply flex items-center my-8 before:flex-1 after:flex-1 before:content-[''] after:content-[''] before:p-[0.5px] after:p-[0.5px] w-full mx-auto last:hidden before:bg-slate-500/25 after:bg-slate-500/25 before:mr-2 after:ml-2;
+    @apply flex items-center my-8 before:flex-1 after:flex-1 before:content-[''] after:content-[''] before:p-[0.5px] after:p-[0.5px] w-full mx-auto last:hidden before:bg-neutral-500/25 after:bg-neutral-500/25 before:mr-2 after:ml-2;
   }
 
   .dot {
     @apply before:content-['·']
   }
 
+  .tag-bar {
+    & .letter {
+      @apply text-neutral-900 dark:text-neutral-100 capitalize border rounded font-sm px-2 py-1 inline-block mb-2;
+    }
+
+    & li {
+      @apply mb-2;
+    }
+
+    & a {
+      @apply text-neutral-900 dark:text-neutral-100 border rounded font-sm px-2 py-1 inline-block mb-2 transition;
+    }
+
+    & .count {
+      @apply text-sm font-mono rounded-full py-0.5 px-1 align-middle;
+    }
+  }
+
   .pagination {
     @apply flex justify-between mt-6;
 
     & .pagination-previous, & .pagination-next {
-      @apply block py-2 px-3 bg-slate-700 text-white rounded;
+      @apply block py-2 px-3 bg-neutral-700 text-white rounded;
     }
 
     & .pagination-previous.disabled, & .pagination-next.disabled {
-      @apply bg-slate-500;
+      @apply bg-neutral-500;
     }
 
     & .pagination-list {

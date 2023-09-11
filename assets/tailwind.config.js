@@ -17,7 +17,8 @@ module.exports = {
     container: { center: true },
     extend: {
       colors: {
-        primary: colors.sky
+        primary: colors.sky,
+        neutral: colors.slate
       }
     }
   },
