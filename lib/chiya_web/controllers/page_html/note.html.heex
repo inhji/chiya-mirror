@@ -1,6 +1,6 @@
 <section class="page-grid">
   <section>
-    <article class="h-entry hentry | stack container">
+    <article class="h-entry hentry note | stack container">
       <header class="prose max-w-none">
         <h1 class="p-name">
           <%= @note.name %>
@@ -16,7 +16,7 @@
       </section>
 
       <%= if String.length(@note.url || "") > 0 do %>
-        <section class="text-center">
+        <section class="note-link">
           <.icon name="hero-link" /> <a href={@note.url}><%= @note.url %></a>
         </section>
       <% end %>

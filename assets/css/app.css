@@ -118,6 +118,12 @@
   The components layer is for class-based styles that you want to be able to override with utilities.
 */
 @layer components {
+  .note {
+    .note-link {
+      @apply text-center text-neutral-900 dark:text-neutral-100;
+    }
+  }
+
   .divider {
     @apply flex items-center my-8 before:flex-1 after:flex-1 before:content-[''] after:content-[''] before:p-[0.5px] after:p-[0.5px] w-full mx-auto last:hidden before:bg-neutral-500/25 after:bg-neutral-500/25 before:mr-2 after:ml-2;
   }
