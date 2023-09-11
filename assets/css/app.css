@@ -128,6 +128,12 @@
   The components layer is for class-based styles that you want to be able to override with utilities.
 */
 @layer components {
+  .note {
+    .note-link {
+      @apply text-center text-neutral-900 dark:text-neutral-100;
+    }
+  }
+
   .divider {
     @apply flex text-red-500 items-center my-8 w-full mx-auto last:hidden;
     @apply before:flex-1 before:content-[''] before:bg-neutral-500/25 before:p-[0.5px] before:mr-2;
@@ -179,5 +185,9 @@
 @layer utilities {
   .hljs {
     background: transparent !important;
+  }
+
+  a.invalid {
+    @apply line-through;
   }
 }
