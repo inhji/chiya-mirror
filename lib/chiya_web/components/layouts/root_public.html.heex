@@ -43,21 +43,6 @@
               <span>Home</span>
             </a>
           </li>
-          <li>
-            <a href="/about">
-              <span>About</span>
-            </a>
-          </li>
-          <li>
-            <a href="/wiki">
-              <span>Wiki</span>
-            </a>
-          </li>
-          <li>
-            <a href="/bookmarks">
-              <span>Bookmarks</span>
-            </a>
-          </li>
           <li class="flex-1"></li>
           <%= if @current_user do %>
             <li>
@@ -79,6 +64,27 @@
     <main id="site-content" class="container print:hidden">
       <aside id="primary-sidebar">
         <nav class="prose max-w-none">
+          <div class="menu">
+            <h3>Pages</h3>
+            <ul>
+              <li>
+                <a href="/about">
+                  <span>About</span>
+                </a>
+              </li>
+              <li>
+                <a href="/wiki">
+                  <span>Wiki</span>
+                </a>
+              </li>
+              <li>
+                <a href="/bookmarks">
+                  <span>Bookmarks</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
           <div class="menu">
             <h3>Channels</h3>
             <ul>
