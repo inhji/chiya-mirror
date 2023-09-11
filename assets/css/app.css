@@ -53,6 +53,10 @@
 
     & a {
       @apply p-3 rounded hover:bg-primary-700 transition; 
+
+      &.active {
+        @apply bg-primary-700;
+      }
     }
   }
 
@@ -67,6 +71,10 @@
 
     & h3 {
       @apply m-0;
+    }
+
+    & a.active {
+      @apply text-primary-500;
     }
   }
 
@@ -98,7 +106,7 @@
   /* === PAGE HEADER === */
 
   header.page-header { 
-    @apply border-b border-neutral-300 mb-6 prose max-w-none;
+    @apply border-b border-foreground/50 mb-6 prose max-w-none;
   }
 
   header.page-header h1 {
@@ -112,7 +120,7 @@
   /* === PAGE GRID === */
 
   section.page-grid {
-    @apply grid grid-cols-1 md:grid-cols-3 gap-3;
+    @apply grid grid-cols-1 md:grid-cols-3 gap-6;
 
     > section {
       @apply col-span-1 md:col-span-2;
@@ -135,7 +143,7 @@
   }
 
   .divider {
-    @apply flex text-red-500 items-center my-8 w-full mx-auto last:hidden;
+    @apply flex text-primary-500 items-center my-8 w-full mx-auto last:hidden;
     @apply before:flex-1 before:content-[''] before:bg-neutral-500/25 before:p-[0.5px] before:mr-2;
     @apply after:flex-1 after:content-[''] after:bg-neutral-500/25 after:p-[0.5px] after:ml-2;
   }

@@ -3,6 +3,12 @@ defmodule ChiyaWeb.PageController do
   alias Chiya.Channels
 
   plug :put_layout, html: {ChiyaWeb.Layouts, :public}
+  plug :put_assigns
+
+  defp put_assigns(conn, opts) do
+    conn
+    |> assign(:page_header, true)
+  end
 
   def home(conn, params) do
     settings = conn.assigns.settings
@@ -22,7 +28,8 @@ defmodule ChiyaWeb.PageController do
       channel: channel,
       notes: notes,
       meta: meta,
-      page_title: "Home"
+      page_title: "Home",
+      page_header: false
     )
   end
 
@@ -33,7 +40,8 @@ defmodule ChiyaWeb.PageController do
 
     render(conn, :channel,
       channel: channel,
-      page_title: channel.name
+      page_title: channel.name,
+      content: channel.content
     )
   end
 
@@ -42,7 +50,7 @@ defmodule ChiyaWeb.PageController do
 
     render(conn, :tag,
       tag: tag,
-      page_title: tag.name
+      page_title: "Tagged with #{tag.name}"
     )
   end
 
@@ -53,8 +61,9 @@ defmodule ChiyaWeb.PageController do
     if note.published_at || conn.assigns.current_user do
       render(conn, :note,
         note: note,
+        changeset: changeset,
         page_title: note.name,
-        changeset: changeset
+        page_header: false
       )
     else
       render_error(conn, :not_found)
@@ -69,7 +78,7 @@ defmodule ChiyaWeb.PageController do
       render(conn, :about,
         note: note,
         user: user,
-        page_title: "About"
+        page_title: user.name
       )
     else
       render_error(conn, :not_found)
@@ -84,7 +93,8 @@ defmodule ChiyaWeb.PageController do
       render(conn, :wiki,
         channel: channel,
         notes: notes,
-        page_title: "Wiki"
+        page_title: channel.name,
+        content: channel.content
       )
     else
       render_error(conn, :not_found)
@@ -99,7 +109,7 @@ defmodule ChiyaWeb.PageController do
       render(conn, :bookmarks,
         channel: channel,
         notes: notes,
-        page_title: "Bookmarks"
+        page_title: "#{Enum.count(notes)} Bookmarks"
       )
     else
       render_error(conn, :not_found)

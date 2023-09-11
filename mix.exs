@@ -46,6 +46,7 @@ defmodule Chiya.MixProject do
       {:jason, "~> 1.2"},
       {:oban, "~> 2.14"},
       {:phoenix, "~> 1.7.1"},
+      {:phoenix_active_link, "~> 0.3.2"},
       {:phoenix_ecto, "~> 4.4"},
       {:phoenix_html, "~> 3.3"},
       {:phoenix_live_dashboard, "~> 0.8.0"},

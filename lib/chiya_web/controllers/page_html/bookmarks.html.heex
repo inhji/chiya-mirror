@@ -1,13 +1,7 @@
-<header class="page-header">
-  <h1><%= Enum.count(@notes) %> Bookmarks</h1>
-</header>
-
-<section class="page-grid">
-  <section>
-    <.note_list notes={@notes} layout={@channel.layout} />
-  </section>
-
-  <aside>
-    <.tag_bar notes={@notes} />
-  </aside>
+<section>
+  <.note_list notes={@notes} layout={@channel.layout} />
 </section>
+
+<aside>
+  <.tag_bar notes={@notes} />
+</aside>
