@@ -88,11 +88,11 @@
   /* === PAGE HEADER === */
 
   header.page-header { 
-    @apply border-b border-neutral-300 mb-6;
+    @apply border-b border-neutral-300 mb-6 prose max-w-none;
   }
 
   header.page-header h1 {
-    @apply text-3xl leading-loose font-bold text-neutral-900;
+    @apply text-3xl leading-loose font-bold;
   }
 
   header.page-header p {
