@@ -174,4 +174,8 @@
   .hljs {
     background: transparent !important;
   }
+
+  a.invalid {
+    @apply line-through;
+  }
 }
