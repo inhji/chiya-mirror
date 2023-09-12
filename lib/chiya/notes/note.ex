@@ -13,7 +13,19 @@ defmodule Chiya.Notes.Note do
 
   @derive {
     Flop.Schema,
-    filterable: [:name, :kind], sortable: [:name], default_limit: 10, max_limit: 100
+    filterable: [:name, :channels],
+    sortable: [:name],
+    default_limit: 10,
+    max_limit: 100,
+    adapter_opts: [
+      join_fields: [
+        channels: [
+          binding: :channels,
+          field: :name,
+          ecto_type: :string
+        ]
+      ]
+    ]
   }
   @derive {Jason.Encoder, only: [:id, :name, :content, :slug, :channels, :tags]}
   schema "notes" do
