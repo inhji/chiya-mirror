@@ -1,6 +1,6 @@
 <.header>
-  Apply Tag <%= @tag.id %>
-  <:subtitle>This is a tag record from your database.</:subtitle>
+  Apply Tag <%= @tag.name %>
+  <:subtitle>These notes will get the tag.</:subtitle>
   <:actions>
     <.link href={~p"/admin/tags/#{@tag}/apply"}>
       <.button>Apply tag</.button>
