@@ -748,12 +748,17 @@ defmodule ChiyaWeb.CoreComponents do
     assigns = assign(assigns, form: Phoenix.Component.to_form(meta), meta: nil)
 
     ~H"""
-    <.form for={@form} id={@id} phx-target={@target} phx-change={@on_change} phx-submit={@on_change}>
+    <.form
+      for={@form}
+      id={@id}
+      class="stack"
+      phx-target={@target}
+      phx-change={@on_change}
+      phx-submit={@on_change}
+    >
       <.filter_fields :let={i} form={@form} fields={@fields}>
         <.input field={i.field} label={i.label} type={i.type} phx-debounce={120} {i.rest} />
       </.filter_fields>
-
-      <.button class="button" name="reset">reset</.button>
     </.form>
     """
   end

@@ -42,7 +42,8 @@ defmodule Chiya.Notes do
   def list_admin_notes(params) do
     q =
       Note
-      |> order_by([n], desc: n.updated_at, desc: n.published_at)
+      |> join(:inner, [n], c in assoc(n, :channels), as: :channels)
+      |> order_by([n, c], desc: n.updated_at, desc: n.published_at)
 
     Chiya.Flop.validate_and_run(q, params, for: Chiya.Notes.Note)
   end

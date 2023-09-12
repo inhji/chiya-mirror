@@ -3,8 +3,16 @@ defmodule ChiyaWeb.NoteListLive do
 
   @impl true
   def mount(_params, __session, socket) do
+    channels = Chiya.Channels.list_channels() |> Chiya.Channels.preload_channel()
     {:ok, {notes, meta}} = Chiya.Notes.list_admin_notes(%{})
-    {:ok, socket |> assign(%{notes: notes, meta: meta})}
+
+    {:ok,
+     socket
+     |> assign(%{
+       channels: channels,
+       notes: notes,
+       meta: meta
+     })}
   end
 
   @impl true
@@ -25,6 +33,16 @@ defmodule ChiyaWeb.NoteListLive do
     {:noreply, push_patch(socket, to: ~p"/admin/notes?#{params}")}
   end
 
+  defp channel_list(assigns) do
+    channels =
+      assigns.channels
+      |> Enum.map(fn c ->
+        {"#{c.name} (#{Enum.count(c.notes)})", c.name}
+      end)
+
+    [{"All", nil}] ++ channels
+  end
+
   @impl true
   def render(assigns) do
     ~H"""
@@ -42,7 +60,18 @@ defmodule ChiyaWeb.NoteListLive do
     </.header>
 
     <section>
-      <.filter_form fields={[name: [op: :ilike_and]]} meta={@meta} id="user-filter-form" />
+      <.filter_form
+        fields={[
+          name: [op: :ilike_and],
+          channels: [
+            op: :ilike_and,
+            type: "select",
+            options: channel_list(assigns)
+          ]
+        ]}
+        meta={@meta}
+        id="user-filter-form"
+      />
     </section>
 
     <section class="flex flex-col gap-3 mt-6">
