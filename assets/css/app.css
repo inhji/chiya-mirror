@@ -2,9 +2,9 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./hljs.css";
 @import "./lightbox.css";
 @import "./tablesort.css";
-@import "./tokyo-night-dark.css";
 
 /*
   The base layer is for things like reset rules or default styles applied to plain HTML elements.
@@ -31,6 +31,10 @@
 
   .stack > * + * {
     margin-block-start: var(--flow-space, 1em);
+  }
+
+  :root .prose {
+    @apply prose-inhji;
   }
 
   :root[data-mode=dark] .prose {
