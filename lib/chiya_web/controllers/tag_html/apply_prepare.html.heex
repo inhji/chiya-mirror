@@ -7,3 +7,19 @@
     </.link>
   </:actions>
 </.header>
+
+<section>
+  <%= for note <- @notes do %>
+    <article class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 p-3 rounded">
+      <header>
+        <h2 class="text-xl leading-normal">
+          <a href={"/admin/notes/#{note.id}"}><%= note.name %></a>
+        </h2>
+      </header>
+      <footer class="flex gap-3 text-sm ">
+        <span>Updated <%= from_now(note.updated_at) %></span>
+        <span>Published <%= from_now(note.published_at) %></span>
+      </footer>
+    </article>
+  <% end %>
+</section>
