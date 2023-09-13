@@ -2,9 +2,9 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./hljs.css";
 @import "./lightbox.css";
 @import "./tablesort.css";
-@import "./tokyo-night-dark.css";
 
 /*
   The base layer is for things like reset rules or default styles applied to plain HTML elements.
@@ -31,6 +31,10 @@
 
   .stack > * + * {
     margin-block-start: var(--flow-space, 1em);
+  }
+
+  :root .prose {
+    @apply prose-inhji;
   }
 
   :root[data-mode=dark] .prose {
@@ -185,6 +189,29 @@
       @apply hidden;
     }
   }
+
+  /* === CARD LIST (ADMIN) === */
+
+  .card-list {
+    @apply flex flex-col gap-3 mt-6;
+  }
+
+  /* === CARD (ADMIN) === */
+  .card {
+    @apply bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 p-3 rounded;
+
+    & header {
+      & h2 {
+        @apply text-xl leading-normal;
+      }
+    }
+
+    & footer {
+      @apply flex gap-3 text-sm;
+    }
+  }
+
+
 }
 
 /*

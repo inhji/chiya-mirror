@@ -77,7 +77,8 @@ defmodule ChiyaWeb.Router do
     resources "/tokens", TokenController, only: [:index, :show, :new, :create, :delete]
     resources "/tags", TagController, only: [:index, :edit, :update, :show]
 
-    get "/tags/:id/apply", TagController, :apply
+    get "/tags/:id/apply", TagController, :apply_prepare
+    get "/tags/:id/apply/run", TagController, :apply_run
 
     get "/notes/import", NoteController, :import_prepare
     post "/notes/import", NoteController, :import_run

@@ -3,17 +3,43 @@
   <:subtitle>Tags are tags.</:subtitle>
 </.header>
 
-<section class="flex flex-col gap-3 mt-6">
-  <%= for tag <- @tags do %>
-    <article class="bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 p-3 rounded">
+<section class="card-list mt-8">
+  <h3 class="leading-normal text-xl">With Regex</h3>
+
+  <%= for tag <- Enum.filter(@tags, fn t -> !!t.regex end) do %>
+    <article class="card">
       <header>
-        <h2 class="text-xl leading-normal">
+        <h2>
           <a href={"/admin/tags/#{tag.id}"}><%= tag.name %></a>
         </h2>
       </header>
-      <footer class="flex gap-3 text-sm ">
+      <footer>
         <span><%= Enum.count(tag.notes) %> notes</span>
         <span>Updated <%= from_now(tag.updated_at) %></span>
+        <%= if String.length(tag.regex || "") > 0 do %>
+          <span>Regex: <%= tag.regex %></span>
+        <% end %>
+      </footer>
+    </article>
+  <% end %>
+</section>
+
+<section class="card-list mt-8">
+  <h3 class="leading-normal text-xl">Without Regex</h3>
+
+  <%= for tag <- Enum.filter(@tags, fn t -> !t.regex end) do %>
+    <article class="card">
+      <header>
+        <h2>
+          <a href={"/admin/tags/#{tag.id}"}><%= tag.name %></a>
+        </h2>
+      </header>
+      <footer>
+        <span><%= Enum.count(tag.notes) %> notes</span>
+        <span>Updated <%= from_now(tag.updated_at) %></span>
+        <%= if String.length(tag.regex || "") > 0 do %>
+          <span>Regex: <%= tag.regex %></span>
+        <% end %>
       </footer>
     </article>
   <% end %>
