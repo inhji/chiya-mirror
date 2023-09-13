@@ -31,8 +31,6 @@ defmodule ChiyaWeb.NoteController do
         |> put_flash(:info, "Note created successfully.")
         |> redirect(to: ~p"/admin/notes/#{note}")
 
-      # TODO: set channels from changeset when error happened?
-
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :new,
           changeset: changeset,
@@ -68,8 +66,6 @@ defmodule ChiyaWeb.NoteController do
         conn
         |> put_flash(:info, "Note updated successfully.")
         |> redirect(to: ~p"/admin/notes/#{note}")
-
-      # TODO: set channels from changeset when error happened?
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :edit,
@@ -195,17 +191,7 @@ defmodule ChiyaWeb.NoteController do
     )
   end
 
-  defp with_channels(conn) do
-    assign(
-      conn,
-      :channels,
-      Chiya.Channels.list_channels()
-      |> Chiya.Channels.preload_channel()
-      |> Enum.filter(fn c -> not Enum.empty?(c.notes) end)
-    )
-  end
-
-  defp get_default_channels(conn = %Plug.Conn{}) do
+  defp get_default_channels(%Plug.Conn{} = conn) do
     if conn.assigns.settings.default_channel do
       [conn.assigns.settings.default_channel.id]
     else

@@ -161,7 +161,6 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
 
   defp parse_auth_header(conn) do
     with [header] <- get_req_header(conn, "authorization"),
-         _ = IO.inspect(header),
          "Bearer" <> token <- header,
          do: {:ok, String.trim(token), conn},
          else: (_ -> {:error, :unauthorized})
@@ -206,17 +205,25 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
   defp handle_action(:delete, access_token, conn) do
     Logger.info("Micropub: Handle delete")
 
-    with {:ok, url} <- Map.fetch(conn.body_params, "url"),
-         do: do_delete(conn, access_token, url),
-         else: (_ -> send_error(conn, {:error, :invalid_request}))
+    case Map.fetch(conn.body_params, "url") do
+      {:ok, url} ->
+        do_delete(conn, access_token, url)
+
+      _ ->
+        send_error(conn, {:error, :invalid_request})
+    end
   end
 
   defp handle_action(:undelete, access_token, conn) do
     Logger.info("Micropub: Handle undelete")
 
-    with {:ok, url} <- Map.fetch(conn.body_params, "url"),
-         do: do_undelete(conn, access_token, url),
-         else: (_ -> send_error(conn, {:error, :invalid_request}))
+    case Map.fetch(conn.body_params, "url") do
+      {:ok, url} ->
+        do_undelete(conn, access_token, url)
+
+      _ ->
+        send_error(conn, {:error, :invalid_request})
+    end
   end
 
   defp handle_query(:config, access_token, conn) do
@@ -252,9 +259,10 @@ defmodule ChiyaWeb.Plugs.PlugMicropub do
   defp handle_query(:source, access_token, conn) do
     Logger.info("Micropub: Handle source query")
 
-    with {:ok, url} <- Map.fetch(conn.query_params, "url") do
-      do_source_query(conn, access_token, url)
-    else
+    case Map.fetch(conn.query_params, "url") do
+      {:ok, url} ->
+        do_source_query(conn, access_token, url)
+
       error ->
         Logger.warning("Micropub: Error while handling source: #{inspect(error)}")
         send_error(conn, {:error, :invalid_request})

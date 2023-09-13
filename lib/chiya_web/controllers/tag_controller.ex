@@ -25,7 +25,6 @@ defmodule ChiyaWeb.TagController do
     notes = Chiya.Notes.list_apply_notes(tag)
 
     Enum.each(notes, fn note ->
-      IO.inspect("Updating note: #{note.name}")
       Chiya.Tags.TagUpdater.add_tags(note, [tag.slug])
     end)
 
@@ -34,7 +33,6 @@ defmodule ChiyaWeb.TagController do
   end
 
   def edit(conn, %{"id" => id}) do
-    IO.inspect(id)
     tag = Tags.get_tag!(id)
     changeset = Tags.change_tag(tag)
 
@@ -53,8 +51,6 @@ defmodule ChiyaWeb.TagController do
         conn
         |> put_flash(:info, "Tags updated successfully.")
         |> redirect(to: ~p"/admin/tags")
-
-      # TODO: set channels from changeset when error happened?
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :edit,

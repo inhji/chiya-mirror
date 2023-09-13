@@ -22,7 +22,6 @@ defmodule ChiyaWeb.NoteListLive do
         {:noreply, socket |> assign(%{notes: notes, meta: meta})}
 
       {:error, data} ->
-        IO.inspect(data)
         {:noreply, socket}
     end
   end
