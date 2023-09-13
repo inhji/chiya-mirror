@@ -8,6 +8,13 @@ defmodule Chiya.Tags.TagUpdater do
   alias Chiya.{Notes, Tags}
   alias Chiya.Notes.Note
 
+  @doc """
+  Updates a tag for the given note.
+
+  ## Examples
+
+      iex> update_tags({:ok, note}, "foo,bar")
+  """
   def update_tags({:ok, %Note{} = note}, attrs) do
     note
     |> Notes.preload_note()
@@ -20,27 +27,19 @@ defmodule Chiya.Tags.TagUpdater do
     {:error, changeset}
   end
 
-  @doc """
-  Updates the tags for the given note
-
-  ## Examples
-
-      iex> update_tags(note, "foo,bar")
-
-  """
-  def update_tags(note, %{tags_string: new_tags} = attrs) when is_map(attrs) do
+  def update_tags(%Note{} = note, %{tags_string: new_tags} = attrs) when is_map(attrs) do
     update_tags(note, new_tags)
   end
 
-  def update_tags(note, %{"tags_string" => new_tags} = attrs) when is_map(attrs) do
+  def update_tags(%Note{} = note, %{"tags_string" => new_tags} = attrs) when is_map(attrs) do
     update_tags(note, new_tags)
   end
 
-  def update_tags(note, attrs) when is_map(attrs) do
+  def update_tags(%Note{} = note, attrs) when is_map(attrs) do
     note
   end
 
-  def update_tags(note, new_tags) when is_binary(new_tags) do
+  def update_tags(%Note{} = note, new_tags) when is_binary(new_tags) do
     update_tags(note, split_tags(new_tags))
   end
 
@@ -62,19 +61,19 @@ defmodule Chiya.Tags.TagUpdater do
     |> remove_tags(old_tags -- new_tags)
   end
 
-  defp split_tags(tags_string) when is_binary(tags_string) do
-    tags_string
-    |> String.split(",")
-    |> Enum.map(&String.trim/1)
-    |> Enum.filter(&(String.length(&1) > 0))
-  end
-
-  defp add_tags(note, tags) do
+  def add_tags(note, tags) do
     tags
     |> Enum.uniq()
     |> Enum.each(&add_tag(note, &1))
 
     note
+  end
+
+  defp split_tags(tags_string) when is_binary(tags_string) do
+    tags_string
+    |> String.split(",")
+    |> Enum.map(&String.trim/1)
+    |> Enum.filter(&(String.length(&1) > 0))
   end
 
   defp add_tag(%{id: note_id} = note, tag) when is_binary(tag) do
@@ -100,7 +99,13 @@ defmodule Chiya.Tags.TagUpdater do
           tag_id: tag.id
         }
 
-        {:ok, _note_tag} = Notes.create_note_tag(attrs)
+        case Notes.create_note_tag(attrs) do
+          {:ok, _note_tag} ->
+            true
+
+          {:error, changeset} ->
+            Logger.warn(inspect(changeset))
+        end
     end
   end
 

@@ -38,9 +38,10 @@ defmodule Chiya.Tags do
     |> Repo.all()
   end
 
-  def list_admin_tags(params) do
+  def list_admin_tags() do
     q =
       Tag
+      |> order_by(:name)
       |> with_preloads()
 
     Repo.all(q)

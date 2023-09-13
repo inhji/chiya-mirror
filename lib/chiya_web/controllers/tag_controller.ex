@@ -2,8 +2,8 @@ defmodule ChiyaWeb.TagController do
   use ChiyaWeb, :controller
   alias Chiya.Tags
 
-  def index(conn, params) do
-    tags = Chiya.Tags.list_admin_tags(params)
+  def index(conn, _params) do
+    tags = Chiya.Tags.list_admin_tags()
 
     render(conn, :index, tags: tags)
   end
@@ -13,10 +13,23 @@ defmodule ChiyaWeb.TagController do
     render(conn, :show, tag: tag)
   end
 
-  def apply(conn, %{"id" => id}) do
+  def apply_prepare(conn, %{"id" => id}) do
     tag = Tags.get_tag!(id)
-    notes = Chiya.Notes.list_apply_notes(tag.regex)
+    notes = Chiya.Notes.list_apply_notes(tag)
 
+    render(conn, :apply_prepare, tag: tag, notes: notes)
+  end
+
+  def apply_run(conn, %{"id" => id}) do
+    tag = Tags.get_tag!(id)
+    notes = Chiya.Notes.list_apply_notes(tag)
+
+    Enum.each(notes, fn note ->
+      IO.inspect("Updating note: #{note.name}")
+      Chiya.Tags.TagUpdater.add_tags(note, [tag.slug])
+    end)
+
+    notes = Chiya.Notes.list_apply_notes(tag)
     render(conn, :apply_prepare, tag: tag, notes: notes)
   end
 

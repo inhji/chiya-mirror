@@ -1,22 +1,22 @@
 <.header>
   Apply Tag <%= @tag.name %>
-  <:subtitle>These notes will get the tag.</:subtitle>
+  <:subtitle><%= Enum.count(@notes) %> notes will get the tag.</:subtitle>
   <:actions>
-    <.link href={~p"/admin/tags/#{@tag}/apply"}>
+    <.link href={~p"/admin/tags/#{@tag}/apply/run"}>
       <.button>Apply tag</.button>
     </.link>
   </:actions>
 </.header>
 
-<section>
+<section class="card-list">
   <%= for note <- @notes do %>
-    <article class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 p-3 rounded">
+    <article class="card">
       <header>
-        <h2 class="text-xl leading-normal">
+        <h2>
           <a href={"/admin/notes/#{note.id}"}><%= note.name %></a>
         </h2>
       </header>
-      <footer class="flex gap-3 text-sm ">
+      <footer>
         <span>Updated <%= from_now(note.updated_at) %></span>
         <span>Published <%= from_now(note.published_at) %></span>
       </footer>

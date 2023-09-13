@@ -189,6 +189,29 @@
       @apply hidden;
     }
   }
+
+  /* === CARD LIST (ADMIN) === */
+
+  .card-list {
+    @apply flex flex-col gap-3 mt-6;
+  }
+
+  /* === CARD (ADMIN) === */
+  .card {
+    @apply bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 p-3 rounded;
+
+    & header {
+      & h2 {
+        @apply text-xl leading-normal;
+      }
+    }
+
+    & footer {
+      @apply flex gap-3 text-sm;
+    }
+  }
+
+
 }
 
 /*

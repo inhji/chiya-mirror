@@ -8,29 +8,26 @@ defmodule ChiyaWeb.PageController do
   defp put_assigns(conn, opts) do
     conn
     |> assign(:page_header, true)
+    |> assign(:page_title, "no title")
   end
 
   def home(conn, params) do
     settings = conn.assigns.settings
 
-    {channel, notes, meta} =
-      case settings.home_channel_id do
-        nil ->
-          nil
+    if settings.home_channel_id do
+      channel = Channels.get_channel!(settings.home_channel_id)
+      {:ok, {notes, meta}} = Chiya.Notes.list_home_notes(channel, params)
 
-        id ->
-          channel = Channels.get_channel!(id)
-          {:ok, {notes, meta}} = Chiya.Notes.list_home_notes(channel, params)
-          {channel, notes, meta}
-      end
-
-    render(conn, :home,
-      channel: channel,
-      notes: notes,
-      meta: meta,
-      page_title: "Home",
-      page_header: false
-    )
+      render(conn, :home,
+        channel: channel,
+        notes: notes,
+        meta: meta,
+        page_title: "Home",
+        page_header: false
+      )
+    else
+      render_error(conn, :not_found)
+    end
   end
 
   def channel(conn, %{"slug" => channel_slug}) do

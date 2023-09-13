@@ -58,9 +58,11 @@ defmodule Chiya.Notes do
     Chiya.Flop.validate_and_run(q, params, for: Chiya.Notes.Note)
   end
 
-  def list_apply_notes(regex) do
+  def list_apply_notes(%Chiya.Tags.Tag{} = tag) do
     Note
-    |> where([n], fragment("? ~ ?", n.name, ^regex))
+    |> where([n], fragment("? ~ ?", n.name, ^tag.regex))
+    |> or_where([n], fragment("? ~ ?", n.url, ^tag.regex))
+    |> or_where([n], fragment("? ~ ?", n.content, ^tag.regex))
     |> Repo.all()
   end
 

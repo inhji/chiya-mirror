@@ -15,5 +15,6 @@ defmodule Chiya.Notes.NoteTag do
     note_tag
     |> cast(attrs, [:note_id, :tag_id])
     |> validate_required([:note_id, :tag_id])
+    |> unique_constraint([:note_id, :tag_id])
   end
 end

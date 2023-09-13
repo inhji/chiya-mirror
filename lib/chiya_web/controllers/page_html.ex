@@ -1,6 +1,6 @@
 defmodule ChiyaWeb.PageHTML do
   use ChiyaWeb, :html_public
-  import ChiyaWeb.Format, only: [pretty_datetime: 1, pretty_date: 1, datetime: 1]
+  import ChiyaWeb.Format, only: [pretty_datetime: 1, pretty_date: 1]
 
   embed_templates "page_html/*"
 
