@@ -76,7 +76,7 @@ defmodule ChiyaWeb.References do
   end
 
   defp get_link_class(valid) do
-    if not valid, do: "{:.invalid}", else: ""
+    if valid, do: "", else: "{:.invalid}"
   end
 
   defp map_to_tuple([placeholder, note_slug]),

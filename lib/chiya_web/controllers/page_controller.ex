@@ -5,17 +5,9 @@ defmodule ChiyaWeb.PageController do
   plug :put_layout, html: {ChiyaWeb.Layouts, :public}
   plug :put_assigns
 
-  defp put_assigns(conn, opts) do
-    conn
-    |> assign(:page_header, true)
-    |> assign(:page_title, "no title")
-  end
-
   def home(conn, params) do
-    settings = conn.assigns.settings
-
-    if settings.home_channel_id do
-      channel = Channels.get_channel!(settings.home_channel_id)
+    if id = conn.assigns.settings.home_channel_id do
+      channel = Channels.get_channel!(id)
       {:ok, {notes, meta}} = Chiya.Notes.list_home_notes(channel, params)
 
       render(conn, :home,
@@ -26,13 +18,14 @@ defmodule ChiyaWeb.PageController do
         page_header: false
       )
     else
-      render_error(conn, :not_found)
+      not_found(conn)
     end
   end
 
   def channel(conn, %{"slug" => channel_slug}) do
     channel =
-      Channels.get_channel_by_slug!(channel_slug)
+      channel_slug
+      |> Channels.get_channel_by_slug!()
       |> Channels.preload_channel_public()
 
     render(conn, :channel,
@@ -63,7 +56,7 @@ defmodule ChiyaWeb.PageController do
         page_header: false
       )
     else
-      render_error(conn, :not_found)
+      not_found(conn)
     end
   end
 
@@ -78,7 +71,7 @@ defmodule ChiyaWeb.PageController do
         page_title: user.name
       )
     else
-      render_error(conn, :not_found)
+      not_found(conn)
     end
   end
 
@@ -94,7 +87,7 @@ defmodule ChiyaWeb.PageController do
         content: channel.content
       )
     else
-      render_error(conn, :not_found)
+      not_found(conn)
     end
   end
 
@@ -109,7 +102,18 @@ defmodule ChiyaWeb.PageController do
         page_title: "#{Enum.count(notes)} Bookmarks"
       )
     else
-      render_error(conn, :not_found)
+      not_found(conn)
     end
+  end
+
+  defp not_found(conn) do
+    conn
+    |> assign(:page_title, "404 Not found")
+    |> render_error(:not_found)
+  end
+
+  defp put_assigns(conn, opts) do
+    conn
+    |> assign(:page_header, true)
   end
 end

@@ -35,6 +35,7 @@ defmodule Chiya.MixProject do
       {:bcrypt_elixir, "~> 3.0"},
       {:cors_plug, "~> 3.0"},
       {:coverex, "~> 1.5", only: :test},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:earmark, "~> 1.4"},
       {:ecto_autoslug_field, "~> 3.0"},
       {:ecto_sql, "~> 3.6"},

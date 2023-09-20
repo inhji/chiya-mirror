@@ -37,8 +37,6 @@ defmodule ChiyaWeb.AdminHomeLive do
          |> push_navigate(to: ~p"/note/#{note.slug}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect(changeset)
-
         {:noreply,
          socket
          |> put_flash(:error, "Could not create note!")

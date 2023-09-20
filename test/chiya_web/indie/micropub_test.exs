@@ -48,8 +48,6 @@ defmodule ChiyaWeb.MicropubTest do
       assert {:ok, %Note{} = note} =
                Micropub.update_note(note, %{"category" => ["foo", "bar"]}, %{}, %{})
 
-      IO.inspect(note)
-
       assert Enum.empty?(note.tags) == false
     end
   end

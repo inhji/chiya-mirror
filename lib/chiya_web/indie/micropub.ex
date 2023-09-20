@@ -139,11 +139,11 @@ defmodule ChiyaWeb.Indie.Micropub do
     tags = Props.get_tags(source)
 
     attrs =
-      if !Enum.empty?(tags) do
+      if Enum.empty?(tags) do
+        attrs
+      else
         tags_string = Enum.join(tags, ",")
         Map.put(attrs, :tags_string, tags_string)
-      else
-        attrs
       end
 
     attrs
@@ -156,7 +156,9 @@ defmodule ChiyaWeb.Indie.Micropub do
   defp verify_app_token(access_token) do
     token = Chiya.Accounts.get_app_token("obsidian", "app")
 
-    if not is_nil(token) do
+    if is_nil(token) do
+      {:error, :insufficient_scope, "Could not verify app token"}
+    else
       token_string =
         token.token
         |> :crypto.bytes_to_integer()
@@ -167,8 +169,6 @@ defmodule ChiyaWeb.Indie.Micropub do
       else
         {:error, :insufficient_scope, "Could not verify app token"}
       end
-    else
-      {:error, :insufficient_scope, "Could not verify app token"}
     end
   end
 

@@ -104,7 +104,8 @@ defmodule Chiya.Tags.TagUpdater do
             true
 
           {:error, changeset} ->
-            Logger.warn(inspect(changeset))
+            Logger.warning(inspect(changeset))
+            false
         end
     end
   end
