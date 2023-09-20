@@ -26,7 +26,7 @@ module.exports = {
         inhji: {
           css: {
             '--tw-prose-lead': theme('colors.neutral[700]'),
-            '--tw-prose-links': theme('colors.pink[600]'),
+            '--tw-prose-links': theme('colors.pink[900]'),
             '--tw-prose-counters': theme('colors.neutral[600]'),
             '--tw-prose-bullets': theme('colors.neutral[400]'),
             '--tw-prose-hr': theme('colors.neutral[300]'),
