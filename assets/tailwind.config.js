@@ -26,7 +26,7 @@ module.exports = {
         inhji: {
           css: {
             '--tw-prose-lead': theme('colors.neutral[700]'),
-            '--tw-prose-links': theme('colors.neutral[900]'),
+            '--tw-prose-links': theme('colors.pink[600]'),
             '--tw-prose-counters': theme('colors.neutral[600]'),
             '--tw-prose-bullets': theme('colors.neutral[400]'),
             '--tw-prose-hr': theme('colors.neutral[300]'),
@@ -39,7 +39,7 @@ module.exports = {
             '--tw-prose-th-borders': theme('colors.neutral[300]'),
             '--tw-prose-td-borders': theme('colors.neutral[200]'),
             '--tw-prose-invert-lead': theme('colors.neutral[300]'),
-            '--tw-prose-invert-links': theme('colors.white'),
+            '--tw-prose-invert-links': theme('colors.pink[200]'),
             '--tw-prose-invert-counters': theme('colors.neutral[400]'),
             '--tw-prose-invert-bullets': theme('colors.neutral[600]'),
             '--tw-prose-invert-hr': theme('colors.neutral[700]'),
