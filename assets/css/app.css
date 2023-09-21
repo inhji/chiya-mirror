@@ -87,7 +87,7 @@
 
   #site-content {
     @apply grid grid-cols-1 lg:grid-cols-5 gap-0 lg:gap-12;
-    @apply px-3 sm:px-0;
+    @apply sm:mt-12 px-3 sm:px-0;
 
     #content-wrapper {
       @apply col-span-4;
