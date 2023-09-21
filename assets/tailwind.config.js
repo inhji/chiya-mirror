@@ -17,7 +17,7 @@ module.exports = {
     container: { center: true },
     extend: {
       colors: {
-        primary: colors.rose,
+        primary: colors.blue,
         neutral: colors.slate,
         foreground: 'rgb(var(--color-foreground) / <alpha-value>)',
         background: 'rgb(var(--color-background) / <alpha-value>)'
