@@ -68,6 +68,7 @@
 
   #primary-sidebar {
     @apply col-span-1;
+    @apply prose-a:no-underline;
 
     & nav {
       @apply flex md:flex-row lg:flex-col mb-6 lg:mb-0;
