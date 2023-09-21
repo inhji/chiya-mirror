@@ -56,10 +56,10 @@
     }
 
     & a {
-      @apply p-3 rounded hover:bg-primary-700 transition; 
+      @apply p-3 rounded hover:bg-neutral-700 transition; 
 
       &.active {
-        @apply bg-primary-700;
+        @apply bg-neutral-700;
       }
     }
   }
@@ -69,6 +69,7 @@
   #primary-sidebar {
     @apply col-span-1;
     @apply prose-a:no-underline;
+    @apply hover:prose-a:text-primary-600;
 
     & nav {
       @apply flex md:flex-row lg:flex-col mb-6 lg:mb-0;
