@@ -49,7 +49,7 @@
   /* === SITE HEADER === */
 
   #site-header {
-    @apply block px-3 py-6 bg-gradient-to-r from-neutral-900 to-neutral-950 text-white print:hidden;
+    @apply block px-3 py-6 bg-gradient-to-r from-blue-600 to-cyan-600 text-white print:hidden;
 
     & nav ul {
       @apply flex;
