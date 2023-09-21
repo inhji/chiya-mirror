@@ -134,7 +134,7 @@
     @apply grid grid-cols-1 md:grid-cols-3 gap-6;
 
     > section {
-      @apply col-span-1 md:col-span-2;
+      @apply col-span-1 md:col-span-2 last:md:col-span-3;
     }
 
     > aside {
