@@ -56,10 +56,10 @@
     }
 
     & a {
-      @apply p-3 rounded hover:bg-primary-700 transition; 
+      @apply p-3 rounded hover:bg-neutral-700 transition; 
 
       &.active {
-        @apply bg-primary-700;
+        @apply bg-neutral-700;
       }
     }
   }
