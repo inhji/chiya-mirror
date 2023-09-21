@@ -69,7 +69,6 @@
   #primary-sidebar {
     @apply col-span-1;
     @apply prose-a:no-underline;
-    @apply hover:prose-a:text-primary-600;
 
     & nav {
       @apply flex md:flex-row lg:flex-col mb-6 lg:mb-0;
@@ -103,6 +102,12 @@
 
   #site-footer {
     @apply mt-8 prose max-w-none;
+  }
+
+  /* === CONCERNING MULTIPLE LAYOUT BLOCKS === */
+
+  #site-content, #site-footer, #primary-sidebar, #secondary-sidebar {
+    @apply hover:prose-a:text-primary-600 hover:prose-a:transition;
   }
 
   /*
