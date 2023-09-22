@@ -67,7 +67,7 @@
     @apply prose-a:no-underline;
 
     & nav {
-      @apply flex md:flex-row lg:flex-col mb-6 lg:mb-0;
+      @apply flex justify-around md:flex-row lg:flex-col mb-6 lg:mb-0;
     }
 
     & h3 {
