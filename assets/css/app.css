@@ -49,18 +49,15 @@
   /* === SITE HEADER === */
 
   #site-header {
-    @apply block px-3 py-6 bg-gradient-to-r from-blue-600 to-cyan-600 text-white print:hidden;
+    @apply block px-3 py-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white print:hidden;
 
     & nav ul {
       @apply flex;
     }
 
     & a {
-      @apply p-3 rounded hover:bg-neutral-700 transition; 
-
-      &.active {
-        @apply bg-neutral-700;
-      }
+      @apply p-3 rounded transition; 
+      @apply hover:border hover:border-white;
     }
   }
 
