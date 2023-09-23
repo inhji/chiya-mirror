@@ -35,12 +35,12 @@
       <%= @settings.custom_css %>
     </style>
   </head>
-  <body class="h-feed hfeed">
+  <body id="site-body" class="h-feed hfeed">
     <header id="site-header">
       <nav class="container">
         <ul>
           <li>
-            <a href="/">Home</a>
+            <a href="/" id="site-title">Inhji.de</a>
           </li>
           <li class="flex-1"></li>
           <%= if @current_user do %>
@@ -106,7 +106,7 @@
     </main>
 
     <footer id="site-footer" class="container">
-      <p class="container text-center">
+      <p class="text-center">
         Struggling to make a decent website since 2011
       </p>
     </footer>

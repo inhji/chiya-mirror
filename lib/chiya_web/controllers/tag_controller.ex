@@ -15,7 +15,18 @@ defmodule ChiyaWeb.TagController do
 
   def apply_prepare(conn, %{"id" => id}) do
     tag = Tags.get_tag!(id)
-    notes = Chiya.Notes.list_apply_notes(tag)
+
+    notes =
+      tag
+      |> Chiya.Notes.list_apply_notes()
+      |> Enum.filter(fn note ->
+        exists =
+          note.tags
+          |> Enum.map(fn t -> t.name end)
+          |> Enum.member?(tag.name)
+
+        !exists
+      end)
 
     render(conn, :apply_prepare, tag: tag, notes: notes)
   end
