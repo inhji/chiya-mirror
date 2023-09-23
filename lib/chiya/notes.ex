@@ -63,6 +63,7 @@ defmodule Chiya.Notes do
     |> where([n], fragment("? ~ ?", n.name, ^tag.regex))
     |> or_where([n], fragment("? ~ ?", n.url, ^tag.regex))
     |> or_where([n], fragment("? ~ ?", n.content, ^tag.regex))
+    |> preload(^@preloads)
     |> Repo.all()
   end
 

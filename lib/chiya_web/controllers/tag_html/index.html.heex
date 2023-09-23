@@ -4,7 +4,7 @@
 </.header>
 
 <section class="card-list mt-8">
-  <h3 class="leading-normal text-xl">With Regex</h3>
+  <h3 class="leading-normal text-xl dark:text-gray-100">With Regex</h3>
 
   <%= for tag <- Enum.filter(@tags, fn t -> !!t.regex end) do %>
     <article class="card">
@@ -25,7 +25,7 @@
 </section>
 
 <section class="card-list mt-8">
-  <h3 class="leading-normal text-xl">Without Regex</h3>
+  <h3 class="leading-normal text-xl dark:text-gray-100">Without Regex</h3>
 
   <%= for tag <- Enum.filter(@tags, fn t -> !t.regex end) do %>
     <article class="card">
