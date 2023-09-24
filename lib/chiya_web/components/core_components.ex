@@ -586,7 +586,9 @@ defmodule ChiyaWeb.CoreComponents do
           <dt class="w-1/4 flex-none text-[0.8125rem] leading-6 text-gray-500 dark:text-gray-300">
             <%= item.title %>
           </dt>
-          <dd class="text-sm leading-6 text-gray-700 dark:text-gray-400"><%= render_slot(item) %></dd>
+          <dd class="text-sm leading-6 text-gray-700 dark:text-gray-400 overflow-auto">
+            <%= render_slot(item) %>
+          </dd>
         </div>
       </dl>
     </div>
