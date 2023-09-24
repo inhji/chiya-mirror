@@ -37,20 +37,31 @@ defmodule ChiyaWeb.NoteShowLive do
       </:actions>
     </.header>
 
-    <.list>
-      <:item title="Published at">
-        <%= pretty_date(@note.published_at) %> <span>(<%= from_now(@note.published_at) %>)</span>
-      </:item>
-      <:item title="Channels"><%= note_channels(@note.channels) %></:item>
-      <:item title="Kind"><%= @note.kind %></:item>
-      <:item title="Url"><%= @note.url %></:item>
-      <:item title="Tags"><%= note_tags(@note.tags) %></:item>
-      <:item title="Links outgoing"><%= note_links(@note.links_from) %></:item>
-      <:item title="Links incoming"><%= note_links(@note.links_to) %></:item>
-      <:item title="Embed">
-        <pre class="p-1 bg-gray-100 text-black rounded select-all">[[<%= @note.slug %>]]</pre>
-      </:item>
-    </.list>
+    <section class="mt-4">
+      <div class="select-all font-mono bg-white p-1 rounded">[[<%= @note.slug %>]]</div>
+    </section>
+
+    <section class="grid grid-cols-2">
+      <section class="col-span-1">
+        <.list>
+          <:item title="Published at">
+            <%= pretty_date(@note.published_at) %> <span>(<%= from_now(@note.published_at) %>)</span>
+          </:item>
+          <:item title="Channels"><%= note_channels(@note.channels) %></:item>
+          <:item title="Kind"><%= @note.kind %></:item>
+          <:item title="Url"><a href={@note.url} target="_blank"><%= @note.url %></a></:item>
+          <:item title="Tags"><%= note_tags(@note.tags) %></:item>
+          <:item title="Links outgoing"><%= note_links(@note.links_from) %></:item>
+          <:item title="Links incoming"><%= note_links(@note.links_to) %></:item>
+        </.list>
+      </section>
+
+      <section class="col-span-1 p-6">
+        <section class="prose">
+          <%= raw(Markdown.render(@note.content)) %>
+        </section>
+      </section>
+    </section>
 
     <.line />
 
