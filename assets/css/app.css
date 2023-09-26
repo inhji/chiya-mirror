@@ -40,6 +40,19 @@
   :root[data-mode=dark] .prose {
     @apply prose-invert;
   }
+  /* https://stackoverflow.com/questions/5379752/css-style-external-links */
+  a[href]:not(:where(
+    /* exclude hash only links */
+    [href^="#"],
+    /* exclude relative but not double slash only links */
+    [href^="/"]:not([href^="//"]),
+    /* domains to exclude */
+    [href*="//inhji.de"],
+    /* subdomains to exclude */
+    [href*="//cloud.inhji.de"],
+  )):after {
+    content: '↗️';
+  }
 
 
   /*
