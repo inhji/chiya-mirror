@@ -43,14 +43,14 @@
 
 <aside class="prose max-w-none">
   <%= if has_outline?(@note) do %>
-    <h3>Outline</h3>
+    <h3><.icon name="hero-rectangle-stack" /> Outline</h3>
 
     <section>
       <%= raw(render_outline(@note)) %>
     </section>
   <% end %>
 
-  <h3>Properties</h3>
+  <h3><.icon name="hero-rectangle-group" /> Properties</h3>
 
   <section>
     <ul>
@@ -82,7 +82,7 @@
   <% end %>
 
   <%= if not Enum.empty?(@note.links_to) do %>
-    <h3>Notes linking here</h3>
+    <h3><.icon name="hero-arrow-down-on-square" /> Notes linking here</h3>
     <section>
       <ul>
         <%= for link <- @note.links_to do %>
@@ -92,7 +92,7 @@
     </section>
   <% end %>
 
-  <h3>Admin</h3>
+  <h3><.icon name="hero-wrench-screwdriver" /> Admin</h3>
 
   <section>
     <ul>
