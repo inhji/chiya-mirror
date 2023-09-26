@@ -51,7 +51,7 @@
     /* subdomains to exclude */
     [href*="//cloud.inhji.de"],
   )):after {
-    content: '↗️';
+    content: '↬';
   }
 
 
